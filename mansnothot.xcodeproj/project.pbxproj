@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BA6044AB29ADE5ABF3A73A8 /* Pods_mansnothot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3270CE1E5DB32A01397BA815 /* Pods_mansnothot.framework */; };
 		8185CE67201FFB0200C38A96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185CE66201FFB0200C38A96 /* AppDelegate.swift */; };
 		8185CE69201FFB0200C38A96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185CE68201FFB0200C38A96 /* ViewController.swift */; };
 		8185CE6C201FFB0200C38A96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8185CE6A201FFB0200C38A96 /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07DC7B3A23B841F848789F2F /* Pods-mansnothot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mansnothot.release.xcconfig"; path = "Pods/Target Support Files/Pods-mansnothot/Pods-mansnothot.release.xcconfig"; sourceTree = "<group>"; };
+		3270CE1E5DB32A01397BA815 /* Pods_mansnothot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mansnothot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8185CE63201FFB0200C38A96 /* mansnothot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mansnothot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8185CE66201FFB0200C38A96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8185CE68201FFB0200C38A96 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		8185CE6D201FFB0200C38A96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8185CE70201FFB0200C38A96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8185CE72201FFB0200C38A96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F957C31C1006232E618B9EBA /* Pods-mansnothot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mansnothot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mansnothot/Pods-mansnothot.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BA6044AB29ADE5ABF3A73A8 /* Pods_mansnothot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		44B503D94304B469C05C7B0F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3270CE1E5DB32A01397BA815 /* Pods_mansnothot.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8185CE5A201FFB0200C38A96 = {
 			isa = PBXGroup;
 			children = (
 				8185CE65201FFB0200C38A96 /* mansnothot */,
 				8185CE64201FFB0200C38A96 /* Products */,
+				C9D842799CBB7A793C0A4BDF /* Pods */,
+				44B503D94304B469C05C7B0F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +79,15 @@
 			path = mansnothot;
 			sourceTree = "<group>";
 		};
+		C9D842799CBB7A793C0A4BDF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F957C31C1006232E618B9EBA /* Pods-mansnothot.debug.xcconfig */,
+				07DC7B3A23B841F848789F2F /* Pods-mansnothot.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8185CE75201FFB0200C38A96 /* Build configuration list for PBXNativeTarget "mansnothot" */;
 			buildPhases = (
+				C39F54EE22633F3985D6FF8D /* [CP] Check Pods Manifest.lock */,
 				8185CE5F201FFB0200C38A96 /* Sources */,
 				8185CE60201FFB0200C38A96 /* Frameworks */,
 				8185CE61201FFB0200C38A96 /* Resources */,
+				7E85EE9777E9794B09A84F5A /* [CP] Embed Pods Frameworks */,
+				2DB0B1D5378F97011C939887 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -130,6 +157,74 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2DB0B1D5378F97011C939887 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-mansnothot/Pods-mansnothot-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7E85EE9777E9794B09A84F5A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-mansnothot/Pods-mansnothot-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/TableFlip/TableFlip.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TableFlip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-mansnothot/Pods-mansnothot-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C39F54EE22633F3985D6FF8D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-mansnothot-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8185CE5F201FFB0200C38A96 /* Sources */ = {
@@ -272,6 +367,7 @@
 		};
 		8185CE76201FFB0200C38A96 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F957C31C1006232E618B9EBA /* Pods-mansnothot.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -287,6 +383,7 @@
 		};
 		8185CE77201FFB0200C38A96 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07DC7B3A23B841F848789F2F /* Pods-mansnothot.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
