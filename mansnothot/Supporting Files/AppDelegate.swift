@@ -19,6 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         
+        //if user is logged in - should have home page VC as the root view controller
+        //if user is logged out - should have the log in VC as the root view controller
+        //please check the above two with the userdefaults functions
+        
         return true
     }
 

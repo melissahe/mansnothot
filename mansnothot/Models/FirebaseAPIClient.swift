@@ -67,4 +67,5 @@ class FirebaseAPIClient {
     
     //add more funcs to get email verification, get data, post data, change display name, post comment, etc.
         //firebase auth has functions that let you update the password, change photo url?, and send verification email!!
+        //should also include functions to user info (bio, pic, etc.)!!
 }
