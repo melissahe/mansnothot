@@ -1,5 +1,5 @@
 //
-//  HomeFeedView.swift
+//  MyPostsView.swift
 //  mansnothot
 //
 //  Created by C4Q on 1/30/18.
@@ -11,11 +11,11 @@ import SnapKit
 
 //TODO: set up
     //add objects
-        //tableview - register cell using FeedTableViewCell
-        //flag icon should probably present action sheet for flagging
+        //tableview - displays all posts; registers cell with "MyPostsTableViewCell"
+        //edit and delete button to be able to edit the post and/or delete
     //set up constraints
 
-class HomeFeedView: UIView {
+class MyPostsView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

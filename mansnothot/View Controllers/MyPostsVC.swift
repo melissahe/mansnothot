@@ -1,5 +1,5 @@
 //
-//  HomeFeedVC.swift
+//  MyPostsVC.swift
 //  mansnothot
 //
 //  Created by C4Q on 1/30/18.
@@ -10,11 +10,12 @@ import UIKit
 import SnapKit
 import TableFlip
 
-//Purpose: to present a list of all the posts for the app (including all users)
+//Purpose: shows all of the user's posts
 
-//TODO: have the HomeFeedView as the initial view
+//TODO: have MyPostsView as initial view
+    //should have a tableview that shows all of the user's posts
     //should set up datasource variable
-    //should add actions to each button (comment, thumbs up, etc.) in a cell through the cell for item at
+    //the cells will have multiple buttons, that can each have their selectors assigned here in the VC, in the cellForRowAt datasource function
         //each action should take in a sender, which would be of type FeedTableViewCell, configure the cell to do stuff based on which button is selected
         //comment button - should segue to AddCommentVC
         //showThread button - should display the total number of comments in button title - should segue to AllCommentsVC
@@ -23,14 +24,16 @@ import TableFlip
             //ReportUser button - functionality for reporting user
             //ReportPost button - functionality for reporting post
             //Nice to have: Share button - Buttons for sharing to Facebook, Email, Instagram, Twitter, Tumblr, SnapChat, etc…
-    //should set up swipe options
-        //should present options like "Report User", "Report Post", and "Share To..." (Extra Credit), maybe edit??
+        //should set up swipe options (actually i'm not sure if we're doing this anymore, please refer to the trello)
+            //should present options like "Report User", "Report Post", and "Share To..." (Extra Credit), maybe edit??
+        //maybe we'll just have edit/delete buttons??
+    //maybe should pass in the userID in the initializer so it can get all of the posts from firebase??
 
-class HomeFeedVC: UIViewController {
+class MyPostsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
     }
-    
+
 }

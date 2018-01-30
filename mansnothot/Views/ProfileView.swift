@@ -1,5 +1,5 @@
 //
-//  HomeFeedView.swift
+//  ProfileView.swift
 //  mansnothot
 //
 //  Created by C4Q on 1/30/18.
@@ -8,14 +8,20 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 //TODO: set up
     //add objects
-        //tableview - register cell using FeedTableViewCell
-        //flag icon should probably present action sheet for flagging
+        //profileImageView - for profile image
+        //button to change profileImage - should be set up in the ProfileVC to segue to the ImagePickerViewController
+        //displayName label - for user display name
+        //changeDisplayName button - should present an alert that lets them change names?
+        //bioTextView - displays the user's bio
+        //allMyPostsButton - will segue to AllMyPostsVC, which displays all of the posts of the user
+
     //set up constraints
 
-class HomeFeedView: UIView {
+class ProfileView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -1,5 +1,5 @@
 //
-//  HomeFeedView.swift
+//  EditMyPostView.swift
 //  mansnothot
 //
 //  Created by C4Q on 1/30/18.
@@ -11,12 +11,15 @@ import SnapKit
 
 //TODO: set up
     //add objects
-        //tableview - register cell using FeedTableViewCell
-        //flag icon should probably present action sheet for flagging
+        //should have a save button - might require different functions to update instead of creating a new post (functions should be in the VC)
+        //should have a cancel button
     //set up constraints
 
-class HomeFeedView: UIView {
+class EditMyPostView: NewPostView {
 
+    //it'll reuse the same properties
+    //but also need a configure view function to change all the labels and objects, etc.
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -34,5 +37,5 @@ class HomeFeedView: UIView {
     private func setUpViews() {
         
     }
-
+    
 }

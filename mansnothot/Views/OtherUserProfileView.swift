@@ -1,5 +1,5 @@
 //
-//  HomeFeedView.swift
+//  OtherUserProfileView.swift
 //  mansnothot
 //
 //  Created by C4Q on 1/30/18.
@@ -7,15 +7,15 @@
 //
 
 import UIKit
-import SnapKit
 
 //TODO: set up
     //add objects
-        //tableview - register cell using FeedTableViewCell
-        //flag icon should probably present action sheet for flagging
+        //bioTextView - displays the user's bio - should some how instantiate with a textview that is the same size as the one in the profile view transitions to??
+        //close button - exits without saving
+        //should have their
     //set up constraints
 
-class HomeFeedView: UIView {
+class OtherUserProfileView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

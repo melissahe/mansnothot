@@ -1,5 +1,5 @@
 //
-//  HomeFeedView.swift
+//  NewPostView.swift
 //  mansnothot
 //
 //  Created by C4Q on 1/30/18.
@@ -10,12 +10,14 @@ import UIKit
 import SnapKit
 
 //TODO: set up
-    //add objects
-        //tableview - register cell using FeedTableViewCell
-        //flag icon should probably present action sheet for flagging
+    //all objects
+        //ImageView for picking an Image
+        //titleTextField for title
+        //postTextView for PostText
+        //Category Drop Down Menu for Category // so either as a table view, pickerview, or an action sheet of categories???
     //set up constraints
 
-class HomeFeedView: UIView {
+class NewPostView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

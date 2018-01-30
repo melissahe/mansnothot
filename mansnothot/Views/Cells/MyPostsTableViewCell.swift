@@ -1,5 +1,5 @@
 //
-//  FeedTableViewCell.swift
+//  MyPostsTableViewCell.swift
 //  mansnothot
 //
 //  Created by C4Q on 1/30/18.
@@ -13,19 +13,14 @@ import Kingfisher
 //TODO: Set up
     //add objects
         //userImageView - for user image
-        //usernameLabel - for user name
-        //postImageView - image view in post
-        //textView - for post
+        //usernameLabel - for display name
+        //postImageView - for image in post
         //numberOfLikes label - number of likes
-        //thumbsUp button - adds to likes
         //numberOfDislikes label - number of dislikes
-        //thumbsDown button - adds to dislikes
-        //comment button - should segue to AddCommentVC //actually i'm not sure if we're doing this anymore, refer to trello!
-        //showThread button - should display the total number of comments in button title - should segue to AllCommentsVC
-        //flag icon (which is a button) - that will present the flag action sheet
+        //edit button - to update post
     //set up constraints
 
-class FeedTableViewCell: UITableViewCell {
+class MyPostsTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -35,7 +30,7 @@ class FeedTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     
     private func commonInit() {
         backgroundColor = .white
@@ -45,5 +40,5 @@ class FeedTableViewCell: UITableViewCell {
     private func setUpViews() {
         
     }
-    
+
 }
