@@ -12,12 +12,12 @@
 		811C09CB202012720072EDC8 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C09CA202012720072EDC8 /* FirebaseAPIClient.swift */; };
 		811C09CE202015330072EDC8 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C09CD202015330072EDC8 /* FileManagerHelper.swift */; };
 		8185CE67201FFB0200C38A96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185CE66201FFB0200C38A96 /* AppDelegate.swift */; };
-		8185CE69201FFB0200C38A96 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185CE68201FFB0200C38A96 /* ViewController.swift */; };
 		8185CE6E201FFB0200C38A96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8185CE6D201FFB0200C38A96 /* Assets.xcassets */; };
 		81AFD54620203FEF0091AEF9 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD54520203FEF0091AEF9 /* UserDefaultsHelper.swift */; };
 		81AFD5482020460E0091AEF9 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5472020460E0091AEF9 /* UserProfile.swift */; };
 		81AFD54A20204D380091AEF9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD54920204D380091AEF9 /* Post.swift */; };
 		81AFD54C20204D3E0091AEF9 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD54B20204D3E0091AEF9 /* Comment.swift */; };
+		81AFD54D20204EB00091AEF9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185CE68201FFB0200C38A96 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -274,8 +274,8 @@
 				81AFD5482020460E0091AEF9 /* UserProfile.swift in Sources */,
 				81AFD54C20204D3E0091AEF9 /* Comment.swift in Sources */,
 				811C09CE202015330072EDC8 /* FileManagerHelper.swift in Sources */,
-				8185CE69201FFB0200C38A96 /* ViewController.swift in Sources */,
 				81AFD54A20204D380091AEF9 /* Post.swift in Sources */,
+				81AFD54D20204EB00091AEF9 /* ViewController.swift in Sources */,
 				8185CE67201FFB0200C38A96 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
