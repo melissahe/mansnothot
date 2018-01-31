@@ -9,13 +9,13 @@
 import Foundation
 
 struct Post: Codable, Equatable {
-    let postID: Int //should be the same as their index number in the array of posts, this way we can access the same post in the firebase json, and be able to update their posts if needed
+    let postID: String //should be the same as their index number in the array of posts, this way we can access the same post in the firebase json, and be able to update their posts if needed
 //    var comments: [Comment] //we can track comments by using their indices as keys, comments as the values
     let category: String
-    let userID: Int //should tie this post back to current user, so they can edit it? maybe we could also just save as userID?
+    let userID: String //should tie this post back to current user, so they can edit it? maybe we could also just save as userID?
     let title: String
     var bodyText: String
-    let image: Data //couldn't put down UIImage
+    let image: Data? //couldn't put down UIImage
     var numberOfLikes: Int
     var numberOfDislikes: Int
     var flags: Int
