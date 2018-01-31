@@ -16,11 +16,12 @@ struct Post: Codable, Equatable {
     let title: String
     var bodyText: String
     let image: Data //couldn't put down UIImage
-    var likes: Int
-    var dislikes: Int
+    var numberOfLikes: Int
+    var numberOfDislikes: Int
     var flags: Int
     var userLiked: Bool //should keep track of whether user liked post
     var userDisliked: Bool //should keep track of whether user disliked post //if one is true, the other must be false
+    let timestamp: Double
     
     static func ==(lhs: Post, rhs: Post) -> Bool {
         return lhs.userID == rhs.userID && lhs.postID == rhs.postID

@@ -13,6 +13,7 @@ struct Comment: Codable, Equatable {
     let commentID: Int //this should be the unique comment id
     let userID: String
     var text: String
+    let timestamp: Double
     //bonuses/nice to haves:
     //    var likes: Int
     //    var dislikes: Int
