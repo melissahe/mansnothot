@@ -9,8 +9,8 @@
 import Foundation
 
 struct Post: Codable, Equatable {
-    let id: Int //should be the same as their index number in the array of posts, this way we can access the same post in the firebase json, and be able to update their posts if needed
-    var comments: [Comment] //we can track comments by using their indices as keys, comments as the values
+    let postID: Int //should be the same as their index number in the array of posts, this way we can access the same post in the firebase json, and be able to update their posts if needed
+//    var comments: [Comment] //we can track comments by using their indices as keys, comments as the values
     let category: String
     let userID: Int //should tie this post back to current user, so they can edit it? maybe we could also just save as userID?
     let title: String
@@ -23,6 +23,6 @@ struct Post: Codable, Equatable {
     var userDisliked: Bool //should keep track of whether user disliked post //if one is true, the other must be false
     
     static func ==(lhs: Post, rhs: Post) -> Bool {
-        return lhs.userID == rhs.userID && lhs.id == rhs.id
+        return lhs.userID == rhs.userID && lhs.postID == rhs.postID
     }
 }
