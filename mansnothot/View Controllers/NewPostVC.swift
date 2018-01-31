@@ -19,9 +19,56 @@ import SnapKit
 
 class NewPostVC: UIViewController {
 
+    let newPostView = NewPostView()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .gray
+        view.addSubview(newPostView)
+        setupViews()
     }
-
+    
+    func setupViews() {
+        // Set Title for VC in Nav Bar
+        navigationItem.title = "New Post"
+        
+        // Set Right Bar Button
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "post"), style: .done, target: self, action: #selector(post))
+        
+        // Set Left Bar Button
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "clear"), style: .done, target: self, action: #selector(clear))
+        
+    }
+    
+    @objc private func post() {
+        // Checks if required fields are filled before posting
+        
+    }
+    
+    @objc private func clear() {
+        // Sets image to nil, PostText to empty, Title to empty, and Category to empty
+        
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
