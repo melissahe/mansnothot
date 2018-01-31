@@ -38,6 +38,7 @@ class FirebaseAPIClient {
     public func signOut() {
         do {
             try auth.signOut()
+            UserDefaultsHelper.manager.userLoggedOut()
         } catch {
             print(error)
         }
