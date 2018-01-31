@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         let tabBar = TabBarVC()
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = UINavigationController(rootViewController: tabBar)
+        window?.rootViewController = tabBar
         window?.makeKeyAndVisible()
         //if user is logged in - should have home page VC as the root view controller
         //if user is logged out - should have the log in VC as the root view controller
