@@ -28,10 +28,79 @@ import TableFlip
 
 class HomeFeedVC: UIViewController {
 
+    var sampleArr = ["Food", "Politics", "ThirstTraps", "Religion", "Dating", "Random", "Relationships", "Funny", "Weird", "Books", "Movies", "Entertainment", "Video Games", "Board Games", "Social", "Suggestions", "ThotStuff"]
+    
+    var loginVC = LoginVC()
+    var homeFeedView = HomeFeedView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .purple
+        view.addSubview(homeFeedView)
+        homeFeedView.tableView.dataSource = self
+        homeFeedView.tableView.delegate = self
+        homeFeedView.tableView.rowHeight = UITableViewAutomaticDimension
+        homeFeedView.tableView.estimatedRowHeight = 120
 
+        
+        present(loginVC, animated: true, completion: nil)
+        
+        setupViews()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // TODO
+        //        if user is LoggedOut {
+        //            present(loginVC, animated: true, completion: nil)
+       //         }
+    }
+    
+    func setupViews() {
+        // Set Title for VC in Nav Bar
+        navigationItem.title = "Thot Thought"
+        
+        //Give SegmentedBar Functionality
+        homeFeedView.segmentedBar.addTarget(self, action: #selector(changeColor(sender:)), for: .valueChanged)
+    
+        
+    
+    }
+    
+    @objc func changeColor(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            homeFeedView.backgroundColor = .purple
+        case 1:
+            homeFeedView.backgroundColor = .blue
+        default:
+            homeFeedView.backgroundColor = .white
+        }
+    }
+    
+}
+extension HomeFeedVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sampleArr.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedTableViewCell
+        
+        let aThing = sampleArr[indexPath.row]
+        
+        cell.usernameLabel.text = "This is \(aThing)"
+        cell.usernameLabel.backgroundColor = .clear
+        
+        return cell
+        
+    }
+    
+    
+}
+extension HomeFeedVC: UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 100
+//    }
 }

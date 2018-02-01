@@ -41,7 +41,7 @@ class ProfileView: UIView {
       let dn = UILabel()
       dn.text = "Display Label"
       dn.backgroundColor = .yellow
-      dn.font = UIFont.systemFont(ofSize: 30, weight: .semibold)
+      dn.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
       dn.textAlignment = .center
       return dn
     }()
@@ -133,16 +133,16 @@ class ProfileView: UIView {
     private func setupChangeImageButton() {
         addSubview(changeProfileImageButton)
         changeProfileImageButton.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(profileImageView.snp.bottom).offset(16)
-            make.leading.equalTo(self.safeAreaLayoutGuide).offset(36)
+            make.top.equalTo(profileImageView.snp.bottom).offset(40)
+            make.leading.equalTo(self.safeAreaLayoutGuide).offset(46)
         }
     }
     
     private func setupChangeNameButton() {
         addSubview(changedisplayName)
        changedisplayName.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(displayName.snp.bottom).offset(66)
-            make.leading.equalTo(changeProfileImageButton.snp.trailing).offset(65)
+            make.top.equalTo(displayName.snp.bottom).offset(90)
+            make.leading.equalTo(changeProfileImageButton.snp.trailing).offset(76)
         }
     }
     
