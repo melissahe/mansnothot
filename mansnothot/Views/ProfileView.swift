@@ -23,8 +23,9 @@ class ProfileView: UIView {
     
     lazy var profileImageView: UIImageView = {
         var pImageView = UIImageView()
-        pImageView.image = #imageLiteral(resourceName: "profileImage") //place holder image
+        //pImageView.image = #imageLiteral(resourceName: "profileImage") //place holder image
         pImageView.contentMode = .scaleAspectFill
+        pImageView.backgroundColor = .orange
         return pImageView
     }()
     
@@ -40,7 +41,7 @@ class ProfileView: UIView {
       let dn = UILabel()
       dn.text = "Display Label"
       dn.backgroundColor = .yellow
-      dn.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+      dn.font = UIFont.systemFont(ofSize: 30, weight: .semibold)
       dn.textAlignment = .center
       return dn
     }()
@@ -48,37 +49,24 @@ class ProfileView: UIView {
     lazy var changedisplayName: UIButton = {
     let cdn = UIButton()
     cdn.setTitle("change Name", for: .normal)
-    cdn.setTitleColor(.yellow, for: .normal)
+    cdn.setTitleColor(.green, for: .normal)
     cdn.addTarget(self, action: #selector(changeDisplayName), for: .touchUpInside)
     return cdn
     }()
     
-    lazy var textFieldBio: UITextField = {
-        let tf = UITextField()
-        tf.backgroundColor = .yellow
-        tf.textAlignment = .center
-        tf.keyboardType = .numberPad
-        tf.keyboardAppearance = .dark
-        return tf
-    }()
-    
-    lazy var changeBio: UIButton = {
+    lazy var seeMyPostsButton: UIButton = {
         let cdn = UIButton()
-        cdn.setTitle("change Bio", for: .normal)
-        cdn.setTitleColor(.yellow, for: .normal)
-        cdn.addTarget(self, action: #selector(changeBioButtonTapped), for: .touchUpInside)
+        cdn.setTitle("See All My Posts", for: .normal)
+        cdn.setTitleColor(.green, for: .normal)
+        cdn.addTarget(self, action: #selector(seePostsButtonTapped), for: .touchUpInside)
         return cdn
     }()
     
-    lazy var allMyPostsButton: UIButton = {
-        let cdn = UIButton()
-        cdn.setTitle("Go To All Posts", for: .normal)
-        cdn.setTitleColor(.yellow, for: .normal)
-        cdn.addTarget(self, action: #selector(changeBioButtonTapped), for: .touchUpInside)
-        return cdn
-    }()
-    
-    
+//    lazy var logoutButton: UIButton = {
+//        let ssmp = UIButton()
+//        ssmp.setTitle("See My Posts", for: .normal)
+//        ssmp.setTitleColor(., for: <#T##UIControlState#>)
+//    }
     //Buttons Func
     @objc func changeImageButtonTapped() {
         //TODO- Allow user to change image by taking them to camera or image
@@ -89,12 +77,7 @@ class ProfileView: UIView {
         //TODO - ALLOW USER TO CHANGE NAME
     }
     
-    @objc func changeBioButtonTapped() {
-        //TODO-ALLOW USER TO CHANGE BIO
-        //Alert that says saved successfully
-    }
-    
-    @objc func allPostsButtonTapped() {
+    @objc func seePostsButtonTapped() {
        //Take user to AllMyPostsVC so SEGUE
     }
     
@@ -107,7 +90,7 @@ class ProfileView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         // we get the frame of the UI elements here
-        profileImageView.layer.cornerRadius = profileImageView.bounds.width/2.0
+        profileImageView.layer.cornerRadius = profileImageView.bounds.height/2
         profileImageView.layer.masksToBounds = true
     }
     
@@ -123,27 +106,53 @@ class ProfileView: UIView {
     private func setUpViews() {
         setUpProfile()
         setupNameLabel()
+        setupChangeImageButton()
+        setupChangeNameButton()
+        setupAllMyPostsButton()
     }
     
     private func setUpProfile() {
         addSubview(profileImageView)
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        profileImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-        profileImageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.80).isActive = true
-        profileImageView.widthAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
+        profileImageView.snp.makeConstraints { (make) -> Void in
+            make.height.equalTo(profileImageView.snp.width)
+            make.top.leading.equalTo(self.safeAreaLayoutGuide).offset(16)
+            make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-400)
+        }
     }
-    
+//
+//
     private func setupNameLabel() {
         addSubview(displayName)
-        displayName.translatesAutoresizingMaskIntoConstraints = false
-        displayName.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 16).isActive = true
-        displayName.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-    }
+        displayName.snp.makeConstraints { (make) -> Void in
+            //make.top.equalTo(self.safeAreaLayoutGuide).offset(16)
+            make.leading.equalTo(profileImageView.snp.trailing).offset(16)
+            make.bottom.equalTo(self).offset(-500)
+            }
+        }
     
     private func setupChangeImageButton() {
         addSubview(changeProfileImageButton)
-        
+        changeProfileImageButton.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(profileImageView.snp.bottom).offset(16)
+            make.leading.equalTo(self.safeAreaLayoutGuide).offset(36)
+        }
     }
+    
+    private func setupChangeNameButton() {
+        addSubview(changedisplayName)
+       changedisplayName.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(displayName.snp.bottom).offset(66)
+            make.leading.equalTo(changeProfileImageButton.snp.trailing).offset(65)
+        }
+    }
+    
+    private func setupAllMyPostsButton() {
+        addSubview(seeMyPostsButton)
+        seeMyPostsButton.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(changeProfileImageButton.snp.bottom).offset(70)
+            make.leading.equalTo(self.safeAreaLayoutGuide).offset(140)
+        }
+    }
+    
     
 }

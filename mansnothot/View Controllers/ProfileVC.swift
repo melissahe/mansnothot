@@ -27,16 +27,14 @@ import SnapKit
 
 class ProfileVC: UIViewController {
 
-    let profileView = ProfileView()
+    lazy var profileView = ProfileView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .green
         view.addSubview(profileView)
-
+        profileView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.view.snp.edges)
+        }
     }
-    
-    
-    
-
 }
