@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Comment: Codable, Equatable {
+class Comment: NSObject, Codable {
     let postID: String //so we can identify specific comments from the user
     let commentID: String //this should be the unique comment id
     let userID: String
@@ -21,6 +21,14 @@ struct Comment: Codable, Equatable {
     
     static func ==(lhs: Comment, rhs: Comment) -> Bool {
         return lhs.postID == rhs.postID && lhs.commentID == rhs.commentID && lhs.userID == rhs.userID
+    }
+    
+    init(postID: String, commentID: String, userID: String, text: String, timestamp: Double) {
+        self.postID = postID
+        self.commentID = commentID
+        self.userID = userID
+        self.text = text
+        self.timestamp = timestamp
     }
 }
 

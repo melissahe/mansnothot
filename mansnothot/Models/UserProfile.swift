@@ -11,11 +11,11 @@ import FirebaseAuth
 
 //Message by Melissa: the struct we'll use for each user
 
-struct UserProfile: Codable, Equatable {
+class UserProfile: NSObject, Codable {
     let email: String
     let userID: String //should be from firebase
     var displayName: String
-    var bio: String
+    var bio: String?
     var image: Data? // url?? data?? - wouldn't let me put UIImage, as it didn't conform to codable; firebase auth current user also has a parameter for "photoURL" so we could use that too
     var password: String //might not need this if firebase stores the user profile
     var numberOfFlags: Int
@@ -25,8 +25,13 @@ struct UserProfile: Codable, Equatable {
         return lhs.userID == rhs.userID
     }
     
-    //maybe if we always use user to instantiate a user profile
-//    static func getUserProfile(from user: User) -> UserProfile {
-//        return
-//    }
+    init(email: String, userID: String, displayName: String, bio: String?, image: Data?, password: String, numberOfFlags: Int) {
+        self.email = email
+        self.userID = userID
+        self.displayName = displayName
+        self.bio = bio
+        self.image = image
+        self.password = password
+        self.numberOfFlags = numberOfFlags
+    }
 }

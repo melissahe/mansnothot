@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Post: Codable, Equatable {
+class Post: NSObject, Codable {
     let postID: String //should be the same as their index number in the array of posts, this way we can access the same post in the firebase json, and be able to update their posts if needed
 //    var comments: [Comment] //we can track comments by using their indices as keys, comments as the values
     let category: String
@@ -27,6 +27,20 @@ struct Post: Codable, Equatable {
         return lhs.userID == rhs.userID && lhs.postID == rhs.postID
     }
     
+    init(postID: String, category: String, userID: String, title: String, bodyText: String, image: Data?, numberOfLikes: Int, numberOfDislikes: Int, flags: Int, userLiked: Bool, userDisliked: Bool, timestamp: Double) {
+        self.postID = postID
+        self.category = category
+        self.userID = userID
+        self.title = title
+        self.bodyText = bodyText
+        self.image = image
+        self.numberOfLikes = numberOfLikes
+        self.numberOfDislikes = numberOfDislikes
+        self.flags = flags
+        self.userLiked = userLiked
+        self.userDisliked = userDisliked
+        self.timestamp = timestamp
+    }
 }
 
 extension Array where Element == Post {
