@@ -105,46 +105,46 @@ class LoginView: UIView {
         
         //welcome label
         welcomeLabel.snp.makeConstraints { (make) in
-            make.top.equalTo((superview?.snp.top)!).offset(20)
-            make.centerX.equalTo((superview?.snp.centerX)!)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
         }
         
         //email textfield
         emailTextField.snp.makeConstraints { (make) in
             make.top.equalTo(welcomeLabel.snp.top).offset(20)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.8)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
         }
         
         //password textfield
         passwordTextField.snp.makeConstraints { (make) in
             make.top.equalTo(emailTextField.snp.bottom).offset(20)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.8)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
         }
         
         //login button
         loginButton.snp.makeConstraints { (make) in
             make.top.equalTo(passwordTextField.snp.bottom).offset(20)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.5)
-            make.height.equalTo((superview?.snp.height)!).multipliedBy(0.1)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.5)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.1)
         }
         
         //forgot password button
         forgotPassButton.snp.makeConstraints { (make) in
             make.top.equalTo(loginButton.snp.bottom).offset(10)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.5)
-            make.height.equalTo((superview?.snp.height)!).multipliedBy(0.1)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.5)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.1)
         }
         
         //create account button
         createNewAccountButton.snp.makeConstraints { (make) in
-            make.top.equalTo((superview?.snp.bottom)!).offset(-20)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.5)
-            make.height.equalTo((superview?.snp.height)!).multipliedBy(0.1)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.5)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.1)
         }
     }
 }
