@@ -23,9 +23,66 @@ import SnapKit
 
 class LoginVC: UIViewController {
     
+    let loginView = LoginView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .white
+        self.view.addSubview(loginView)
+        loginView.emailTextField.delegate = self
+        loginView.passwordTextField.delegate = self
+        
+        configureViews()
     }
-
+    
+    private func configureViews() {
+        self.loginView.welcomeLabel.text = "label test"
+        self.loginView.loginButton.addTarget(self, action: #selector(loginToAccount(selector:)), for: UIControlEvents.touchUpInside)
+        self.loginView.forgotPassButton.addTarget(self, action: #selector(forgotPass(selector:)), for: UIControlEvents.touchUpInside)
+        self.loginView.createNewAccountButton.addTarget(self, action: #selector(createNewAcct(selector:)), for: UIControlEvents.touchUpInside)
+    }
+    
+    @objc func loginToAccount(selector: UIButton) {
+        print("Log In button pressed")
+    }
+    
+    @objc func forgotPass(selector: UIButton) {
+        print("Forgot Password? button pressed")
+        
+        // TODO: present ForgotPassView
+    }
+    
+    @objc func createNewAcct(selector: UIButton) {
+        print("Create a New Account button pressed")
+        
+        // TODO: present CreateAccountVC
+    }
+    
+    
 }
 
+// Text Field Delegates for each text field
+extension LoginVC: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.becomeFirstResponder()
+        // specs for email textfield
+        if textField == loginView.emailTextField {
+            // check if field is not empty
+            guard let userEmail = textField.text, textField.text != "" else { return }
+            // TODO: additional checks to verify if user account exists via email
+        }
+        // specs for password textfield
+        if textField == loginView.passwordTextField {
+            // check if field is not empty
+            guard let userPass = textField.text, textField.text != "" else { return }
+            // makes the entered text into secret password form
+            textField.isSecureTextEntry = true
+        }
+    }
+    
+    // check credentials with Username and Password - Firebase
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+}
