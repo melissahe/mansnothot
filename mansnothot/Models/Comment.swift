@@ -8,16 +8,32 @@
 
 import Foundation
 
-struct Comment: Codable, Equatable {
-    let post: Post //so we can identify specific comments from the user
-    let id: Int //should be the same as their index number in the array of comments, this way we can access the same comments in the firebase json, and be able to update their comments if needed
+class Comment: NSObject, Codable {
+    let postID: String //so we can identify specific comments from the user
+    let commentID: String //this should be the unique comment id
+    let userID: String
     var text: String
+    let timestamp: Double
     //bonuses/nice to haves:
     //    var likes: Int
     //    var dislikes: Int
     //    var flags: Int
     
     static func ==(lhs: Comment, rhs: Comment) -> Bool {
-        return lhs.post == rhs.post && lhs.id == rhs.id
+        return lhs.postID == rhs.postID && lhs.commentID == rhs.commentID && lhs.userID == rhs.userID
+    }
+    
+    init(postID: String, commentID: String, userID: String, text: String, timestamp: Double) {
+        self.postID = postID
+        self.commentID = commentID
+        self.userID = userID
+        self.text = text
+        self.timestamp = timestamp
+    }
+}
+
+extension Array where Element == Comment {
+    func sortedByTimestamp() -> [Comment] {
+        return self.sorted {$0.timestamp > $1.timestamp}
     }
 }
