@@ -28,9 +28,14 @@ import TableFlip
 
 class HomeFeedVC: UIViewController {
 
+    //var loginVC = LoginVC()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .purple
+        
+        //present(loginVC, animated: true, completion: nil)
+        
 
     }
     
