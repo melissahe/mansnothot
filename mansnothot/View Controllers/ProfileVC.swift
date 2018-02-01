@@ -27,10 +27,16 @@ import SnapKit
 
 class ProfileVC: UIViewController {
 
+    let profileView = ProfileView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
+        view.addSubview(profileView)
 
     }
+    
+    
+    
 
 }
