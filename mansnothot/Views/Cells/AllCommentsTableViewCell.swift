@@ -11,35 +11,51 @@ import SnapKit
 import Kingfisher
 
 //TODO: Set up
-    //add objects
-        //usernameLabel - for user name
-        //textView - for comment
-        //nice to have:
-            //numberOfLikes label - number of likes
-            //thumbsUp button - adds to likes
-            //numberOfDislikes label - number of dislikes
-            //thumbsDown button - adds to dislikes
-    //set up constraints
 
 class AllCommentsTableViewCell: UITableViewCell {
 
+    //add objects
+    //usernameLabel - for user name
+    lazy var usernameLabel: UILabel = {
+        let lb = UILabel()
+        lb.text = "Username and Stuff"
+        lb.backgroundColor = .white
+        lb.textAlignment = .center
+        lb.textColor = .black
+        lb.numberOfLines = 0
+        lb.layer.borderWidth = 0.5
+        return lb
+    }()
+    
+    //textView - for comment
+    
+    //nice to have:
+    //numberOfLikes label - number of likes
+    //thumbsUp button - adds to likes
+    //numberOfDislikes label - number of dislikes
+    //thumbsDown button - adds to dislikes
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        commonInit()
+        super.init(style: style , reuseIdentifier: "AllCommentsCell")
+        setupAndConstrainObjects()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    private func commonInit() {
-        backgroundColor = .white
-        setUpViews()
-    }
-    
-    private func setUpViews() {
+        super.init(coder: aDecoder)
+        setupAndConstrainObjects()
         
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupAndConstrainObjects()
+    }
+    
+    private func setupAndConstrainObjects(){
+        self.addSubview(usernameLabel)
+        usernameLabel.snp.makeConstraints { (make) -> Void in
+            make.edges.equalTo(self.snp.edges)
+        }
     }
 
 }
