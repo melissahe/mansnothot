@@ -24,26 +24,28 @@ import SnapKit
 class LoginVC: UIViewController {
     
     let loginView = LoginView()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
-        self.view.addSubview(loginView)
+        self.view.backgroundColor = .yellow
         loginView.emailTextField.delegate = self
         loginView.passwordTextField.delegate = self
-        
         configureViews()
+        
     }
     
     private func configureViews() {
+        self.view.addSubview(loginView)
         self.loginView.welcomeLabel.text = "label test"
         self.loginView.loginButton.addTarget(self, action: #selector(loginToAccount(selector:)), for: UIControlEvents.touchUpInside)
         self.loginView.forgotPassButton.addTarget(self, action: #selector(forgotPass(selector:)), for: UIControlEvents.touchUpInside)
         self.loginView.createNewAccountButton.addTarget(self, action: #selector(createNewAcct(selector:)), for: UIControlEvents.touchUpInside)
+        
     }
     
     @objc func loginToAccount(selector: UIButton) {
         print("Log In button pressed")
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func forgotPass(selector: UIButton) {

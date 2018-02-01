@@ -30,7 +30,7 @@ class HomeFeedVC: UIViewController {
 
     var sampleArr = ["Food", "Politics", "ThirstTraps", "Religion", "Dating", "Random", "Relationships", "Funny", "Weird", "Books", "Movies", "Entertainment", "Video Games", "Board Games", "Social", "Suggestions", "ThotStuff"]
     
-    //var loginVC = LoginVC()
+    var loginVC = LoginVC()
     var homeFeedView = HomeFeedView()
     
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ class HomeFeedVC: UIViewController {
         homeFeedView.tableView.estimatedRowHeight = 120
 
         
-        //present(loginVC, animated: true, completion: nil)
+        present(loginVC, animated: true, completion: nil)
         
         setupViews()
     }
