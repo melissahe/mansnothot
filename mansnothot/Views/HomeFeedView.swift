@@ -47,7 +47,7 @@ class HomeFeedView: UIView {
         super.init(coder: aDecoder)
         commonInit()
     }
-    
+     
     private func commonInit() {
         backgroundColor = .clear
         setupViews()
