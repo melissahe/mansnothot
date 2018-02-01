@@ -6,7 +6,7 @@
 //  Copyright © 2018 Melissa He @ C4Q. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Post: Codable, Equatable {
     let postID: String //should be the same as their index number in the array of posts, this way we can access the same post in the firebase json, and be able to update their posts if needed
@@ -25,5 +25,19 @@ struct Post: Codable, Equatable {
     
     static func ==(lhs: Post, rhs: Post) -> Bool {
         return lhs.userID == rhs.userID && lhs.postID == rhs.postID
+    }
+    
+}
+
+extension Array where Element == Post {
+    func sortedByLikes() -> [Post] {
+        return self.sorted(by: { (post1, post2) -> Bool in
+            let post1TotalLikes = post1.numberOfLikes - post1.numberOfDislikes
+            let post2TotalLikes = post2.numberOfLikes - post2.numberOfDislikes
+            return post1TotalLikes > post2TotalLikes
+        })
+    }
+    func sortedByTimestamp() -> [Post] {
+        return self.sorted {$0.timestamp > $1.timestamp}
     }
 }
