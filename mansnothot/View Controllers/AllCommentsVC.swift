@@ -19,9 +19,32 @@ import SnapKit
 
 class AllCommentsVC: UIViewController {
 
+    var postTitle: String = ""
+    
+    let allCommentsView = AllCommentsView()
+    
+    public func setupVC(postTitle: String) {
+        self.postTitle = postTitle
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.addSubview(allCommentsView)
+        setupViews()
     }
 
+    private func setupViews() {
+        //left bar button
+        let xBarItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(xButton))
+        navigationItem.leftBarButtonItem = xBarItem
+        xBarItem.style = .done
+        
+        navigationItem.title = postTitle
+        
+    }
+    
+    @objc private func xButton() {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }

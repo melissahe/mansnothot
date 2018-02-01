@@ -19,21 +19,21 @@ import Kingfisher
 class AllCommentsView: UIView {
 
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: UIScreen.main.bounds)
         commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        commonInit()
     }
     
     private func commonInit() {
         backgroundColor = .white
-        setUpViews()
+        setupViews()
     }
     
-    private func setUpViews() {
-        
+    private func setupViews() {
     }
 
 }
