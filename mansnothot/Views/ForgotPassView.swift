@@ -45,16 +45,17 @@ class ForgotPassView: UIView {
     }()
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: UIScreen.main.bounds)
         commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        commonInit()
     }
     
     private func commonInit() {
-        backgroundColor = .white
+        backgroundColor = .clear
         setUpViews()
     }
     
@@ -73,24 +74,24 @@ class ForgotPassView: UIView {
         
         // reset label
         resetLabel.snp.makeConstraints { (make) in
-            make.top.equalTo((superview?.snp.top)!).offset(50)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.8)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(50)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
         }
         
         // reset email textfield
         resetEmailTextField.snp.makeConstraints { (make) in
             make.top.equalTo(resetLabel.snp.bottom).offset(20)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.8)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
         }
         
         // reset password email button
         resetPasswordButton.snp.makeConstraints { (make) in
             make.top.equalTo(resetEmailTextField.snp.bottom).offset(20)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.5)
-            make.height.equalTo((superview?.snp.height)!).multipliedBy(0.1)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.5)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.1)
         }
     }
 }

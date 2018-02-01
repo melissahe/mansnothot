@@ -24,6 +24,7 @@ class LoginView: UIView {
     lazy var welcomeLabel: UILabel = {
         let label = UILabel()
         label.text = "Welcome to Man's Not Hot"
+        label.backgroundColor = .red
         label.font = label.font.withSize(20)
         return label
     }()
@@ -31,6 +32,7 @@ class LoginView: UIView {
     // Email Textfield with Placeholder Text
     lazy var emailTextField: UITextField = {
         let etf = UITextField()
+        etf.backgroundColor = .blue
         etf.placeholder = "Email Address"
         return etf
     }()
@@ -38,6 +40,7 @@ class LoginView: UIView {
     // Password Textfield with Placeholder Text
     lazy var passwordTextField: UITextField = {
         let ptf = UITextField()
+        ptf.backgroundColor = .green
         ptf.placeholder = "Password"
         return ptf
     }()
@@ -48,7 +51,7 @@ class LoginView: UIView {
         loginButton.setTitle("Login or Log In", for: .normal)
         loginButton.setTitleColor(UIColor.lightGray, for: .normal)
         loginButton.showsTouchWhenHighlighted = true
-        loginButton.backgroundColor = UIColor.red
+        loginButton.backgroundColor = .red
         return loginButton
     }()
     
@@ -57,7 +60,7 @@ class LoginView: UIView {
         let forgotButton = UIButton ()
         forgotButton.setTitle("Forgot Password?", for: .normal)
         forgotButton.setTitleColor(UIColor.blue, for: .normal)
-        forgotButton.backgroundColor = UIColor.yellow // bg color just to make button visible
+        forgotButton.backgroundColor = .yellow // bg color just to make button visible
         forgotButton.showsTouchWhenHighlighted = true
         return forgotButton
     }()
@@ -74,16 +77,17 @@ class LoginView: UIView {
     }()
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: UIScreen.main.bounds)
         commonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: aDecoder)
+        commonInit()
     }
     
     private func commonInit() {
-        backgroundColor = .white
+        backgroundColor = .clear
         setUpViews()
     }
     
@@ -105,46 +109,46 @@ class LoginView: UIView {
         
         //welcome label
         welcomeLabel.snp.makeConstraints { (make) in
-            make.top.equalTo((superview?.snp.top)!).offset(20)
-            make.centerX.equalTo((superview?.snp.centerX)!)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
         }
         
         //email textfield
         emailTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(welcomeLabel.snp.top).offset(20)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.8)
+            make.top.equalTo(welcomeLabel.snp.bottom).offset(20)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
         }
-        
+
         //password textfield
         passwordTextField.snp.makeConstraints { (make) in
             make.top.equalTo(emailTextField.snp.bottom).offset(20)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.8)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
         }
-        
+
         //login button
         loginButton.snp.makeConstraints { (make) in
             make.top.equalTo(passwordTextField.snp.bottom).offset(20)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.5)
-            make.height.equalTo((superview?.snp.height)!).multipliedBy(0.1)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.5)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.1)
         }
-        
+
         //forgot password button
         forgotPassButton.snp.makeConstraints { (make) in
             make.top.equalTo(loginButton.snp.bottom).offset(10)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.5)
-            make.height.equalTo((superview?.snp.height)!).multipliedBy(0.1)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.5)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.1)
         }
-        
+
         //create account button
         createNewAccountButton.snp.makeConstraints { (make) in
-            make.top.equalTo((superview?.snp.bottom)!).offset(-20)
-            make.centerX.equalTo((superview?.snp.centerX)!)
-            make.width.equalTo((superview?.snp.width)!).multipliedBy(0.5)
-            make.height.equalTo((superview?.snp.height)!).multipliedBy(0.1)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
+            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.5)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.1)
         }
     }
 }

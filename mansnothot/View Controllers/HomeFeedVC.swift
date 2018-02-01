@@ -30,7 +30,7 @@ class HomeFeedVC: UIViewController {
 
     var sampleArr = ["Food", "Politics", "ThirstTraps", "Religion", "Dating", "Random", "Relationships", "Funny", "Weird", "Books", "Movies", "Entertainment", "Video Games", "Board Games", "Social", "Suggestions", "ThotStuff"]
     
-    //var loginVC = LoginVC()
+    var loginVC = LoginVC()
     var homeFeedView = HomeFeedView()
     
     override func viewDidLoad() {
@@ -39,9 +39,11 @@ class HomeFeedVC: UIViewController {
         view.addSubview(homeFeedView)
         homeFeedView.tableView.dataSource = self
         homeFeedView.tableView.delegate = self
+        homeFeedView.tableView.rowHeight = UITableViewAutomaticDimension
+        homeFeedView.tableView.estimatedRowHeight = 120
 
         
-        //present(loginVC, animated: true, completion: nil)
+        present(loginVC, animated: true, completion: nil)
         
         setupViews()
     }
@@ -52,7 +54,7 @@ class HomeFeedVC: UIViewController {
         // TODO
         //        if user is LoggedOut {
         //            present(loginVC, animated: true, completion: nil)
-        //        }
+       //         }
     }
     
     func setupViews() {
@@ -98,5 +100,7 @@ extension HomeFeedVC: UITableViewDataSource {
     
 }
 extension HomeFeedVC: UITableViewDelegate {
-    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 100
+//    }
 }

@@ -95,8 +95,10 @@ class NewPostView: UIView {
         tv.backgroundColor = .black
         tv.backgroundColor = .clear
         tv.isHidden = true
+        
         return tv
     }()
+    
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
