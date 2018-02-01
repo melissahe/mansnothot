@@ -14,7 +14,6 @@ class Alert {
     public static func create(withTitle title: String?, andMessage message: String?, withPreferredStyle preferredStyle: UIAlertControllerStyle) -> UIAlertController {
         return UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
     }
-    
     public static func addAction(withTitle title: String?, style: UIAlertActionStyle, andHandler handler: ((UIAlertAction) -> Void)?, to alert: UIAlertController) -> UIAlertController {
         let alertAction = UIAlertAction(title: title, style: style, handler: handler)
         

@@ -20,7 +20,7 @@ class UserDefaultsHelper {
     
     private let userLoggedInKey = "userLoggedIn"
     //maybe stores current user logged in? so we can use this to help us identify which posts in the feed "belong" to the user?
-    private let currentUserIDKey = "currentUserID"
+//    private let currentUserIDKey = "currentUserID"
     
     //might not need this since the user logged in monitors the exact same thing, if user is logged in, then it's not their first time, if it's their first time, there's no way they'd be logged in
 //    private let firstTimeLaunchKey = "firstTimeLaunch"
@@ -38,22 +38,22 @@ class UserDefaultsHelper {
     public func userLoggedIn(withUserID userID: String) {
         userDefaults.set(true, forKey: userLoggedInKey)
         //store current user id
-        userDefaults.set(userID, forKey: currentUserIDKey)
+//        userDefaults.set(userID, forKey: currentUserIDKey)
     }
     //should be called when user signs out
     public func userLoggedOut() {
         userDefaults.set(false, forKey: userLoggedInKey)
         //remove current user id
-        userDefaults.set(nil, forKey: currentUserIDKey)
+//        userDefaults.set(nil, forKey: currentUserIDKey)
     }
     //checks if user is logged in, should be switched on in app delegate to present different VCs if logged in/out
     public func userIsLoggedIn() -> Bool {
         return userDefaults.bool(forKey: userLoggedInKey) //if no value stored, is false by default
     }
     //get current user id, which can be used to instantiate the UserProfile model and added to all their posts so they can edit their posts
-    public func getCurrentUserID() -> String? {
-        return userDefaults.string(forKey: currentUserIDKey)
-    }
+//    public func getCurrentUserID() -> String? {
+//        return userDefaults.string(forKey: currentUserIDKey)
+//    }
 
 }
 
