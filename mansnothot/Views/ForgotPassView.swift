@@ -24,6 +24,7 @@ class ForgotPassView: UIView {
        let label = UILabel()
         label.text = "Enter your email to reset your password"
         label.font = label.font.withSize(15)
+        label.textAlignment = .center
         return label
     }()
     
@@ -31,14 +32,15 @@ class ForgotPassView: UIView {
     lazy var resetEmailTextField: UITextField = {
         let rtf = UITextField()
         rtf.placeholder = "Email Address"
+        rtf.borderStyle = .line
         return rtf
     }()
     
     // send reset password email button
     lazy var resetPasswordButton: UIButton = {
        let resetButton = UIButton()
-        resetButton.setTitle("Send Reset Password Email", for: .normal)
-        resetButton.setTitleColor(UIColor.lightGray, for: .normal)
+        resetButton.setTitle("Reset Password", for: .normal)
+        resetButton.setTitleColor(UIColor.yellow, for: .normal)
         resetButton.backgroundColor = .red
         resetButton.showsTouchWhenHighlighted = true
         return resetButton
@@ -55,7 +57,7 @@ class ForgotPassView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .clear
+        backgroundColor = .white
         setUpViews()
     }
     
@@ -70,13 +72,27 @@ class ForgotPassView: UIView {
         addSubview(resetPasswordButton)
     }
     
+    private func sendButtonTarget() {
+        self.resetPasswordButton.addTarget(self, action: #selector(sendPassResetEmail), for: UIControlEvents.touchUpInside)
+    }
+    
+
+    
+    @objc func sendPassResetEmail(selector: UIButton) {
+        print("Reset Password button pressed")
+        /// TODO: Alert that reset email sent, reroute to Login Page
+        
+        
+        /// TODO: Check if the entered email exists on database
+        /// TODO: Firebase send email to reset password.
+    }
+    
     private func setupConstraints() {
         
         // reset label
         resetLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(50)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
         }
         
         // reset email textfield
@@ -84,14 +100,15 @@ class ForgotPassView: UIView {
             make.top.equalTo(resetLabel.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
             make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
+            make.height.equalTo(40)
         }
         
         // reset password email button
         resetPasswordButton.snp.makeConstraints { (make) in
             make.top.equalTo(resetEmailTextField.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.5)
-            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.1)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.6)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.05)
         }
     }
 }

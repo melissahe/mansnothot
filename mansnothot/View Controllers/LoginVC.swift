@@ -24,6 +24,7 @@ import SnapKit
 class LoginVC: UIViewController {
     
     let loginView = LoginView()
+    let forgotPassView = ForgotPassView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,11 +37,12 @@ class LoginVC: UIViewController {
     
     private func configureViews() {
         self.view.addSubview(loginView)
-        self.loginView.welcomeLabel.text = "label test"
-        self.loginView.loginButton.addTarget(self, action: #selector(loginToAccount(selector:)), for: UIControlEvents.touchUpInside)
-        self.loginView.forgotPassButton.addTarget(self, action: #selector(forgotPass(selector:)), for: UIControlEvents.touchUpInside)
-        self.loginView.createNewAccountButton.addTarget(self, action: #selector(createNewAcct(selector:)), for: UIControlEvents.touchUpInside)
+        self.loginView.loginButton.addTarget(self, action: #selector(loginToAccount), for: UIControlEvents.touchUpInside)
+        self.loginView.forgotPassButton.addTarget(self, action: #selector(forgotPass), for: UIControlEvents.touchUpInside)
+        self.loginView.createNewAccountButton.addTarget(self, action: #selector(createNewAcct), for: UIControlEvents.touchUpInside)
         
+        self.view.addSubview(forgotPassView)
+        forgotPassView.isHidden = true
     }
     
     @objc func loginToAccount(selector: UIButton) {
@@ -50,8 +52,9 @@ class LoginVC: UIViewController {
     
     @objc func forgotPass(selector: UIButton) {
         print("Forgot Password? button pressed")
-        
+        ///??? CAN I PRESENT A VIEW WITHOUT A VIEW CONTROLLER OVER ANOTHER VIEW WITH A VIEW CONTROLLER?
         // TODO: present ForgotPassView
+        forgotPassView.isHidden = false
     }
     
     @objc func createNewAcct(selector: UIButton) {
@@ -60,7 +63,13 @@ class LoginVC: UIViewController {
         // TODO: present CreateAccountVC
     }
     
-    
+    /// host this here? not sure
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { alert in }
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
 // Text Field Delegates for each text field
