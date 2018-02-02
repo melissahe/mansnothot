@@ -30,10 +30,14 @@ import TableFlip
     //maybe should pass in the userID in the initializer so it can get all of the posts from firebase??
 
 class MyPostsVC: UIViewController {
-
+    let myPostView = MyPostsView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.addSubview(myPostView)
+       myPostView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.view.snp.edges)
+        }
     }
 
 }
