@@ -45,6 +45,7 @@ class LoginView: UIView {
 //        ptf.backgroundColor = .green
         ptf.borderStyle = .line
         ptf.placeholder = "Password"
+        ptf.isSecureTextEntry = true
         return ptf
     }()
     
