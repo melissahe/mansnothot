@@ -32,7 +32,8 @@ class HomeFeedVC: UIViewController {
     
     var loginVC = LoginVC()
     var homeFeedView = HomeFeedView()
-    var allCommentsVC = AllCommentsVC()
+    //var allCommentsVC = AllCommentsVC()
+    //var addCommentVC = AddCommentVC()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +68,10 @@ class HomeFeedVC: UIViewController {
     
     }
     
+    
+    
+    
+    //This is a func to test the segmentedbar only
     @objc func changeColor(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -92,6 +97,7 @@ extension HomeFeedVC: UITableViewDataSource {
         cell.usernameLabel.backgroundColor = .clear
         
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
+        cell.commentButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         
         return cell
         
@@ -101,16 +107,21 @@ extension HomeFeedVC: UITableViewDataSource {
         
         let allCommentsVC = AllCommentsVC()
         
-        let acvinnav = UINavigationController(rootViewController: allCommentsVC)
+        let allCommentsVCInNav = UINavigationController(rootViewController: allCommentsVC)
         
         if let cell = sender.superview as? FeedTableViewCell {
+            //This gets you the label of the cell where the button was clicked
             print(cell.usernameLabel.text!)
+            //This gets you the indexpath of the button pressed
             print(homeFeedView.tableView.indexPath(for: cell)!.row)
+            
+            //Using this info, we can dependency inject a VC
             allCommentsVC.setupVC(postTitle: cell.usernameLabel.text!)
             
-            acvinnav.modalTransitionStyle = .coverVertical
-            acvinnav.modalPresentationStyle = .overCurrentContext
-            present(acvinnav, animated: true, completion: nil)
+            //Then we can present the VC
+            allCommentsVCInNav.modalTransitionStyle = .coverVertical
+            allCommentsVCInNav.modalPresentationStyle = .overCurrentContext
+            present(allCommentsVCInNav, animated: true, completion: nil)
         }
     }
     

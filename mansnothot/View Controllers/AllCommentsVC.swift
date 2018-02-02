@@ -42,17 +42,36 @@ class AllCommentsVC: UIViewController {
     }
 
     private func setupViews() {
+        //title
+        navigationItem.title = postTitle
+        
         //left bar button
         let xBarItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(xButton))
         navigationItem.leftBarButtonItem = xBarItem
         xBarItem.style = .done
         
-        navigationItem.title = postTitle
+        //right bar button
+        let addCommentItem = UIBarButtonItem(image: UIImage(named: "addComment"), style: .done, target: self, action: #selector(presentAddCommentVC))
+        navigationItem.rightBarButtonItem = addCommentItem
+        
         
     }
     
     @objc private func xButton() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    //func to present the AddCommentVC
+    @objc func presentAddCommentVC() {
+        let addCommentVC = AddCommentVC()
+        let addCommentVCInNav = UINavigationController(rootViewController: addCommentVC)
+        
+        addCommentVCInNav.modalTransitionStyle = .coverVertical
+        addCommentVCInNav.modalPresentationStyle = .fullScreen //.overCurrentContext if you want to keep the tabbar
+        
+        addCommentVC.setupVC(postTitle: postTitle)
+        
+        present(addCommentVCInNav, animated: true, completion: nil)
     }
     
 }
@@ -68,10 +87,17 @@ extension AllCommentsVC: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "AllCommentsCell", for: indexPath) as! AllCommentsTableViewCell
         
+        //This is to shape the cells in the Tableview
+        cell.layer.masksToBounds = true
+        cell.layer.cornerRadius = 5
+        cell.layer.borderWidth = 2
+        cell.layer.shadowOffset = CGSize(width: -1, height: 1)
+        cell.layer.borderColor = UIColor(red: 0.286, green: 0.690, blue: 0.976, alpha: 1.00).cgColor
+        
         let aComment = sampleCommentsArr[indexPath.row]
         
         cell.usernameLabel.text = aComment
-        cell.commentTextView.text = "\(aComment), \(aComment), and \(aComment)"
+        cell.commentTextView.text = "\(aComment), \(aComment), and \(aComment). Carry yourself with all the confidence of a mediocre white man."
         
         return cell
     }
@@ -80,6 +106,7 @@ extension AllCommentsVC: UITableViewDataSource {
 }
 extension AllCommentsVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        //Make AddCommentVC appear here
+        //Make AddCommentVC appear here when user clicks on the textfield
+        presentAddCommentVC()
     }
 }
