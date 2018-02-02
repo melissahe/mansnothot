@@ -28,6 +28,16 @@ class AllCommentsTableViewCell: UITableViewCell {
     }()
     
     //textView - for comment
+    lazy var commentTextView: UITextView = {
+        let tv = UITextView()
+        tv.layer.borderWidth = 0.5
+        tv.text = "Sample Comment Text Here"
+        tv.backgroundColor = .yellow
+        tv.textAlignment = .justified
+        tv.isEditable = false
+        tv.textColor = .black
+        return tv
+    }()
     
     //nice to have:
     //numberOfLikes label - number of likes
@@ -53,8 +63,20 @@ class AllCommentsTableViewCell: UITableViewCell {
     
     private func setupAndConstrainObjects(){
         self.addSubview(usernameLabel)
+        self.addSubview(commentTextView)
+        
         usernameLabel.snp.makeConstraints { (make) -> Void in
-            make.edges.equalTo(self.snp.edges)
+            make.top.equalTo(self.snp.top)
+            make.leading.equalTo(self.snp.leading)
+            make.trailing.equalTo(self.snp.trailing)
+        }
+        
+        commentTextView.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(usernameLabel.snp.bottom)
+            make.centerX.equalTo(self.snp.centerX)
+            make.bottom.equalTo(self.snp.bottom)
+            make.height.equalTo(self.snp.width).multipliedBy(0.1)
+            make.width.equalTo(self.snp.width)
         }
     }
 
