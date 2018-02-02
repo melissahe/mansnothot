@@ -21,6 +21,8 @@ import Kingfisher
 
 class ProfileView: UIView {
     
+    let profileVC = ProfileVC()
+    
     lazy var profileImageView: UIImageView = {
         var pImageView = UIImageView()
         //pImageView.image = #imageLiteral(resourceName: "profileImage") //place holder image
@@ -53,20 +55,7 @@ class ProfileView: UIView {
     cdn.addTarget(self, action: #selector(changeDisplayName), for: .touchUpInside)
     return cdn
     }()
-    
-    lazy var seeMyPostsButton: UIButton = {
-        let cdn = UIButton()
-        cdn.setTitle("See All My Posts", for: .normal)
-        cdn.setTitleColor(.green, for: .normal)
-        cdn.addTarget(self, action: #selector(seePostsButtonTapped), for: .touchUpInside)
-        return cdn
-    }()
-    
-//    lazy var logoutButton: UIButton = {
-//        let ssmp = UIButton()
-//        ssmp.setTitle("See My Posts", for: .normal)
-//        ssmp.setTitleColor(., for: <#T##UIControlState#>)
-//    }
+ 
     //Buttons Func
     @objc func changeImageButtonTapped() {
         //TODO- Allow user to change image by taking them to camera or image
@@ -76,11 +65,6 @@ class ProfileView: UIView {
     @objc func changeDisplayName() {
         //TODO - ALLOW USER TO CHANGE NAME
     }
-    
-    @objc func seePostsButtonTapped() {
-       //Take user to AllMyPostsVC so SEGUE
-    }
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -108,7 +92,8 @@ class ProfileView: UIView {
         setupNameLabel()
         setupChangeImageButton()
         setupChangeNameButton()
-        setupAllMyPostsButton()
+        addSubview(profileVC.seeMyPostsButton)
+        profileVC.setupAllMyPostsButton()
     }
     
     private func setUpProfile() {
@@ -119,8 +104,7 @@ class ProfileView: UIView {
             make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-400)
         }
     }
-//
-//
+    
     private func setupNameLabel() {
         addSubview(displayName)
         displayName.snp.makeConstraints { (make) -> Void in
@@ -145,14 +129,4 @@ class ProfileView: UIView {
             make.leading.equalTo(changeProfileImageButton.snp.trailing).offset(76)
         }
     }
-    
-    private func setupAllMyPostsButton() {
-        addSubview(seeMyPostsButton)
-        seeMyPostsButton.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(changeProfileImageButton.snp.bottom).offset(70)
-            make.leading.equalTo(self.safeAreaLayoutGuide).offset(140)
-        }
-    }
-    
-    
 }
