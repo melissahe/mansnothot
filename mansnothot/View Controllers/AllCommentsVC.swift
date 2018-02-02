@@ -58,7 +58,8 @@ class AllCommentsVC: UIViewController {
     }
     
     @objc private func xButton() {
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
+        //dismiss(animated: true, completion: nil)
     }
     
     //func to present the AddCommentVC
