@@ -27,7 +27,6 @@ import SnapKit
 
 class ProfileVC: UIViewController {
     
-    let myPostVC = MyPostsVC()
     lazy var profileView = ProfileView()
     
     override func viewDidLoad() {
@@ -40,19 +39,23 @@ class ProfileVC: UIViewController {
         let logoutButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logoutButtonTapped))
         
         self.navigationItem.rightBarButtonItem = logoutButton
+        profileView.seeMyPostsButton.addTarget(self, action: #selector(seePostsButtonTapped), for: .touchUpInside)
+        profileView.changeDisplayName.addTarget(self, action: #selector(changeDisplayName), for: .touchUpInside)
+        profileView.changeProfileImageButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func changeImageButtonTapped() {
+        //TODO- Allow user to change image by taking them to camera or image
+        //TODO ALERTVIEW CONTROLLER WITH ACTION SHEET
+    }
+    
+    @objc func changeDisplayName() {
+        //TODO - ALLOW USER TO CHANGE NAME
     }
     
     @objc func logoutButtonTapped() {
         //logout
     }
-    
-    lazy var seeMyPostsButton: UIButton = {
-        let cdn = UIButton()
-        cdn.setTitle("See All My Posts", for: .normal)
-        cdn.setTitleColor(.green, for: .normal)
-        cdn.addTarget(self, action: #selector(seePostsButtonTapped), for: .touchUpInside)
-        return cdn
-    }()
     
     @objc func seePostsButtonTapped() {
         //put this func in allPostVC
@@ -60,17 +63,12 @@ class ProfileVC: UIViewController {
         // dismiss(animated: true, completion: nil)
         // profileVC.show(myPostVC, sender: true)
         // profileVC.present(myPostVC, animated: true, completion: nil)
-        present(myPostVC, animated: true, completion: nil)
+        
+        let myPostVC = MyPostsVC()
+//        myPostVC.modalTransitionStyle = .coverVertical
+//        myPostVC.modalPresentationStyle = .overCurrentContext
+        navigationController?.pushViewController(myPostVC, animated: true)
         print("button tapped")
     }
-    
-    public func setupAllMyPostsButton() {
-        seeMyPostsButton.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(profileView.changeProfileImageButton.snp.bottom).offset(70)
-            make.leading.equalTo(profileView.safeAreaLayoutGuide).offset(140)
-        }
-    }
-    
-    
     
 }
