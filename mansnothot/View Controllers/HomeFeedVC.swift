@@ -92,6 +92,7 @@ extension HomeFeedVC: UITableViewDataSource {
         cell.usernameLabel.backgroundColor = .clear
         
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
+        cell.commentButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         
         return cell
         
