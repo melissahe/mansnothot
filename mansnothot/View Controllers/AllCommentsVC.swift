@@ -68,10 +68,17 @@ extension AllCommentsVC: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "AllCommentsCell", for: indexPath) as! AllCommentsTableViewCell
         
+        //This is to shape the cells in the Tableview
+        cell.layer.masksToBounds = true
+        cell.layer.cornerRadius = 5
+        cell.layer.borderWidth = 2
+        cell.layer.shadowOffset = CGSize(width: -1, height: 1)
+        cell.layer.borderColor = UIColor(red: 0.286, green: 0.690, blue: 0.976, alpha: 1.00).cgColor
+        
         let aComment = sampleCommentsArr[indexPath.row]
         
         cell.usernameLabel.text = aComment
-        cell.commentTextView.text = "\(aComment), \(aComment), and \(aComment)"
+        cell.commentTextView.text = "\(aComment), \(aComment), and \(aComment). Carry yourself with all the confidence of a mediocre white man."
         
         return cell
     }
@@ -81,5 +88,6 @@ extension AllCommentsVC: UITableViewDataSource {
 extension AllCommentsVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         //Make AddCommentVC appear here
+        
     }
 }
