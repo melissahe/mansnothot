@@ -32,6 +32,8 @@ class HomeFeedVC: UIViewController {
     
     var loginVC = LoginVC()
     var homeFeedView = HomeFeedView()
+    //var allCommentsVC = AllCommentsVC()
+    //var addCommentVC = AddCommentVC()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,10 +66,12 @@ class HomeFeedVC: UIViewController {
         //Give SegmentedBar Functionality
         homeFeedView.segmentedBar.addTarget(self, action: #selector(changeColor(sender:)), for: .valueChanged)
     
-        
-    
     }
     
+    
+    
+    
+    //This is a func to test the segmentedbar only
     @objc func changeColor(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -78,7 +82,6 @@ class HomeFeedVC: UIViewController {
             homeFeedView.backgroundColor = .white
         }
     }
-    
 }
 extension HomeFeedVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,14 +96,39 @@ extension HomeFeedVC: UITableViewDataSource {
         cell.usernameLabel.text = "This is \(aThing)"
         cell.usernameLabel.backgroundColor = .clear
         
+        cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
+        cell.commentButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
+        
         return cell
         
+    }
+    
+    @objc func showThreadButtonTouched(_ sender: UIButton) {
+        
+        let allCommentsVC = AllCommentsVC()
+        
+        let allCommentsVCInNav = UINavigationController(rootViewController: allCommentsVC)
+        
+        if let cell = sender.superview as? FeedTableViewCell {
+            //This gets you the label of the cell where the button was clicked
+            print(cell.usernameLabel.text!)
+            //This gets you the indexpath of the button pressed
+            print(homeFeedView.tableView.indexPath(for: cell)!.row)
+            
+            //Using this info, we can dependency inject a VC
+            allCommentsVC.setupVC(postTitle: cell.usernameLabel.text!)
+            
+            //Then we can present the VC
+            allCommentsVCInNav.modalTransitionStyle = .coverVertical
+            allCommentsVCInNav.modalPresentationStyle = .overCurrentContext
+            present(allCommentsVCInNav, animated: true, completion: nil)
+        }
     }
     
     
 }
 extension HomeFeedVC: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 }
