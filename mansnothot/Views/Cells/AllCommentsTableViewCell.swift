@@ -51,7 +51,7 @@ class AllCommentsTableViewCell: UITableViewCell {
     //numberOfLikes label - number of likes
     lazy var numberOfLikesLabel: UILabel = {
         let lb = UILabel()
-        lb.text = "+9"
+        lb.text = "9"
         lb.backgroundColor = .gray
         lb.textAlignment = .center
         lb.backgroundColor = .white
