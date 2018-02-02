@@ -22,15 +22,15 @@ class ForgotPassView: UIView {
     // dismissable view / button - alternative to the X
     lazy var dismissView: UIButton = {
         let button = UIButton(frame: UIScreen.main.bounds)
-        button.backgroundColor = .red
+        button.backgroundColor = .clear
         return button
     }()
     
     // container view to hold objects
     lazy var containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .yellow
-        view.layer.cornerRadius = 20
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 15
         view.layer.masksToBounds = true
         return view
     }()
@@ -85,6 +85,7 @@ class ForgotPassView: UIView {
     }
     
     private func setUpViews() {
+        setupBlurEffectView()
         setupSubviews()
         setupConstraints()
     }
@@ -98,13 +99,20 @@ class ForgotPassView: UIView {
         addSubview(resetPasswordButton)
     }
     
+    private func setupBlurEffectView() {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark) // .light, .dark, .prominent, .regular, .extraLight
+        let visualEffect = UIVisualEffectView(frame: UIScreen.main.bounds)
+        visualEffect.effect = blurEffect
+        addSubview(visualEffect)
+    }
+    
     private func setupConstraints() {
         
         // container view to store all the objects
         containerView.snp.makeConstraints { (make) in
             make.center.equalTo(self.snp.center)
-            make.width.equalTo(self.snp.width).multipliedBy(0.8)
-            make.height.equalTo(self.snp.height).multipliedBy(0.8)
+            make.width.equalTo(self.snp.width).multipliedBy(0.9)
+            make.height.equalTo(self.snp.height).multipliedBy(0.9)
         }
         
         // dismiss X button
