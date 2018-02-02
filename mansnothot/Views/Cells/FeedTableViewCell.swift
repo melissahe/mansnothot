@@ -10,7 +10,14 @@ import UIKit
 import SnapKit
 import Kingfisher
 
+
+
+
+
+
 class FeedTableViewCell: UITableViewCell {
+    
+    
     
     //userImageView - for user image
     lazy var userImageView: UIImageView = {
@@ -134,6 +141,7 @@ class FeedTableViewCell: UITableViewCell {
         button.setTitle("Thread", for: .normal)
         button.backgroundColor = .orange
         button.layer.borderWidth = 0.5
+        
         return button
     }()
     
