@@ -22,7 +22,7 @@ class NewPostVC: UIViewController {
     let newPostView = NewPostView()
     
     //This is the sample Array of Categories
-    let categories = ["Food", "Politics", "ThirstTraps", "Religion", "Dating", "Random", "Relationships", "Funny", "Weird", "Books", "Movies", "Entertainment", "Video Games", "Board Games", "Social", "Suggestions", "ThotStuff"]
+    let categories = ["Advice", "AMA", "Animals", "Art", "Beauty", "Books", "Business", "Cats", "Celebs", "Cooking", "Cosplay", "Cute", "Dating", "Drugs", "Dogs", "Education", "ELI5", "Entertainment", "Fashion", "Fitness", "FML", "Food", "Funny", "Health", "Hmm", "Hobbies", "IRL", "LGBTQ+", "Lifestyle", "Memes", "MFW", "MLIA", "Music", "Movies", "Nature", "News", "NSFW", "Other", "Poetry", "Politics", "Random", "Religion", "Relationships", "Science", "Sex", "Sports", "Stories", "Tech", "TFW", "Thirst Traps", "THOT Stuff", "THOT Thoughts", "Throwback", "Travel", "TV", "Weird", "Women", "Work", "World", "WTF"]
     
     
     override func viewDidLoad() {
