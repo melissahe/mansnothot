@@ -32,6 +32,7 @@ class HomeFeedVC: UIViewController {
     
     var loginVC = LoginVC()
     var homeFeedView = HomeFeedView()
+    var allCommentsVC = AllCommentsVC()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,8 +65,6 @@ class HomeFeedVC: UIViewController {
         //Give SegmentedBar Functionality
         homeFeedView.segmentedBar.addTarget(self, action: #selector(changeColor(sender:)), for: .valueChanged)
     
-        
-    
     }
     
     @objc func changeColor(sender: UISegmentedControl) {
@@ -78,7 +77,6 @@ class HomeFeedVC: UIViewController {
             homeFeedView.backgroundColor = .white
         }
     }
-    
 }
 extension HomeFeedVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,14 +91,33 @@ extension HomeFeedVC: UITableViewDataSource {
         cell.usernameLabel.text = "This is \(aThing)"
         cell.usernameLabel.backgroundColor = .clear
         
+        cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
+        
         return cell
         
+    }
+    
+    @objc func showThreadButtonTouched(_ sender: UIButton) {
+        
+        let allCommentsVC = AllCommentsVC()
+        
+        let acvinnav = UINavigationController(rootViewController: allCommentsVC)
+        
+        if let cell = sender.superview as? FeedTableViewCell {
+            print(cell.usernameLabel.text!)
+            print(homeFeedView.tableView.indexPath(for: cell)!.row)
+            allCommentsVC.setupVC(postTitle: cell.usernameLabel.text!)
+            
+            acvinnav.modalTransitionStyle = .coverVertical
+            acvinnav.modalPresentationStyle = .overCurrentContext
+            present(acvinnav, animated: true, completion: nil)
+        }
     }
     
     
 }
 extension HomeFeedVC: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100
-//    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 }
