@@ -14,26 +14,32 @@ class Post: NSObject, Codable {
     let category: String
     let userID: String //should tie this post back to current user, so they can edit it? maybe we could also just save as userID?
     let title: String
-    var bodyText: String
-    let image: Data? //couldn't put down UIImage
+    var bodyText: String?
     var numberOfLikes: Int = 0
     var numberOfDislikes: Int = 0
     var flags: Int = 0
     var userLiked: Bool = false //should keep track of whether user liked post
     var userDisliked: Bool = false //should keep track of whether user disliked post //if one is true, the other must be false
-    let timestamp: Double
+    var timestamp: Double = Date.timeIntervalSinceReferenceDate
     
     static func ==(lhs: Post, rhs: Post) -> Bool {
         return lhs.userID == rhs.userID && lhs.postID == rhs.postID
     }
     
-    init(postID: String, category: String, userID: String, title: String, bodyText: String, image: Data?, numberOfLikes: Int, numberOfDislikes: Int, flags: Int, userLiked: Bool, userDisliked: Bool, timestamp: Double) {
+    init(postID: String, category: String, userID: String, title: String, bodyText: String?) {
         self.postID = postID
         self.category = category
         self.userID = userID
         self.title = title
         self.bodyText = bodyText
-        self.image = image
+    }
+    
+    init(postID: String, category: String, userID: String, title: String, bodyText: String?, numberOfLikes: Int, numberOfDislikes: Int, flags: Int, userLiked: Bool, userDisliked: Bool, timestamp: Double) {
+        self.postID = postID
+        self.category = category
+        self.userID = userID
+        self.title = title
+        self.bodyText = bodyText
         self.numberOfLikes = numberOfLikes
         self.numberOfDislikes = numberOfDislikes
         self.flags = flags
@@ -44,6 +50,7 @@ class Post: NSObject, Codable {
 }
 
 extension Array where Element == Post {
+    //ADD DOCUMENTATION!!
     func sortedByLikes() -> [Post] {
         return self.sorted(by: { (post1, post2) -> Bool in
             let post1TotalLikes = post1.numberOfLikes - post1.numberOfDislikes

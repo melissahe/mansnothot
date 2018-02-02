@@ -13,7 +13,7 @@ class Comment: NSObject, Codable {
     let commentID: String //this should be the unique comment id
     let userID: String
     var text: String
-    let timestamp: Double
+    var timestamp: Double = Date.timeIntervalSinceReferenceDate
     //bonuses/nice to haves:
     //    var likes: Int
     //    var dislikes: Int
@@ -21,6 +21,13 @@ class Comment: NSObject, Codable {
     
     static func ==(lhs: Comment, rhs: Comment) -> Bool {
         return lhs.postID == rhs.postID && lhs.commentID == rhs.commentID && lhs.userID == rhs.userID
+    }
+    
+    init(postID: String, commentID: String, userID: String, text: String) {
+        self.postID = postID
+        self.commentID = commentID
+        self.userID = userID
+        self.text = text
     }
     
     init(postID: String, commentID: String, userID: String, text: String, timestamp: Double) {
@@ -33,6 +40,7 @@ class Comment: NSObject, Codable {
 }
 
 extension Array where Element == Comment {
+    //ADD DOCUMENTATION!!
     func sortedByTimestamp() -> [Comment] {
         return self.sorted {$0.timestamp > $1.timestamp}
     }
