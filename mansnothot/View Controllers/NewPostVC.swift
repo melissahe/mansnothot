@@ -50,10 +50,20 @@ class NewPostVC: UIViewController {
         // Set Category Button
         newPostView.categoryButton.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
         
+        // Set Plus Button
+        newPostView.plusSignButton.addTarget(self, action: #selector(addImageButton), for: .touchUpInside)
+        
+    }
+    
+    @objc private func addImageButton() {
+        // Place add image function here
+        print("Added Image")
+        
     }
     
     @objc private func post() {
         // Checks if required fields are filled before posting
+        print("Posted Post")
         
     }
     

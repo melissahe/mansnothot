@@ -18,7 +18,7 @@ class NewPostView: UIView {
     lazy var pickImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = nil
-        imageView.backgroundColor = .blue
+        imageView.backgroundColor = UIColor(red: 0.286, green: 0.690, blue: 0.976, alpha: 1.00)
         imageView.contentMode = .scaleAspectFit
         imageView.layer.borderWidth = 0.5
         return imageView
@@ -33,7 +33,16 @@ class NewPostView: UIView {
         lb.textAlignment = .center
         lb.alpha = 0.50
         lb.numberOfLines = 0
+        lb.isHidden = true // using plus sign instead
         return lb
+    }()
+    
+    //Button that goes directly over addAnImage Label
+    lazy var plusSignButton: UIButton = {
+        let plusSign = UIButton()
+        plusSign.setImage(#imageLiteral(resourceName: "plus"), for: .normal)
+        plusSign.contentMode = .scaleAspectFit
+        return plusSign
     }()
     
     //titleTextField for title
@@ -115,6 +124,12 @@ class NewPostView: UIView {
         setupViews()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        pickImageView.layer.cornerRadius = pickImageView.bounds.height/2
+        pickImageView.layer.masksToBounds = true
+    }
+    
     private func setupViews() {
         //set up constraints IN ORDER
         self.addSubview(titleTextField)
@@ -124,6 +139,7 @@ class NewPostView: UIView {
         self.addSubview(addAnImageLabel)
         self.addSubview(postTextView)
         self.addSubview(tableView)
+        self.addSubview(plusSignButton)
         
         titleTextField.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20)
@@ -155,6 +171,10 @@ class NewPostView: UIView {
             make.top.equalTo(categoryLabel.snp.bottom).offset(8)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
             make.height.width.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
+        }
+        
+        plusSignButton.snp.makeConstraints { (make) in
+            make.center.equalTo(pickImageView.snp.center)
         }
         
         addAnImageLabel.snp.makeConstraints { (make) -> Void in
