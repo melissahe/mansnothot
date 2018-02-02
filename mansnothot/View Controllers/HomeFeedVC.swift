@@ -32,7 +32,8 @@ class HomeFeedVC: UIViewController {
     
     var loginVC = LoginVC()
     var homeFeedView = HomeFeedView()
-    var allCommentsVC = AllCommentsVC()
+    //var allCommentsVC = AllCommentsVC()
+    //var addCommentVC = AddCommentVC()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +68,10 @@ class HomeFeedVC: UIViewController {
     
     }
     
+    
+    
+    
+    //This is a func to test the segmentedbar only
     @objc func changeColor(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
@@ -91,23 +96,61 @@ extension HomeFeedVC: UITableViewDataSource {
         cell.usernameLabel.text = "This is \(aThing)"
         cell.usernameLabel.backgroundColor = .clear
         
+        //Add Button Functionality
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
+        cell.commentButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
+        cell.thumbsUpButton.addTarget(self, action: #selector(thumbsUpButtonTouched(_:)), for: .touchUpInside)
+        cell.thumbsDownButton.addTarget(self, action: #selector(thumbsDownButtonTouched(_:)), for: .touchUpInside)
         
         return cell
-        
+    }
+    
+    @objc func thumbsUpButtonTouched(_ sender: UIButton) {
+        if let cell = sender.superview as? FeedTableViewCell {
+            print(cell.numberOfLikesLabel.text!)
+            if let stringAsInt = Int(cell.numberOfLikesLabel.text!) {
+                var newInt = stringAsInt
+                newInt += 1
+                cell.numberOfLikesLabel.text = "+"+String(newInt)
+            } else {
+                cell.numberOfLikesLabel.text = "0"
+            }
+            
+        }
+    }
+    
+    @objc func thumbsDownButtonTouched(_ sender: UIButton) {
+        if let cell = sender.superview as? FeedTableViewCell {
+            print(cell.numberOfDislikesLabel.text!)
+            if let stringAsInt = Int(cell.numberOfDislikesLabel.text!) {
+                var newInt = stringAsInt
+                newInt -= 1
+                cell.numberOfDislikesLabel.text = String(newInt)
+            } else {
+                cell.numberOfDislikesLabel.text = "0"
+            }
+        }
     }
     
     @objc func showThreadButtonTouched(_ sender: UIButton) {
         
         let allCommentsVC = AllCommentsVC()
         
-        let acvinnav = UINavigationController(rootViewController: allCommentsVC)
+        let allCommentsVCInNav = UINavigationController(rootViewController: allCommentsVC)
         
         if let cell = sender.superview as? FeedTableViewCell {
+            //This gets you the label of the cell where the button was clicked
             print(cell.usernameLabel.text!)
+            //This gets you the indexpath of the button pressed
             print(homeFeedView.tableView.indexPath(for: cell)!.row)
+            
+            //Using this info, we can dependency inject a VC
             allCommentsVC.setupVC(postTitle: cell.usernameLabel.text!)
-            present(acvinnav, animated: true, completion: nil)
+            
+            //Then we can present the VC
+            allCommentsVCInNav.modalTransitionStyle = .coverVertical
+            allCommentsVCInNav.modalPresentationStyle = .overCurrentContext
+            present(allCommentsVCInNav, animated: true, completion: nil)
         }
     }
     

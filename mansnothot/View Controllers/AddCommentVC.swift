@@ -18,9 +18,57 @@ import SnapKit
     
 class AddCommentVC: UIViewController {
 
+    var postTitle: String!
+    
+    public func setupVC(postTitle: String) {
+        self.postTitle = postTitle
+    }
+    
+    let addCommentView = AddCommentView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(addCommentView)
+        setupViews()
 
+    }
+    private func setupViews() {
+        //title
+        navigationItem.title = postTitle
+        
+        //left bar button
+        let xBarItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(xButton))
+        navigationItem.leftBarButtonItem = xBarItem
+        xBarItem.style = .done
+        
+        //right bar button
+        let addCommentItem = UIBarButtonItem(image: UIImage(named: "addComment"), style: .done, target: self, action: #selector(addAComment))
+        navigationItem.rightBarButtonItem = addCommentItem
+        
+        
+    }
+    @objc private func addAComment() {
+        print("Add a Comment clicked")
+        if addCommentView.postCommentTextView.text == "" {
+            let alert = UIAlertController(title: "Error", message: "Please enter text in order to post a comment", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
+        } else {
+            
+            //Add functionality for adding the text in the textview to a post
+            
+            let alert = UIAlertController(title: "Success", message: "Your Comment was added!", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "Ok", style: .default, handler: {(UIAlertAction) -> Void in self.dismiss(animated: true, completion: nil)})
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
+            
+        }
+        
+    }
+    
+    @objc private func xButton() {
+        dismiss(animated: true, completion: nil)
     }
 
 }
