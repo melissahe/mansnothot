@@ -96,11 +96,40 @@ extension HomeFeedVC: UITableViewDataSource {
         cell.usernameLabel.text = "This is \(aThing)"
         cell.usernameLabel.backgroundColor = .clear
         
+        //Add Button Functionality
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         cell.commentButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
+        cell.thumbsUpButton.addTarget(self, action: #selector(thumbsUpButtonTouched(_:)), for: .touchUpInside)
+        cell.thumbsDownButton.addTarget(self, action: #selector(thumbsDownButtonTouched(_:)), for: .touchUpInside)
         
         return cell
-        
+    }
+    
+    @objc func thumbsUpButtonTouched(_ sender: UIButton) {
+        if let cell = sender.superview as? FeedTableViewCell {
+            print(cell.numberOfLikesLabel.text!)
+            if let stringAsInt = Int(cell.numberOfLikesLabel.text!) {
+                var newInt = stringAsInt
+                newInt += 1
+                cell.numberOfLikesLabel.text = "+"+String(newInt)
+            } else {
+                cell.numberOfLikesLabel.text = "0"
+            }
+            
+        }
+    }
+    
+    @objc func thumbsDownButtonTouched(_ sender: UIButton) {
+        if let cell = sender.superview as? FeedTableViewCell {
+            print(cell.numberOfDislikesLabel.text!)
+            if let stringAsInt = Int(cell.numberOfDislikesLabel.text!) {
+                var newInt = stringAsInt
+                newInt -= 1
+                cell.numberOfDislikesLabel.text = String(newInt)
+            } else {
+                cell.numberOfDislikesLabel.text = "0"
+            }
+        }
     }
     
     @objc func showThreadButtonTouched(_ sender: UIButton) {

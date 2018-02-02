@@ -25,6 +25,7 @@ class LoginVC: UIViewController {
     
     let loginView = LoginView()
     let forgotPassView = ForgotPassView()
+    let createAcctVC = CreateAccountVC()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,7 @@ class LoginVC: UIViewController {
         self.view.addSubview(forgotPassView)
         self.forgotPassView.resetPasswordButton.addTarget(self, action: #selector(returnToLogin), for: UIControlEvents.touchUpInside) /// update the selector target to sendPassResetEmail when it is configured
         self.forgotPassView.dismissButton.addTarget(self, action: #selector(returnToLogin), for: .touchUpInside)
+        self.forgotPassView.dismissView.addTarget(self, action: #selector(returnToLogin), for: .touchUpInside)
         
     }
     
@@ -70,7 +72,8 @@ class LoginVC: UIViewController {
     @objc func createNewAcct(selector: UIButton) {
         print("Create a New Account button pressed")
         
-        /// TODO: present CreateAccountVC
+        /// present CreateAccountVC
+//        present(createAcctVC, animated: true, completion: nil)
     }
     
     @objc func returnToLogin() {
