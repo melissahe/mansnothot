@@ -37,6 +37,7 @@ class HomeFeedVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        definesPresentationContext = true
         view.backgroundColor = .purple
         view.addSubview(homeFeedView)
         homeFeedView.tableView.dataSource = self
@@ -150,7 +151,9 @@ extension HomeFeedVC: UITableViewDataSource {
             //Then we can present the VC
             allCommentsVCInNav.modalTransitionStyle = .coverVertical
             allCommentsVCInNav.modalPresentationStyle = .overCurrentContext
-            present(allCommentsVCInNav, animated: true, completion: nil)
+            
+            navigationController?.pushViewController(allCommentsVC, animated: true)
+            //present(allCommentsVC, animated: true, completion: nil)
         }
     }
     
