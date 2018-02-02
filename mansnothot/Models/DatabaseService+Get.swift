@@ -12,7 +12,6 @@ import FirebaseDatabase
 extension DatabaseService {
     //get
     //reads info from current user - doesn't get current image just yet
-    
     /** Generates a UserProfile object for the current user from the database.
      
     - Parameters:
@@ -48,12 +47,12 @@ extension DatabaseService {
         }
     }
     
-    /** Gets all of the posts for a single user. Sorted by timestamp by default from newest to oldest. This method returns the posts through the DatabaseServiceDelegate protocol didGetAllPosts(_:, posts:) method.
+    /** Gets all of the posts for a single user. Sorted by timestamp by default from newest to oldest.
+    
+    This method returns the posts through the DatabaseServiceDelegate protocol didGetUserPosts(_:, posts:) method.
      
     - Parameters:
         - uid: The unique userID for the current, authenticated user.
-        - completion: A closure that executes after the posts are retrieved.
-        - posts: An array of posts from the current user, sorted from newest to oldest.
      */
     public func getPosts(fromUID uid: String) {
         getAllPosts { (posts) in
@@ -64,9 +63,12 @@ extension DatabaseService {
     }
     
     /** Gets all of the posts. Sorted by timestamp by default from newest to oldest.
+    
+    This method returns the posts through the DatabaseServiceDelegate protocol didGetAllPosts(_:, posts:) method.
      
-    - Parameter completion: A closure that executes after the posts are retrieved.
-    - Parameter posts: An array of posts from the current user, sorted from newest to oldest.
+    - Parameters:
+        - completion: A closure that executes after the posts are retrieved.
+        - posts: An array of posts from the current user, sorted from newest to oldest.
      */
     public func getAllPosts(completion: @escaping (_ posts: [Post]) -> Void) {
         postsRef.observe(.value) { (dataSnapshot) in
@@ -83,7 +85,7 @@ extension DatabaseService {
                     let category = postDict["category"] as? String,
                     let flags = postDict["flags"] as? Int,
                     //need to figure out how we'll be doing image!!
-                    let image = postDict["image"] as? String,
+//                    let image = postDict["image"] as? String,
                     let numberOfDislikes = postDict["numberOfDislikes"] as? Int,
                     let numberOfLikes = postDict["numberOfLikes"] as? Int,
                     let postID = postDict["postID"] as? String,
@@ -105,10 +107,11 @@ extension DatabaseService {
     
     /** Gets all of the comments for a single post. Sorted by timestamp by default from newest to oldest.
      
+    This method returns the posts through the DatabaseServiceDelegate protocol didGetPostComments(_:, comments:) method.
+     
     - Parameters:
         - passedInPostID: The unique postID for the current, selected post.
-        - completion: A closure that executes after the comments are retrieved.
-        - comments: An array of comments from the current post, sorted from newest to oldest.
+        - comments: An array of comments from the current, selected post, sorted from newest to oldest.
      */
     public func getAllComments(fromPostID passedInPostID: String, completion: @escaping (_ comments: [Comment]) -> Void) {
         commentsRef.observe(.value) { (dataSnapshots) in
@@ -127,6 +130,7 @@ extension DatabaseService {
                     let timestamp = commentDict["timestamp"] as? Double,
                     let userID = commentDict["userID"] as? String
                     else {
+                        self.delegate?.didFailGettingPostComments?(self, error: "Could not retrieve one of the comments. Some values may be nil.")
                         return
                 }
                 if postID != passedInPostID {
@@ -135,7 +139,7 @@ extension DatabaseService {
                 let comment = Comment(postID: postID, commentID: commentID, userID: userID, text: text, timestamp: timestamp)
                 comments.append(comment)
             }
-            completion(comments.sortedByTimestamp())
+            self.delegate?.didGetPostComments?(self, comments: comments.sortedByTimestamp())
         }
     }
 }

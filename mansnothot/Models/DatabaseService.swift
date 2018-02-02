@@ -20,7 +20,7 @@ class DatabaseService: NSObject {
         super.init()
     }
     
-    /** The singleton object for the API client.
+    /** The singleton object for the DatabaseService API client.
      */
     static let manager = DatabaseService()
     
@@ -33,16 +33,18 @@ class DatabaseService: NSObject {
     
     //change
     //changing display name - needs test!!
-    
-    //TODO: finish documentation!!!
-    
     /** This method attempts to change the user's displayName.
+    
+    If the name change is successful, it will return the old and new displayNames through the DatabaseServiceDelegate protocol didChangeDisplayName(_:, oldName:, newName:) method.
      
-     - Parameters:
-     - databaseService: The Firebase/Database API client.
-     - error: The error message that occurred when attemping to retrieve posts.
+    If the name change is not successful, it will return a localized error message through the DatabaseServiceDelegate protocol didFailChangingDisplayName?(_:, error:) method.
+     
+    - Parameters:
+        - newName: The new name to change to.
+        - ifNameTaken: A closure that passes the new name back if it is currently in used by a different user.
+        - failedName: The name that is already in use by another user.
      */
-    public func changeDisplayName(to newName: String, ifNameTaken: @escaping (String) -> Void) {
+    public func changeDisplayName(to newName: String, ifNameTaken: @escaping (_ failedName: String) -> Void) {
         guard let currentUser = AuthUserService.manager.getCurrentUser() else {
             return
         }
@@ -78,8 +80,17 @@ class DatabaseService: NSObject {
         }
     }
     
-    //should be in database func
-    public func checkIfDisplayNameIsTaken(_ newName: String, currentUserID: String?, completion: @escaping (Bool, String, String) -> Void) {
+    /** This method checks if the given displayName is already in use by another user.
+     
+    - Parameters:
+        - newName: The new name to change to.
+        - currentUserID: The ID of the current, authorized user.
+        - completion: A closure that passes back a Bool (whether the name is in use or not), the oldName, and the newName.
+        - isTaken: If the name is taken or not.
+        - oldName: The previous displayName of the current user.
+        - newName: The new displayName of the current user.
+     */
+    public func checkIfDisplayNameIsTaken(_ newName: String, currentUserID: String?, completion: @escaping (_ isTaken: Bool, _ oldName: String, _ newName: String) -> Void) {
         usersRef.observeSingleEvent(of: .value) { (dataSnapshot) in
             var oldName: String!
             
