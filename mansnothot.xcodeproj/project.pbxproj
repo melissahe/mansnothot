@@ -13,6 +13,10 @@
 		811C09CE202015330072EDC8 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C09CD202015330072EDC8 /* FileManagerHelper.swift */; };
 		8185CE67201FFB0200C38A96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185CE66201FFB0200C38A96 /* AppDelegate.swift */; };
 		8185CE6E201FFB0200C38A96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8185CE6D201FFB0200C38A96 /* Assets.xcassets */; };
+		81879A0F20239F0400CAD692 /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A0E20239F0400CAD692 /* AuthUserService.swift */; };
+		81879A112023B44A00CAD692 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A102023B44A00CAD692 /* DatabaseService.swift */; };
+		81879A132023BAC700CAD692 /* DatabaseService+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A122023BAC700CAD692 /* DatabaseService+Get.swift */; };
+		81879A152023C85900CAD692 /* DatabaseServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A142023C85900CAD692 /* DatabaseServiceDelegate.swift */; };
 		81AFD54620203FEF0091AEF9 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD54520203FEF0091AEF9 /* UserDefaultsHelper.swift */; };
 		81AFD5482020460E0091AEF9 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5472020460E0091AEF9 /* UserProfile.swift */; };
 		81AFD54A20204D380091AEF9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD54920204D380091AEF9 /* Post.swift */; };
@@ -46,6 +50,7 @@
 		81AFD5AA20210EB90091AEF9 /* OtherUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5A920210EB90091AEF9 /* OtherUserProfileView.swift */; };
 		81AFD5AC202110AB0091AEF9 /* EditMyPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5AB202110AB0091AEF9 /* EditMyPostView.swift */; };
 		81AFD5AE202115F50091AEF9 /* EditMyPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5AD202115F50091AEF9 /* EditMyPostVC.swift */; };
+		DB03EE7D202217E7001EFA31 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03EE7C202217E7001EFA31 /* CategoryTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +64,10 @@
 		8185CE68201FFB0200C38A96 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		8185CE6D201FFB0200C38A96 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8185CE72201FFB0200C38A96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81879A0E20239F0400CAD692 /* AuthUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserService.swift; sourceTree = "<group>"; };
+		81879A102023B44A00CAD692 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
+		81879A122023BAC700CAD692 /* DatabaseService+Get.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Get.swift"; sourceTree = "<group>"; };
+		81879A142023C85900CAD692 /* DatabaseServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseServiceDelegate.swift; sourceTree = "<group>"; };
 		81AFD54520203FEF0091AEF9 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		81AFD5472020460E0091AEF9 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		81AFD54920204D380091AEF9 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -91,6 +100,7 @@
 		81AFD5A920210EB90091AEF9 /* OtherUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileView.swift; sourceTree = "<group>"; };
 		81AFD5AB202110AB0091AEF9 /* EditMyPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyPostView.swift; sourceTree = "<group>"; };
 		81AFD5AD202115F50091AEF9 /* EditMyPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyPostVC.swift; sourceTree = "<group>"; };
+		DB03EE7C202217E7001EFA31 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
 		F957C31C1006232E618B9EBA /* Pods-mansnothot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mansnothot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mansnothot/Pods-mansnothot.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +156,10 @@
 			isa = PBXGroup;
 			children = (
 				811C09CA202012720072EDC8 /* FirebaseAPIClient.swift */,
+				81879A0E20239F0400CAD692 /* AuthUserService.swift */,
+				81879A142023C85900CAD692 /* DatabaseServiceDelegate.swift */,
+				81879A102023B44A00CAD692 /* DatabaseService.swift */,
+				81879A122023BAC700CAD692 /* DatabaseService+Get.swift */,
 				811C09CD202015330072EDC8 /* FileManagerHelper.swift */,
 				81AFD54520203FEF0091AEF9 /* UserDefaultsHelper.swift */,
 				81AFD5472020460E0091AEF9 /* UserProfile.swift */,
@@ -212,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				81AFD56220206C9A0091AEF9 /* FeedTableViewCell.swift */,
+				DB03EE7C202217E7001EFA31 /* CategoryTableViewCell.swift */,
 				81AFD56E202074700091AEF9 /* AllCommentsTableViewCell.swift */,
 				81AFD5A12020FA310091AEF9 /* MyPostsTableViewCell.swift */,
 			);
@@ -389,22 +404,27 @@
 				81AFD56F202074700091AEF9 /* AllCommentsTableViewCell.swift in Sources */,
 				81AFD56B2020723F0091AEF9 /* AllCommentsVC.swift in Sources */,
 				81AFD559202064CF0091AEF9 /* CreateAccountView.swift in Sources */,
+				81879A152023C85900CAD692 /* DatabaseServiceDelegate.swift in Sources */,
 				81AFD567202070560091AEF9 /* AddCommentVC.swift in Sources */,
 				81AFD557202063BE0091AEF9 /* LoginView.swift in Sources */,
+				81879A112023B44A00CAD692 /* DatabaseService.swift in Sources */,
 				811C09CE202015330072EDC8 /* FileManagerHelper.swift in Sources */,
 				81AFD54A20204D380091AEF9 /* Post.swift in Sources */,
 				81AFD5542020524A0091AEF9 /* ForgotUserView.swift in Sources */,
+				81879A132023BAC700CAD692 /* DatabaseService+Get.swift in Sources */,
 				81AFD5AE202115F50091AEF9 /* EditMyPostVC.swift in Sources */,
 				81AFD5AA20210EB90091AEF9 /* OtherUserProfileView.swift in Sources */,
 				81AFD5A02020F9C10091AEF9 /* MyPostsView.swift in Sources */,
 				81AFD5AC202110AB0091AEF9 /* EditMyPostView.swift in Sources */,
 				81AFD56520206EBF0091AEF9 /* TabBarVC.swift in Sources */,
 				81AFD5A820210AE10091AEF9 /* ImagePickerViewController.swift in Sources */,
+				81879A0F20239F0400CAD692 /* AuthUserService.swift in Sources */,
 				81AFD54D20204EB00091AEF9 /* LoginVC.swift in Sources */,
 				81AFD59B2020F6200091AEF9 /* ChangeBioView.swift in Sources */,
 				8185CE67201FFB0200C38A96 /* AppDelegate.swift in Sources */,
 				81AFD5A6202109250091AEF9 /* NewPostView.swift in Sources */,
 				81AFD59E2020F8C70091AEF9 /* MyPostsVC.swift in Sources */,
+				DB03EE7D202217E7001EFA31 /* CategoryTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,7 +544,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M6644XK36Y;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = mansnothot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Melissa-He.mansnothot";
@@ -540,7 +560,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = M6644XK36Y;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = mansnothot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Melissa-He.mansnothot";

@@ -16,8 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        //Loading
         FirebaseApp.configure()
+        FileManagerHelper.manager.loadCurrentUser()
+        
+        let tabBar = TabBarVC()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = tabBar
+        window?.makeKeyAndVisible()
+        
+//        FirebaseAPIClient.manager.changeDisplayName(to: "whatup yo") { (changeSuccessful) in
+//            print(changeSuccessful)
+//        }
         
         //if user is logged in - should have home page VC as the root view controller
         //if user is logged out - should have the log in VC as the root view controller
