@@ -107,6 +107,9 @@ extension HomeFeedVC: UITableViewDataSource {
             print(cell.usernameLabel.text!)
             print(homeFeedView.tableView.indexPath(for: cell)!.row)
             allCommentsVC.setupVC(postTitle: cell.usernameLabel.text!)
+            
+            acvinnav.modalTransitionStyle = .coverVertical
+            acvinnav.modalPresentationStyle = .overCurrentContext
             present(acvinnav, animated: true, completion: nil)
         }
     }

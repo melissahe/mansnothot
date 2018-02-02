@@ -21,6 +21,8 @@ class AllCommentsVC: UIViewController {
 
     var postTitle: String = ""
     
+    var sampleCommentsArr = ["able", "about", "account", "acid", "across", "addition", "adjustment", "advertisement", "after", "again", "against", "agreement", "almost", "among", "amount", "amusement", "angle", "angry", "animal", "answer", "apparatus", "apple", "approval", "arch", "argument", "army", "attack", "attempt", "attention", "attraction", "authority", "automatic", "awake", "baby", "back", "balance", "ball", "band", "base", "basin", "basket", "bath", "beautiful", "because", "before", "behaviour", "belief", "bell", "bent", "berry"]
+    
     let allCommentsView = AllCommentsView()
     
     public func setupVC(postTitle: String) {
@@ -30,6 +32,12 @@ class AllCommentsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(allCommentsView)
+        
+        allCommentsView.tableView.dataSource = self
+        allCommentsView.tableView.delegate = self
+        allCommentsView.tableView.rowHeight = UITableViewAutomaticDimension
+        allCommentsView.tableView.estimatedRowHeight = 80
+        allCommentsView.commentTextField.delegate = self
         setupViews()
     }
 
@@ -47,4 +55,31 @@ class AllCommentsVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+}
+extension AllCommentsVC: UITableViewDelegate {
+    
+}
+extension AllCommentsVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sampleCommentsArr.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AllCommentsCell", for: indexPath) as! AllCommentsTableViewCell
+        
+        let aComment = sampleCommentsArr[indexPath.row]
+        
+        cell.usernameLabel.text = aComment
+        cell.commentTextView.text = "\(aComment), \(aComment), and \(aComment)"
+        
+        return cell
+    }
+    
+    
+}
+extension AllCommentsVC: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        //Make AddCommentVC appear here
+    }
 }
