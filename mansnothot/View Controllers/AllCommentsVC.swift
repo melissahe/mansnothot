@@ -99,7 +99,38 @@ extension AllCommentsVC: UITableViewDataSource {
         cell.usernameLabel.text = aComment
         cell.commentTextView.text = "\(aComment), \(aComment), and \(aComment). Carry yourself with all the confidence of a mediocre white man."
         
+        cell.thumbsUpButton.addTarget(self, action: #selector(thumbsUpButtonTouched(_:)), for: .touchUpInside)
+        
+        cell.thumbsDownButton.addTarget(self, action: #selector(thumbsDownButtonTouched(_:)), for: .touchUpInside)
+        
         return cell
+    }
+    
+    @objc func thumbsUpButtonTouched(_ sender: UIButton) {
+        if let cell = sender.superview as? AllCommentsTableViewCell {
+            print(cell.numberOfLikesLabel.text!)
+            if let stringAsInt = Int(cell.numberOfLikesLabel.text!) {
+                var newInt = stringAsInt
+                newInt += 1
+                cell.numberOfLikesLabel.text = "+"+String(newInt)
+            } else {
+                cell.numberOfLikesLabel.text = "0"
+            }
+            
+        }
+    }
+    
+    @objc func thumbsDownButtonTouched(_ sender: UIButton) {
+        if let cell = sender.superview as? AllCommentsTableViewCell {
+            print(cell.numberOfDislikesLabel.text!)
+            if let stringAsInt = Int(cell.numberOfDislikesLabel.text!) {
+                var newInt = stringAsInt
+                newInt -= 1
+                cell.numberOfDislikesLabel.text = String(newInt)
+            } else {
+                cell.numberOfDislikesLabel.text = "0"
+            }
+        }
     }
     
     
