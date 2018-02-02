@@ -28,15 +28,14 @@ import TableFlip
 
 class HomeFeedVC: UIViewController {
 
-    var sampleArr = ["Food", "Politics", "ThirstTraps", "Religion", "Dating", "Random", "Relationships", "Funny", "Weird", "Books", "Movies", "Entertainment", "Video Games", "Board Games", "Social", "Suggestions", "ThotStuff"]
+    var sampleArr = ["Advice", "AMA", "Animals", "Art", "Beauty", "Books", "Business", "Cats", "Celebs", "Cooking", "Cosplay", "Cute", "Dating", "Drugs", "Dogs", "Education", "ELI5", "Entertainment", "Fashion", "Fitness", "FML", "Food", "Funny", "Health", "Hmm", "Hobbies", "IRL", "LGBTQ+", "Lifestyle", "Memes", "MFW", "MLIA", "Music", "Movies", "Nature", "News", "NSFW", "Other", "Poetry", "Politics", "Random", "Religion", "Relationships", "Science", "Sex", "Sports", "Stories", "Tech", "TFW", "Thirst Traps", "THOT Stuff", "THOT Thoughts", "Throwback", "Travel", "TV", "Weird", "Women", "Work", "World", "WTF"]
     
     var loginVC = LoginVC()
     var homeFeedView = HomeFeedView()
-    //var allCommentsVC = AllCommentsVC()
-    //var addCommentVC = AddCommentVC()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        definesPresentationContext = true
         view.backgroundColor = .purple
         view.addSubview(homeFeedView)
         homeFeedView.tableView.dataSource = self
@@ -44,7 +43,6 @@ class HomeFeedVC: UIViewController {
         homeFeedView.tableView.rowHeight = UITableViewAutomaticDimension
         homeFeedView.tableView.estimatedRowHeight = 120
 
-        
         present(loginVC, animated: true, completion: nil)
         
         setupViews()
@@ -68,9 +66,6 @@ class HomeFeedVC: UIViewController {
     
     }
     
-    
-    
-    
     //This is a func to test the segmentedbar only
     @objc func changeColor(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
@@ -93,16 +88,32 @@ extension HomeFeedVC: UITableViewDataSource {
         
         let aThing = sampleArr[indexPath.row]
         
-        cell.usernameLabel.text = "This is \(aThing)"
-        cell.usernameLabel.backgroundColor = .clear
+        cell.categoryLabel.text = "This is \(aThing)"
+        cell.usernameLabel.text = "GIRLSRULE37"
+        cell.usernameLabel.backgroundColor = .orange
+        cell.userImageView.image = #imageLiteral(resourceName: "profileImage") // test image
         
         //Add Button Functionality
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         cell.commentButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         cell.thumbsUpButton.addTarget(self, action: #selector(thumbsUpButtonTouched(_:)), for: .touchUpInside)
         cell.thumbsDownButton.addTarget(self, action: #selector(thumbsDownButtonTouched(_:)), for: .touchUpInside)
+        cell.flagButton.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
         
         return cell
+    }
+    
+    @objc func showActionSheet(){
+        let alert = UIAlertController(title: "Flag", message: "Pick One", preferredStyle: .actionSheet)
+        let reportUser = UIAlertAction(title: "Report User", style: .destructive, handler: {(UIAlertAction) -> Void in
+            print("Add Report User Function here")
+        })
+        let reportPost = UIAlertAction(title: "Report Post", style: .destructive, handler: {(UIAlertAction) -> Void in
+            print("Add Report Post Function here")
+        })
+        alert.addAction(reportUser)
+        alert.addAction(reportPost)
+        present(alert, animated: true, completion: nil)
     }
     
     @objc func thumbsUpButtonTouched(_ sender: UIButton) {
@@ -115,7 +126,6 @@ extension HomeFeedVC: UITableViewDataSource {
             } else {
                 cell.numberOfLikesLabel.text = "0"
             }
-            
         }
     }
     
@@ -150,7 +160,9 @@ extension HomeFeedVC: UITableViewDataSource {
             //Then we can present the VC
             allCommentsVCInNav.modalTransitionStyle = .coverVertical
             allCommentsVCInNav.modalPresentationStyle = .overCurrentContext
-            present(allCommentsVCInNav, animated: true, completion: nil)
+            
+            navigationController?.pushViewController(allCommentsVC, animated: true)
+            //present(allCommentsVC, animated: true, completion: nil)
         }
     }
     
