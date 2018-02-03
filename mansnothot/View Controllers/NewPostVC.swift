@@ -22,7 +22,7 @@ class NewPostVC: UIViewController {
     let newPostView = NewPostView()
     
     //This is the sample Array of Categories
-    let categories = ["Food", "Politics", "ThirstTraps", "Religion", "Dating", "Random", "Relationships", "Funny", "Weird", "Books", "Movies", "Entertainment", "Video Games", "Board Games", "Social", "Suggestions", "ThotStuff"]
+    let categories = ["Advice", "AMA", "Animals", "Art", "Beauty", "Books", "Business", "Cats", "Celebs", "Cooking", "Cosplay", "Cute", "Dating", "Drugs", "Dogs", "Education", "ELI5", "Entertainment", "Fashion", "Fitness", "FML", "Food", "Funny", "Health", "Hmm", "Hobbies", "IRL", "LGBTQ+", "Lifestyle", "Memes", "MFW", "MLIA", "Music", "Movies", "Nature", "News", "NSFW", "Other", "Poetry", "Politics", "Random", "Religion", "Relationships", "Science", "Sex", "Sports", "Stories", "Tech", "TFW", "Thirst Traps", "THOT Stuff", "THOT Thoughts", "Throwback", "Travel", "TV", "Weird", "Women", "Work", "World", "WTF"]
     
     
     override func viewDidLoad() {
@@ -50,10 +50,20 @@ class NewPostVC: UIViewController {
         // Set Category Button
         newPostView.categoryButton.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
         
+        // Set Plus Button
+        newPostView.plusSignButton.addTarget(self, action: #selector(addImageButton), for: .touchUpInside)
+        
+    }
+    
+    @objc private func addImageButton() {
+        // Place add image function here
+        print("Added Image")
+        
     }
     
     @objc private func post() {
         // Checks if required fields are filled before posting
+        print("Posted Post")
         
     }
     
