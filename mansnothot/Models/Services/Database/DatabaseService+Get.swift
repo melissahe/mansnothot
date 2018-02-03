@@ -39,6 +39,39 @@ extension DatabaseService {
         }
     }
     
+//    /**
+//     Retrieves the unique user ID associated with the given email.
+//     
+//     - Parameters:
+//        - email: The email given by the current user.
+//        - completion: A closure that executes after a UserProfile is made.
+//        - UID: The unique userID for the current, authenticated user.
+//     */
+//    public func getUID(fromEmail email: String, completion: @escaping (_ UID: String?) -> Void) {
+//        usersRef.observeSingleEvent(of: .value) { (dataSnapshot) in
+//            guard let childrenSnapshots = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+//                completion(nil)
+//                return
+//            }
+//            
+//            for childSnapshot in childrenSnapshots {
+//                guard
+//                    let userDict = childSnapshot.value as? [String : Any],
+//                    let userEmail = userDict["email"] as? String,
+//                    let userID = userDict["userID"] as? String
+//                else {
+//                    completion(nil)
+//                    return
+//                }
+//                
+//                if userEmail == email {
+//                    completion(userID)
+//                    return
+//                }
+//            }
+//        }
+//    }
+    
     /** Gets all of the posts for a single user. Sorted by timestamp by default from newest to oldest.
     This method returns the posts through the DatabaseServiceDelegate protocol didGetUserPosts(_:, posts:) method.
      
