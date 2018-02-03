@@ -25,7 +25,7 @@ class FileManagerHelper {
     
     private var currentUserProfile: UserProfile? {
       didSet {
-        //save function goes here
+        saveCurrentUser()
       }
     }
     
@@ -41,17 +41,17 @@ class FileManagerHelper {
     //to finish
     //load
     public func loadCurrentUser() {
-        let filePath = dataFilePath(fileName: currentUserPlist)
-        
-        do {
-            let data = try Data.init(contentsOf: filePath)
-            let savedUserProfile = try decoder.decode(UserProfile.self, from: data)
-            currentUserProfile = savedUserProfile
-            print("loaded user profile!!")
-        } catch {
-            print(error)
-            print("couldn't load user profile :(")
-        }
+//        let filePath = dataFilePath(fileName: currentUserPlist)
+//        
+//        do {
+//            let data = try Data.init(contentsOf: filePath)
+//            let savedUserProfile = try decoder.decode(UserProfile.self, from: data)
+//            currentUserProfile = savedUserProfile
+//            print("loaded user profile!!")
+//        } catch {
+//            print(error)
+//            print("couldn't load user profile :(")
+//        }
     }
     
     //get - //maybe use this to know what posts to get from firebase??
@@ -60,17 +60,17 @@ class FileManagerHelper {
     }
     
     //save - when saving, it should push changes of current user to firebase??
-    private func saveCurrentUser() -> Bool {
+    private func saveCurrentUser() {
         let filePath = dataFilePath(fileName: currentUserPlist)
         
         do {
             let data = try encoder.encode(currentUserProfile)
             try data.write(to: filePath)
-            return true
+            print("saved!!")
         } catch {
+            print("couldn't save!!")
             print(error)
         }
-        return false
     }
 
     //add - when user logs in!!
