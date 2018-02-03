@@ -25,8 +25,7 @@ class DatabaseService: NSObject {
         super.init()
     }
     
-    /** The singleton object for the DatabaseService API client.
-     */
+    /// The singleton object for the DatabaseService API client.
     static let manager = DatabaseService()
     
     public weak var delegate: DatabaseServiceDelegate?
