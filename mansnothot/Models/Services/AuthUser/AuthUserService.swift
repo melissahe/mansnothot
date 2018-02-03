@@ -18,98 +18,90 @@ import FirebaseAuth
 
 typealias DisplayNameTaken = Bool
 
-@objc protocol AuthUserServiceDelegate: class {
-    
-    /** This method is called when user successfully logs in.
-     
-    - Parameters:
-        - authUserService: The Firebase/Auth API Client.
-        - userProfile: A UserProfile object associated with the current user.
-     */
-    @objc optional func didLogin(_ authUserService: AuthUserService, userProfile: UserProfile)
-    
-    /** This method returns an error when attempting to login.
-     
-    - Parameters:
-        - authUserService: The Firebase/Auth API Client.
-        - error: The error message that occurred when attempting to login.
-     */
-    @objc optional func didFailLogin(_ authUserService: AuthUserService, error: String)
-    
-    /** This method is called when user successfully logs out.
-     
-    - Parameters:
-        - authUserService: The Firebase/Auth API Client.
-     */
-    @objc optional func didSignOut(_ authUserService: AuthUserService)
-    
-    /** This method returns an error when attempting to sign out.
-     
-    - Parameters:
-        - authUserService: The Firebase/Auth API Client.
-        - error: The error message that occurred when attempting to sign out.
-     */
-    @objc optional func didFailSignOut(_ authUserService: AuthUserService, error: String)
-    
-    /** This method returns an error when attempting to create an account.
-     
-    - Parameters:
-        - authUserService: The Firebase/Auth API Client.
-        - userProfile: A UserProfile object associated with the current user.
-     */
-    @objc optional func didCreateUser(_ authUserService: AuthUserService, userProfile: UserProfile)
-    
-    /** This method returns an error when attempting to create an account.
-     
-    - Parameters:
-        - authUserService: The Firebase/Auth API Client.
-        - error: The error message that occurred when attempting to create an account.
-     */
-    @objc optional func didFailCreatingUser(_ authUserService: AuthUserService, error: String)
-}
-
+/** This API client is responsible for logging the user in and creating accounts in the Firebase database.
+ */
 class AuthUserService: NSObject {
     private override init() {
         super.init()
         self.auth = Auth.auth()
     }
     
+    /// The singleton object associated with the AuthUserService API client.
     static let manager = AuthUserService()
     private var auth: Auth!
     weak public var delegate: AuthUserServiceDelegate?
     
     //you should generate current user profile using getUserProfile func
-    //logging in with existing profile
-    public func login(with email: String, and password: String) {
+    /**
+     Logs the user in with their email and password.
+     
+     - Parameters:
+        - email: The email associated with the account.
+        - password: The password associated with the account.
+     */
+    public func login(withEmail email: String, andPassword password: String) {
         auth.signIn(withEmail: email, password: password) { (user, error) in
             if let error = error {
                 self.delegate?.didFailLogin?(self, error: error.localizedDescription)
             } else if let user = user {
+                if !user.isEmailVerified {
+                    self.delegate?.didFailEmailVerification?(self, user: user, error: "Your email is currently not verified. Please check your email and verify your account before proceeding.")
+                    
+                    self.signOut()
+                }
+                
                 DatabaseService.manager.getUserProfile(withUID: user.uid, completion: { (userProfile) in
                     self.delegate?.didLogin?(self, userProfile: userProfile)
                 })
             }
         }
     }
+    
     //first time accounts should add user profile with default placeholder image for image, blank bio and 0 flags
+    /**
+     Creates an account for the user with their email and password.
+     
+     - Parameters:
+        - email: The email used to make the account.
+        - password: The password used to make the account.
+        - displayName: The displayName used to make the account.
+        - ifNameTaken: A closure that returns only if the displayName is already taken.
+     */
     public func createAccount(withEmail email: String, password: String, andDisplayName displayName: String, ifNameTaken: @escaping () -> Void) {
         DatabaseService.manager.checkIfDisplayNameIsTaken(displayName, currentUserID: nil) { (nameIsTaken, oldName, newName) in
             if nameIsTaken {
                 ifNameTaken()
-            } else {
-                self.auth.createUser(withEmail: email, password: password) { (user, error) in
-                    if let error = error {
-                        self.delegate?.didFailCreatingUser?(self, error: error.localizedDescription)
+                return
+            }
+            self.auth.createUser(withEmail: email, password: password) { (user, error) in
+                if let error = error {
+                    self.delegate?.didFailCreatingUser?(self, error: error.localizedDescription)
+                }
+                if let user = user {
+                    user.sendEmailVerification(completion: { (error) in
+                        if let error = error {
+                            self.delegate?.didFailEmailVerification?(self, user: user, error: error.localizedDescription)
+                        } else {
+                            self.delegate?.didSendEmailVerification?(self, user: user, message: "A verification email has been sent. Please check your email and verify your account before logging in.")
+                        }
+                    })
+                    
+                    let newUserProfile = UserProfile(email: email, userID: user.uid, displayName: displayName, bio: nil, flags: 0, imageURL: nil)
+                    DatabaseService.manager.addUserProfile(newUserProfile)
+                    
+                    if !user.isEmailVerified {
+                        self.signOut()
                     }
-                    if let user = user {
-                        let newUserProfile = UserProfile(email: email, userID: user.uid, displayName: displayName, bio: nil, flags: 0, imageURL: nil)
-                        DatabaseService.manager.addUserProfile(newUserProfile)
-                        self.delegate?.didCreateUser?(self, userProfile: newUserProfile)
-                    }
+                    self.delegate?.didCreateUser?(self, userProfile: newUserProfile)
                 }
             }
+            
         }
     }
+    
+    /**
+     Signs the current user out of the app and Firebase.
+     */
     public func signOut() {
         do {
             try auth.signOut()
@@ -121,8 +113,10 @@ class AuthUserService: NSObject {
         }
     }
     //can be used to check is user is logged in - if they log in
+    
+    /// Gets and returns the current user logged into Firebase as a User object. The User object contains info about the user, like phone number, display name, email, etc. Methods can also be called on this User object to do things like send email verification, etc.
     public func getCurrentUser() -> User? {
-        return auth.currentUser //returns info like: phone number, photo url, uid, email, display name, etc., can also check email verification!
+        return auth.currentUser
     }
     
 }
