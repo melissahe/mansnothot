@@ -11,13 +11,12 @@ import FirebaseAuth
 
 //Message by Melissa: the struct we'll use for each user
 
-class UserProfile: NSObject, Codable {
+class UserProfile: NSObject {
     let email: String
     let userID: String //should be from firebase
     var displayName: String
     var bio: String?
-    var image: Data? // url?? data?? - wouldn't let me put UIImage, as it didn't conform to codable; firebase auth current user also has a parameter for "photoURL" so we could use that too - won't let me store data cuz it'll crash
-//    var password: String //might not need this if firebase stores the user profile
+    var imageURL: String?
     var flags: Int
 //    var posts: [Post] //we can track posts by using their indices as keys, posts as the values
     
@@ -25,12 +24,12 @@ class UserProfile: NSObject, Codable {
         return lhs.userID == rhs.userID
     }
     
-    init(email: String, userID: String, displayName: String, bio: String?, flags: Int) {
+    init(email: String, userID: String, displayName: String, bio: String?, flags: Int, imageURL: String?) {
         self.email = email
         self.userID = userID
         self.displayName = displayName
         self.bio = bio
-//        self.password = password
         self.flags = flags
+        self.imageURL = imageURL ?? ""
     }
 }

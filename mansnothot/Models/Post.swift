@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Post: NSObject, Codable {
+class Post: NSObject {
     let postID: String //should be the same as their index number in the array of posts, this way we can access the same post in the firebase json, and be able to update their posts if needed
 //    var comments: [Comment] //we can track comments by using their indices as keys, comments as the values
     let category: String
@@ -18,6 +18,7 @@ class Post: NSObject, Codable {
     var numberOfLikes: Int = 0
     var numberOfDislikes: Int = 0
     var flags: Int = 0
+    var imageURL: String?
     var userLiked: Bool = false //should keep track of whether user liked post
     var userDisliked: Bool = false //should keep track of whether user disliked post //if one is true, the other must be false
     var timestamp: Double = Date.timeIntervalSinceReferenceDate
@@ -32,9 +33,10 @@ class Post: NSObject, Codable {
         self.userID = userID
         self.title = title
         self.bodyText = bodyText
+        self.imageURL = ""
     }
     
-    init(postID: String, category: String, userID: String, title: String, bodyText: String?, numberOfLikes: Int, numberOfDislikes: Int, flags: Int, userLiked: Bool, userDisliked: Bool, timestamp: Double) {
+    init(postID: String, category: String, userID: String, title: String, bodyText: String?, numberOfLikes: Int, numberOfDislikes: Int, flags: Int, imageURL: String?, userLiked: Bool, userDisliked: Bool, timestamp: Double) {
         self.postID = postID
         self.category = category
         self.userID = userID
@@ -43,6 +45,7 @@ class Post: NSObject, Codable {
         self.numberOfLikes = numberOfLikes
         self.numberOfDislikes = numberOfDislikes
         self.flags = flags
+        self.imageURL = imageURL ?? ""
         self.userLiked = userLiked
         self.userDisliked = userDisliked
         self.timestamp = timestamp

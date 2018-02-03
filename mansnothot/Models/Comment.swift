@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Comment: NSObject, Codable {
+class Comment: NSObject {
     let postID: String //so we can identify specific comments from the user
     let commentID: String //this should be the unique comment id
     let userID: String
@@ -37,6 +37,7 @@ class Comment: NSObject, Codable {
         self.text = text
         self.timestamp = timestamp
     }
+    
 }
 
 extension Array where Element == Comment {
