@@ -6,12 +6,11 @@
 //  Copyright © 2018 Melissa He @ C4Q. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import FirebaseDatabase
 
 extension DatabaseService {
     //get
-    //reads info from current user - doesn't get current image just yet
     /** Generates a UserProfile object for the current user from the database.
      
     - Parameters:
@@ -29,26 +28,18 @@ extension DatabaseService {
             guard let displayName = dataSnapshot.childSnapshot(forPath: "displayName").value as? String else {
                 return
             }
-            guard let bio = dataSnapshot.childSnapshot(forPath: "bio").value as? String else {
-                return
-            }
-            //we need to figure out what we're doing with the user image
-            //            guard let imageString = dataSnapshot.childSnapshot(forPath: "image").value as? String else {
-            //                return
-            //            }
-            guard let password = dataSnapshot.childSnapshot(forPath: "password").value as? String else {
-                return
-            }
+            let bio = dataSnapshot.childSnapshot(forPath: "bio").value as? String
+            let imageURL = dataSnapshot.childSnapshot(forPath: "imageURL").value as? String
             guard let numberOfFlags = dataSnapshot.childSnapshot(forPath: "numberOfFlags").value as? Int else {
                 return
             }
-            let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName, bio: bio, image: nil, password: password, numberOfFlags: numberOfFlags)
+            
+            let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName, bio: bio, flags: numberOfFlags, imageURL: imageURL)
             completion(currentUserProfile)
         }
     }
     
     /** Gets all of the posts for a single user. Sorted by timestamp by default from newest to oldest.
-    
     This method returns the posts through the DatabaseServiceDelegate protocol didGetUserPosts(_:, posts:) method.
      
     - Parameters:
@@ -63,7 +54,6 @@ extension DatabaseService {
     }
     
     /** Gets all of the posts. Sorted by timestamp by default from newest to oldest.
-    
     This method returns the posts through the DatabaseServiceDelegate protocol didGetAllPosts(_:, posts:) method.
      
     - Parameters:
@@ -84,8 +74,6 @@ extension DatabaseService {
                     let bodyText = postDict["bodyText"] as? String,
                     let category = postDict["category"] as? String,
                     let flags = postDict["flags"] as? Int,
-                    //need to figure out how we'll be doing image!!
-//                    let image = postDict["image"] as? String,
                     let numberOfDislikes = postDict["numberOfDislikes"] as? Int,
                     let numberOfLikes = postDict["numberOfLikes"] as? Int,
                     let postID = postDict["postID"] as? String,
@@ -98,7 +86,8 @@ extension DatabaseService {
                         print("couldn't get post")
                         return
                 }
-                let post = Post(postID: postID, category: category, userID: userID, title: title, bodyText: bodyText, image: nil, numberOfLikes: numberOfLikes, numberOfDislikes: numberOfDislikes, flags: flags, userLiked: userLiked, userDisliked: userDisliked, timestamp: timestamp)
+                let imageURL = postDict["imageURL"] as? String
+                let post = Post(postID: postID, category: category, userID: userID, title: title, bodyText: bodyText, numberOfLikes: numberOfLikes, numberOfDislikes: numberOfDislikes, flags: flags, imageURL: imageURL, userLiked: userLiked, userDisliked: userDisliked, timestamp: timestamp)
                 posts.append(post)
             }
             completion(posts.sortedByTimestamp())
@@ -106,8 +95,7 @@ extension DatabaseService {
     }
     
     /** Gets all of the comments for a single post. Sorted by timestamp by default from newest to oldest.
-     
-    This method returns the posts through the DatabaseServiceDelegate protocol didGetPostComments(_:, comments:) method.
+     This method returns the posts through the DatabaseServiceDelegate protocol didGetPostComments(_:, comments:) method.
      
     - Parameters:
         - passedInPostID: The unique postID for the current, selected post.
