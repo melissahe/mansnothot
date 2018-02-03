@@ -9,6 +9,7 @@
 import Foundation
 
 @objc protocol DatabaseServiceDelegate: class {
+    //change
     /** This method returns when the displayName for the current user has been successfully changed.
      
     - Parameters:
@@ -26,6 +27,7 @@ import Foundation
      */
     @objc optional func didFailChangingDisplayName(_ databaseService: DatabaseService, error: String)
     
+    //get
     /** This method returns the all posts from the current, authenticated user, sorted from newest to oldest.
      
     - Parameters:
