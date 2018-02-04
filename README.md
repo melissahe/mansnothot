@@ -1,7 +1,7 @@
-# mansnothot
-Persperating!!
+# mansnothot Thot Thoughts
+Brough two you by Team Perspiration!
 
-//to do rest
+Whether you're looking to express yourself with no limits, or searching for a exciting night with new friends, the mansnothot Thot Thoughts iOS app makes finding the perfect time easy.
 
 ## Overview
 //to do
@@ -27,9 +27,9 @@ CocoaPods is a dependency manager for Cocoa projects. You can install it with th
 ### Pods
 - [Alamofire](https://github.com/Alamofire/Alamofire)
 - [Firebase](https://firebase.google.com)
-	- Firebase/Core
-	- Firebase/Auth
-	- Firebase/Database
+- Firebase/Core
+- Firebase/Auth
+- Firebase/Database
 - [KingFisher](https://github.com/onevcat/Kingfisher)
 - [SnapKit](http://snapkit.io/docs)
 - [TableFlip](https://github.com/mergesort/TableFlip)
@@ -43,9 +43,14 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Alamofire',
-    pod 'SnapKit',
-    pod 'KingFisher'
+pod 'Alamofire',
+pod 'SnapKit',
+pod 'KingFisher'
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
+pod 'Firebase/Database'
+pod 'TableFlip'
+
 end
 ```
 
@@ -53,8 +58,22 @@ Then, run the following command in Terminal:
 
 `$ pod install`
 
-## Credits (Team Persperation!!)
-- **Project Manager**: Richard Crischlow  //todo - github badge
-- **Tech Lead**: Melissa He  //todo - github badge
-- **UI/UX**: Margaret (Maggie) Chan  //todo - github badge
-- **QA**: Izza Nadeem //todo - github badge
+
+## Deployment to iOS Device
+You can sideload this app into your iOS Device with. Xcode with the following steps:
+- **Open** the mansnothot project - the file that says "mansnothot.xcworkspace".
+- **Click** on mansnothot in the left sidebar
+- **Go** to “Xcode -> Preferences“, and click on the “Accounts” tab. You’ll have to add your Apple ID here. You can simply click on the plus icon in the bottom of the screen and add your Apple ID. (It doesn’t need to be a developer ID; your free Apple ID works as well.)
+- **Change** the value next to “Bundle Identifier“, and make it anything that is unique, and looks like com.foo.mansnothot (Replace “foo” with your desired name.)
+- **Click** on the drop down box next to “Development Team”, and select "Your Name (Personal team)".
+- **Connect** your iPhone to your Mac. Then, go to “Product -> Destination“, and select your iPhone from the list.
+- **Click** on the “Run” button in Xcode. Xcode will then begin compiling the app for your iPhone.
+- Xcode will prompt you with an error saying that you need to trust the developer on the iPhone. On your iPhone, **Go To** “Settings -> General -> Profiles and Device Management“. Tap on the entry under “Developer App”, and tap on “Trust”.
+- You can now go to your homescreen, and look for mansnothot. **Tap** on the app to launch mansnothot Thot Thoughts!
+
+## Credits (Team Perspiration!!)
+- **Project Manager**: [Richard Crichlow](www.github.com "Github")
+- **Tech Lead**: [Melissa He](https://github.com/melissahe "Github")
+- **UI/UX**: [Margaret (Maggie) Chan](https://github.com/margarethchan "Github")
+- **QA**: [Izza Nadeem](https://github.com/IzzaNadeem "Github")
+
