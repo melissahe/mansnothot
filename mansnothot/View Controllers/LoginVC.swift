@@ -55,11 +55,12 @@ class LoginVC: UIViewController {
     
     @objc func loginToAccount(selector: UIButton) {
         print("Log In button pressed")
-        
         // temporary - dismiss without checking credentials
         dismiss(animated: true, completion: nil)
         
-        // TODO: Verify credentials through Firebase and then dismiss view to show Tab Bar Controller > Home Feed
+        /// TODO: Verify credentials through Firebase and then dismiss view to show Tab Bar Controller > Home Feed
+        
+        //        showAlert(title: "Incorrect Login", message: "The email and/or password you entered are incorrect. Please try again. (Firebase message goes here instead)")
     }
     
     @objc func forgotPass(selector: UIButton) {
@@ -101,7 +102,7 @@ class LoginVC: UIViewController {
     /// host this here? not sure
     func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default) { alert in }
+        let okAction = UIAlertAction(title: "OK", style: .default) { alert in }
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }

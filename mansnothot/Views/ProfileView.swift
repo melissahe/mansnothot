@@ -37,6 +37,7 @@ class ProfileView: UIView {
         let btn = UIButton()
         btn.setTitle("Change Image", for: .normal)
         btn.setTitleColor(.green, for: .normal)
+        btn.titleLabel?.font = UIFont(name: "Arial", size: 15)
         return btn
     }()
     
@@ -51,7 +52,8 @@ class ProfileView: UIView {
     
     lazy var changeDisplayName: UIButton = {
         let cdn = UIButton()
-        cdn.setTitle("Change Name", for: .normal)
+        cdn.setTitle("Change Username", for: .normal)
+        cdn.titleLabel?.font = UIFont(name: "Arial", size: 15)
         cdn.setTitleColor(.green, for: .normal)
         return cdn
     }()

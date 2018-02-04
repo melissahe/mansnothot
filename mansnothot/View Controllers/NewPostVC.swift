@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import AVFoundation
 
 //Purpose: let user make new post to the HomeFeedVC
 
@@ -25,6 +26,10 @@ class NewPostVC: UIViewController {
     let categories = ["Advice", "AMA", "Animals", "Art", "Beauty", "Books", "Business", "Cats", "Celebs", "Cooking", "Cosplay", "Cute", "Dating", "Drugs", "Dogs", "Education", "ELI5", "Entertainment", "Fashion", "Fitness", "FML", "Food", "Funny", "Health", "Hmm", "Hobbies", "IRL", "LGBTQ+", "Lifestyle", "Memes", "MFW", "MLIA", "Music", "Movies", "Nature", "News", "NSFW", "Other", "Poetry", "Politics", "Random", "Religion", "Relationships", "Science", "Sex", "Sports", "Stories", "Tech", "TFW", "Thirst Traps", "THOT Stuff", "THOT Thoughts", "Throwback", "Travel", "TV", "Weird", "Women", "Work", "World", "WTF"]
     
     
+    private let imagePickerVC = UIImagePickerController()
+    private var currentSelectedImage: UIImage!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray
@@ -34,6 +39,8 @@ class NewPostVC: UIViewController {
         newPostView.postTextView.delegate = self
         newPostView.titleTextField.delegate = self
         setupViews()
+        
+        imagePickerVC.delegate = self
     }
     
     func setupViews() {
@@ -57,14 +64,40 @@ class NewPostVC: UIViewController {
     
     @objc private func addImageButton() {
         // Place add image function here
-        print("Added Image")
-        
+        print("Open Image Library")
+        imagePickerVC.sourceType = .photoLibrary
+        checkAVAuthorization()
+    }
+    
+    private func checkAVAuthorization() {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        switch status {
+        case .notDetermined:
+            print("notDetermined")
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted) in
+                if granted {
+                    self.showImagePicker()
+                } else {
+                    print("not granted")
+                }
+            })
+        case .denied:
+            print("denied")
+        case .authorized:
+            print("authorized")
+            showImagePicker()
+        case .restricted:
+            print("restricted")
+        }
+    }
+    
+    private func showImagePicker() {
+        present(imagePickerVC, animated: true, completion: nil)
     }
     
     @objc private func post() {
         // Checks if required fields are filled before posting
         print("Posted Post")
-        
     }
     
     @objc private func clear() {
@@ -73,8 +106,6 @@ class NewPostVC: UIViewController {
         newPostView.postTextView.text = "Enter Post Text Here"
         newPostView.titleTextField.text = ""
         newPostView.categoryButton.setTitle("Pick a Category", for: .normal)
-        
-        
     }
     
     @objc private func categoryButtonAction(sender: UIButton!) {
@@ -84,12 +115,14 @@ class NewPostVC: UIViewController {
         } else {
             newPostView.tableView.isHidden = true
         }
-        
     }
 }
+
+
 extension NewPostVC: UITextFieldDelegate {
     
 }
+
 extension NewPostVC: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         
@@ -127,8 +160,23 @@ extension NewPostVC: UITableViewDelegate {
 }
 
 
+extension NewPostVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { print("image is nil"); return }
+        newPostView.pickImageView.image = image
+        
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 
-
+    
+}
 
 
 
