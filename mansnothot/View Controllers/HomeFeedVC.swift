@@ -64,6 +64,9 @@ class HomeFeedVC: UIViewController {
         //Give SegmentedBar Functionality
         homeFeedView.segmentedBar.addTarget(self, action: #selector(changeColor(sender:)), for: .valueChanged)
     
+        //Disable TableViewCell from being highlighted
+        homeFeedView.tableView.allowsSelection = false
+        
     }
     
     //This is a func to test the segmentedbar only
@@ -203,6 +206,7 @@ extension HomeFeedVC: UITableViewDataSource {
     
 }
 extension HomeFeedVC: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
