@@ -25,9 +25,10 @@ class NewPostVC: UIViewController {
     //This is the sample Array of Categories
     let categories = ["Advice", "AMA", "Animals", "Art", "Beauty", "Books", "Business", "Cats", "Celebs", "Cooking", "Cosplay", "Cute", "Dating", "Drugs", "Dogs", "Education", "ELI5", "Entertainment", "Fashion", "Fitness", "FML", "Food", "Funny", "Health", "Hmm", "Hobbies", "IRL", "LGBTQ+", "Lifestyle", "Memes", "MFW", "MLIA", "Music", "Movies", "Nature", "News", "NSFW", "Other", "Poetry", "Politics", "Random", "Religion", "Relationships", "Science", "Sex", "Sports", "Stories", "Tech", "TFW", "Thirst Traps", "THOT Stuff", "THOT Thoughts", "Throwback", "Travel", "TV", "Weird", "Women", "Work", "World", "WTF"]
     
-    private let imagePickerVC = UIImagePickerController()
     
+    private let imagePickerVC = UIImagePickerController()
     private var currentSelectedImage: UIImage!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,11 +95,9 @@ class NewPostVC: UIViewController {
         present(imagePickerVC, animated: true, completion: nil)
     }
     
-    
     @objc private func post() {
         // Checks if required fields are filled before posting
         print("Posted Post")
-        
     }
     
     @objc private func clear() {
@@ -107,8 +106,6 @@ class NewPostVC: UIViewController {
         newPostView.postTextView.text = "Enter Post Text Here"
         newPostView.titleTextField.text = ""
         newPostView.categoryButton.setTitle("Pick a Category", for: .normal)
-        
-        
     }
     
     @objc private func categoryButtonAction(sender: UIButton!) {
@@ -118,9 +115,10 @@ class NewPostVC: UIViewController {
         } else {
             newPostView.tableView.isHidden = true
         }
-        
     }
 }
+
+
 extension NewPostVC: UITextFieldDelegate {
     
 }
@@ -176,8 +174,9 @@ extension NewPostVC: UIImagePickerControllerDelegate, UINavigationControllerDele
         dismiss(animated: true, completion: nil)
     }
     
-}
 
+    
+}
 
 
 
