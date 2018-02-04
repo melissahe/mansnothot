@@ -97,7 +97,32 @@ class NewPostVC: UIViewController {
     
     @objc private func post() {
         // Checks if required fields are filled before posting
-        print("Posted Post")
+        // Each post needs a title
+        if newPostView.titleTextField.text != "" {
+            if newPostView.postTextView.text != "Enter Post Text Here" {
+                
+                //This is where the post function would go
+                print("Posted Post")
+                let alert = UIAlertController(title: "Success!", message: "Post Created!", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                alert.addAction(ok)
+                present(alert, animated: true, completion: nil)
+            } else {
+                //This triggers if user didn't put text in the postTextView
+                let alert = UIAlertController(title: "Error", message: "Please have something in the post's body in order to post.", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                alert.addAction(ok)
+                present(alert, animated: true, completion: nil)
+            }
+            
+            
+        } else {
+            // This triggers if the user didn't enter a title
+            let alert = UIAlertController(title: "Error", message: "Please enter a title for your post", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(ok)
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     @objc private func clear() {
