@@ -98,12 +98,46 @@ extension HomeFeedVC: UITableViewDataSource {
         cell.commentButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         cell.thumbsUpButton.addTarget(self, action: #selector(thumbsUpButtonTouched(_:)), for: .touchUpInside)
         cell.thumbsDownButton.addTarget(self, action: #selector(thumbsDownButtonTouched(_:)), for: .touchUpInside)
-        cell.flagButton.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
+        cell.flagButton.addTarget(self, action: #selector(showReportActionSheet), for: .touchUpInside)
+        cell.shareButton.addTarget(self, action: #selector(showShareActionSheet), for: .touchUpInside)
         
         return cell
     }
     
-    @objc func showActionSheet(){
+    @objc func showShareActionSheet(){
+        let alert = UIAlertController(title: "Share", message: nil, preferredStyle: .actionSheet)
+        let goToFacebook = UIAlertAction(title: "Facebook", style: .destructive, handler: {(UIAlertAction) -> Void in
+            print("Add Share To Facebook Function here")
+        })
+        let goToTwitter = UIAlertAction(title: "Twitter", style: .destructive, handler: {(UIAlertAction) -> Void in
+            print("Add Share to Twitter Function here")
+        })
+        let goToInstagram = UIAlertAction(title: "Instagram", style: .destructive, handler: {(UIAlertAction) -> Void in
+            print("Add Share to Instagram Function here")
+        })
+        let goToSnapChat = UIAlertAction(title: "Snapchat", style: .destructive, handler: {(UIAlertAction) -> Void in
+            print("Add Share to SnapChat Function here")
+        })
+        let goToEmail = UIAlertAction(title: "Email", style: .destructive, handler: {(UIAlertAction) -> Void in
+            print("Add Share to Email Function here")
+        })
+        let goToSlack = UIAlertAction(title: "Slack", style: .destructive, handler: {(UIAlertAction) -> Void in
+            print("Add Share to Slack Function here")
+        })
+        let goToTumblr = UIAlertAction(title: "Tumblr", style: .destructive, handler: {(UIAlertAction) -> Void in
+            print("Add Share to Tumblr Function here")
+        })
+        alert.addAction(goToFacebook)
+        alert.addAction(goToTwitter)
+        alert.addAction(goToEmail)
+        alert.addAction(goToSlack)
+        alert.addAction(goToTumblr)
+        alert.addAction(goToSnapChat)
+        alert.addAction(goToInstagram)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func showReportActionSheet(){
         let alert = UIAlertController(title: "Flag", message: "Pick One", preferredStyle: .actionSheet)
         let reportUser = UIAlertAction(title: "Report User", style: .destructive, handler: {(UIAlertAction) -> Void in
             print("Add Report User Function here")
