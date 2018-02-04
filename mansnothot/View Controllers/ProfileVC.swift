@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import AVFoundation
 
 //Purpose: to show the user profile in the third tab
 
@@ -29,6 +30,9 @@ class ProfileVC: UIViewController {
     
     lazy var profileView = ProfileView()
     
+    private let imagePickerVC = UIImagePickerController()
+    private var currentSelectedImage: UIImage!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
@@ -42,12 +46,82 @@ class ProfileVC: UIViewController {
         profileView.seeMyPostsButton.addTarget(self, action: #selector(seePostsButtonTapped), for: .touchUpInside)
         profileView.changeDisplayName.addTarget(self, action: #selector(changeDisplayName), for: .touchUpInside)
         profileView.changeProfileImageButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
+        
+        imagePickerVC.delegate = self
     }
     
     @objc func changeImageButtonTapped() {
         //TODO- Allow user to change image by taking them to camera or image
         //TODO ALERTVIEW CONTROLLER WITH ACTION SHEET
+        
+//        imagePickerVC.sourceType = .photoLibrary
+
+        showAlert(title: "title", message: "message")
+        
     }
+    
+    private func checkAVAuthorization() {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        switch status {
+        case .notDetermined:
+            print("notDetermined")
+            AVCaptureDevice.requestAccess(for: .video, completionHandler: { (granted) in
+                if granted {
+                    self.showImagePicker()
+                    print("granted")
+                } else {
+                    print("not granted")
+                }
+            })
+        case .denied:
+            print("denied")
+        case .authorized:
+            print("authorized")
+            showImagePicker()
+        case .restricted:
+            print("restricted")
+        }
+    }
+    
+    private func showImagePicker() {
+        imagePickerVC.sourceType = .photoLibrary
+//        checkAVAuthorization()
+        present(imagePickerVC, animated: true, completion: nil)
+    }
+    
+    private func showCamera() {
+        imagePickerVC.sourceType = .camera
+//        checkAVAuthorization()
+    }
+
+    
+    /// begin photo action sheet
+    // from https://stackoverflow.com/questions/27632614/how-to-use-uialertcontroller-to-replace-uiactionsheet
+    func showAlert(title: String, message: String) {
+        let photoActionSheet = UIAlertController.init(title: "Please choose a source type", message: nil, preferredStyle: .actionSheet)
+        
+        photoActionSheet.addAction(UIAlertAction.init(title: "Take Photo", style: UIAlertActionStyle.default, handler: { (action) in
+            self.showCamera()
+            self.checkAVAuthorization()
+        }))
+        
+        photoActionSheet.addAction(UIAlertAction.init(title: "Choose Photo", style: UIAlertActionStyle.default, handler: { (action) in
+            self.showImagePicker()
+            self.checkAVAuthorization()
+        }))
+        
+        photoActionSheet.addAction(UIAlertAction.init(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) in
+            // self.dismissViewControllerAnimated(true, completion: nil) is not needed, this is handled automatically,
+            //Plus whatever method you define here, gets called,
+            //If you tap outside the UIAlertController action buttons area, then also this handler gets called.
+        }))
+        
+        //Present the controller
+        self.present(photoActionSheet, animated: true, completion: nil)
+    }
+    
+    /// end photo action sheet
+    
     
     @objc func changeDisplayName() {
         //TODO - ALLOW USER TO CHANGE NAME
@@ -65,10 +139,28 @@ class ProfileVC: UIViewController {
         // profileVC.present(myPostVC, animated: true, completion: nil)
         
         let myPostVC = MyPostsVC()
-//        myPostVC.modalTransitionStyle = .coverVertical
-//        myPostVC.modalPresentationStyle = .overCurrentContext
+        //        myPostVC.modalTransitionStyle = .coverVertical
+        //        myPostVC.modalPresentationStyle = .overCurrentContext
         navigationController?.pushViewController(myPostVC, animated: true)
         print("button tapped")
     }
+}
+
+
+extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { print("image is nil"); return }
+        profileView.profileImageView.image = image
+        
+        dismiss(animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
     
 }

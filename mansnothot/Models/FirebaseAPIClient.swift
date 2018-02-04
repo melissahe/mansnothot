@@ -26,14 +26,6 @@ class FirebaseAPIClient {
     static let manager = FirebaseAPIClient()
     //singleton objects as variables for easy access
 
-    
-    //add
-    public func addPost(forUID uid: String, completion: @escaping (Bool) -> Void) {
-        
-    }
-    public func addComment(forPost post: Post, completion: @escaping (Bool) -> Void) {
-        
-    }
     //delete
     //to do
     
