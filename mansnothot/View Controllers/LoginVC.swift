@@ -53,6 +53,7 @@ class LoginVC: UIViewController {
         
     }
     
+    
     @objc func loginToAccount(selector: UIButton) {
         print("Log In button pressed")
         // temporary - dismiss without checking credentials
@@ -73,8 +74,8 @@ class LoginVC: UIViewController {
     @objc func createNewAcct(selector: UIButton) {
         print("Create a New Account button pressed")
         
-        /// present CreateAccountVC
-//        present(createAcctVC, animated: true, completion: nil)
+        // present CreateAccountVC
+        present(createAcctVC, animated: true, completion: nil)
     }
     
     @objc func returnToLogin() {
