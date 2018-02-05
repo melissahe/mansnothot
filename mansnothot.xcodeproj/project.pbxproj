@@ -11,12 +11,15 @@
 		811C09C92020105E0072EDC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 811C09C82020105E0072EDC8 /* GoogleService-Info.plist */; };
 		811C09CB202012720072EDC8 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C09CA202012720072EDC8 /* FirebaseAPIClient.swift */; };
 		811C09CE202015330072EDC8 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C09CD202015330072EDC8 /* FileManagerHelper.swift */; };
+		815CDC7E2028E48F0043B291 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815CDC7D2028E48F0043B291 /* StorageService.swift */; };
 		8185CE67201FFB0200C38A96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185CE66201FFB0200C38A96 /* AppDelegate.swift */; };
 		8185CE6E201FFB0200C38A96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8185CE6D201FFB0200C38A96 /* Assets.xcassets */; };
 		81879A0F20239F0400CAD692 /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A0E20239F0400CAD692 /* AuthUserService.swift */; };
 		81879A112023B44A00CAD692 /* DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A102023B44A00CAD692 /* DatabaseService.swift */; };
 		81879A132023BAC700CAD692 /* DatabaseService+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A122023BAC700CAD692 /* DatabaseService+Get.swift */; };
 		81879A152023C85900CAD692 /* DatabaseServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A142023C85900CAD692 /* DatabaseServiceDelegate.swift */; };
+		81879A172024013C00CAD692 /* DatabaseService+Add.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A162024013C00CAD692 /* DatabaseService+Add.swift */; };
+		81954E0920254BBE00567D3C /* DatabaseService+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81954E0820254BBE00567D3C /* DatabaseService+Update.swift */; };
 		81AFD54620203FEF0091AEF9 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD54520203FEF0091AEF9 /* UserDefaultsHelper.swift */; };
 		81AFD5482020460E0091AEF9 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5472020460E0091AEF9 /* UserProfile.swift */; };
 		81AFD54A20204D380091AEF9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD54920204D380091AEF9 /* Post.swift */; };
@@ -50,7 +53,9 @@
 		81AFD5AA20210EB90091AEF9 /* OtherUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5A920210EB90091AEF9 /* OtherUserProfileView.swift */; };
 		81AFD5AC202110AB0091AEF9 /* EditMyPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5AB202110AB0091AEF9 /* EditMyPostView.swift */; };
 		81AFD5AE202115F50091AEF9 /* EditMyPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5AD202115F50091AEF9 /* EditMyPostVC.swift */; };
+		81E8124020256F3800D9A5F1 /* AuthUserServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E8123F20256F3800D9A5F1 /* AuthUserServiceDelegate.swift */; };
 		DB03EE7D202217E7001EFA31 /* CategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03EE7C202217E7001EFA31 /* CategoryTableViewCell.swift */; };
+		DBF839952028025F002F01E6 /* OtherUserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF839942028025F002F01E6 /* OtherUserProfileVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +64,7 @@
 		811C09C82020105E0072EDC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		811C09CA202012720072EDC8 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		811C09CD202015330072EDC8 /* FileManagerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
+		815CDC7D2028E48F0043B291 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		8185CE63201FFB0200C38A96 /* mansnothot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mansnothot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8185CE66201FFB0200C38A96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8185CE68201FFB0200C38A96 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -68,6 +74,8 @@
 		81879A102023B44A00CAD692 /* DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseService.swift; sourceTree = "<group>"; };
 		81879A122023BAC700CAD692 /* DatabaseService+Get.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Get.swift"; sourceTree = "<group>"; };
 		81879A142023C85900CAD692 /* DatabaseServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseServiceDelegate.swift; sourceTree = "<group>"; };
+		81879A162024013C00CAD692 /* DatabaseService+Add.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Add.swift"; sourceTree = "<group>"; };
+		81954E0820254BBE00567D3C /* DatabaseService+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Update.swift"; sourceTree = "<group>"; };
 		81AFD54520203FEF0091AEF9 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		81AFD5472020460E0091AEF9 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		81AFD54920204D380091AEF9 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -100,7 +108,9 @@
 		81AFD5A920210EB90091AEF9 /* OtherUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileView.swift; sourceTree = "<group>"; };
 		81AFD5AB202110AB0091AEF9 /* EditMyPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyPostView.swift; sourceTree = "<group>"; };
 		81AFD5AD202115F50091AEF9 /* EditMyPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyPostVC.swift; sourceTree = "<group>"; };
+		81E8123F20256F3800D9A5F1 /* AuthUserServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUserServiceDelegate.swift; sourceTree = "<group>"; };
 		DB03EE7C202217E7001EFA31 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
+		DBF839942028025F002F01E6 /* OtherUserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileVC.swift; sourceTree = "<group>"; };
 		F957C31C1006232E618B9EBA /* Pods-mansnothot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mansnothot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-mansnothot/Pods-mansnothot.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,6 +148,7 @@
 				81AFD5A32020FBDD0091AEF9 /* NewPostVC.swift */,
 				81AFD5AD202115F50091AEF9 /* EditMyPostVC.swift */,
 				81AFD5A720210AE00091AEF9 /* ImagePickerViewController.swift */,
+				DBF839942028025F002F01E6 /* OtherUserProfileVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -155,11 +166,8 @@
 		811C09CC202012B00072EDC8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				81954E062025432B00567D3C /* Services */,
 				811C09CA202012720072EDC8 /* FirebaseAPIClient.swift */,
-				81879A0E20239F0400CAD692 /* AuthUserService.swift */,
-				81879A142023C85900CAD692 /* DatabaseServiceDelegate.swift */,
-				81879A102023B44A00CAD692 /* DatabaseService.swift */,
-				81879A122023BAC700CAD692 /* DatabaseService+Get.swift */,
 				811C09CD202015330072EDC8 /* FileManagerHelper.swift */,
 				81AFD54520203FEF0091AEF9 /* UserDefaultsHelper.swift */,
 				81AFD5472020460E0091AEF9 /* UserProfile.swift */,
@@ -168,6 +176,14 @@
 				81AFD5702020C2710091AEF9 /* Alert.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		815CDC7C2028E47F0043B291 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				815CDC7D2028E48F0043B291 /* StorageService.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		8185CE5A201FFB0200C38A96 = {
@@ -199,6 +215,37 @@
 				811C09C82020105E0072EDC8 /* GoogleService-Info.plist */,
 			);
 			path = mansnothot;
+			sourceTree = "<group>";
+		};
+		81879A182024014200CAD692 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				81879A102023B44A00CAD692 /* DatabaseService.swift */,
+				81879A142023C85900CAD692 /* DatabaseServiceDelegate.swift */,
+				81879A122023BAC700CAD692 /* DatabaseService+Get.swift */,
+				81879A162024013C00CAD692 /* DatabaseService+Add.swift */,
+				81954E0820254BBE00567D3C /* DatabaseService+Update.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		81954E062025432B00567D3C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				815CDC7C2028E47F0043B291 /* Storage */,
+				81954E072025434600567D3C /* AuthUser */,
+				81879A182024014200CAD692 /* Database */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		81954E072025434600567D3C /* AuthUser */ = {
+			isa = PBXGroup;
+			children = (
+				81879A0E20239F0400CAD692 /* AuthUserService.swift */,
+				81E8123F20256F3800D9A5F1 /* AuthUserServiceDelegate.swift */,
+			);
+			path = AuthUser;
 			sourceTree = "<group>";
 		};
 		81AFD54E20204FAB0091AEF9 /* Views */ = {
@@ -402,6 +449,7 @@
 				81AFD55D202066DE0091AEF9 /* HomeFeedVC.swift in Sources */,
 				81AFD5952020E5000091AEF9 /* ProfileVC.swift in Sources */,
 				81AFD56F202074700091AEF9 /* AllCommentsTableViewCell.swift in Sources */,
+				81954E0920254BBE00567D3C /* DatabaseService+Update.swift in Sources */,
 				81AFD56B2020723F0091AEF9 /* AllCommentsVC.swift in Sources */,
 				81AFD559202064CF0091AEF9 /* CreateAccountView.swift in Sources */,
 				81879A152023C85900CAD692 /* DatabaseServiceDelegate.swift in Sources */,
@@ -409,13 +457,17 @@
 				81AFD557202063BE0091AEF9 /* LoginView.swift in Sources */,
 				81879A112023B44A00CAD692 /* DatabaseService.swift in Sources */,
 				811C09CE202015330072EDC8 /* FileManagerHelper.swift in Sources */,
+				815CDC7E2028E48F0043B291 /* StorageService.swift in Sources */,
+				81E8124020256F3800D9A5F1 /* AuthUserServiceDelegate.swift in Sources */,
 				81AFD54A20204D380091AEF9 /* Post.swift in Sources */,
 				81AFD5542020524A0091AEF9 /* ForgotUserView.swift in Sources */,
 				81879A132023BAC700CAD692 /* DatabaseService+Get.swift in Sources */,
 				81AFD5AE202115F50091AEF9 /* EditMyPostVC.swift in Sources */,
 				81AFD5AA20210EB90091AEF9 /* OtherUserProfileView.swift in Sources */,
 				81AFD5A02020F9C10091AEF9 /* MyPostsView.swift in Sources */,
+				81879A172024013C00CAD692 /* DatabaseService+Add.swift in Sources */,
 				81AFD5AC202110AB0091AEF9 /* EditMyPostView.swift in Sources */,
+				DBF839952028025F002F01E6 /* OtherUserProfileVC.swift in Sources */,
 				81AFD56520206EBF0091AEF9 /* TabBarVC.swift in Sources */,
 				81AFD5A820210AE10091AEF9 /* ImagePickerViewController.swift in Sources */,
 				81879A0F20239F0400CAD692 /* AuthUserService.swift in Sources */,
@@ -546,6 +598,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = mansnothot/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Melissa-He.mansnothot";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -562,6 +615,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = mansnothot/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Melissa-He.mansnothot";
 				PRODUCT_NAME = "$(TARGET_NAME)";
