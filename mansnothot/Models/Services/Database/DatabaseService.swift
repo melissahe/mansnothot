@@ -9,6 +9,11 @@
 import Foundation
 import FirebaseDatabase
 
+//Message by Melissa: this should be responsible for:
+//2. database
+    //a. get data from database and pass it back to app
+    //b. create object and then post data to database
+
 /** This API client is responsible for fetching/pushing data from/to the Firebase database.
  */
 class DatabaseService: NSObject {
@@ -20,8 +25,7 @@ class DatabaseService: NSObject {
         super.init()
     }
     
-    /** The singleton object for the API client.
-     */
+    /// The singleton object for the DatabaseService API client.
     static let manager = DatabaseService()
     
     public weak var delegate: DatabaseServiceDelegate?
@@ -31,18 +35,28 @@ class DatabaseService: NSObject {
     var postsRef: DatabaseReference!
     var commentsRef: DatabaseReference!
     
+    /**
+     Removes all observers from all references.
+    */
+    public func stopObserving() {
+        rootRef.removeAllObservers()
+        postsRef.removeAllObservers()
+        usersRef.removeAllObservers()
+        commentsRef.removeAllObservers()
+    }
+    
     //change
     //changing display name - needs test!!
-    
-    //TODO: finish documentation!!!
-    
     /** This method attempts to change the user's displayName.
+    If the name change is successful, it will return the old and new displayNames through the DatabaseServiceDelegate protocol didChangeDisplayName(_:, oldName:, newName:) method.
+    If the name change is not successful, it will return a localized error message through the DatabaseServiceDelegate protocol didFailChangingDisplayName?(_:, error:) method.
      
-     - Parameters:
-     - databaseService: The Firebase/Database API client.
-     - error: The error message that occurred when attemping to retrieve posts.
+    - Parameters:
+        - newName: The new name to change to.
+        - ifNameTaken: A closure that passes the new name back if it is currently in used by a different user.
+        - failedName: The name that is already in use by another user.
      */
-    public func changeDisplayName(to newName: String, ifNameTaken: @escaping (String) -> Void) {
+    public func changeDisplayName(to newName: String, ifNameTaken: @escaping (_ failedName: String) -> Void) {
         guard let currentUser = AuthUserService.manager.getCurrentUser() else {
             return
         }
@@ -60,8 +74,7 @@ class DatabaseService: NSObject {
                     self.delegate?.didFailChangingDisplayName?(self, error: error.localizedDescription) //probably because display is already taken?? - can firebase check that?
                     return
                 }
-                //if successful
-                //should alter the display name in the user profile
+                //if successful - should alter the display name in the user profile
                 let currentUserProfile = FileManagerHelper.manager.getCurrentUser()
                 
                 currentUserProfile?.displayName = newName
@@ -78,12 +91,22 @@ class DatabaseService: NSObject {
         }
     }
     
-    //should be in database func
-    public func checkIfDisplayNameIsTaken(_ newName: String, currentUserID: String?, completion: @escaping (Bool, String, String) -> Void) {
+    /** This method checks if the given displayName is already in use by another user.
+     
+    - Parameters:
+        - newName: The new name to change to.
+        - currentUserID: The ID of the current, authorized user.
+        - completion: A closure that passes back a Bool (whether the name is in use or not), the oldName, and the newName.
+        - isTaken: If the name is taken or not.
+        - oldName: The previous displayName of the current user.
+        - newName: The new displayName of the current user.
+     */
+    public func checkIfDisplayNameIsTaken(_ newName: String, currentUserID: String?, completion: @escaping (_ isTaken: Bool, _ oldName: String, _ newName: String) -> Void) {
         usersRef.observeSingleEvent(of: .value) { (dataSnapshot) in
             var oldName: String!
             
             for childSnapShot in dataSnapshot.children.allObjects as! [DataSnapshot] {
+                
                 guard let userDict = childSnapShot.value as? [String : Any] else {
                     return
                 }
@@ -99,14 +122,22 @@ class DatabaseService: NSObject {
                 if let currentUserID = currentUserID {
                     if newName == displayName && currentUserID != userID {
                         completion(true, oldName, newName)
+                        return
                     }
                 } else {
                     if newName == displayName {
                         completion(true, oldName, newName)
+                        return
                     }
                 }
             }
-            completion(false, oldName, newName)
+            if let oldName = oldName {
+                completion(false, oldName, newName)
+                return
+            } else {
+                completion(false, newName, newName)
+                return
+            }
         }
     }
 }

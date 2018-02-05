@@ -6,13 +6,11 @@
 //  Copyright © 2018 Melissa He @ C4Q. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import FirebaseDatabase
 
 extension DatabaseService {
     //get
-    //reads info from current user - doesn't get current image just yet
-    
     /** Generates a UserProfile object for the current user from the database.
      
     - Parameters:
@@ -30,30 +28,55 @@ extension DatabaseService {
             guard let displayName = dataSnapshot.childSnapshot(forPath: "displayName").value as? String else {
                 return
             }
-            guard let bio = dataSnapshot.childSnapshot(forPath: "bio").value as? String else {
-                return
-            }
-            //we need to figure out what we're doing with the user image
-            //            guard let imageString = dataSnapshot.childSnapshot(forPath: "image").value as? String else {
-            //                return
-            //            }
-            guard let password = dataSnapshot.childSnapshot(forPath: "password").value as? String else {
-                return
-            }
+            let bio = dataSnapshot.childSnapshot(forPath: "bio").value as? String
+            let imageURL = dataSnapshot.childSnapshot(forPath: "imageURL").value as? String
             guard let numberOfFlags = dataSnapshot.childSnapshot(forPath: "numberOfFlags").value as? Int else {
                 return
             }
-            let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName, bio: bio, image: nil, password: password, numberOfFlags: numberOfFlags)
+            
+            let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName, bio: bio, flags: numberOfFlags, imageURL: imageURL)
             completion(currentUserProfile)
         }
     }
     
-    /** Gets all of the posts for a single user. Sorted by timestamp by default from newest to oldest. This method returns the posts through the DatabaseServiceDelegate protocol didGetAllPosts(_:, posts:) method.
+//    /**
+//     Retrieves the unique user ID associated with the given email.
+//     
+//     - Parameters:
+//        - email: The email given by the current user.
+//        - completion: A closure that executes after a UserProfile is made.
+//        - UID: The unique userID for the current, authenticated user.
+//     */
+//    public func getUID(fromEmail email: String, completion: @escaping (_ UID: String?) -> Void) {
+//        usersRef.observeSingleEvent(of: .value) { (dataSnapshot) in
+//            guard let childrenSnapshots = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+//                completion(nil)
+//                return
+//            }
+//            
+//            for childSnapshot in childrenSnapshots {
+//                guard
+//                    let userDict = childSnapshot.value as? [String : Any],
+//                    let userEmail = userDict["email"] as? String,
+//                    let userID = userDict["userID"] as? String
+//                else {
+//                    completion(nil)
+//                    return
+//                }
+//                
+//                if userEmail == email {
+//                    completion(userID)
+//                    return
+//                }
+//            }
+//        }
+//    }
+    
+    /** Gets all of the posts for a single user. Sorted by timestamp by default from newest to oldest.
+    This method returns the posts through the DatabaseServiceDelegate protocol didGetUserPosts(_:, posts:) method.
      
     - Parameters:
         - uid: The unique userID for the current, authenticated user.
-        - completion: A closure that executes after the posts are retrieved.
-        - posts: An array of posts from the current user, sorted from newest to oldest.
      */
     public func getPosts(fromUID uid: String) {
         getAllPosts { (posts) in
@@ -64,9 +87,11 @@ extension DatabaseService {
     }
     
     /** Gets all of the posts. Sorted by timestamp by default from newest to oldest.
+    This method returns the posts through the DatabaseServiceDelegate protocol didGetAllPosts(_:, posts:) method.
      
-    - Parameter completion: A closure that executes after the posts are retrieved.
-    - Parameter posts: An array of posts from the current user, sorted from newest to oldest.
+    - Parameters:
+        - completion: A closure that executes after the posts are retrieved.
+        - posts: An array of posts from the current user, sorted from newest to oldest.
      */
     public func getAllPosts(completion: @escaping (_ posts: [Post]) -> Void) {
         postsRef.observe(.value) { (dataSnapshot) in
@@ -82,8 +107,6 @@ extension DatabaseService {
                     let bodyText = postDict["bodyText"] as? String,
                     let category = postDict["category"] as? String,
                     let flags = postDict["flags"] as? Int,
-                    //need to figure out how we'll be doing image!!
-                    let image = postDict["image"] as? String,
                     let numberOfDislikes = postDict["numberOfDislikes"] as? Int,
                     let numberOfLikes = postDict["numberOfLikes"] as? Int,
                     let postID = postDict["postID"] as? String,
@@ -96,7 +119,8 @@ extension DatabaseService {
                         print("couldn't get post")
                         return
                 }
-                let post = Post(postID: postID, category: category, userID: userID, title: title, bodyText: bodyText, image: nil, numberOfLikes: numberOfLikes, numberOfDislikes: numberOfDislikes, flags: flags, userLiked: userLiked, userDisliked: userDisliked, timestamp: timestamp)
+                let imageURL = postDict["imageURL"] as? String
+                let post = Post(postID: postID, category: category, userID: userID, title: title, bodyText: bodyText, numberOfLikes: numberOfLikes, numberOfDislikes: numberOfDislikes, flags: flags, imageURL: imageURL, userLiked: userLiked, userDisliked: userDisliked, timestamp: timestamp)
                 posts.append(post)
             }
             completion(posts.sortedByTimestamp())
@@ -104,11 +128,11 @@ extension DatabaseService {
     }
     
     /** Gets all of the comments for a single post. Sorted by timestamp by default from newest to oldest.
+     This method returns the posts through the DatabaseServiceDelegate protocol didGetPostComments(_:, comments:) method.
      
     - Parameters:
         - passedInPostID: The unique postID for the current, selected post.
-        - completion: A closure that executes after the comments are retrieved.
-        - comments: An array of comments from the current post, sorted from newest to oldest.
+        - comments: An array of comments from the current, selected post, sorted from newest to oldest.
      */
     public func getAllComments(fromPostID passedInPostID: String, completion: @escaping (_ comments: [Comment]) -> Void) {
         commentsRef.observe(.value) { (dataSnapshots) in
@@ -127,6 +151,7 @@ extension DatabaseService {
                     let timestamp = commentDict["timestamp"] as? Double,
                     let userID = commentDict["userID"] as? String
                     else {
+                        self.delegate?.didFailGettingPostComments?(self, error: "Could not retrieve one of the comments. Some values may be nil.")
                         return
                 }
                 if postID != passedInPostID {
@@ -135,7 +160,7 @@ extension DatabaseService {
                 let comment = Comment(postID: postID, commentID: commentID, userID: userID, text: text, timestamp: timestamp)
                 comments.append(comment)
             }
-            completion(comments.sortedByTimestamp())
+            self.delegate?.didGetPostComments?(self, comments: comments.sortedByTimestamp())
         }
     }
 }
