@@ -19,7 +19,7 @@ class NewPostView: UIView {
         let imageView = UIImageView()
         imageView.image = nil
         imageView.backgroundColor = UIColor(red: 0.286, green: 0.690, blue: 0.976, alpha: 1.00)
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.borderWidth = 0.5
         return imageView
     }()
@@ -45,6 +45,8 @@ class NewPostView: UIView {
         return plusSign
     }()
     
+    private let imagePickerViewController = UIImagePickerController()
+    
     //titleTextField for title
     lazy var titleTextField: UITextField = {
         let tField = UITextField()
@@ -59,7 +61,7 @@ class NewPostView: UIView {
         tField.backgroundColor = UIColor(red: 0.141, green: 0.149, blue: 0.184, alpha: 1.00)
         tField.textColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.00)
         //tField.borderStyle = .bezel
-        tField.textColor = .white
+        tField.textColor = .white /// redundant from line 60
         return tField
     }()
     
@@ -138,8 +140,8 @@ class NewPostView: UIView {
         self.addSubview(pickImageView)
         self.addSubview(addAnImageLabel)
         self.addSubview(postTextView)
-        self.addSubview(tableView)
         self.addSubview(plusSignButton)
+        self.addSubview(tableView)
         
         titleTextField.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20)

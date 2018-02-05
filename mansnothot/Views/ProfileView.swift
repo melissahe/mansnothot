@@ -37,6 +37,7 @@ class ProfileView: UIView {
         let btn = UIButton()
         btn.setTitle("Change Image", for: .normal)
         btn.setTitleColor(.green, for: .normal)
+        btn.titleLabel?.font = UIFont(name: "Arial", size: 15)
         return btn
     }()
     
@@ -46,12 +47,14 @@ class ProfileView: UIView {
         dn.backgroundColor = .yellow
         dn.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         dn.textAlignment = .center
+        dn.numberOfLines = 0
         return dn
     }()
     
     lazy var changeDisplayName: UIButton = {
         let cdn = UIButton()
-        cdn.setTitle("Change Name", for: .normal)
+        cdn.setTitle("Change Username", for: .normal)
+        cdn.titleLabel?.font = UIFont(name: "Arial", size: 15)
         cdn.setTitleColor(.green, for: .normal)
         return cdn
     }()
@@ -79,7 +82,7 @@ class ProfileView: UIView {
     
     
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: UIScreen.main.bounds)
         commonInit()
     }
     
@@ -116,16 +119,16 @@ class ProfileView: UIView {
         profileImageView.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(profileImageView.snp.width)
             make.top.leading.equalTo(self.safeAreaLayoutGuide).offset(spacing)
-            make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-400)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.3)
         }
     }
     
     private func setupNameLabel() {
         addSubview(displayName)
         displayName.snp.makeConstraints { (make) -> Void in
-            //make.top.equalTo(self.safeAreaLayoutGuide).offset(16)
             make.leading.equalTo(profileImageView.snp.trailing).offset(spacing)
-            make.bottom.equalTo(self).offset(-500)
+            make.centerY.equalTo(profileImageView.snp.centerY)
+            make.trailing.greaterThanOrEqualToSuperview()
         }
     }
     
