@@ -11,5 +11,6 @@ target 'mansnothot' do
 	pod 'Firebase/Storage'
   	pod 'TableFlip'
   	pod 'Kingfisher'
+	pod 'Toucan'
 
 end

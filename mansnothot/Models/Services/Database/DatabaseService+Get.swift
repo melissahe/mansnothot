@@ -30,7 +30,7 @@ extension DatabaseService {
             }
             let bio = dataSnapshot.childSnapshot(forPath: "bio").value as? String
             let imageURL = dataSnapshot.childSnapshot(forPath: "imageURL").value as? String
-            guard let numberOfFlags = dataSnapshot.childSnapshot(forPath: "numberOfFlags").value as? Int else {
+            guard let numberOfFlags = dataSnapshot.childSnapshot(forPath: "flags").value as? Int else {
                 return
             }
             
