@@ -12,5 +12,6 @@ target 'mansnothot' do
   	pod 'TableFlip'
   	pod 'Kingfisher'
 	pod 'Toucan'
+    pod 'IQKeyboardManagerSwift'
 
 end
