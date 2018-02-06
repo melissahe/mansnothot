@@ -69,8 +69,6 @@ class LoginVC: UIViewController {
         if AuthUserService.manager.getCurrentUser() != nil {
             let user = AuthUserService.manager.getCurrentUser()
             print("User identified")
-            dismiss(animated: true, completion: nil)
-            print("LoginVC dismissed")
         }
     }
     
@@ -165,6 +163,8 @@ extension LoginVC: AuthUserServiceDelegate {
     
     func didLogin(_ authUserService: AuthUserService, userProfile: UserProfile) {
         print("Log in successful")
+        dismiss(animated: true, completion: nil)
+        print("LoginVC dismissed")
     }
     
     func didFailEmailVerification(_ authUserService: AuthUserService, user: User, error: String) {
