@@ -9,6 +9,8 @@
 import Foundation
 import FirebaseAuth
 
+//need to add ban
+
 //Message by Melissa: this should be responsible for:
 //1. user authentication DONE
     //a. creating user account/signing up DONE
