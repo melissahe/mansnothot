@@ -65,6 +65,10 @@ class LoginVC: UIViewController {
         // Verify credentials through Firebase and then dismiss view to show Tab Bar Controller > Home Feed
         AuthUserService.manager.delegate = self
         AuthUserService.manager.login(withEmail: loginView.emailTextField.text!, andPassword: loginView.passwordTextField.text!)
+        // check with Melissa if this is correct, otherwise how to dismiss the view after login?:
+        if AuthUserService.manager.getCurrentUser() != nil {
+            dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func forgotPass(selector: UIButton) {
