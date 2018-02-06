@@ -28,6 +28,8 @@ import AVFoundation
 
 class ProfileVC: UIViewController {
     
+    let loginVC = LoginVC()
+    
     lazy var profileView = ProfileView()
     
     private let imagePickerVC = UIImagePickerController()
@@ -97,6 +99,7 @@ class ProfileVC: UIViewController {
     
     /// begin photo action sheet
     // from https://stackoverflow.com/questions/27632614/how-to-use-uialertcontroller-to-replace-uiactionsheet
+    
     func showAlert(title: String, message: String) {
         let photoActionSheet = UIAlertController.init(title: "Please choose a source type", message: nil, preferredStyle: .actionSheet)
         
@@ -129,6 +132,9 @@ class ProfileVC: UIViewController {
     
     @objc func logoutButtonTapped() {
         //logout
+        AuthUserService.manager.signOut()
+        print("User logged out")
+        present(loginVC, animated: true, completion: nil)
     }
     
     @objc func seePostsButtonTapped() {
@@ -142,7 +148,7 @@ class ProfileVC: UIViewController {
         //        myPostVC.modalTransitionStyle = .coverVertical
         //        myPostVC.modalPresentationStyle = .overCurrentContext
         navigationController?.pushViewController(myPostVC, animated: true)
-        print("button tapped")
+        print("See All My Posts button tapped")
     }
 }
 
