@@ -20,10 +20,42 @@ import SnapKit
 //tbh this one might a bit redundant compared to the new post VC which does a lot of the same things, but it also has some additional functions and the properties (the view) are from different instances
 
 class EditMyPostVC: UIViewController {
-
+    let editMyPostView = EditMyPostView()
+    var postToEditID: String?
+    
+    public func idForPostToEdit(postID: String) {
+        self.postToEditID = postID
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.addSubview(editMyPostView)
+        editMyPostView.savePostButton.addTarget(self, action: #selector(savePostButton(_:)), for: .touchUpInside)
+        editMyPostView.trashButton.addTarget(self, action: #selector(trashButton(_:)), for: .touchUpInside)
+    }
+    
+    @objc func trashButton(_ sender: UIButton) {
+            let alert = UIAlertController(title: "Are you sure you want to delete your Masterpiece", message: nil, preferredStyle: .alert)
+            
+            let yesAction = UIAlertAction(title: "Yes", style: .default, handler: { (UIAlertAction) in
+                //Todo get Post ID number
+                //delete that post related to that ID
+                print("It has been deleted")
+                
+            })
+            let noAction = UIAlertAction(title: "No", style: .default, handler: nil)
+            alert.addAction(yesAction)
+            alert.addAction(noAction)
+            present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func savePostButton(_ sender: UIButton) {
+        //TODO - SAVE THE POST
+        let alert = UIAlertController(title: "Post Saved", message: nil, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
     }
 
+    
 }

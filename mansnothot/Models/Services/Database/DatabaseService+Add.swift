@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 //in the update one, implement the vote changing using FirebaseTransaction
 
@@ -77,7 +78,7 @@ extension DatabaseService {
      
      - Parameter userProfile: The UserProfile object passed in.
      */
-    public func addUserProfile(_ userProfile: UserProfile) {
+    public func addUserProfile(_ userProfile: UserProfile, andImage image: UIImage) {
         let ref = usersRef.child(userProfile.userID)
         
         ref.setValue(["email": userProfile.email,
@@ -90,5 +91,21 @@ extension DatabaseService {
         //STORAGE FUNCTION HERE FOR IMAGES!! - SHOULD ADD PLACEHOLDER IMAGE
         
         print("new user added to database!!")
+    }
+    
+    /**
+     */
+    public func addImageURLToPost(url: String, postID: String) {
+        addImageURL(url: url, toRef: postsRef, withID: postID)
+    }
+    
+    /**
+     */
+    public func addImageURLToUser(url: String, userID: String) {
+        addImageURL(url: url, toRef: usersRef, withID: userID)
+    }
+    
+    private func addImageURL(url: String, toRef ref: DatabaseReference, withID id: String) {
+        ref.child(id).child("imageURL").setValue(url)
     }
 }

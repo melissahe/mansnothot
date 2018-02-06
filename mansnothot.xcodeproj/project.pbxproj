@@ -11,6 +11,7 @@
 		811C09C92020105E0072EDC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 811C09C82020105E0072EDC8 /* GoogleService-Info.plist */; };
 		811C09CB202012720072EDC8 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C09CA202012720072EDC8 /* FirebaseAPIClient.swift */; };
 		811C09CE202015330072EDC8 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C09CD202015330072EDC8 /* FileManagerHelper.swift */; };
+		815CDC7E2028E48F0043B291 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815CDC7D2028E48F0043B291 /* StorageService.swift */; };
 		8185CE67201FFB0200C38A96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185CE66201FFB0200C38A96 /* AppDelegate.swift */; };
 		8185CE6E201FFB0200C38A96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8185CE6D201FFB0200C38A96 /* Assets.xcassets */; };
 		81879A0F20239F0400CAD692 /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A0E20239F0400CAD692 /* AuthUserService.swift */; };
@@ -48,7 +49,6 @@
 		81AFD5A22020FA310091AEF9 /* MyPostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5A12020FA310091AEF9 /* MyPostsTableViewCell.swift */; };
 		81AFD5A42020FBDD0091AEF9 /* NewPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5A32020FBDD0091AEF9 /* NewPostVC.swift */; };
 		81AFD5A6202109250091AEF9 /* NewPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5A5202109250091AEF9 /* NewPostView.swift */; };
-		81AFD5A820210AE10091AEF9 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5A720210AE00091AEF9 /* ImagePickerViewController.swift */; };
 		81AFD5AA20210EB90091AEF9 /* OtherUserProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5A920210EB90091AEF9 /* OtherUserProfileView.swift */; };
 		81AFD5AC202110AB0091AEF9 /* EditMyPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5AB202110AB0091AEF9 /* EditMyPostView.swift */; };
 		81AFD5AE202115F50091AEF9 /* EditMyPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5AD202115F50091AEF9 /* EditMyPostVC.swift */; };
@@ -63,6 +63,7 @@
 		811C09C82020105E0072EDC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		811C09CA202012720072EDC8 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		811C09CD202015330072EDC8 /* FileManagerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
+		815CDC7D2028E48F0043B291 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		8185CE63201FFB0200C38A96 /* mansnothot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mansnothot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8185CE66201FFB0200C38A96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8185CE68201FFB0200C38A96 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -102,7 +103,6 @@
 		81AFD5A12020FA310091AEF9 /* MyPostsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostsTableViewCell.swift; sourceTree = "<group>"; };
 		81AFD5A32020FBDD0091AEF9 /* NewPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostVC.swift; sourceTree = "<group>"; };
 		81AFD5A5202109250091AEF9 /* NewPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPostView.swift; sourceTree = "<group>"; };
-		81AFD5A720210AE00091AEF9 /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		81AFD5A920210EB90091AEF9 /* OtherUserProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherUserProfileView.swift; sourceTree = "<group>"; };
 		81AFD5AB202110AB0091AEF9 /* EditMyPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyPostView.swift; sourceTree = "<group>"; };
 		81AFD5AD202115F50091AEF9 /* EditMyPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMyPostVC.swift; sourceTree = "<group>"; };
@@ -145,7 +145,6 @@
 				81AFD5982020F5EB0091AEF9 /* MyPostsVC.swift */,
 				81AFD5A32020FBDD0091AEF9 /* NewPostVC.swift */,
 				81AFD5AD202115F50091AEF9 /* EditMyPostVC.swift */,
-				81AFD5A720210AE00091AEF9 /* ImagePickerViewController.swift */,
 				DBF839942028025F002F01E6 /* OtherUserProfileVC.swift */,
 			);
 			path = "View Controllers";
@@ -174,6 +173,14 @@
 				81AFD5702020C2710091AEF9 /* Alert.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		815CDC7C2028E47F0043B291 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				815CDC7D2028E48F0043B291 /* StorageService.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		8185CE5A201FFB0200C38A96 = {
@@ -222,6 +229,7 @@
 		81954E062025432B00567D3C /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				815CDC7C2028E47F0043B291 /* Storage */,
 				81954E072025434600567D3C /* AuthUser */,
 				81879A182024014200CAD692 /* Database */,
 			);
@@ -377,6 +385,7 @@
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TableFlip/TableFlip.framework",
+				"${BUILT_PRODUCTS_DIR}/Toucan/Toucan.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -388,6 +397,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TableFlip.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toucan.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -446,6 +456,7 @@
 				81AFD557202063BE0091AEF9 /* LoginView.swift in Sources */,
 				81879A112023B44A00CAD692 /* DatabaseService.swift in Sources */,
 				811C09CE202015330072EDC8 /* FileManagerHelper.swift in Sources */,
+				815CDC7E2028E48F0043B291 /* StorageService.swift in Sources */,
 				81E8124020256F3800D9A5F1 /* AuthUserServiceDelegate.swift in Sources */,
 				81AFD54A20204D380091AEF9 /* Post.swift in Sources */,
 				81AFD5542020524A0091AEF9 /* ForgotUserView.swift in Sources */,
@@ -457,7 +468,6 @@
 				81AFD5AC202110AB0091AEF9 /* EditMyPostView.swift in Sources */,
 				DBF839952028025F002F01E6 /* OtherUserProfileVC.swift in Sources */,
 				81AFD56520206EBF0091AEF9 /* TabBarVC.swift in Sources */,
-				81AFD5A820210AE10091AEF9 /* ImagePickerViewController.swift in Sources */,
 				81879A0F20239F0400CAD692 /* AuthUserService.swift in Sources */,
 				81AFD54D20204EB00091AEF9 /* LoginVC.swift in Sources */,
 				81AFD59B2020F6200091AEF9 /* ChangeBioView.swift in Sources */,
