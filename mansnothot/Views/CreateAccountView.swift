@@ -12,6 +12,12 @@ import SnapKit
 
 class CreateAccountView: UIView {
     
+    lazy var dismissButton: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "dismissButtonIcon"), for: .normal)
+        return button
+    }()
+    
     //username textfield
     lazy var usernameTextField: UITextField = {
         let tField = UITextField()
@@ -103,6 +109,7 @@ class CreateAccountView: UIView {
     }
     
     private func setupObjects() {
+        self.addSubview(dismissButton)
         self.addSubview(usernameTextField)
         self.addSubview(passwordTextField)
         self.addSubview(emailTextField)
@@ -111,8 +118,13 @@ class CreateAccountView: UIView {
     }
     
     private func setupViews() {
+        dismissButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.safeAreaLayoutGuide).offset(8)
+            make.leading.equalTo(self.safeAreaLayoutGuide).offset(16)
+        }
+        
         usernameTextField.snp.makeConstraints { (make) in
-            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20)
+            make.top.equalTo(self.dismissButton.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
             make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
             make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.08)
