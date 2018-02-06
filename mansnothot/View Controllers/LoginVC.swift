@@ -67,6 +67,8 @@ class LoginVC: UIViewController {
         AuthUserService.manager.login(withEmail: loginView.emailTextField.text!, andPassword: loginView.passwordTextField.text!)
         // check with Melissa if this is correct, otherwise how to dismiss the view after login?:
         if AuthUserService.manager.getCurrentUser() != nil {
+            let user = AuthUserService.manager.getCurrentUser()
+            print("User identified")
             dismiss(animated: true, completion: nil)
         }
     }

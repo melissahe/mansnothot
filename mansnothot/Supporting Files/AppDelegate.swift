@@ -26,12 +26,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         if currentUser != nil {
-            // there is a user
+            print("on start up: there is a user logged in")
             let tabBar = TabBarVC()
             window?.rootViewController = tabBar
         } else {
-            // user is nil
-            window?.rootViewController = LoginVC()
+            print("on start up: user is nil")
+//            window?.rootViewController = LoginVC()
+            let tabBar = TabBarVC()
+            let loginVC = LoginVC()
+            window?.rootViewController = tabBar
+            tabBar.present(loginVC, animated: true, completion: nil)
         }
         
         window?.makeKeyAndVisible()
