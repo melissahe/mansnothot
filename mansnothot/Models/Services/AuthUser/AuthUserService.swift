@@ -87,7 +87,7 @@ class AuthUserService: NSObject {
                     })
                     
                     let newUserProfile = UserProfile(email: email, userID: user.uid, displayName: displayName, bio: nil, flags: 0, imageURL: nil)
-                    DatabaseService.manager.addUserProfile(newUserProfile)
+                    DatabaseService.manager.addUserProfile(newUserProfile, andImage: #imageLiteral(resourceName: "placeholder-image"))
                     
                     if !user.isEmailVerified {
                         self.signOut()
