@@ -51,8 +51,10 @@ class AuthUserService: NSObject {
                 }
                 
                 DatabaseService.manager.getUserProfile(withUID: user.uid, completion: { (userProfile) in
-                    self.delegate?.didLogin?(self, userProfile: userProfile)
+//                    self.delegate?.didLogin?(self, userProfile: userProfile)
+                    self.delegate?.didLogin!(self, userProfile: userProfile)
                 })
+                print("Logged in")
             }
         }
     }

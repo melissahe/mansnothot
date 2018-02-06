@@ -20,10 +20,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         FileManagerHelper.manager.loadCurrentUser()
         
-        let tabBar = TabBarVC()
+        
+        let currentUser = AuthUserService.manager.getCurrentUser()
+        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = tabBar
+        
+        if currentUser != nil {
+            // there is a user
+            let tabBar = TabBarVC()
+            window?.rootViewController = tabBar
+        } else {
+            // user is nil
+            window?.rootViewController = LoginVC()
+        }
+        
         window?.makeKeyAndVisible()
+        
         
 //        FirebaseAPIClient.manager.changeDisplayName(to: "whatup yo") { (changeSuccessful) in
 //            print(changeSuccessful)
