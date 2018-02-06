@@ -68,7 +68,7 @@ extension DatabaseService {
                       "timestamp": post.timestamp
             ])
         
-        StorageService.manager.storePostImage(image: image ?? #imageLiteral(resourceName: "placeholder-image"), withPostID: post.postID) { (errorMessage) in
+        StorageService.manager.storePostImage(image: image, withPostID: post.postID) { (errorMessage) in
             if let errorMessage = errorMessage {
                 print(errorMessage)
             }
@@ -115,5 +115,6 @@ extension DatabaseService {
     
     private func addImageURL(url: String, toRef ref: DatabaseReference, withID id: String) {
         ref.child(id).child("imageURL").setValue(url)
+        print("added image url")
     }
 }
