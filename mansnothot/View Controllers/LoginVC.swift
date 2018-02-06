@@ -30,7 +30,7 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .yellow
+        self.view.backgroundColor = Stylesheet.Colors.White
         loginView.emailTextField.delegate = self
         loginView.passwordTextField.delegate = self
         configureViews()
