@@ -64,7 +64,9 @@ class StorageService {
                 
                 return
             }
-//            DatabaseService.manager.addImageURLToUser(url: <#T##String#>, userID: <#T##String#>)
+            
+            let downloadURLString = downloadURL.absoluteString
+            DatabaseService.manager.addImageURLToUser(url: downloadURLString, userID: userID)
         }
         
         //if fail
@@ -93,8 +95,13 @@ class StorageService {
         
         //if success
         uploadTask.observe(.success) { (snapshot) in
-            //to do
-        }
+            guard let downloadURL = snapshot.metadata?.downloadURL() else {
+                
+                return
+            }
+            
+            let downloadURLString = downloadURL.absoluteString
+            DatabaseService.manager.addImageURLToPost(url: downloadURLString, postID: postID)
         
         //if fail
         uploadTask.observe(.failure) { (snapshot) in
