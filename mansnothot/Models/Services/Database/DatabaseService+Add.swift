@@ -89,7 +89,8 @@ extension DatabaseService {
                       "userID": userProfile.userID,
                       "displayName": userProfile.displayName,
                       "bio:": userProfile.bio ?? "",
-                      "flags": userProfile.flags
+                      "flags": userProfile.flags,
+                      "isBanned": userProfile.isBanned
             ])
         
         StorageService.manager.storeUserImage(image: image, withUserID: userProfile.userID) { (errorMessage) in
