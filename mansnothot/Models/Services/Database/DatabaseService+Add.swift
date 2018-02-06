@@ -68,7 +68,11 @@ extension DatabaseService {
                       "timestamp": post.timestamp
             ])
         
-        //USE THE STORAGE FUNCTION HERE FOR IMAGES - will use the image property - the storage function should compress the image!!! - and it'll insert the imageURL property into the child by its own
+        StorageService.manager.storePostImage(image: image, withPostID: post.postID) { (errorMessage) in
+            if let errorMessage = errorMessage {
+                print(errorMessage)
+            }
+        }
         
         print("new post added to database!!")
     }
@@ -85,10 +89,15 @@ extension DatabaseService {
                       "userID": userProfile.userID,
                       "displayName": userProfile.displayName,
                       "bio:": userProfile.bio ?? "",
-                      "flags": userProfile.flags
+                      "flags": userProfile.flags,
+                      "isBanned": userProfile.isBanned
             ])
         
-        //STORAGE FUNCTION HERE FOR IMAGES!! - SHOULD ADD PLACEHOLDER IMAGE
+        StorageService.manager.storeUserImage(image: image, withUserID: userProfile.userID) { (errorMessage) in
+            if let errorMessage = errorMessage {
+                print(errorMessage)
+            }
+        }
         
         print("new user added to database!!")
     }
@@ -107,5 +116,6 @@ extension DatabaseService {
     
     private func addImageURL(url: String, toRef ref: DatabaseReference, withID id: String) {
         ref.child(id).child("imageURL").setValue(url)
+        print("added image url")
     }
 }

@@ -9,6 +9,8 @@
 import Foundation
 import FirebaseAuth
 
+//need to add ban
+
 //Message by Melissa: this should be responsible for:
 //1. user authentication DONE
     //a. creating user account/signing up DONE
@@ -88,7 +90,7 @@ class AuthUserService: NSObject {
                         }
                     })
                     
-                    let newUserProfile = UserProfile(email: email, userID: user.uid, displayName: displayName, bio: nil, flags: 0, imageURL: nil)
+                    let newUserProfile = UserProfile(email: email, userID: user.uid, displayName: displayName, bio: nil, flags: 0, imageURL: nil, isBanned: false)
                     DatabaseService.manager.addUserProfile(newUserProfile, andImage: #imageLiteral(resourceName: "placeholder-image"))
                     
                     if !user.isEmailVerified {

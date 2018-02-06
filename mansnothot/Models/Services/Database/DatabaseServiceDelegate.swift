@@ -59,4 +59,20 @@ import Foundation
         - error: The error message that occurred when attempting to retrieve comments.
      */
     @objc optional func didFailGettingPostComments(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didDeletePost(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailDeletingPost(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didDeleteComment(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailDeletingComment(_ databaseService: DatabaseService, error: String)
 }
