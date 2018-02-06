@@ -71,7 +71,9 @@ class StorageService {
         
         //if fail
         uploadTask.observe(.failure) { (snapshot) in
-            //to do
+            if let error = snapshot.error {
+                self.delegate?.didFailStoreImage(self, error: error.localizedDescription)
+            }
         }
     }
     
@@ -88,7 +90,7 @@ class StorageService {
      */
     //maybe don't use completion handler?? just use the delegate function!!!!!
     public func storePostImage(image: UIImage, withPostID postID: String, completion: @escaping (_ error: String?) -> Void) {
-        guard let uploadTask = storeImage(image, withImageID: postID, completion: completion) else {
+        guard let uploadTask = StorageService.manager.storeImage(image, withImageID: postID, completion: completion) else {
             completion("Could not convert image to toucan or data")
             return
         }
@@ -102,14 +104,17 @@ class StorageService {
             
             let downloadURLString = downloadURL.absoluteString
             DatabaseService.manager.addImageURLToPost(url: downloadURLString, postID: postID)
+        }
         
         //if fail
         uploadTask.observe(.failure) { (snapshot) in
-            //to do
+            if let error = snapshot.error {
+                self.delegate?.didFailStoreImage(self, error: error.localizedDescription)
+            }
         }
     }
     
-    private func storeImage(_ image: UIImage, withImageID imageID: String, completion: @escaping (_ error: String?) -> Void) -> StorageUploadTask? {
+    func storeImage(_ image: UIImage, withImageID imageID: String, completion: @escaping (_ error: String?) -> Void) -> StorageUploadTask? {
         let ref = imagesRef.child(imageID)
         
         guard let resizedImage = Toucan(image: image).resize(CGSize(width: 200, height: 200)).image, let imageData = UIImagePNGRepresentation(resizedImage) else {
