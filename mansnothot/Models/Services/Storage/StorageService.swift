@@ -62,8 +62,9 @@ class StorageService {
         uploadTask.observe(.success) { (snapshot) in
             guard let downloadURL = snapshot.metadata?.downloadURL() else {
                 
+                return
             }
-            DatabaseService.manager.addImageURLToUser(url: <#T##String#>, userID: <#T##String#>)
+//            DatabaseService.manager.addImageURLToUser(url: <#T##String#>, userID: <#T##String#>)
         }
         
         //if fail
