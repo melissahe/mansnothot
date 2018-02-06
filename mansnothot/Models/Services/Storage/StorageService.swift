@@ -33,7 +33,7 @@ protocol StorageServiceDelegate: class {
 class StorageService {
     private init() {
         self.storageRef = Storage.storage().reference()
-        self.imagesRef = storageRef
+        self.imagesRef = storageRef.child("images")
     }
     
      /// The singleton object associated with the StorageService API client.
