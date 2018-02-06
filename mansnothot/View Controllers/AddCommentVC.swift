@@ -49,7 +49,7 @@ class AddCommentVC: UIViewController {
     }
     @objc private func addAComment() {
         print("Add a Comment clicked")
-        if addCommentView.postCommentTextView.text == "" {
+        if addCommentView.postCommentTextView.text == "Enter Post Text Here" || addCommentView.postCommentTextView.text == "" {
             let alert = UIAlertController(title: "Error", message: "Please enter text in order to post a comment", preferredStyle: .alert)
             let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alert.addAction(ok)
