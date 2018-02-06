@@ -70,6 +70,7 @@ class LoginVC: UIViewController {
             let user = AuthUserService.manager.getCurrentUser()
             print("User identified")
             dismiss(animated: true, completion: nil)
+            print("LoginVC dismissed")
         }
     }
     
