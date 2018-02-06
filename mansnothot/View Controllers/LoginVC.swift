@@ -30,7 +30,7 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .yellow
+        self.view.backgroundColor = Stylesheet.Colors.White
         loginView.emailTextField.delegate = self
         loginView.passwordTextField.delegate = self
         configureViews()
@@ -167,7 +167,8 @@ extension LoginVC: AuthUserServiceDelegate {
     
     func didLogin(_ authUserService: AuthUserService, userProfile: UserProfile) {
         print("Log in successful for \(userProfile.displayName), \(userProfile.email)")
-        dismiss(animated: true, completion: nil)
+        self.present(TabBarVC(), animated: true, completion: nil)
+        
         print("LoginVC dismissed")
     }
     

@@ -31,7 +31,7 @@ class HomeFeedVC: UIViewController {
     
     var sampleArr = ["Advice", "AMA", "Animals", "Art", "Beauty", "Books", "Business", "Cats", "Celebs", "Cooking", "Cosplay", "Cute", "Dating", "Drugs", "Dogs", "Education", "ELI5", "Entertainment", "Fashion", "Fitness", "FML", "Food", "Funny", "Health", "Hmm", "Hobbies", "IRL", "LGBTQ+", "Lifestyle", "Memes", "MFW", "MLIA", "Music", "Movies", "Nature", "News", "NSFW", "Other", "Poetry", "Politics", "Random", "Religion", "Relationships", "Science", "Sex", "Sports", "Stories", "Tech", "TFW", "Thirst Traps", "THOT Stuff", "THOT Thoughts", "Throwback", "Travel", "TV", "Weird", "Women", "Work", "World", "WTF"]
     
-    var loginVC = LoginVC()
+//    var loginVC = LoginVC()
     var homeFeedView = HomeFeedView()
     
     override func viewDidLoad() {
@@ -44,7 +44,14 @@ class HomeFeedVC: UIViewController {
         homeFeedView.tableView.rowHeight = UITableViewAutomaticDimension
         homeFeedView.tableView.estimatedRowHeight = 120
         
-        present(loginVC, animated: true, completion: nil)
+        let currentUser = AuthUserService.manager.getCurrentUser()
+        
+//        if currentUser != nil {
+//            print("on start up: there is a user logged in")
+//        } else {
+//            print("on start up: user is nil")
+////            present(loginVC, animated: true, completion: nil)
+//        }
         
         setupViews()
     }

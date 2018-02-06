@@ -24,9 +24,8 @@ class LoginView: UIView {
     lazy var welcomeLabel: UILabel = {
         let label = UILabel()
         label.text = "MansNotHot"
-//        label.backgroundColor = .red
-        label.font = label.font.withSize(35)
-        label.textColor = UIColor.black
+        label.font = Stylesheet.Fonts.Title
+        label.textColor = Stylesheet.Colors.Dark
         return label
     }()
     
