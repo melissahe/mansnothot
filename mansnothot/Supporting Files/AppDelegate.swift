@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,14 +17,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        IQKeyboardManager.sharedManager().enable = true
+        
         //Loading
         FirebaseApp.configure()
         FileManagerHelper.manager.loadCurrentUser()
         
-        let tabBar = TabBarVC()
+        
+        let currentUser = AuthUserService.manager.getCurrentUser()
+        
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = tabBar
+        
+        if currentUser != nil {
+            print("on start up: there is a user logged in")
+            let tabBar = TabBarVC()
+            window?.rootViewController = tabBar
+        } else {
+            print("on start up: user is nil")
+//            window?.rootViewController = LoginVC()
+            let tabBar = TabBarVC()
+            let loginVC = LoginVC()
+            window?.rootViewController = tabBar
+            tabBar.present(loginVC, animated: true, completion: nil)
+        }
+        
         window?.makeKeyAndVisible()
+        
         
 //        FirebaseAPIClient.manager.changeDisplayName(to: "whatup yo") { (changeSuccessful) in
 //            print(changeSuccessful)
