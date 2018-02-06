@@ -140,4 +140,21 @@ class DatabaseService: NSObject {
             }
         }
     }
+    
+    /**
+     */
+    //this should be run in app delegate?? logInVC/homefeedview - it will observe forever
+    public func checkForBan() {
+        if let currentUser = AuthUserService.manager.getCurrentUser() {
+            usersRef.child(currentUser.uid).child("isBanned").observe(.value, with: { (snapshot) in
+                
+                if let isBanned = snapshot.value as? Bool {
+                    if isBanned {
+                        self.delegate?.didGetBanned?(self, message: "You have been banned for being flagged too many times. Someone needs to have better thot thoughts!!")
+                        AuthUserService.manager.signOut()
+                    }
+                }
+            })
+        }
+    }
 }

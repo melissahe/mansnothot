@@ -20,7 +20,7 @@
 		81879A132023BAC700CAD692 /* DatabaseService+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A122023BAC700CAD692 /* DatabaseService+Get.swift */; };
 		81879A152023C85900CAD692 /* DatabaseServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A142023C85900CAD692 /* DatabaseServiceDelegate.swift */; };
 		81879A172024013C00CAD692 /* DatabaseService+Add.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A162024013C00CAD692 /* DatabaseService+Add.swift */; };
-		81954E0920254BBE00567D3C /* DatabaseService+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81954E0820254BBE00567D3C /* DatabaseService+Update.swift */; };
+		81954E0920254BBE00567D3C /* DatabaseService+Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81954E0820254BBE00567D3C /* DatabaseService+Edit.swift */; };
 		81AFD54620203FEF0091AEF9 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD54520203FEF0091AEF9 /* UserDefaultsHelper.swift */; };
 		81AFD5482020460E0091AEF9 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5472020460E0091AEF9 /* UserProfile.swift */; };
 		81AFD54A20204D380091AEF9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD54920204D380091AEF9 /* Post.swift */; };
@@ -76,7 +76,7 @@
 		81879A122023BAC700CAD692 /* DatabaseService+Get.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Get.swift"; sourceTree = "<group>"; };
 		81879A142023C85900CAD692 /* DatabaseServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseServiceDelegate.swift; sourceTree = "<group>"; };
 		81879A162024013C00CAD692 /* DatabaseService+Add.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Add.swift"; sourceTree = "<group>"; };
-		81954E0820254BBE00567D3C /* DatabaseService+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Update.swift"; sourceTree = "<group>"; };
+		81954E0820254BBE00567D3C /* DatabaseService+Edit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Edit.swift"; sourceTree = "<group>"; };
 		81AFD54520203FEF0091AEF9 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		81AFD5472020460E0091AEF9 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		81AFD54920204D380091AEF9 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 				81879A142023C85900CAD692 /* DatabaseServiceDelegate.swift */,
 				81879A122023BAC700CAD692 /* DatabaseService+Get.swift */,
 				81879A162024013C00CAD692 /* DatabaseService+Add.swift */,
-				81954E0820254BBE00567D3C /* DatabaseService+Update.swift */,
+				81954E0820254BBE00567D3C /* DatabaseService+Edit.swift */,
 				815CDCB2202A1C260043B291 /* DatabaseService+Delete.swift */,
 			);
 			path = Database;
@@ -453,7 +453,7 @@
 				81AFD55D202066DE0091AEF9 /* HomeFeedVC.swift in Sources */,
 				81AFD5952020E5000091AEF9 /* ProfileVC.swift in Sources */,
 				81AFD56F202074700091AEF9 /* AllCommentsTableViewCell.swift in Sources */,
-				81954E0920254BBE00567D3C /* DatabaseService+Update.swift in Sources */,
+				81954E0920254BBE00567D3C /* DatabaseService+Edit.swift in Sources */,
 				81AFD56B2020723F0091AEF9 /* AllCommentsVC.swift in Sources */,
 				81AFD559202064CF0091AEF9 /* CreateAccountView.swift in Sources */,
 				81879A152023C85900CAD692 /* DatabaseServiceDelegate.swift in Sources */,

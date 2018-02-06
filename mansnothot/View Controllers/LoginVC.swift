@@ -167,7 +167,8 @@ extension LoginVC: AuthUserServiceDelegate {
     
     func didLogin(_ authUserService: AuthUserService, userProfile: UserProfile) {
         print("Log in successful for \(userProfile.displayName), \(userProfile.email)")
-        dismiss(animated: true, completion: nil)
+        self.present(TabBarVC(), animated: true, completion: nil)
+        
         print("LoginVC dismissed")
     }
     
