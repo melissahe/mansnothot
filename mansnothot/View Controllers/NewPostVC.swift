@@ -43,6 +43,28 @@ class NewPostVC: UIViewController {
         imagePickerVC.delegate = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        animateTable()
+    }
+    
+    func animateTable() {
+        newPostView.tableView.reloadData()
+        let cells = newPostView.tableView.visibleCells
+        let tableViewHeight = newPostView.tableView.bounds.size.height
+        for cell in cells {
+            cell.transform = CGAffineTransform(translationX: 0, y: tableViewHeight)
+        }
+        var delayCounter = 0
+        for cell in cells {
+            UIView.animate(withDuration: 1.25, delay: Double(delayCounter) * 0.05, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseInOut, animations: {
+                cell.transform = CGAffineTransform.identity
+            }, completion: nil)
+            delayCounter += 1
+        }
+    }
+
+    
     func setupViews() {
         
         // Set Title for VC in Nav Bar
