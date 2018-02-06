@@ -12,6 +12,7 @@
 		811C09CB202012720072EDC8 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C09CA202012720072EDC8 /* FirebaseAPIClient.swift */; };
 		811C09CE202015330072EDC8 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C09CD202015330072EDC8 /* FileManagerHelper.swift */; };
 		815CDC7E2028E48F0043B291 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815CDC7D2028E48F0043B291 /* StorageService.swift */; };
+		815CDCB3202A1C260043B291 /* DatabaseService+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815CDCB2202A1C260043B291 /* DatabaseService+Delete.swift */; };
 		8185CE67201FFB0200C38A96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185CE66201FFB0200C38A96 /* AppDelegate.swift */; };
 		8185CE6E201FFB0200C38A96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8185CE6D201FFB0200C38A96 /* Assets.xcassets */; };
 		81879A0F20239F0400CAD692 /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A0E20239F0400CAD692 /* AuthUserService.swift */; };
@@ -64,6 +65,7 @@
 		811C09CA202012720072EDC8 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		811C09CD202015330072EDC8 /* FileManagerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
 		815CDC7D2028E48F0043B291 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		815CDCB2202A1C260043B291 /* DatabaseService+Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Delete.swift"; sourceTree = "<group>"; };
 		8185CE63201FFB0200C38A96 /* mansnothot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mansnothot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8185CE66201FFB0200C38A96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8185CE68201FFB0200C38A96 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				81879A122023BAC700CAD692 /* DatabaseService+Get.swift */,
 				81879A162024013C00CAD692 /* DatabaseService+Add.swift */,
 				81954E0820254BBE00567D3C /* DatabaseService+Update.swift */,
+				815CDCB2202A1C260043B291 /* DatabaseService+Delete.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				81AFD5542020524A0091AEF9 /* ForgotUserView.swift in Sources */,
 				81879A132023BAC700CAD692 /* DatabaseService+Get.swift in Sources */,
 				81AFD5AE202115F50091AEF9 /* EditMyPostVC.swift in Sources */,
+				815CDCB3202A1C260043B291 /* DatabaseService+Delete.swift in Sources */,
 				81AFD5AA20210EB90091AEF9 /* OtherUserProfileView.swift in Sources */,
 				81AFD5A02020F9C10091AEF9 /* MyPostsView.swift in Sources */,
 				81879A172024013C00CAD692 /* DatabaseService+Add.swift in Sources */,
