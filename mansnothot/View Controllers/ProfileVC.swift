@@ -134,7 +134,9 @@ class ProfileVC: UIViewController {
         //logout
         AuthUserService.manager.signOut()
         print("User logged out")
-        present(loginVC, animated: true, completion: nil)
+//        present(loginVC, animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        self.tabBarController?.dismiss(animated: true, completion: nil)
     }
     
     @objc func seePostsButtonTapped() {

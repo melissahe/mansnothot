@@ -118,7 +118,8 @@ class ProfileView: UIView {
         addSubview(profileImageView)
         profileImageView.snp.makeConstraints { (make) -> Void in
             make.height.equalTo(profileImageView.snp.width)
-            make.top.leading.equalTo(self.safeAreaLayoutGuide).offset(spacing)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(spacing)
+            make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(spacing)
             make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.3)
         }
     }

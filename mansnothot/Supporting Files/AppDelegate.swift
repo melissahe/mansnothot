@@ -35,11 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = tabBar
         } else {
             print("on start up: user is nil")
-//            window?.rootViewController = LoginVC()
-            let tabBar = TabBarVC()
             let loginVC = LoginVC()
-            window?.rootViewController = tabBar
-            tabBar.present(loginVC, animated: true, completion: nil)
+            window?.rootViewController = loginVC
         }
         
         window?.makeKeyAndVisible()
