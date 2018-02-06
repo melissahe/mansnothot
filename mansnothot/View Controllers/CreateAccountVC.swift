@@ -46,7 +46,7 @@ class CreateAccountVC: UIViewController {
     }
     
     @objc private func dismissButtonFunc() {
-        self.navigationController?.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc private func newAccountFunc() {
