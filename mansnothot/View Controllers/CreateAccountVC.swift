@@ -27,6 +27,10 @@ class CreateAccountVC: UIViewController {
         setupView()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         self.view.endEditing(true)
@@ -46,7 +50,11 @@ class CreateAccountVC: UIViewController {
     }
     
     @objc private func dismissButtonFunc() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            self.createAccountView.emailTextField.text = nil
+            self.createAccountView.passwordTextField.text = nil
+            self.createAccountView.usernameTextField.text = nil
+        })
     }
     
     @objc private func newAccountFunc() {
@@ -121,7 +129,11 @@ extension CreateAccountVC: AuthUserServiceDelegate {
     func didCreateUser(_ authUserService: AuthUserService, userProfile: UserProfile) {
         let alert = Alert.create(withTitle: "Success!", andMessage: "Account Created\nA verification email has been sent to your email, \(self.createAccountView.emailTextField.text!) ", withPreferredStyle: .alert)
         Alert.addAction(withTitle: "Back to Login", style: .default, andHandler: { (_) in
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: {
+                self.createAccountView.emailTextField.text = nil
+                self.createAccountView.passwordTextField.text = nil
+                self.createAccountView.usernameTextField.text = nil
+            })
         }, to: alert)
         present(alert, animated: true, completion: nil)
     }

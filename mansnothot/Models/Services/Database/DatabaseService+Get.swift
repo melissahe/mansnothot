@@ -9,6 +9,8 @@
 import UIKit
 import FirebaseDatabase
 
+//check if post is flagged
+
 extension DatabaseService {
     //get
     /** Generates a UserProfile object for the current user from the database.
