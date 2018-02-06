@@ -75,4 +75,12 @@ import Foundation
     /**
      */
     @objc optional func didFailDeletingComment(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didFailEditingPost(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didEditPost(_ databaseService: DatabaseService)
 }
