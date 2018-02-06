@@ -1,7 +1,7 @@
-# mansnothot Thot Thoughts
-Brough two you by Team Perspiration!
+# mansnothot Something Professional
+Brough to you by Team Perspiration!
 
-Whether you're looking to express yourself with no limits, or searching for a exciting night with new friends, the mansnothot Thot Thoughts iOS app makes finding the perfect time easy.
+Whether you're looking to express yourself within a professional limelight, or searching for a exciting night with new friends and coworkers, the mansnothot Professional Thoughts iOS app makes finding the perfect time easy.
 
 ## Overview
 //to do
@@ -69,7 +69,7 @@ You can sideload this app into your iOS Device with. Xcode with the following st
 - **Connect** your iPhone to your Mac. Then, go to “Product -> Destination“, and select your iPhone from the list.
 - **Click** on the “Run” button in Xcode. Xcode will then begin compiling the app for your iPhone.
 - Xcode will prompt you with an error saying that you need to trust the developer on the iPhone. On your iPhone, **Go To** “Settings -> General -> Profiles and Device Management“. Tap on the entry under “Developer App”, and tap on “Trust”.
-- You can now go to your homescreen, and look for mansnothot. **Tap** on the app to launch mansnothot Thot Thoughts!
+- You can now go to your homescreen, and look for mansnothot. **Tap** on the app to launch mansnothot Professional Thoughts!
 
 ## Credits (Team Perspiration!!)
 - **Project Manager**: [Richard Crichlow](www.github.com "Github")
