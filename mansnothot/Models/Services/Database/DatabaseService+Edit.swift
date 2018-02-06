@@ -10,7 +10,8 @@ import UIKit
 import FirebaseDatabase
 
 extension DatabaseService {
-    //for editing posts/comments
+    /**
+     */
     public func editPost(withPostID postID: String, newPost newPost: Post, newImage: UIImage?) {
         let ref = postsRef.child(postID)
         
@@ -34,9 +35,19 @@ extension DatabaseService {
         }
     }
     
+    //ban users
+    public func banUser(withUserID userID: String) {
+        let ref = usersRef.child(userID).child("isBanned")
+        
+        ref.setValue(true) { (error, _) in
+            if let error = error {
+                self.delegate?.didFailBanning?(self, error: "Could not ban user: \(error.localizedDescription)")
+            }
+        }
+    }
+    
     //needs to incorporate transactions for all of these!
         //should have updating flags
         //should have updating likes/dislikes
-    //ban users
     
 }
