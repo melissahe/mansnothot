@@ -32,6 +32,7 @@ class EditMyPostVC: UIViewController {
         view.addSubview(editMyPostView)
         editMyPostView.savePostButton.addTarget(self, action: #selector(savePostButton(_:)), for: .touchUpInside)
         editMyPostView.trashButton.addTarget(self, action: #selector(trashButton(_:)), for: .touchUpInside)
+        navigationItem.title = "Edit"
     }
     
     @objc func trashButton(_ sender: UIButton) {
