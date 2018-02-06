@@ -35,6 +35,8 @@ class LoginView: UIView {
         let etf = UITextField()
 //        etf.backgroundColor = .blue
         etf.borderStyle = .line
+        etf.autocapitalizationType = .none
+        etf.autocorrectionType = .no
         etf.placeholder = "Email Address"
         return etf
     }()
@@ -44,6 +46,8 @@ class LoginView: UIView {
         let ptf = UITextField()
 //        ptf.backgroundColor = .green
         ptf.borderStyle = .line
+        ptf.autocapitalizationType = .none
+        ptf.autocorrectionType = .no
         ptf.placeholder = "Password"
         ptf.isSecureTextEntry = true
         return ptf
