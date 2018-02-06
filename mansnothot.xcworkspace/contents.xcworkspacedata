@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:mansnothot/Models/Services/AuthUser/AuthUserService.swift">
+   </FileRef>
+   <FileRef
+      location = "group:mansnothot/Models/Services/AuthUser/AuthUserServiceDelegate.swift">
+   </FileRef>
+   <FileRef
       location = "group:mansnothot.xcodeproj">
    </FileRef>
    <FileRef

@@ -17,8 +17,17 @@ import SnapKit
 
 class MyPostsView: UIView {
 
+    lazy var tableView: UITableView = {
+        let tv = UITableView()
+        tv.register(MyPostsTableViewCell.self, forCellReuseIdentifier: "MyPostCell")
+        tv.allowsSelection = false 
+        return tv
+    }()
+    
+
+    
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: UIScreen.main.bounds)
         commonInit()
     }
     
@@ -27,12 +36,18 @@ class MyPostsView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .white
+        backgroundColor = .red
         setUpViews()
     }
     
     private func setUpViews() {
-        
+        setupTableView()
     }
 
+    private func setupTableView() {
+        addSubview(tableView)
+        tableView.snp.makeConstraints { (make) -> Void in
+            make.edges.equalTo(safeAreaLayoutGuide.snp.edges)
+        }
+    }
 }

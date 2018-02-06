@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,8 +17,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        IQKeyboardManager.sharedManager().enable = true
+        
+        //Loading
         FirebaseApp.configure()
+        FileManagerHelper.manager.loadCurrentUser()
+        
+        
+        let currentUser = AuthUserService.manager.getCurrentUser()
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        
+        if currentUser != nil {
+            print("on start up: there is a user logged in")
+            let tabBar = TabBarVC()
+            window?.rootViewController = tabBar
+        } else {
+            print("on start up: user is nil")
+//            window?.rootViewController = LoginVC()
+            let tabBar = TabBarVC()
+            let loginVC = LoginVC()
+            window?.rootViewController = tabBar
+            tabBar.present(loginVC, animated: true, completion: nil)
+        }
+        
+        window?.makeKeyAndVisible()
+        
+        
+//        FirebaseAPIClient.manager.changeDisplayName(to: "whatup yo") { (changeSuccessful) in
+//            print(changeSuccessful)
+//        }
         
         //if user is logged in - should have home page VC as the root view controller
         //if user is logged out - should have the log in VC as the root view controller
