@@ -98,6 +98,15 @@ class AuthUserService: NSObject {
             
         }
     }
+    public func forgotPassword(withEmail email: String) {
+        auth.sendPasswordReset(withEmail: email) { (error) in
+            if let error = error {
+                self.delegate?.didFailForgotPassword?(self, error: error.localizedDescription)
+                return
+            }
+            self.delegate?.didSendForgotPassword?(self)
+        }
+    }
     
     /**
      Signs the current user out of the app and Firebase.
