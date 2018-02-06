@@ -89,7 +89,7 @@ class AuthUserService: NSObject {
                     })
                     
                     let newUserProfile = UserProfile(email: email, userID: user.uid, displayName: displayName, bio: nil, flags: 0, imageURL: nil)
-                    DatabaseService.manager.addUserProfile(newUserProfile)
+                    DatabaseService.manager.addUserProfile(newUserProfile, andImage: #imageLiteral(resourceName: "placeholder-image"))
                     
                     if !user.isEmailVerified {
                         self.signOut()
@@ -98,6 +98,15 @@ class AuthUserService: NSObject {
                 }
             }
             
+        }
+    }
+    public func forgotPassword(withEmail email: String) {
+        auth.sendPasswordReset(withEmail: email) { (error) in
+            if let error = error {
+                self.delegate?.didFailForgotPassword?(self, error: error.localizedDescription)
+                return
+            }
+            self.delegate?.didSendForgotPassword?(self)
         }
     }
     
