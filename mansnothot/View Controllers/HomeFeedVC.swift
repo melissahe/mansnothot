@@ -9,25 +9,26 @@
 import UIKit
 import SnapKit
 import TableFlip
+import Social
 
 //Purpose: to present a list of all the posts for the app (including all users)
 
 //TODO: have the HomeFeedView as the initial view
-    //should set up datasource variable
-    //should add actions to each button (comment, thumbs up, etc.) in a cell through the cell for item at
-        //each action should take in a sender, which would be of type FeedTableViewCell, configure the cell to do stuff based on which button is selected
-        //comment button - should segue to AddCommentVC
-        //showThread button - should display the total number of comments in button title - should segue to AllCommentsVC
-        //more info:
-            //should set up action sheet that happens during swipe options two buttons “Report User” and “Report Post” (no need for custom view)
-            //ReportUser button - functionality for reporting user
-            //ReportPost button - functionality for reporting post
-            //Nice to have: Share button - Buttons for sharing to Facebook, Email, Instagram, Twitter, Tumblr, SnapChat, etc…
-    //should set up swipe options
-        //should present options like "Report User", "Report Post", and "Share To..." (Extra Credit), maybe edit??
+//should set up datasource variable
+//should add actions to each button (comment, thumbs up, etc.) in a cell through the cell for item at
+//each action should take in a sender, which would be of type FeedTableViewCell, configure the cell to do stuff based on which button is selected
+//comment button - should segue to AddCommentVC
+//showThread button - should display the total number of comments in button title - should segue to AllCommentsVC
+//more info:
+//should set up action sheet that happens during swipe options two buttons “Report User” and “Report Post” (no need for custom view)
+//ReportUser button - functionality for reporting user
+//ReportPost button - functionality for reporting post
+//Nice to have: Share button - Buttons for sharing to Facebook, Email, Instagram, Twitter, Tumblr, SnapChat, etc…
+//should set up swipe options
+//should present options like "Report User", "Report Post", and "Share To..." (Extra Credit), maybe edit??
 
 class HomeFeedVC: UIViewController {
-
+    
     var sampleArr = ["Advice", "AMA", "Animals", "Art", "Beauty", "Books", "Business", "Cats", "Celebs", "Cooking", "Cosplay", "Cute", "Dating", "Drugs", "Dogs", "Education", "ELI5", "Entertainment", "Fashion", "Fitness", "FML", "Food", "Funny", "Health", "Hmm", "Hobbies", "IRL", "LGBTQ+", "Lifestyle", "Memes", "MFW", "MLIA", "Music", "Movies", "Nature", "News", "NSFW", "Other", "Poetry", "Politics", "Random", "Religion", "Relationships", "Science", "Sex", "Sports", "Stories", "Tech", "TFW", "Thirst Traps", "THOT Stuff", "THOT Thoughts", "Throwback", "Travel", "TV", "Weird", "Women", "Work", "World", "WTF"]
     
     var loginVC = LoginVC()
@@ -42,7 +43,7 @@ class HomeFeedVC: UIViewController {
         homeFeedView.tableView.delegate = self
         homeFeedView.tableView.rowHeight = UITableViewAutomaticDimension
         homeFeedView.tableView.estimatedRowHeight = 120
-
+        
         present(loginVC, animated: true, completion: nil)
         
         setupViews()
@@ -54,7 +55,7 @@ class HomeFeedVC: UIViewController {
         // TODO
         //        if user is LoggedOut {
         //            present(loginVC, animated: true, completion: nil)
-       //         }
+        //         }
     }
     
     func setupViews() {
@@ -63,7 +64,7 @@ class HomeFeedVC: UIViewController {
         
         //Give SegmentedBar Functionality
         homeFeedView.segmentedBar.addTarget(self, action: #selector(changeColor(sender:)), for: .valueChanged)
-    
+        
         //Disable TableViewCell from being highlighted
         homeFeedView.tableView.allowsSelection = false
         
@@ -107,50 +108,100 @@ extension HomeFeedVC: UITableViewDataSource {
         return cell
     }
     
-    @objc func showShareActionSheet(){
-        let alert = UIAlertController(title: "Share", message: nil, preferredStyle: .actionSheet)
-        let goToFacebook = UIAlertAction(title: "Facebook", style: .destructive, handler: {(UIAlertAction) -> Void in
-            print("Add Share To Facebook Function here")
-        })
-        let goToTwitter = UIAlertAction(title: "Twitter", style: .destructive, handler: {(UIAlertAction) -> Void in
-            print("Add Share to Twitter Function here")
-        })
-        let goToInstagram = UIAlertAction(title: "Instagram", style: .destructive, handler: {(UIAlertAction) -> Void in
-            print("Add Share to Instagram Function here")
-        })
-        let goToSnapChat = UIAlertAction(title: "Snapchat", style: .destructive, handler: {(UIAlertAction) -> Void in
-            print("Add Share to SnapChat Function here")
-        })
-        let goToEmail = UIAlertAction(title: "Email", style: .destructive, handler: {(UIAlertAction) -> Void in
-            print("Add Share to Email Function here")
-        })
-        let goToSlack = UIAlertAction(title: "Slack", style: .destructive, handler: {(UIAlertAction) -> Void in
-            print("Add Share to Slack Function here")
-        })
-        let goToTumblr = UIAlertAction(title: "Tumblr", style: .destructive, handler: {(UIAlertAction) -> Void in
-            print("Add Share to Tumblr Function here")
-        })
-        alert.addAction(goToFacebook)
-        alert.addAction(goToTwitter)
-        alert.addAction(goToEmail)
-        alert.addAction(goToSlack)
-        alert.addAction(goToTumblr)
-        alert.addAction(goToSnapChat)
-        alert.addAction(goToInstagram)
+    @objc func showShareActionSheet(_ sender: UIButton){
+        if let cell = sender.superview as? FeedTableViewCell {
+            let alert = UIAlertController(title: "Share", message: nil, preferredStyle: .actionSheet)
+            let goToFacebook = UIAlertAction(title: "Facebook", style: .destructive, handler: {(UIAlertAction) -> Void in
+                print("Add Share To Facebook Function here")
+                // Check if user has Facebook
+                if SLComposeViewController.isAvailable(forServiceType: SLServiceTypeFacebook) {
+                    let post = SLComposeViewController(forServiceType: SLServiceTypeFacebook)!
+                    
+                    //Add a title to the post
+                    let title = cell.postTitleLabel.text
+                    post.setInitialText(title)
+                    
+                    //If there is an image, add it to the post
+                    if let image = cell.postImageView.image {
+                        post.add(image)
+                    }
+                    
+                    self.present(post, animated: true, completion: nil)
+                } else {
+                    self.showAlert(service: "Facebook")
+                }
+            })
+            let goToTwitter = UIAlertAction(title: "Twitter", style: .destructive, handler: {(UIAlertAction) -> Void in
+                print("Add Share to Twitter Function here")
+                // Check if user has Twitter
+                if SLComposeViewController.isAvailable(forServiceType: SLServiceTypeTwitter) {
+                    let post = SLComposeViewController(forServiceType: SLServiceTypeTwitter)!
+                    
+                    //Add a title to the post
+                    let title = cell.postTitleLabel.text
+                    post.setInitialText(title)
+                    
+                    //If there is an image, add it to the post
+                    if let image = cell.postImageView.image {
+                        post.add(image)
+                    }
+                    
+                    self.present(post, animated: true, completion: nil)
+                } else {
+                    self.showAlert(service: "Twitter")
+                }
+            })
+//            let goToInstagram = UIAlertAction(title: "Instagram", style: .destructive, handler: {(UIAlertAction) -> Void in
+//                print("Add Share to Instagram Function here")
+//            })
+//            let goToSnapChat = UIAlertAction(title: "Snapchat", style: .destructive, handler: {(UIAlertAction) -> Void in
+//                print("Add Share to SnapChat Function here")
+//            })
+//            let goToEmail = UIAlertAction(title: "Email", style: .destructive, handler: {(UIAlertAction) -> Void in
+//                print("Add Share to Email Function here")
+//            })
+//            let goToSlack = UIAlertAction(title: "Slack", style: .destructive, handler: {(UIAlertAction) -> Void in
+//                print("Add Share to Slack Function here")
+//            })
+//            let goToTumblr = UIAlertAction(title: "Tumblr", style: .destructive, handler: {(UIAlertAction) -> Void in
+//                print("Add Share to Tumblr Function here")
+//            })
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {(UIAlertAction) -> Void in
+                print("User cancelled")
+            })
+            
+            alert.addAction(goToFacebook)
+            alert.addAction(goToTwitter)
+            //alert.addAction(goToEmail)
+            //alert.addAction(goToSlack)
+            //alert.addAction(goToTumblr)
+            //alert.addAction(goToSnapChat)
+            //alert.addAction(goToInstagram)
+            alert.addAction(cancel)
+            present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func showAlert(service: String) {
+        let alert = UIAlertController(title: "Error", message: "You are not connected to \(service)", preferredStyle: .alert)
+        let action = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
+        alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
     
-    @objc func showReportActionSheet(){
-        let alert = UIAlertController(title: "Flag", message: "Pick One", preferredStyle: .actionSheet)
-        let reportUser = UIAlertAction(title: "Report User", style: .destructive, handler: {(UIAlertAction) -> Void in
-            print("Add Report User Function here")
-        })
-        let reportPost = UIAlertAction(title: "Report Post", style: .destructive, handler: {(UIAlertAction) -> Void in
-            print("Add Report Post Function here")
-        })
-        alert.addAction(reportUser)
-        alert.addAction(reportPost)
-        present(alert, animated: true, completion: nil)
+    @objc func showReportActionSheet(_ sender: UIButton){
+        if let cell = sender.superview as? FeedTableViewCell {
+            let alert = UIAlertController(title: "Flag", message: "Pick One", preferredStyle: .actionSheet)
+            let reportUser = UIAlertAction(title: "Report User", style: .destructive, handler: {(UIAlertAction) -> Void in
+                print("Add Report User Function here")
+            })
+            let reportPost = UIAlertAction(title: "Report Post", style: .destructive, handler: {(UIAlertAction) -> Void in
+                print("Add Report Post Function here")
+            })
+            alert.addAction(reportUser)
+            alert.addAction(reportPost)
+            present(alert, animated: true, completion: nil)
+        }
     }
     
     @objc func thumbsUpButtonTouched(_ sender: UIButton) {
