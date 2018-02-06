@@ -9,7 +9,27 @@
 import Foundation
 
 extension DatabaseService {
-    //for deleting posts
-    //for deleting comments
-    //for deleting users?? - if flagged too much??
+    /**
+     */
+    public func deletePost(withPostID postID: String) {
+        postsRef.child(postID).removeValue { (error, _) in
+            if let error = error {
+                self.delegate?.didFailDeletingPost?(self, error: error.localizedDescription)
+            } else {
+                self.delegate?.didDeletePost?(self)
+            }
+        }
+    }
+    
+    /**
+     */
+    public func deleteComment(withCommentID commentID: String) {
+        commentsRef.child(commentID).removeValue { (error, _) in
+            if let error = error {
+                self.delegate?.didFailDeletingComment?(self, error: error.localizedDescription)
+            } else {
+                self.delegate?.didDeleteComment?(self)
+            }
+        }
+    }
 }

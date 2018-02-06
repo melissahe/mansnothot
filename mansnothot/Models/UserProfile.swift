@@ -18,6 +18,7 @@ class UserProfile: NSObject{
     var bio: String?
     var imageURL: String?
     var flags: Int
+    var isBanned: Bool
     override var description: String {
         return """
             - email: \(self.email)
@@ -34,12 +35,13 @@ class UserProfile: NSObject{
         return lhs.userID == rhs.userID
     }
     
-    init(email: String, userID: String, displayName: String, bio: String?, flags: Int, imageURL: String?) {
+    init(email: String, userID: String, displayName: String, bio: String?, flags: Int, imageURL: String?, isBanned: Bool) {
         self.email = email
         self.userID = userID
         self.displayName = displayName
         self.bio = bio
         self.flags = flags
         self.imageURL = imageURL ?? ""
+        self.isBanned = isBanned
     }
 }

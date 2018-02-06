@@ -14,4 +14,5 @@ extension DatabaseService {
     //needs to incorporate transactions
     //should have updating likes/dislikes
     //for editing posts/comments
+    //ban users
 }
