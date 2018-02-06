@@ -33,7 +33,7 @@ protocol StorageServiceDelegate: class {
 class StorageService {
     private init() {
         self.storageRef = Storage.storage().reference()
-        self.imagesRef = storageRef
+        self.imagesRef = storageRef.child("images")
     }
     
      /// The singleton object associated with the StorageService API client.
@@ -64,12 +64,16 @@ class StorageService {
                 
                 return
             }
-//            DatabaseService.manager.addImageURLToUser(url: <#T##String#>, userID: <#T##String#>)
+            
+            let downloadURLString = downloadURL.absoluteString
+            DatabaseService.manager.addImageURLToUser(url: downloadURLString, userID: userID)
         }
         
         //if fail
         uploadTask.observe(.failure) { (snapshot) in
-            //to do
+            if let error = snapshot.error {
+                self.delegate?.didFailStoreImage(self, error: error.localizedDescription)
+            }
         }
     }
     
@@ -86,23 +90,31 @@ class StorageService {
      */
     //maybe don't use completion handler?? just use the delegate function!!!!!
     public func storePostImage(image: UIImage, withPostID postID: String, completion: @escaping (_ error: String?) -> Void) {
-        guard let uploadTask = storeImage(image, withImageID: postID, completion: completion) else {
+        guard let uploadTask = StorageService.manager.storeImage(image, withImageID: postID, completion: completion) else {
             completion("Could not convert image to toucan or data")
             return
         }
         
         //if success
         uploadTask.observe(.success) { (snapshot) in
-            //to do
+            guard let downloadURL = snapshot.metadata?.downloadURL() else {
+                
+                return
+            }
+            
+            let downloadURLString = downloadURL.absoluteString
+            DatabaseService.manager.addImageURLToPost(url: downloadURLString, postID: postID)
         }
         
         //if fail
         uploadTask.observe(.failure) { (snapshot) in
-            //to do
+            if let error = snapshot.error {
+                self.delegate?.didFailStoreImage(self, error: error.localizedDescription)
+            }
         }
     }
     
-    private func storeImage(_ image: UIImage, withImageID imageID: String, completion: @escaping (_ error: String?) -> Void) -> StorageUploadTask? {
+    func storeImage(_ image: UIImage, withImageID imageID: String, completion: @escaping (_ error: String?) -> Void) -> StorageUploadTask? {
         let ref = imagesRef.child(imageID)
         
         guard let resizedImage = Toucan(image: image).resize(CGSize(width: 200, height: 200)).image, let imageData = UIImagePNGRepresentation(resizedImage) else {

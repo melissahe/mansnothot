@@ -10,5 +10,8 @@ import Foundation
 import FirebaseDatabase
 
 extension DatabaseService {
-    
+    //should have updating flags
+    //needs to incorporate transactions
+    //should have updating likes/dislikes
+    //for editing posts/comments
 }
