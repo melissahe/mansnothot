@@ -12,12 +12,19 @@ class OtherUserProfileVC: UIViewController {
 
     let otherUserView = OtherUserProfileView()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
     private func setupViews() {
         view.addSubview(otherUserView)
+    }
+    
+    public func setupOtherUserProfile(user: UserProfile){
+        otherUserView.bioTextView.text = user.bio
+        otherUserView.displayName.text = user.displayName
+        //otherUserView.profileImageView.image = user.imageURL
     }
 
 }

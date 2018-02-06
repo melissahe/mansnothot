@@ -20,6 +20,8 @@ class OtherUserProfileView: UIView {
 
     var spacing = 16 //Use this for even spacing
     
+    
+    // profileImage
     lazy var profileImageView: UIImageView = {
         var pImageView = UIImageView()
         pImageView.image = nil //place holder image
@@ -28,6 +30,7 @@ class OtherUserProfileView: UIView {
         return pImageView
     }()
     
+    // displayName
     lazy var displayName: UILabel = {
         let dn = UILabel()
         dn.text = "Other UserName Label"

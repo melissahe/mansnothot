@@ -33,8 +33,11 @@ extension DatabaseService {
             guard let numberOfFlags = dataSnapshot.childSnapshot(forPath: "flags").value as? Int else {
                 return
             }
+            guard let isBanned = dataSnapshot.childSnapshot(forPath: "isBanned").value as? Bool else {
+                return
+            }
             
-            let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName, bio: bio, flags: numberOfFlags, imageURL: imageURL)
+            let currentUserProfile = UserProfile(email: email, userID: uid, displayName: displayName, bio: bio, flags: numberOfFlags, imageURL: imageURL, isBanned: isBanned)
             completion(currentUserProfile)
         }
     }
