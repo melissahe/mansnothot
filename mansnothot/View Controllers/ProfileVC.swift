@@ -212,13 +212,11 @@ extension ProfileVC: DatabaseServiceDelegate {
 
 extension ProfileVC: AuthUserServiceDelegate {
     func didSignOut(_ authUserService: AuthUserService) {
-        
-        
-        self.tabBarController?.dismiss(animated: true, completion: {
-            let signOutAlert = Alert.create(withTitle: "You have signed out.", andMessage: nil, withPreferredStyle: .alert)
-            Alert.addAction(withTitle: "OK", style: .default, andHandler: nil, to: signOutAlert)
-            self.present(signOutAlert, animated: true, completion: nil)
-        })
+        let signOutAlert = Alert.create(withTitle: "You have signed out.", andMessage: nil, withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "OK", style: .default, andHandler: {(_) in
+            self.tabBarController?.dismiss(animated: true, completion: nil)
+        }, to: signOutAlert)
+        self.present(signOutAlert, animated: true, completion: nil)
     }
     func didFailSignOut(_ authUserService: AuthUserService, error: String) {
         let errorAlert = Alert.createErrorAlert(withMessage: "Could not sign out.\n\(error)")
