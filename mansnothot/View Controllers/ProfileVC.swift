@@ -129,11 +129,6 @@ class ProfileVC: UIViewController {
         }, to: settingsAlert)
         self.present(settingsAlert, animated: true, completion: nil)
     }
-
-    /// begin photo action sheet
-    // from https://stackoverflow.com/questions/27632614/how-to-use-uialertcontroller-to-replace-uiactionsheet
-    
-    /// end photo action sheet
     
     @objc func imageLongPress() {
         if let image = profileView.profileImageView.image {

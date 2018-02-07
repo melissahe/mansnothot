@@ -25,18 +25,18 @@ class NewPostView: UIView {
         return imageView
     }()
     
-    //Label for Adding an Image
-    lazy var addAnImageLabel: UILabel = {
-        let lb = UILabel()
-        lb.text = "Add An Image"
-        lb.textColor = .black
-        lb.backgroundColor = .white
-        lb.textAlignment = .center
-        lb.alpha = 0.50
-        lb.numberOfLines = 0
-        lb.isHidden = true // using plus sign instead
-        return lb
-    }()
+//    //Label for Adding an Image
+//    lazy var addAnImageLabel: UILabel = {
+//        let lb = UILabel()
+//        lb.text = "Add An Image"
+//        lb.textColor = .black
+//        lb.backgroundColor = .white
+//        lb.textAlignment = .center
+//        lb.alpha = 0.50
+//        lb.numberOfLines = 0
+//        lb.isHidden = true // using plus sign instead
+//        return lb
+//    }()
     
     //Button that goes directly over addAnImage Label
     lazy var plusSignButton: UIButton = {
@@ -135,7 +135,7 @@ class NewPostView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        pickImageView.layer.cornerRadius = pickImageView.bounds.height/2
+//        pickImageView.layer.cornerRadius = pickImageView.bounds.height/2
         pickImageView.layer.masksToBounds = true
     }
     
@@ -145,7 +145,7 @@ class NewPostView: UIView {
         self.addSubview(categoryLabel)
         self.addSubview(categoryButton)
         self.addSubview(pickImageView)
-        self.addSubview(addAnImageLabel)
+//        self.addSubview(addAnImageLabel)
         self.addSubview(postTextView)
         self.addSubview(plusSignButton)
         self.addSubview(tableView)
@@ -188,16 +188,16 @@ class NewPostView: UIView {
             make.edges.equalTo(pickImageView)
         }
         
-        addAnImageLabel.snp.makeConstraints { (make) -> Void in
-            make.bottom.equalTo(pickImageView.snp.bottom).offset(-2)
-            make.leading.equalTo(pickImageView.snp.leading)
-            make.trailing.equalTo(pickImageView.snp.trailing)
-            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            
-        }
+//        addAnImageLabel.snp.makeConstraints { (make) -> Void in
+//            make.bottom.equalTo(pickImageView.snp.bottom).offset(-2)
+//            make.leading.equalTo(pickImageView.snp.leading)
+//            make.trailing.equalTo(pickImageView.snp.trailing)
+//            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+//            
+//        }
         
         postTextView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(addAnImageLabel.snp.bottom).offset(8)
+            make.top.equalTo(pickImageView.snp.bottom).offset(8)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(10)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-10)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
