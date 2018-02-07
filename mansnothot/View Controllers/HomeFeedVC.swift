@@ -48,21 +48,12 @@ class HomeFeedVC: UIViewController {
             self.posts = onlinePosts
         }
         definesPresentationContext = true
-        view.backgroundColor = .purple
         view.addSubview(homeFeedView)
+        view.backgroundColor = Stylesheet.Colors.White
         homeFeedView.tableView.dataSource = self
         homeFeedView.tableView.delegate = self
         homeFeedView.tableView.rowHeight = UITableViewAutomaticDimension
         homeFeedView.tableView.estimatedRowHeight = 120
-        
-//        let currentUser = AuthUserService.manager.getCurrentUser()
-        
-//        if currentUser != nil {
-//            print("on start up: there is a user logged in")
-//        } else {
-//            print("on start up: user is nil")
-////            present(loginVC, animated: true, completion: nil)
-//        }
         
         setupViews()
     }
@@ -70,12 +61,6 @@ class HomeFeedVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DatabaseService.manager.delegate = self
-        
-        
-        // TODO
-        //        if user is LoggedOut {
-        //            present(loginVC, animated: true, completion: nil)
-        //         }
     }
     
     func setupViews() {
@@ -94,9 +79,9 @@ class HomeFeedVC: UIViewController {
     @objc func changeColor(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            homeFeedView.backgroundColor = .purple
+            homeFeedView.backgroundColor = Stylesheet.Colors.White
         case 1:
-            homeFeedView.backgroundColor = .blue
+            homeFeedView.backgroundColor = Stylesheet.Colors.White
         default:
             homeFeedView.backgroundColor = .white
         }
@@ -146,7 +131,6 @@ extension HomeFeedVC: UITableViewDataSource {
             cell.layoutIfNeeded()
         }
         
-        cell.usernameLabel.backgroundColor = .orange
         
         //Add Button Functionality
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
