@@ -29,7 +29,6 @@ class NewPostVC: UIViewController {
     private let imagePickerVC = UIImagePickerController()
     private var currentSelectedImage: UIImage!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray
@@ -86,8 +85,20 @@ class NewPostVC: UIViewController {
     @objc private func addImageButton() {
         // Place add image function here
         print("Open Image Library")
-        imagePickerVC.sourceType = .photoLibrary
-        checkAVAuthorization()
+        
+        let imageOptionAlert = Alert.create(withTitle: "Add An Image", andMessage: nil, withPreferredStyle: .actionSheet)
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            Alert.addAction(withTitle: "Camera", style: .default, andHandler: { (_) in
+                self.imagePickerVC.sourceType = .camera
+                self.checkAVAuthorization()
+            }, to: imageOptionAlert)
+        }
+        Alert.addAction(withTitle: "Photo Library", style: .default, andHandler: { (_) in
+            self.imagePickerVC.sourceType = .photoLibrary
+            self.checkAVAuthorization()
+        }, to: imageOptionAlert)
+        Alert.addAction(withTitle: "Cancel", style: .cancel, andHandler: nil, to: imageOptionAlert)
+        self.present(imageOptionAlert, animated: true, completion: nil)
     }
     
     private func checkAVAuthorization() {
@@ -99,11 +110,22 @@ class NewPostVC: UIViewController {
                 if granted {
                     self.showImagePicker()
                 } else {
-                    print("not granted")
+                    let settingsAlert = Alert.create(withTitle: "Please Allow Photo Access", andMessage: "This will allow you to share photos from your library and your camera.", withPreferredStyle: .alert)
+                    Alert.addAction(withTitle: "Settings", style: .default, andHandler: { (_) in
+                        UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+                    }, to: settingsAlert)
+                    Alert.addAction(withTitle: "OK", style: .cancel, andHandler: nil, to: settingsAlert)
+                    self.present(settingsAlert, animated: true, completion: nil)
                 }
             })
         case .denied:
             print("denied")
+            let settingsAlert = Alert.create(withTitle: "Please Allow Photo Access", andMessage: "This will allow you to share photos from your library and your camera.", withPreferredStyle: .alert)
+            Alert.addAction(withTitle: "OK", style: .cancel, andHandler: nil, to: settingsAlert)
+            Alert.addAction(withTitle: "Settings", style: .default, andHandler: { (_) in
+                UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+            }, to: settingsAlert)
+            self.present(settingsAlert, animated: true, completion: nil)
         case .authorized:
             print("authorized")
             showImagePicker()
