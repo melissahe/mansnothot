@@ -139,6 +139,7 @@ extension HomeFeedVC: UITableViewDataSource {
         cell.thumbsDownButton.addTarget(self, action: #selector(thumbsDownButtonTouched(_:)), for: .touchUpInside)
         cell.flagButton.addTarget(self, action: #selector(showReportActionSheet), for: .touchUpInside)
         cell.shareButton.addTarget(self, action: #selector(showShareActionSheet), for: .touchUpInside)
+        //cell.showArrowButton.addTarget(self, action: #selector(showShareActionSheet(_:)), for: .touchUpInside)
         
         return cell
     }

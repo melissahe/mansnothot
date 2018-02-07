@@ -102,6 +102,14 @@ import Foundation
     
     /**
      */
+    @objc optional func didChangeBio(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailChangingBio(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
     @objc optional func didFailEditingPost(_ databaseService: DatabaseService, error: String)
     
     /**
