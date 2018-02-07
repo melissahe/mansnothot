@@ -25,11 +25,12 @@ class MyPostsTableViewCell: UITableViewCell {
     lazy var categoryLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Category"
-        lb.backgroundColor = .green
-        lb.textAlignment = .left
-        lb.textColor = .black
-        lb.numberOfLines = 0
-        lb.layer.borderWidth = 0.5
+        Stylesheet.Objects.Labels.PostCategory.style(label: lb)
+//        lb.backgroundColor = .green
+//        lb.textAlignment = .left
+//        lb.textColor = .black
+//        lb.numberOfLines = 0
+//        lb.layer.borderWidth = 0.5
         return lb
     }()
     
