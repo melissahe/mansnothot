@@ -58,12 +58,14 @@ extension Stylesheet {
             func style(imageView: UIImageView) {
                 switch self {
                 case .Clear:
-                    imageView.backgroundColor = .clear
+//                    imageView.backgroundColor = .clear
+                    imageView.backgroundColor = .yellow
                     imageView.contentMode = .scaleAspectFit
                     imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
                     imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                 case .Opaque:
-                    imageView.backgroundColor = .white
+//                    imageView.backgroundColor = .white
+                    imageView.backgroundColor = .red
                     imageView.contentMode = .scaleAspectFill
                     imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
                     imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
@@ -88,6 +90,8 @@ extension Stylesheet {
                     button.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
                 case .Link:
+                    //                    button.backgroundColor = .clear
+                    button.backgroundColor = .yellow
                     button.setTitleColor(Stylesheet.Colors.Orange, for: .normal)
                     button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Link
@@ -99,7 +103,9 @@ extension Stylesheet {
                     button.layer.borderColor = (Stylesheet.Colors.Orange).cgColor
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
                 case .ClearButton:
-                    button.backgroundColor = .clear
+//                    button.backgroundColor = .clear
+                    button.backgroundColor = .green
+
                     button.contentMode = .scaleAspectFit
                     button.tintColor = Stylesheet.Colors.Orange
                 }
