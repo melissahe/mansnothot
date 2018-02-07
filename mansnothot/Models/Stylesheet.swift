@@ -103,8 +103,8 @@ extension Stylesheet {
                     button.layer.borderColor = (Stylesheet.Colors.Orange).cgColor
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
                 case .ClearButton:
-                    button.backgroundColor = .clear
-//                    button.backgroundColor = .green
+//                    button.backgroundColor = .clear
+                    button.backgroundColor = .green
                     button.contentMode = .scaleAspectFit
                     button.tintColor = Stylesheet.Colors.Orange
                 }
@@ -149,7 +149,8 @@ extension Stylesheet {
                 case .LikesDislikes:
                     label.font = Stylesheet.Fonts.Link
                     label.textColor = Stylesheet.Colors.Dark
-                    label.backgroundColor = .clear
+//                    label.backgroundColor = .clear
+                    label.backgroundColor = .blue
                     label.textAlignment = .center
                 }
             }
