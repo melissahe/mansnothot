@@ -48,6 +48,23 @@ extension DatabaseService {
             }
         }
     }
+    
+    /**
+     */
+    public func editBio(withUserID userID: String, newBio: String?) {
+        let ref = usersRef.child(userID).child("bio")
+        
+        ref.setValue(newBio) { (error, _) in
+            if let error = error {
+                self.delegate?.didFailChangingBio?(self, error: error.localizedDescription)
+                print("couldn't change bio")
+            } else {
+                self.delegate?.didChangeBio?(self)
+                print("successfully changed bio")
+            }
+        }
+    }
+    
     /**
      */
     //ban users
