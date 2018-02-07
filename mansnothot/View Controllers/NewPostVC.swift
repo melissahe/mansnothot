@@ -110,22 +110,12 @@ class NewPostVC: UIViewController {
                 if granted {
                     self.showImagePicker()
                 } else {
-                    let settingsAlert = Alert.create(withTitle: "Please Allow Photo Access", andMessage: "This will allow you to share photos from your library and your camera.", withPreferredStyle: .alert)
-                    Alert.addAction(withTitle: "Settings", style: .default, andHandler: { (_) in
-                        UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
-                    }, to: settingsAlert)
-                    Alert.addAction(withTitle: "OK", style: .cancel, andHandler: nil, to: settingsAlert)
-                    self.present(settingsAlert, animated: true, completion: nil)
+                    self.deniedPhotoAlert()
                 }
             })
         case .denied:
             print("denied")
-            let settingsAlert = Alert.create(withTitle: "Please Allow Photo Access", andMessage: "This will allow you to share photos from your library and your camera.", withPreferredStyle: .alert)
-            Alert.addAction(withTitle: "OK", style: .cancel, andHandler: nil, to: settingsAlert)
-            Alert.addAction(withTitle: "Settings", style: .default, andHandler: { (_) in
-                UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
-            }, to: settingsAlert)
-            self.present(settingsAlert, animated: true, completion: nil)
+            deniedPhotoAlert()
         case .authorized:
             print("authorized")
             showImagePicker()
@@ -136,6 +126,15 @@ class NewPostVC: UIViewController {
     
     private func showImagePicker() {
         present(imagePickerVC, animated: true, completion: nil)
+    }
+    
+    private func deniedPhotoAlert() {
+        let settingsAlert = Alert.create(withTitle: "Please Allow Photo Access", andMessage: "This will allow you to share photos from your library and your camera.", withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "OK", style: .cancel, andHandler: nil, to: settingsAlert)
+        Alert.addAction(withTitle: "Settings", style: .default, andHandler: { (_) in
+            UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+        }, to: settingsAlert)
+        self.present(settingsAlert, animated: true, completion: nil)
     }
     
     @objc private func post() {
