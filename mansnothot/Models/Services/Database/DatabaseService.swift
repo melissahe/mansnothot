@@ -71,22 +71,9 @@ class DatabaseService: NSObject {
                 //if change request was not successful
                 if let error = error {
                     print(error)
-                    self.delegate?.didFailChangingDisplayName?(self, error: error.localizedDescription) //probably because display is already taken?? - can firebase check that?
+                    self.delegate?.didFailChangingDisplayName?(self, error: error.localizedDescription)
                     return
                 }
-                //if successful - should alter the display name in the user profile
-                let currentUserProfile = FileManagerHelper.manager.getCurrentUser()
-                
-                currentUserProfile?.displayName = newName
-                
-                guard let updatedUserProfile = currentUserProfile else {
-                    print("current profile is nil!1")
-                    return
-                }
-//                FileManagerHelper.manager.addNewUser(updatedUserProfile)
-                
-                print("changed display name")
-                self.delegate?.didChangeDisplayName?(self, oldName: oldName, newName: newName)
             })
         }
     }
@@ -116,10 +103,10 @@ class DatabaseService: NSObject {
                     else {
                         return
                 }
-                
-                oldName = displayName
-                
                 if let currentUserID = currentUserID {
+                    if userID == currentUserID {
+                        oldName = displayName
+                    }
                     if newName == displayName && currentUserID != userID {
                         completion(true, oldName, newName)
                         return
@@ -133,6 +120,17 @@ class DatabaseService: NSObject {
             }
             if let oldName = oldName {
                 completion(false, oldName, newName)
+                
+                if let currentUserID = currentUserID {
+                    self.usersRef.child(currentUserID).child("displayName").setValue(newName, withCompletionBlock: { (error, _) in
+                        if let error = error {
+                            self.delegate?.didFailChangingDisplayName?(self, error: error.localizedDescription)
+                        } else {
+                            self.delegate?.didChangeDisplayName?(self, oldName: oldName, newName: newName)
+                        }
+                    })
+                }
+                
                 return
             } else {
                 completion(false, newName, newName)

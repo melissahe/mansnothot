@@ -162,7 +162,24 @@ class ProfileVC: UIViewController {
     }
     
     @objc private func changeDisplayName() {
-        //TODO - ALLOW USER TO CHANGE NAME
+        let changeNameAlert = Alert.create(withTitle: "Change Your Display Name", andMessage: nil, withPreferredStyle: .alert)
+        changeNameAlert.addTextField { (textfield) in
+            textfield.text = self.profileView.displayName.text
+        }
+        Alert.addAction(withTitle: "Cancel", style: .cancel, andHandler: nil, to: changeNameAlert)
+        Alert.addAction(withTitle: "Change Name", style: .default, andHandler: { (_) in
+            guard let newName = changeNameAlert.textFields?.first?.text, !newName.isEmpty else {
+                let errorAlert = Alert.createErrorAlert(withMessage: "You must enter a valid name.")
+                self.present(errorAlert, animated: true, completion: nil)
+                return
+            }
+            DatabaseService.manager.delegate = self
+            DatabaseService.manager.changeDisplayName(to: newName, ifNameTaken: { (failedName) in
+                let sorryAlert = Alert.createErrorAlert(withMessage: "\"\(failedName)\" has already been taken. Try another name.")
+                self.present(sorryAlert, animated: true, completion: nil)
+            })
+        }, to: changeNameAlert)
+        self.present(changeNameAlert, animated: true, completion: nil)
     }
     
     @objc private func logoutButtonTapped() {
