@@ -27,7 +27,23 @@ enum Stylesheet {
         static let Login = UIFont(name: "Helvetica Neue", size: 15.0)
         static let Link = UIFont(name: "Helvetica Neue", size: 15.0)
         static let Bold = UIFont(name: "Helvetica Bold", size: 15.0)
-        
+    }
+    
+    enum BorderWidths {
+        static let Textviews = 0.5
+        static let TextfieldEditable = 1
+        static let TextfieldCompleted = 0
+        static let PostImages = 0.5
+        static let UserImages = 0.5
+        static let FunctionButtons = 0.5
+        static let Buttons = 1
+    }
+    
+    enum ConstraintSizes {
+        static let ButtonWidthMult = 0.6
+        static let ButtonHeightMult = 0.04
+        static let TextfieldWidthMult = 0.8
+        static let TextfieldHeight = 40
     }
 }
 
@@ -35,11 +51,31 @@ extension Stylesheet {
     
     enum Objects {
         
+        enum ImageViews {
+            case Clear
+            case Opaque
+            
+            func style(imageView: UIImageView) {
+                switch self {
+                case .Clear:
+                    imageView.backgroundColor = .clear
+                    imageView.contentMode = .scaleAspectFit
+                    imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
+                    imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
+                case .Opaque:
+                    imageView.backgroundColor = .white
+                    imageView.contentMode = .scaleAspectFill
+                    imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
+                    imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
+                }
+            }
+        }
         
         enum Buttons {
             case Login
-            case ChangeLink
-            case CreateLink
+            case Link
+            case CreateButton
+            case ClearButton
             
             func style(button: UIButton) {
                 switch self {
@@ -49,60 +85,100 @@ extension Stylesheet {
                     button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Bold
                     button.backgroundColor = Stylesheet.Colors.Red
-//                    button.layer.shadowOffset = CGSize(width: 1, height: 1)
-//                    button.layer.shadowRadius = 0.25
-//                    button.layer.shadowColor = (Stylesheet.Colors.Dark).cgColor
-//                    button.layer.shadowOpacity = 0.5
                     button.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
-                    button.layer.borderWidth = 1
-//                    button.layer.masksToBounds = true
-                case .ChangeLink:
+                    button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
+                case .Link:
                     button.setTitleColor(Stylesheet.Colors.Orange, for: .normal)
                     button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Link
-//                    button.layer.shadowOffset = CGSize(width: 1, height: 1)
-//                    button.layer.shadowRadius = 0.25
-//                    button.layer.shadowColor = (Stylesheet.Colors.Dark).cgColor
-//                    button.layer.shadowOpacity = 0.5
-                case .CreateLink:
+                case .CreateButton:
                     button.setTitleColor(Stylesheet.Colors.Red, for: .normal)
                     button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Bold
                     button.backgroundColor = Stylesheet.Colors.Yellow
                     button.layer.borderColor = (Stylesheet.Colors.Orange).cgColor
-                    button.layer.borderWidth = 1
-//                    button.layer.shadowOffset = CGSize(width: 1, height: 1)
-//                    button.layer.shadowRadius = 0.25
-//                    button.layer.shadowColor = (Stylesheet.Colors.Dark).cgColor
-//                    button.layer.shadowOpacity = 0.5
+                    button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
+                case .ClearButton:
+                    button.backgroundColor = .clear
+                    button.contentMode = .scaleAspectFit
+                    button.tintColor = Stylesheet.Colors.Orange
                 }
             }
         }
         
         enum Labels {
-            case Username
+            case Regular
             case AppName
-            case Category
+            case PostCategory
             case PostTitle
+            case PostUsername
+            case LikesDislikes
             
             func style(label: UILabel) {
                 switch self {
-                case .Username:
-                    label.textColor = Stylesheet.Colors.Dark
+                case .Regular:
                     label.font = Stylesheet.Fonts.Regular
+                    label.textColor = Stylesheet.Colors.Dark
+                    label.backgroundColor = .clear
+                    label.textAlignment = .left
                 case .AppName:
                     label.font = Stylesheet.Fonts.AppName
                     label.textColor = Stylesheet.Colors.Dark
-                case .Category:
+                    label.backgroundColor = .clear
+                    label.textAlignment = .center
+                case .PostCategory:
                     label.font = Stylesheet.Fonts.Bold
-                    label.textColor = Stylesheet.Colors.Dark
+                    label.textColor = Stylesheet.Colors.Red
+                    label.backgroundColor = .clear
+                    label.textAlignment = .left
                 case .PostTitle:
                     label.font = Stylesheet.Fonts.PostTitle
                     label.textColor = Stylesheet.Colors.Dark
+                    label.backgroundColor = .clear
+                    label.textAlignment = .left
+                case .PostUsername:
+                    label.font = Stylesheet.Fonts.Regular
+                    label.textColor = Stylesheet.Colors.Dark
+                    label.backgroundColor = .clear
+                    label.textAlignment = .left
+                case .LikesDislikes:
+                    label.font = Stylesheet.Fonts.Link
+                    label.textColor = Stylesheet.Colors.Dark
+                    label.backgroundColor = .clear
+                    label.textAlignment = .center
+                }
+            }
+        }
+        enum Textviews {
+            case Completed
+            case Editable
+            
+            func style(textview: UITextView) {
+                switch self {
+                case .Completed:
+                    textview.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.TextfieldCompleted)
+                    textview.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
+                    textview.backgroundColor = Stylesheet.Colors.White
+                    textview.textAlignment = .natural
+                    textview.isEditable = false
+                    textview.textColor = Stylesheet.Colors.Dark
+                    textview.font = Stylesheet.Fonts.Regular
+                    textview.adjustsFontForContentSizeCategory = true
+                    
+                case .Editable:
+                    textview.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.TextfieldEditable)
+                    textview.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
+                    textview.backgroundColor = Stylesheet.Colors.White
+                    textview.textAlignment = .natural
+                    textview.isEditable = true
+                    textview.textColor = Stylesheet.Colors.Dark
+                    textview.font = Stylesheet.Fonts.Regular
+                    textview.adjustsFontForContentSizeCategory = true
                 }
             }
         }
         
+
         
         enum Textfields {
             case UserName
@@ -168,6 +244,7 @@ extension Stylesheet {
                 }
             }
         }
+        
     }
 }
 

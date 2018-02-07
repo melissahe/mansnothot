@@ -16,12 +16,12 @@ class HomeFeedView: UIView {
     
     //SegmentedControlBar
     lazy var segmentedBar: UISegmentedControl = {
-        let items = ["Purple", "Blue"] // names of each segment
+        let items = ["Popular", "Recent"] // names of each segment
         let sc = UISegmentedControl(items: items)
         sc.selectedSegmentIndex = 0
         sc.layer.cornerRadius = 5.0
-        sc.backgroundColor = .black
-        sc.tintColor = .red
+        sc.backgroundColor = Stylesheet.Colors.Yellow
+        sc.tintColor = Stylesheet.Colors.Red
         
         return sc
         }()

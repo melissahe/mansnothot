@@ -56,7 +56,7 @@ class LoginView: UIView {
     lazy var forgotPassButton: UIButton = {
         let forgotButton = UIButton ()
         forgotButton.setTitle("Forgot Password?", for: .normal)
-        Stylesheet.Objects.Buttons.ChangeLink.style(button: forgotButton)
+        Stylesheet.Objects.Buttons.Link.style(button: forgotButton)
         return forgotButton
     }()
     
@@ -64,7 +64,7 @@ class LoginView: UIView {
     lazy var createNewAccountButton: UIButton = {
         let createButton = UIButton()
         createButton.setTitle("Create New Account", for: .normal)
-        Stylesheet.Objects.Buttons.CreateLink.style(button: createButton)
+        Stylesheet.Objects.Buttons.CreateButton.style(button: createButton)
         return createButton
     }()
     
@@ -109,24 +109,24 @@ class LoginView: UIView {
         emailTextField.snp.makeConstraints { (make) in
             make.top.equalTo(welcomeLabel.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
-            make.height.equalTo(40)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.TextfieldWidthMult)
+            make.height.equalTo(Stylesheet.ConstraintSizes.TextfieldHeight)
         }
 
         //password textfield
         passwordTextField.snp.makeConstraints { (make) in
             make.top.equalTo(emailTextField.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
-            make.height.equalTo(40)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.TextfieldWidthMult)
+            make.height.equalTo(Stylesheet.ConstraintSizes.TextfieldHeight)
         }
 
         //login button
         loginButton.snp.makeConstraints { (make) in
             make.top.equalTo(passwordTextField.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.6)
-            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.04)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.ButtonWidthMult)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(Stylesheet.ConstraintSizes.ButtonHeightMult)
         }
 
         //forgot password button
@@ -139,8 +139,8 @@ class LoginView: UIView {
         createNewAccountButton.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.6)
-            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.04)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.ButtonWidthMult)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(Stylesheet.ConstraintSizes.ButtonHeightMult)
         }
     }
 }
