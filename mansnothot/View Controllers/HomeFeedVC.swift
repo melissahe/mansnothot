@@ -226,9 +226,25 @@ extension HomeFeedVC: UITableViewDataSource {
     
     @objc func showReportActionSheet(_ sender: UIButton){
         if let cell = sender.superview as? FeedTableViewCell {
+            
+            guard let indexPath = self.homeFeedView.tableView.indexPath(for: cell) else {
+                print("couldn't get indexpath")
+                return
+            }
+            let currentPost = self.posts[indexPath.row]
+            
+            if let userID = AuthUserService.manager.getCurrentUser()?.uid {
+                if userID == currentPost.userID {
+                    let errorAlert = Alert.createErrorAlert(withMessage: "You can't flag yourself or your own posts.")
+                    self.present(errorAlert, animated: true, completion: nil)
+                }
+            }
+            
             let reportAlert = Alert.create(withTitle: "Flag", andMessage: nil, withPreferredStyle: .actionSheet)
             Alert.addAction(withTitle: "Report User", style: .destructive, andHandler: { (_) in
                 //get the cell's index path, and then get the post's index path - pass in the user id (if it's yours, present error)
+                
+                
                 
                 //report user function here
             }, to: reportAlert)
