@@ -25,7 +25,7 @@ enum Stylesheet {
         static let PostTitle = UIFont(name: "Optima", size: 20.0)
         static let Regular = UIFont(name: "Helvetica Neue", size: 15.0)
         static let Login = UIFont(name: "Helvetica Neue", size: 15.0)
-        static let Link = UIFont(name: "Helvetica Neue", size: 15.0)
+        static let Link = UIFont(name: "Helvetica Bold", size: 15.0)
         static let Bold = UIFont(name: "Helvetica Bold", size: 15.0)
     }
     
@@ -90,8 +90,8 @@ extension Stylesheet {
                     button.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
                 case .Link:
-                    //                    button.backgroundColor = .clear
-                    button.backgroundColor = .yellow
+                    button.backgroundColor = .clear
+//                    button.backgroundColor = .yellow
                     button.setTitleColor(Stylesheet.Colors.Orange, for: .normal)
                     button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Link
@@ -103,9 +103,8 @@ extension Stylesheet {
                     button.layer.borderColor = (Stylesheet.Colors.Orange).cgColor
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
                 case .ClearButton:
-//                    button.backgroundColor = .clear
-                    button.backgroundColor = .green
-
+                    button.backgroundColor = .clear
+//                    button.backgroundColor = .green
                     button.contentMode = .scaleAspectFit
                     button.tintColor = Stylesheet.Colors.Orange
                 }
