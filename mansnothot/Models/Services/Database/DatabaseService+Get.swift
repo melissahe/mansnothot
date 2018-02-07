@@ -24,7 +24,7 @@ extension DatabaseService {
     public func getUserProfile(withUID uid: String, completion: @escaping (_ userProfile: UserProfile) -> Void) {
         let ref = usersRef.child(uid)
         
-        ref.observeSingleEvent(of: .value) { (dataSnapshot) in
+        ref.observe(.value) { (dataSnapshot) in
             guard let email = dataSnapshot.childSnapshot(forPath: "email").value as? String else {
                 return
             }

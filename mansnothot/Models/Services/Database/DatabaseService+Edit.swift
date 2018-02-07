@@ -12,6 +12,20 @@ import FirebaseDatabase
 extension DatabaseService {
     /**
      */
+    public func editProfileImage(withUserID userID: String, image: UIImage) {
+        StorageService.manager.storeUserImage(image: image, withUserID: userID) { (errorMessage) in
+            if let errorMessage = errorMessage {
+                self.delegate?.didFailChangingUserImage?(self, error: errorMessage)
+                print("couldn't change user iamge")
+            } else {
+                self.delegate?.didChangeUserImage?(self)
+                print("changed user image")
+            }
+        }
+    }
+    
+    /**
+     */
     public func editPost(withPostID postID: String, newPost: Post, newImage: UIImage?) {
         let ref = postsRef.child(postID)
         
