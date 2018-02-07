@@ -105,12 +105,26 @@ extension Stylesheet {
         
         
         enum Textfields {
+            case UserName
             case LoginEmail
             case LoginPassword
             case PostTitle
             
             func style(textfield: UITextField) {
                 switch self {
+                case .UserName:
+                    textfield.borderStyle = UITextBorderStyle.bezel
+                    textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
+                    textfield.backgroundColor = Stylesheet.Colors.White
+                    textfield.textAlignment = NSTextAlignment.left
+                    textfield.font = Stylesheet.Fonts.Login
+                    textfield.textColor = Stylesheet.Colors.Dark
+                    textfield.adjustsFontSizeToFitWidth = true
+                    textfield.autocapitalizationType = .words
+                    textfield.autocorrectionType = .no
+                    textfield.keyboardType = .asciiCapable
+                    textfield.returnKeyType = .default
+                    textfield.placeholder = "User Name"
                 case .LoginEmail:
                     textfield.borderStyle = UITextBorderStyle.bezel
                     textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
@@ -122,7 +136,7 @@ extension Stylesheet {
                     textfield.autocapitalizationType = .none
                     textfield.autocorrectionType = .no
                     textfield.keyboardType = .emailAddress
-                    textfield.returnKeyType = .next
+                    textfield.returnKeyType = .default
                     textfield.placeholder = "Email Address"
                 case .LoginPassword:
                     textfield.borderStyle = UITextBorderStyle.bezel
@@ -135,7 +149,7 @@ extension Stylesheet {
                     textfield.autocapitalizationType = .none
                     textfield.autocorrectionType = .no
                     textfield.keyboardType = .asciiCapable
-                    textfield.returnKeyType = .done
+                    textfield.returnKeyType = .default
                     textfield.placeholder = "Password"
                     textfield.isSecureTextEntry = true
                 case .PostTitle:
