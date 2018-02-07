@@ -43,7 +43,6 @@ class NewPostVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        clear()
     }
     
     func animateTable() {
@@ -240,7 +239,9 @@ extension NewPostVC: UIImagePickerControllerDelegate, UINavigationControllerDele
 extension NewPostVC: DatabaseServiceDelegate {
     func didAddPost(_ databaseService: DatabaseService) {
         let alert = Alert.create(withTitle: "Success!", andMessage: "Post Created!", withPreferredStyle: .alert)
-        Alert.addAction(withTitle: "OK", style: .default, andHandler: nil, to: alert)
+        Alert.addAction(withTitle: "OK", style: .default, andHandler: {(_) in
+            self.clear()
+        }, to: alert)
         present(alert, animated: true, completion: nil)
         print("posted post")
     }
