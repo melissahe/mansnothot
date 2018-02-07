@@ -33,6 +33,8 @@ CocoaPods is a dependency manager for Cocoa projects. You can install it with th
 - [KingFisher](https://github.com/onevcat/Kingfisher)
 - [SnapKit](http://snapkit.io/docs)
 - [TableFlip](https://github.com/mergesort/TableFlip)
+- [IQKeyboardManagerSwift](https://github.com/hackiftekhar/IQKeyboardManager)
+- [Toucan](https://cocoapods.org/pods/Nuke-Toucan-Plugin)
 
 ### How to Install Pods
 To integrate these pods into your Xcode project using CocoaPods, specify it in your Podfile:
@@ -43,13 +45,16 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-pod 'Alamofire',
-pod 'SnapKit',
-pod 'KingFisher'
+pod 'Alamofire'
+pod 'SnapKit'
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
+pod 'Firebase/Storage'
 pod 'TableFlip'
+pod 'Kingfisher'
+pod 'Toucan'
+pod 'IQKeyboardManagerSwift'
 
 end
 ```
