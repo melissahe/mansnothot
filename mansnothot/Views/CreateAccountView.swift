@@ -30,17 +30,6 @@ class CreateAccountView: UIView {
     lazy var usernameTextField: UITextField = {
         let tField = UITextField()
         Stylesheet.Objects.Textfields.UserName.style(textfield: tField)
-//        tField.backgroundColor = UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)
-//        tField.font = UIFont.systemFont(ofSize: 20, weight: .light)
-//        tField.textAlignment = .center
-//        //tField.placeholder = "Enter Desired Username"
-//        // This will let you pick the color of the placeholder text
-//        tField.attributedPlaceholder = NSAttributedString(string: "Enter Desired Username", attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)])
-//        tField.keyboardType = .default
-//        tField.keyboardAppearance = .dark
-//        tField.backgroundColor = UIColor(red: 0.141, green: 0.149, blue: 0.184, alpha: 1.00)
-//        tField.textColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.00)
-//        tField.textColor = .white
         return tField
     }()
     
@@ -48,18 +37,6 @@ class CreateAccountView: UIView {
     lazy var passwordTextField: UITextField = {
         let tField = UITextField()
         Stylesheet.Objects.Textfields.LoginPassword.style(textfield: tField)
-//        tField.backgroundColor = UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)
-//        tField.font = UIFont.systemFont(ofSize: 20, weight: .light)
-//        tField.textAlignment = .center
-//        //tField.placeholder = "Enter Password"
-//        // This will let you pick the color of the placeholder text
-//        tField.attributedPlaceholder = NSAttributedString(string: "Enter Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)])
-//        tField.keyboardType = .default
-//        tField.keyboardAppearance = .dark
-//        tField.backgroundColor = UIColor(red: 0.141, green: 0.149, blue: 0.184, alpha: 1.00)
-//        tField.textColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.00)
-//        tField.textColor = .white
-//        tField.isSecureTextEntry = true
         return tField
     }()
     
@@ -67,17 +44,6 @@ class CreateAccountView: UIView {
     lazy var emailTextField: UITextField = {
         let tField = UITextField()
         Stylesheet.Objects.Textfields.LoginEmail.style(textfield: tField)
-//        tField.backgroundColor = UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)
-//        tField.font = UIFont.systemFont(ofSize: 20, weight: .light)
-//        tField.textAlignment = .center
-//        //tField.placeholder = "Enter Email"
-//        // This will let you pick the color of the placeholder text
-//        tField.attributedPlaceholder = NSAttributedString(string: "Enter Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)])
-//        tField.keyboardType = .emailAddress
-//        tField.keyboardAppearance = .dark
-//        tField.backgroundColor = UIColor(red: 0.141, green: 0.149, blue: 0.184, alpha: 1.00)
-//        tField.textColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.00)
-//        tField.textColor = .white
         return tField
     }()
     
@@ -96,10 +62,7 @@ class CreateAccountView: UIView {
     lazy var createAccountButton: UIButton = {
         let button = UIButton()
         button.setTitle("Create New Account", for: .normal)
-        Stylesheet.Objects.Buttons.CreateLink.style(button: button)
-//        button.setTitleColor(.black, for: .normal)
-//        button.backgroundColor = .yellow
-//        button.layer.borderWidth = 0.5
+        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
         return button
     }()
     
@@ -132,7 +95,7 @@ class CreateAccountView: UIView {
     
     private func setupViews() {
         dismissButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.safeAreaLayoutGuide).offset(8)
+            make.top.equalTo(self.safeAreaLayoutGuide).offset(10)
             make.leading.equalTo(self.safeAreaLayoutGuide).offset(16)
         }
         
@@ -145,23 +108,23 @@ class CreateAccountView: UIView {
         usernameTextField.snp.makeConstraints { (make) in
             make.top.equalTo(self.createAccountLabel.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
-            make.height.equalTo(40)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.TextfieldWidthMult)
+            make.height.equalTo(Stylesheet.ConstraintSizes.TextfieldHeight)
         }
         
         
         emailTextField.snp.makeConstraints { (make) in
             make.top.equalTo(usernameTextField.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
-            make.height.equalTo(40)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.TextfieldWidthMult)
+            make.height.equalTo(Stylesheet.ConstraintSizes.TextfieldHeight)
         }
         
         passwordTextField.snp.makeConstraints { (make) in
             make.top.equalTo(emailTextField.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
-            make.height.equalTo(40)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.TextfieldWidthMult)
+            make.height.equalTo(Stylesheet.ConstraintSizes.TextfieldHeight)
         }
 
         //        statusLabel.snp.makeConstraints { (make) in
@@ -173,8 +136,8 @@ class CreateAccountView: UIView {
         createAccountButton.snp.makeConstraints { (make) in
             make.top.equalTo(passwordTextField.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.6)
-            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.04)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.ButtonWidthMult)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(Stylesheet.ConstraintSizes.ButtonHeightMult)
         }
         
         

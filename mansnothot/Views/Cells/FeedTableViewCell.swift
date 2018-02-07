@@ -23,9 +23,10 @@ class FeedTableViewCell: UITableViewCell {
     lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = nil
-        imageView.backgroundColor = .blue
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.borderWidth = 0.5
+        Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
+//        imageView.backgroundColor = .blue
+//        imageView.contentMode = .scaleAspectFit
+//        imageView.layer.borderWidth = 0.5
         return imageView
     }()
     
