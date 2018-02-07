@@ -70,6 +70,10 @@ class ProfileVC: UIViewController {
             //use core data!!!!
         }
         self.navigationItem.rightBarButtonItem = logoutButton
+        profileView.seeMyPostsButton.addTarget(self, action: #selector(seePostsButtonTapped), for: .touchUpInside)
+        profileView.changeDisplayName.addTarget(self, action: #selector(changeDisplayName), for: .touchUpInside)
+        profileView.changeProfileImageButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
+        profileView.plusSignButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
         
         imagePickerVC.delegate = self
     }
@@ -129,6 +133,7 @@ class ProfileVC: UIViewController {
         }, to: settingsAlert)
         self.present(settingsAlert, animated: true, completion: nil)
     }
+    
     
     @objc func imageLongPress() {
         if let image = profileView.profileImageView.image {
