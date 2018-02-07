@@ -94,6 +94,14 @@ import Foundation
     
     /**
      */
+    @objc optional func didChangeUserImage(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailChangingUserImage(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
     @objc optional func didFailEditingPost(_ databaseService: DatabaseService, error: String)
     
     /**
