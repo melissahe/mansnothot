@@ -10,15 +10,15 @@ import UIKit
 import SnapKit
 
 //TODO: set up
-    //add objects
-        //username textfield - email
-        //rethink logic here - resend email verification??
-        //reset password button??
-    //set up constraints
-    //Firebase function for changing password
+//add objects
+//username textfield - email
+//rethink logic here - resend email verification??
+//reset password button??
+//set up constraints
+//Firebase function for changing password
 
 class ForgotPassView: UIView {
-
+    
     // dismissable view / button - alternative to the X
     lazy var dismissView: UIButton = {
         let button = UIButton(frame: UIScreen.main.bounds)
@@ -44,28 +44,25 @@ class ForgotPassView: UIView {
     
     // reset password label
     lazy var resetLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "Enter your email to reset your password"
-        label.font = label.font.withSize(15)
         label.textAlignment = .center
+        Stylesheet.Objects.Labels.Regular.style(label: label)
         return label
     }()
     
     // email textfield
     lazy var resetEmailTextField: UITextField = {
         let rtf = UITextField()
-        rtf.placeholder = "Email Address"
-        rtf.borderStyle = .line
+        Stylesheet.Objects.Textfields.LoginEmail.style(textfield: rtf)
         return rtf
     }()
     
     // send reset password email button
     lazy var resetPasswordButton: UIButton = {
-       let resetButton = UIButton()
+        let resetButton = UIButton()
         resetButton.setTitle("Reset Password", for: .normal)
-        resetButton.setTitleColor(UIColor.yellow, for: .normal)
-        resetButton.backgroundColor = .red
-        resetButton.showsTouchWhenHighlighted = true
+        Stylesheet.Objects.Buttons.CreateButton.style(button: resetButton)
         return resetButton
     }()
     
@@ -89,7 +86,7 @@ class ForgotPassView: UIView {
         setupSubviews()
         setupConstraints()
     }
-
+    
     private func setupSubviews() {
         addSubview(dismissView)
         addSubview(containerView)
@@ -131,16 +128,16 @@ class ForgotPassView: UIView {
         resetEmailTextField.snp.makeConstraints { (make) in
             make.top.equalTo(resetLabel.snp.bottom).offset(20)
             make.centerX.equalTo(self.containerView.snp.centerX)
-            make.width.equalTo(self.containerView.snp.width).multipliedBy(0.8)
-            make.height.equalTo(40)
+            make.width.equalTo(self.containerView.snp.width).multipliedBy(Stylesheet.ConstraintSizes.TextfieldWidthMult)
+            make.height.equalTo(Stylesheet.ConstraintSizes.TextfieldHeight)
         }
         
         // reset password email button
         resetPasswordButton.snp.makeConstraints { (make) in
             make.top.equalTo(resetEmailTextField.snp.bottom).offset(20)
             make.centerX.equalTo(self.containerView.snp.centerX)
-            make.width.equalTo(self.containerView.snp.width).multipliedBy(0.6)
-            make.height.equalTo(self.containerView.snp.height).multipliedBy(0.05)
+            make.width.equalTo(self.containerView.snp.width).multipliedBy(Stylesheet.ConstraintSizes.ButtonWidthMult)
+            make.height.equalTo(self.containerView.snp.height).multipliedBy(Stylesheet.ConstraintSizes.ButtonHeightMult)
         }
     }
 }

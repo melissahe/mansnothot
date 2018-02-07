@@ -38,7 +38,7 @@ class LoginVC: UIViewController {
         if user != nil {
             // currently: if there is a user already logged in, autofill email but need to enter password
             self.loginView.emailTextField.text = user?.email!
-            print("User identified. Display Name: \(user?.displayName), Email: \(user?.email)")
+            print("User identified. Display Name: \(String(describing: user?.displayName)), Email: \(String(describing: user?.email))")
         } else {
             print("there is no user")
         }
@@ -62,7 +62,7 @@ class LoginVC: UIViewController {
         self.loginView.createNewAccountButton.addTarget(self, action: #selector(createNewAcct), for: UIControlEvents.touchUpInside)
         
         self.view.addSubview(forgotPassView)
-        self.forgotPassView.resetPasswordButton.addTarget(self, action: #selector(returnToLogin), for: UIControlEvents.touchUpInside) /// update the selector target to sendPassResetEmail when it is configured
+        self.forgotPassView.resetPasswordButton.addTarget(self, action: #selector(resetPassword), for: UIControlEvents.touchUpInside) /// update the selector target to sendPassResetEmail when it is configured
         self.forgotPassView.dismissButton.addTarget(self, action: #selector(returnToLogin), for: .touchUpInside)
         self.forgotPassView.dismissView.addTarget(self, action: #selector(returnToLogin), for: .touchUpInside)
         
@@ -80,6 +80,7 @@ class LoginVC: UIViewController {
         print("Forgot Password? button pressed")
         // TODO: present ForgotPassView
         forgotPassView.isHidden = false
+        forgotPassView.resetEmailTextField.text = nil
     }
     
     @objc func createNewAcct(selector: UIButton) {
@@ -88,13 +89,22 @@ class LoginVC: UIViewController {
     }
     
     @objc func returnToLogin() {
-        //        dismiss(animated: true, completion: nil)
         print("Reset Password or Dismiss View button pressed")
+        
         forgotPassView.isHidden = true
-        
-        
         // segue to Login VC >> Ideally, POP the view and show same original LoginVC
         
+    }
+    
+    @objc func resetPassword() {
+        if let emailText = forgotPassView.resetEmailTextField.text, !emailText.isEmpty {
+            AuthUserService.manager.delegate = self
+            AuthUserService.manager.forgotPassword(withEmail: emailText)
+            forgotPassView.isHidden = true
+        } else {
+            let errorAlert = Alert.createErrorAlert(withMessage: "Nothing was entered in the textfield.")
+            self.present(errorAlert, animated: true, completion: nil)
+        }
     }
     
     @objc func sendPassResetEmail(selector: UIButton) {
@@ -124,29 +134,25 @@ extension LoginVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
         textField.resignFirstResponder()
     }
-    
-    
-    
-    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.becomeFirstResponder()
         // specs for email textfield
         if textField == loginView.emailTextField {
             // check if field is not empty
-            guard let userEmail = textField.text, textField.text != "" else { return }
+            guard let userEmail = textField.text, userEmail != "" else { return }
             /// TODO: additional checks to verify if user account exists via email
         }
         // specs for password textfield
         if textField == loginView.passwordTextField {
             // check if field is not empty
-            guard let userPass = textField.text, textField.text != "" else { return }
+            guard let userPass = textField.text, userPass != "" else { return }
             // makes the entered text into secret password form
             textField.isSecureTextEntry = true
         }
         // specs for reset password textfield
         if textField == forgotPassView.resetEmailTextField {
             // check if field is not empty
-            guard let enteredEmail = textField.text, textField.text != "" else { return }
+            guard let enteredEmail = textField.text, enteredEmail != "" else { return }
             /// TODO: additional checks to verify if user account exists via email
         }
     }
@@ -180,5 +186,15 @@ extension LoginVC: AuthUserServiceDelegate {
     func didSendEmailVerification(_ authUserService: AuthUserService, user: User, message: String) {
         print("didSendEmailVerification")
         showAlert(title: "Error", message: "Verification email sent")
+    }
+    func didFailForgotPassword(_ authUserService: AuthUserService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: error)
+        self.present(errorAlert, animated: true, completion: nil)
+    }
+    func didSendForgotPassword(_ authUserService: AuthUserService) {
+        forgotPassView.isHidden = true
+        let alert = Alert.create(withTitle: "An email has been sent to reset your password.", andMessage: nil, withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "OK", style: .default, andHandler: nil, to: alert)
+        self.present(alert, animated: true, completion: nil)
     }
 }

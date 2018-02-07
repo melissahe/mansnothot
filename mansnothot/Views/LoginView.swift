@@ -24,42 +24,31 @@ class LoginView: UIView {
     lazy var welcomeLabel: UILabel = {
         let label = UILabel()
         label.text = "MansNotHot"
-        label.font = Stylesheet.Fonts.Title
-        label.textColor = Stylesheet.Colors.Dark
+//        label.font = Stylesheet.Fonts.Title
+//        label.textColor = Stylesheet.Colors.Dark
+        
+        Stylesheet.Objects.Labels.AppName.style(label: label)
         return label
     }()
     
     // Email Textfield with Placeholder Text
     lazy var emailTextField: UITextField = {
         let etf = UITextField()
-//        etf.backgroundColor = .blue
-        etf.borderStyle = .line
-        etf.autocapitalizationType = .none
-        etf.autocorrectionType = .no
-        etf.placeholder = "Email Address"
+        Stylesheet.Objects.Textfields.LoginEmail.style(textfield: etf)
         return etf
     }()
     
     // Password Textfield with Placeholder Text
     lazy var passwordTextField: UITextField = {
         let ptf = UITextField()
-//        ptf.backgroundColor = .green
-        ptf.borderStyle = .line
-        ptf.autocapitalizationType = .none
-        ptf.autocorrectionType = .no
-        ptf.placeholder = "Password"
-        ptf.isSecureTextEntry = true
+        Stylesheet.Objects.Textfields.LoginPassword.style(textfield: ptf)
         return ptf
     }()
     
     // Login Button - Border - Check credentials via Firebase, then segue to HomePageVC
     lazy var loginButton: UIButton = {
         let loginButton = UIButton()
-        loginButton.setTitle("Log In", for: .normal)
-        loginButton.setTitleColor(UIColor.yellow, for: .normal)
-        loginButton.backgroundColor = .red
-        loginButton.showsTouchWhenHighlighted = true
-        loginButton.layer.borderColor = UIColor.black.cgColor
+        Stylesheet.Objects.Buttons.Login.style(button: loginButton)
         return loginButton
     }()
     
@@ -67,10 +56,7 @@ class LoginView: UIView {
     lazy var forgotPassButton: UIButton = {
         let forgotButton = UIButton ()
         forgotButton.setTitle("Forgot Password?", for: .normal)
-        forgotButton.setTitleColor(UIColor.blue, for: .normal)
-        forgotButton.backgroundColor = .yellow // bg color just to make button visible
-        forgotButton.showsTouchWhenHighlighted = true
-        forgotButton.titleLabel?.font = UIFont(name: "Arial", size: 15)
+        Stylesheet.Objects.Buttons.Link.style(button: forgotButton)
         return forgotButton
     }()
     
@@ -78,9 +64,7 @@ class LoginView: UIView {
     lazy var createNewAccountButton: UIButton = {
         let createButton = UIButton()
         createButton.setTitle("Create New Account", for: .normal)
-        createButton.setTitleColor(UIColor.red, for: .normal)
-        createButton.showsTouchWhenHighlighted = true
-//        createButton.backgroundColor = UIColor.lightGray
+        Stylesheet.Objects.Buttons.CreateButton.style(button: createButton)
         return createButton
     }()
     
@@ -125,39 +109,38 @@ class LoginView: UIView {
         emailTextField.snp.makeConstraints { (make) in
             make.top.equalTo(welcomeLabel.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
-            make.height.equalTo(40)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.TextfieldWidthMult)
+            make.height.equalTo(Stylesheet.ConstraintSizes.TextfieldHeight)
         }
 
         //password textfield
         passwordTextField.snp.makeConstraints { (make) in
             make.top.equalTo(emailTextField.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.8)
-            make.height.equalTo(40)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.TextfieldWidthMult)
+            make.height.equalTo(Stylesheet.ConstraintSizes.TextfieldHeight)
         }
 
         //login button
         loginButton.snp.makeConstraints { (make) in
             make.top.equalTo(passwordTextField.snp.bottom).offset(20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.6)
-            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.05)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.ButtonWidthMult)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(Stylesheet.ConstraintSizes.ButtonHeightMult)
         }
 
         //forgot password button
         forgotPassButton.snp.makeConstraints { (make) in
             make.top.equalTo(loginButton.snp.bottom).offset(10)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-//            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.5)
         }
 
         //create account button
         createNewAccountButton.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.6)
-            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.05)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.ButtonWidthMult)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(Stylesheet.ConstraintSizes.ButtonHeightMult)
         }
     }
 }

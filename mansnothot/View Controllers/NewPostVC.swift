@@ -29,7 +29,6 @@ class NewPostVC: UIViewController {
     private let imagePickerVC = UIImagePickerController()
     private var currentSelectedImage: UIImage!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .gray
@@ -37,7 +36,6 @@ class NewPostVC: UIViewController {
         newPostView.tableView.dataSource = self
         newPostView.tableView.delegate = self
         newPostView.postTextView.delegate = self
-        newPostView.titleTextField.delegate = self
         setupViews()
         
         imagePickerVC.delegate = self
@@ -45,7 +43,7 @@ class NewPostVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        animateTable()
+        clear()
     }
     
     func animateTable() {
@@ -71,10 +69,11 @@ class NewPostVC: UIViewController {
         navigationItem.title = "New Post"
         
         // Set Right Bar Button
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "post"), style: .done, target: self, action: #selector(post))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "POST", style: .done, target: self, action: #selector(post))
+//            UIBarButtonItem(image: #imageLiteral(resourceName: "post"), style: .done, target: self, action: #selector(post))
         
         // Set Left Bar Button
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "clear"), style: .done, target: self, action: #selector(clear))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "trash"), style: .done, target: self, action: #selector(clear))
         
         // Set Category Button
         newPostView.categoryButton.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)
@@ -87,8 +86,20 @@ class NewPostVC: UIViewController {
     @objc private func addImageButton() {
         // Place add image function here
         print("Open Image Library")
-        imagePickerVC.sourceType = .photoLibrary
-        checkAVAuthorization()
+        
+        let imageOptionAlert = Alert.create(withTitle: "Add An Image", andMessage: nil, withPreferredStyle: .actionSheet)
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            Alert.addAction(withTitle: "Camera", style: .default, andHandler: { (_) in
+                self.imagePickerVC.sourceType = .camera
+                self.checkAVAuthorization()
+            }, to: imageOptionAlert)
+        }
+        Alert.addAction(withTitle: "Photo Library", style: .default, andHandler: { (_) in
+            self.imagePickerVC.sourceType = .photoLibrary
+            self.checkAVAuthorization()
+        }, to: imageOptionAlert)
+        Alert.addAction(withTitle: "Cancel", style: .cancel, andHandler: nil, to: imageOptionAlert)
+        self.present(imageOptionAlert, animated: true, completion: nil)
     }
     
     private func checkAVAuthorization() {
@@ -100,11 +111,22 @@ class NewPostVC: UIViewController {
                 if granted {
                     self.showImagePicker()
                 } else {
-                    print("not granted")
+                    let settingsAlert = Alert.create(withTitle: "Please Allow Photo Access", andMessage: "This will allow you to share photos from your library and your camera.", withPreferredStyle: .alert)
+                    Alert.addAction(withTitle: "Settings", style: .default, andHandler: { (_) in
+                        UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+                    }, to: settingsAlert)
+                    Alert.addAction(withTitle: "OK", style: .cancel, andHandler: nil, to: settingsAlert)
+                    self.present(settingsAlert, animated: true, completion: nil)
                 }
             })
         case .denied:
             print("denied")
+            let settingsAlert = Alert.create(withTitle: "Please Allow Photo Access", andMessage: "This will allow you to share photos from your library and your camera.", withPreferredStyle: .alert)
+            Alert.addAction(withTitle: "OK", style: .cancel, andHandler: nil, to: settingsAlert)
+            Alert.addAction(withTitle: "Settings", style: .default, andHandler: { (_) in
+                UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+            }, to: settingsAlert)
+            self.present(settingsAlert, animated: true, completion: nil)
         case .authorized:
             print("authorized")
             showImagePicker()
@@ -120,30 +142,28 @@ class NewPostVC: UIViewController {
     @objc private func post() {
         // Checks if required fields are filled before posting
         // Each post needs a title
-        if newPostView.titleTextField.text != "" {
-            if newPostView.postTextView.text != "Enter Post Text Here" {
+        if let title = newPostView.titleTextField.text, !title.isEmpty {
+            if let postText = newPostView.postTextView.text, !"Enter Post Text Here".contains(postText) {
+                DatabaseService.manager.delegate = self
                 
-                //This is where the post function would go
-                print("Posted Post")
-                let alert = UIAlertController(title: "Success!", message: "Post Created!", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
-                alert.addAction(ok)
-                present(alert, animated: true, completion: nil)
+                guard let category = newPostView.categoryButton.currentTitle, category != "Pick a Category" else {
+                    let alert = Alert.createErrorAlert(withMessage: "Please pick a category before posting,")
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }
+                
+                let image = newPostView.pickImageView.image
+                
+                DatabaseService.manager.addPost(withCategory: category, title: title, bodyText: postText, image: image)
             } else {
                 //This triggers if user didn't put text in the postTextView
-                let alert = UIAlertController(title: "Error", message: "Please have something in the post's body in order to post.", preferredStyle: .alert)
-                let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
-                alert.addAction(ok)
-                present(alert, animated: true, completion: nil)
+                let alert = Alert.createErrorAlert(withMessage: "Please have something in the post's body before you post.")
+                self.present(alert, animated: true, completion: nil)
             }
-            
-            
         } else {
             // This triggers if the user didn't enter a title
-            let alert = UIAlertController(title: "Error", message: "Please enter a title for your post", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
-            alert.addAction(ok)
-            present(alert, animated: true, completion: nil)
+            let alert = Alert.createErrorAlert(withMessage: "Please enter a title for your post.")
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -151,7 +171,7 @@ class NewPostVC: UIViewController {
         // Sets image to nil, PostText to empty, Title to empty, and Category to empty
         newPostView.pickImageView.image = nil
         newPostView.postTextView.text = "Enter Post Text Here"
-        newPostView.titleTextField.text = ""
+        newPostView.titleTextField.text = nil
         newPostView.categoryButton.setTitle("Pick a Category", for: .normal)
     }
     
@@ -159,15 +179,11 @@ class NewPostVC: UIViewController {
         print("Button tapped")
         if newPostView.tableView.isHidden == true {
             newPostView.tableView.isHidden = false
+            animateTable()
         } else {
             newPostView.tableView.isHidden = true
         }
     }
-}
-
-
-extension NewPostVC: UITextFieldDelegate {
-    
 }
 
 extension NewPostVC: UITextViewDelegate {
@@ -220,13 +236,21 @@ extension NewPostVC: UIImagePickerControllerDelegate, UINavigationControllerDele
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
-
-    
 }
 
-
-
+extension NewPostVC: DatabaseServiceDelegate {
+    func didAddPost(_ databaseService: DatabaseService) {
+        let alert = Alert.create(withTitle: "Success!", andMessage: "Post Created!", withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "OK", style: .default, andHandler: nil, to: alert)
+        present(alert, animated: true, completion: nil)
+        print("posted post")
+    }
+    func didFailAddingPost(_ databaseService: DatabaseService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: error)
+        present(errorAlert, animated: true, completion: nil)
+        print("could not print post")
+    }
+}
 
 
 

@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import TableFlip
 import Social
+import Kingfisher
 
 //Purpose: to present a list of all the posts for the app (including all users)
 
@@ -34,35 +35,32 @@ class HomeFeedVC: UIViewController {
 //    var loginVC = LoginVC()
     var homeFeedView = HomeFeedView()
     
+    //get all posts - should be in the view will appear too
+    var posts: [Post] = [] {
+        didSet {
+            homeFeedView.tableView.reloadData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        DatabaseService.manager.getAllPosts { (onlinePosts) in
+            self.posts = onlinePosts
+        }
         definesPresentationContext = true
-        view.backgroundColor = .purple
         view.addSubview(homeFeedView)
+        view.backgroundColor = Stylesheet.Colors.White
         homeFeedView.tableView.dataSource = self
         homeFeedView.tableView.delegate = self
         homeFeedView.tableView.rowHeight = UITableViewAutomaticDimension
         homeFeedView.tableView.estimatedRowHeight = 120
-        
-        let currentUser = AuthUserService.manager.getCurrentUser()
-        
-//        if currentUser != nil {
-//            print("on start up: there is a user logged in")
-//        } else {
-//            print("on start up: user is nil")
-////            present(loginVC, animated: true, completion: nil)
-//        }
         
         setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // TODO
-        //        if user is LoggedOut {
-        //            present(loginVC, animated: true, completion: nil)
-        //         }
+        DatabaseService.manager.delegate = self
     }
     
     func setupViews() {
@@ -81,9 +79,9 @@ class HomeFeedVC: UIViewController {
     @objc func changeColor(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            homeFeedView.backgroundColor = .purple
+            homeFeedView.backgroundColor = Stylesheet.Colors.White
         case 1:
-            homeFeedView.backgroundColor = .blue
+            homeFeedView.backgroundColor = Stylesheet.Colors.White
         default:
             homeFeedView.backgroundColor = .white
         }
@@ -91,18 +89,48 @@ class HomeFeedVC: UIViewController {
 }
 extension HomeFeedVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sampleArr.count
+        return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FeedCell", for: indexPath) as! FeedTableViewCell
+        let currentPost = posts[indexPath.row]
         
-        let aThing = sampleArr[indexPath.row]
+        cell.categoryLabel.text = "This is \(currentPost.category)"
+        cell.postTitleLabel.text = currentPost.title
+        if let postText = currentPost.bodyText, !postText.isEmpty {
+            cell.postTextView.text = postText
+        } else {
+            cell.postTextView.text = "No text submitted"
+        }
+        DatabaseService.manager.getUserProfile(withUID: currentPost.userID) { (userProfile) in
+            cell.usernameLabel.text = userProfile.displayName
+            cell.postImageView.image = nil
+            if let userUrlString = userProfile.imageURL, let url = URL(string: userUrlString) {
+                cell.userImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (_, error, _, _) in
+                    if let error = error {
+                        print(error)
+                    }
+                    cell.layoutIfNeeded()
+                })
+            } else {
+                cell.userImageView.image = #imageLiteral(resourceName: "placeholder-image")
+                cell.layoutIfNeeded()
+            }
+        }
         
-        cell.categoryLabel.text = "This is \(aThing)"
-        cell.usernameLabel.text = "GIRLSRULE37"
-        cell.usernameLabel.backgroundColor = .orange
-        cell.userImageView.image = #imageLiteral(resourceName: "profileImage") // test image
+        if let postUrlString = currentPost.imageURL, let url = URL(string: postUrlString) {
+            cell.postImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (_, error, _, _) in
+                if let error = error {
+                    print(error)
+                }
+                cell.layoutIfNeeded()
+            })
+        } else {
+            cell.postImageView.image = nil
+            cell.layoutIfNeeded()
+        }
+        
         
         //Add Button Functionality
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
@@ -198,16 +226,18 @@ extension HomeFeedVC: UITableViewDataSource {
     
     @objc func showReportActionSheet(_ sender: UIButton){
         if let cell = sender.superview as? FeedTableViewCell {
-            let alert = UIAlertController(title: "Flag", message: "Pick One", preferredStyle: .actionSheet)
-            let reportUser = UIAlertAction(title: "Report User", style: .destructive, handler: {(UIAlertAction) -> Void in
-                print("Add Report User Function here")
-            })
-            let reportPost = UIAlertAction(title: "Report Post", style: .destructive, handler: {(UIAlertAction) -> Void in
-                print("Add Report Post Function here")
-            })
-            alert.addAction(reportUser)
-            alert.addAction(reportPost)
-            present(alert, animated: true, completion: nil)
+            let reportAlert = Alert.create(withTitle: "Flag", andMessage: nil, withPreferredStyle: .actionSheet)
+            Alert.addAction(withTitle: "Report User", style: .destructive, andHandler: { (_) in
+                //get the cell's index path, and then get the post's index path - pass in the user id (if it's yours, present error)
+                
+                //report user function here
+            }, to: reportAlert)
+            
+            Alert.addAction(withTitle: "Report Post", style: .destructive, andHandler: { (_) in
+                //get the cell's index path, and then get the post's index path - pass in the post and user id (if it's your user id, present error)
+            }, to: reportAlert)
+            Alert.addAction(withTitle: "Cancel", style: .default, andHandler: nil, to: reportAlert)
+            present(reportAlert, animated: true, completion: nil)
         }
     }
     
@@ -266,6 +296,6 @@ extension HomeFeedVC: UITableViewDataSource {
 extension HomeFeedVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        //to do??
     }
 }

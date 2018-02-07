@@ -10,22 +10,16 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-
-
-
-
-
 class FeedTableViewCell: UITableViewCell {
-    
-    
     
     //userImageView - for user image
     lazy var userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = nil
-        imageView.backgroundColor = .blue
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.borderWidth = 0.5
+        Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
+//        imageView.backgroundColor = .blue
+//        imageView.contentMode = .scaleAspectFit
+//        imageView.layer.borderWidth = 0.5
         return imageView
     }()
     
@@ -33,11 +27,12 @@ class FeedTableViewCell: UITableViewCell {
     lazy var categoryLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Category"
-        lb.backgroundColor = .white
-        lb.textAlignment = .left
-        lb.textColor = .black
-        lb.numberOfLines = 0
-        lb.layer.borderWidth = 0.5
+        Stylesheet.Objects.Labels.PostCategory.style(label: lb)
+//        lb.backgroundColor = .white
+//        lb.textAlignment = .left
+//        lb.textColor = .black
+//        lb.numberOfLines = 0
+//        lb.layer.borderWidth = 0.5
         return lb
     }()
     
@@ -45,11 +40,12 @@ class FeedTableViewCell: UITableViewCell {
     lazy var usernameLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Test"
-        lb.backgroundColor = .white
-        lb.textAlignment = .left
-        lb.textColor = .black
-        lb.numberOfLines = 0
-        lb.layer.borderWidth = 0.5
+        Stylesheet.Objects.Labels.PostUsername.style(label: lb)
+//        lb.backgroundColor = .white
+//        lb.textAlignment = .left
+//        lb.textColor = .black
+//        lb.numberOfLines = 0
+//        lb.layer.borderWidth = 0.5
         return lb
     }()
     
@@ -57,11 +53,14 @@ class FeedTableViewCell: UITableViewCell {
     lazy var postTitleLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Post Title"
-        lb.backgroundColor = .white
-        lb.textAlignment = .left
-        lb.textColor = .black
-        lb.numberOfLines = 0
-        lb.layer.borderWidth = 0.5
+        Stylesheet.Objects.Labels.PostTitle.style(label: lb)
+//        lb.backgroundColor = .white
+//        lb.textAlignment = .left
+//        lb.textColor = .black
+//        lb.numberOfLines = 0
+//        lb.layer.borderWidth = 0.5
+        lb.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .vertical)
+        lb.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .vertical)
         return lb
     }()
     
@@ -69,20 +68,23 @@ class FeedTableViewCell: UITableViewCell {
     lazy var postImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = nil
-        imageView.backgroundColor = .green
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.borderWidth = 0.5
+        Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
+//        imageView.backgroundColor = .green
+//        imageView.contentMode = .scaleAspectFit
+//        imageView.layer.borderWidth = 0.5
         return imageView
     }()
     
     //textView - for post
     lazy var postTextView: UITextView = {
         let tv = UITextView()
-        tv.layer.borderWidth = 0.5
         tv.text = "Sample Post Text Here"
-        tv.backgroundColor = .yellow
-        tv.textAlignment = .justified
-        tv.isEditable = false
+        Stylesheet.Objects.Textviews.Completed.style(textview: tv)
+//        tv.layer.borderWidth = 0.5
+//        tv.backgroundColor = .yellow
+//        tv.textAlignment = .justified
+//        tv.isEditable = false
+        tv.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .vertical)
         return tv
     }()
     
@@ -90,8 +92,9 @@ class FeedTableViewCell: UITableViewCell {
     lazy var thumbsUpButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "thumbsUp"), for: .normal)
-        button.backgroundColor = .clear
-        button.layer.borderWidth = 0.5
+        Stylesheet.Objects.Buttons.ClearButton.style(button: button)
+//        button.backgroundColor = .clear
+//        button.layer.borderWidth = 0.5
         return button
     }()
     
@@ -99,9 +102,10 @@ class FeedTableViewCell: UITableViewCell {
     lazy var numberOfLikesLabel: UILabel = {
         let lb = UILabel()
         lb.text = "+37"
-        lb.backgroundColor = .gray
-        lb.textAlignment = .center
-        lb.backgroundColor = .white
+        Stylesheet.Objects.Labels.LikesDislikes.style(label: lb)
+//        lb.backgroundColor = .gray
+//        lb.textAlignment = .center
+//        lb.backgroundColor = .white
         return lb
     }()
     
@@ -109,8 +113,9 @@ class FeedTableViewCell: UITableViewCell {
     lazy var thumbsDownButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "thumbsDown"), for: .normal)
-        button.backgroundColor = .clear
-        button.layer.borderWidth = 0.5
+        Stylesheet.Objects.Buttons.ClearButton.style(button: button)
+//        button.backgroundColor = .clear
+//        button.layer.borderWidth = 0.5
         return button
     }()
     
@@ -118,9 +123,10 @@ class FeedTableViewCell: UITableViewCell {
     lazy var numberOfDislikesLabel: UILabel = {
         let lb = UILabel()
         lb.text = "-7"
-        lb.backgroundColor = .gray
-        lb.textAlignment = .center
-        lb.backgroundColor = .white
+        Stylesheet.Objects.Labels.LikesDislikes.style(label: lb)
+//        lb.backgroundColor = .gray
+//        lb.textAlignment = .center
+//        lb.backgroundColor = .white
         return lb
     }()
     
@@ -129,18 +135,20 @@ class FeedTableViewCell: UITableViewCell {
     lazy var commentButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "comment"), for: .normal)
-        button.backgroundColor = .clear
-        button.layer.borderWidth = 0.5
+        Stylesheet.Objects.Buttons.ClearButton.style(button: button)
+//        button.backgroundColor = .clear
+//        button.layer.borderWidth = 0.5
         return button
     }()
     
     //showThread button - should display the total number of comments in button title - should segue to AllCommentsVC
     lazy var showThreadButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.black, for: .normal)
         button.setTitle("Thread", for: .normal)
-        button.backgroundColor = .orange
-        button.layer.borderWidth = 0.5
+        Stylesheet.Objects.Buttons.Link.style(button: button)
+//        button.setTitleColor(.black, for: .normal)
+//        button.backgroundColor = .orange
+//        button.layer.borderWidth = 0.5
         
         return button
     }()
@@ -148,25 +156,24 @@ class FeedTableViewCell: UITableViewCell {
     //flag icon (which is a button) - that will present the flag action sheet
     lazy var flagButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "flag"), for: .normal)
-        button.backgroundColor = .clear
-        button.layer.borderWidth = 0.5
+        button.setImage(UIImage(named: "flagclear"), for: .normal)
+        Stylesheet.Objects.Buttons.ClearButton.style(button: button)
+//        button.backgroundColor = .clear
+//        button.layer.borderWidth = 0.5
         return button
     }()
     
     //Share Button
     lazy var shareButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.black, for: .normal)
         button.setTitle("Share", for: .normal)
-        button.backgroundColor = .yellow
-        button.layer.borderWidth = 0.5
+        Stylesheet.Objects.Buttons.Link.style(button: button)
+//        button.setTitleColor(.black, for: .normal)
+//        button.backgroundColor = .yellow
+//        button.layer.borderWidth = 0.5
         return button
     }()
 
-    
-    
-    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style , reuseIdentifier: "FeedCell")
         setupAndConstrainObjects()
@@ -206,7 +213,7 @@ class FeedTableViewCell: UITableViewCell {
         self.addSubview(shareButton)
         
         userImageView.snp.makeConstraints { (make) -> Void in
-            make.height.width.equalTo(self.snp.width).multipliedBy(0.08)
+            make.height.width.equalTo(self.snp.width).multipliedBy(0.08).priority(999)
             make.top.equalTo(self.snp.top).offset(5)
             make.leading.equalTo(self.snp.leading).offset(5)
         }
@@ -224,48 +231,62 @@ class FeedTableViewCell: UITableViewCell {
             make.leading.equalTo(self.snp.leading).offset(5)
             make.top.equalTo(usernameLabel.snp.bottom).offset(5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
-        }
-        postImageView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(postTitleLabel.snp.bottom).offset(5)
-            make.centerX.equalTo(self.snp.centerX)
-            make.width.equalTo(self.snp.width).multipliedBy(0.5)
-            make.height.equalTo(self.snp.height).multipliedBy(0.3)
-//            make.height.equalTo(self.snp.height).multipliedBy(0.16)
+            make.height.greaterThanOrEqualTo(self.snp.width).multipliedBy(0.07)
         }
         postTextView.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(self.snp.width).multipliedBy(0.8)
+            make.width.equalTo(self.snp.width).multipliedBy(0.9)
             make.height.equalTo(self.snp.height).multipliedBy(0.3)
             make.centerX.equalTo(self.snp.centerX)
             make.top.equalTo(postImageView.snp.bottom).offset(5)
         }
+        postImageView.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(postTitleLabel.snp.bottom).offset(5)
+            make.centerX.equalTo(self.snp.centerX)
+            make.bottom.equalTo(postTextView.snp.top).offset(-5)
+            make.height.lessThanOrEqualTo(200)
+            //            make.width.equalTo(self.snp.width).multipliedBy(0.5)
+            //            make.height.equalTo(self.snp.height).multipliedBy(0.3)
+            //            make.height.equalTo(self.snp.height).multipliedBy(0.16)
+        }
+        ///
+        showThreadButton.snp.makeConstraints { (make) -> Void in
+            make.centerY.equalTo(commentButton.snp.centerY)
+            make.leading.equalTo(commentButton.snp.trailing).offset(2)
+//            make.bottom.equalTo(self.snp.bottom).offset(-5)
+//            make.height.equalTo(self.snp.width).multipliedBy(0.07)
+//            make.width.equalTo(self.snp.width).multipliedBy(0.18)
+//            make.centerX.equalTo(self.snp.centerX)
+        }
+        ///
         thumbsUpButton.snp.makeConstraints { (make) -> Void in
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
+            make.centerY.equalTo(showThreadButton.snp.centerY)
             make.leading.equalTo(self.snp.leading).offset(5)
         }
         numberOfLikesLabel.snp.makeConstraints { (make) -> Void in
-            make.leading.equalTo(thumbsUpButton.snp.trailing)
+            make.leading.equalTo(thumbsUpButton.snp.trailing).offset(2)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.height.equalTo(postTitleLabel.snp.height)
+            make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }
         thumbsDownButton.snp.makeConstraints { (make) -> Void in
-            make.leading.equalTo(numberOfLikesLabel.snp.trailing)
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
+            make.leading.equalTo(numberOfLikesLabel.snp.trailing).offset(2)
+            make.centerY.equalTo(showThreadButton.snp.centerY)
         }
         numberOfDislikesLabel.snp.makeConstraints { (make) -> Void in
-            make.leading.equalTo(thumbsDownButton.snp.trailing)
+            make.leading.equalTo(thumbsDownButton.snp.trailing).offset(2)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.height.equalTo(postTitleLabel.snp.height)
+            make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }
-        showThreadButton.snp.makeConstraints { (make) -> Void in
+        ///
+        // speech bubble icon button
+        commentButton.snp.makeConstraints { (make) -> Void in
+//            make.centerY.equalTo(showThreadButton.snp.centerY)
+//            make.leading.equalTo(showThreadButton.snp.trailing)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.height.equalTo(numberOfDislikesLabel.snp.height)
-            make.width.equalTo(self.snp.width).multipliedBy(0.18)
+//            make.height.equalTo(self.snp.width).multipliedBy(0.07)
+//            make.width.equalTo(self.snp.width).multipliedBy(0.18)
             make.centerX.equalTo(self.snp.centerX)
         }
-        commentButton.snp.makeConstraints { (make) -> Void in
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.leading.equalTo(showThreadButton.snp.trailing)
-        }
+        ///
         flagButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self.snp.top).offset(5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
@@ -275,7 +296,7 @@ class FeedTableViewCell: UITableViewCell {
             make.top.equalTo(postTextView.snp.bottom).offset(5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.height.equalTo(numberOfLikesLabel.snp.height)
+            make.height.equalTo(self.snp.width).multipliedBy(0.07)
             make.width.equalTo(self.snp.width).multipliedBy(0.18)
         }
     }
