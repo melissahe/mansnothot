@@ -48,6 +48,7 @@ class LoginView: UIView {
     // Login Button - Border - Check credentials via Firebase, then segue to HomePageVC
     lazy var loginButton: UIButton = {
         let loginButton = UIButton()
+        loginButton.setTitle("Log In", for: .normal)
         Stylesheet.Objects.Buttons.Login.style(button: loginButton)
         return loginButton
     }()

@@ -81,9 +81,7 @@ extension Stylesheet {
             
             func style(button: UIButton) {
                 switch self {
-                case .Login:
-                    button.setTitle("Log In", for: .normal)
-                    button.setTitleColor(Stylesheet.Colors.LightGrey, for: .normal)
+                case .Login:                    button.setTitleColor(Stylesheet.Colors.LightGrey, for: .normal)
                     button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Bold
                     button.backgroundColor = Stylesheet.Colors.Red
@@ -139,7 +137,8 @@ extension Stylesheet {
                 case .PostTitle:
                     label.font = Stylesheet.Fonts.PostTitle
                     label.textColor = Stylesheet.Colors.Dark
-                    label.backgroundColor = .clear
+//                    label.backgroundColor = .clear
+                    label.backgroundColor = .red
                     label.textAlignment = .left
                 case .PostUsername:
                     label.font = Stylesheet.Fonts.Regular
