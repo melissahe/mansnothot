@@ -13,6 +13,7 @@
 		811C09CE202015330072EDC8 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C09CD202015330072EDC8 /* FileManagerHelper.swift */; };
 		815CDC7E2028E48F0043B291 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815CDC7D2028E48F0043B291 /* StorageService.swift */; };
 		815CDCB3202A1C260043B291 /* DatabaseService+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815CDCB2202A1C260043B291 /* DatabaseService+Delete.swift */; };
+		815CDCB5202A93A70043B291 /* HomeFeedVC+DatabaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815CDCB4202A93A70043B291 /* HomeFeedVC+DatabaseService.swift */; };
 		8185CE67201FFB0200C38A96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8185CE66201FFB0200C38A96 /* AppDelegate.swift */; };
 		8185CE6E201FFB0200C38A96 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8185CE6D201FFB0200C38A96 /* Assets.xcassets */; };
 		81879A0F20239F0400CAD692 /* AuthUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A0E20239F0400CAD692 /* AuthUserService.swift */; };
@@ -67,6 +68,7 @@
 		811C09CD202015330072EDC8 /* FileManagerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
 		815CDC7D2028E48F0043B291 /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		815CDCB2202A1C260043B291 /* DatabaseService+Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Delete.swift"; sourceTree = "<group>"; };
+		815CDCB4202A93A70043B291 /* HomeFeedVC+DatabaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeFeedVC+DatabaseService.swift"; sourceTree = "<group>"; };
 		8185CE63201FFB0200C38A96 /* mansnothot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mansnothot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8185CE66201FFB0200C38A96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8185CE68201FFB0200C38A96 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				8185CE68201FFB0200C38A96 /* LoginVC.swift */,
 				81AFD555202053DF0091AEF9 /* CreateAccountVC.swift */,
 				81AFD55C202066DE0091AEF9 /* HomeFeedVC.swift */,
+				815CDCB4202A93A70043B291 /* HomeFeedVC+DatabaseService.swift */,
 				81AFD566202070560091AEF9 /* AddCommentVC.swift */,
 				81AFD56A2020723F0091AEF9 /* AllCommentsVC.swift */,
 				81AFD5942020E5000091AEF9 /* ProfileVC.swift */,
@@ -459,6 +462,7 @@
 				81AFD56F202074700091AEF9 /* AllCommentsTableViewCell.swift in Sources */,
 				81954E0920254BBE00567D3C /* DatabaseService+Edit.swift in Sources */,
 				81AFD56B2020723F0091AEF9 /* AllCommentsVC.swift in Sources */,
+				815CDCB5202A93A70043B291 /* HomeFeedVC+DatabaseService.swift in Sources */,
 				81AFD559202064CF0091AEF9 /* CreateAccountView.swift in Sources */,
 				81879A152023C85900CAD692 /* DatabaseServiceDelegate.swift in Sources */,
 				81AFD567202070560091AEF9 /* AddCommentVC.swift in Sources */,
