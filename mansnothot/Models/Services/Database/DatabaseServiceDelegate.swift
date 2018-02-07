@@ -62,6 +62,22 @@ import Foundation
     
     /**
      */
+    @objc optional func didAddPost(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailAddingPost(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didAddComment(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailAddingComment(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
     @objc optional func didDeletePost(_ databaseService: DatabaseService)
     
     /**
@@ -78,6 +94,14 @@ import Foundation
     
     /**
      */
+    @objc optional func didChangeUserImage(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailChangingUserImage(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
     @objc optional func didFailEditingPost(_ databaseService: DatabaseService, error: String)
     
     /**
@@ -91,4 +115,40 @@ import Foundation
     /**
      */
     @objc optional func didFailBanning(_ databaseService: DatabaseService, error: String)
+
+    /**
+     */
+    @objc optional func didFlagUserAlready(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didFlagUser(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailFlagging(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didLikePost(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didUndoLikePost(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didDislikePost(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didUndoDislikePost(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailLiking(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didFailDisliking(_ databaseService: DatabaseService, error: String)
 }

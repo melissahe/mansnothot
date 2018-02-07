@@ -9,6 +9,9 @@
 import UIKit
 import FirebaseDatabase
 
+//check if post is flagged
+//check if liked, check if not liked
+
 extension DatabaseService {
     //get
     /** Generates a UserProfile object for the current user from the database.
@@ -21,7 +24,7 @@ extension DatabaseService {
     public func getUserProfile(withUID uid: String, completion: @escaping (_ userProfile: UserProfile) -> Void) {
         let ref = usersRef.child(uid)
         
-        ref.observeSingleEvent(of: .value) { (dataSnapshot) in
+        ref.observe(.value) { (dataSnapshot) in
             guard let email = dataSnapshot.childSnapshot(forPath: "email").value as? String else {
                 return
             }

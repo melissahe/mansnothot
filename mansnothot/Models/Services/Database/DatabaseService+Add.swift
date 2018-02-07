@@ -66,15 +66,20 @@ extension DatabaseService {
                       "userLiked": post.userLiked,
                       "userDisliked": post.userDisliked,
                       "timestamp": post.timestamp
-            ])
+        ]) { (error, _) in
+            if let error = error {
+                self.delegate?.didFailAddingPost?(self, error: error.localizedDescription)
+            } else {
+                self.delegate?.didAddPost?(self)
+                print("new post added to database!!")
+            }
+        }
         
         StorageService.manager.storePostImage(image: image, withPostID: post.postID) { (errorMessage) in
             if let errorMessage = errorMessage {
                 print(errorMessage)
             }
         }
-        
-        print("new post added to database!!")
     }
     
     /**
@@ -91,15 +96,20 @@ extension DatabaseService {
                       "bio:": userProfile.bio ?? "",
                       "flags": userProfile.flags,
                       "isBanned": userProfile.isBanned
-            ])
+        ]) { (error, _) in
+            if let error = error {
+                self.delegate?.didFailAddingComment?(self, error: error.localizedDescription)
+            } else {
+                self.delegate?.didAddComment?(self)
+                print("new user added to database!!")
+            }
+        }
         
         StorageService.manager.storeUserImage(image: image, withUserID: userProfile.userID) { (errorMessage) in
             if let errorMessage = errorMessage {
                 print(errorMessage)
             }
         }
-        
-        print("new user added to database!!")
     }
     
     /**

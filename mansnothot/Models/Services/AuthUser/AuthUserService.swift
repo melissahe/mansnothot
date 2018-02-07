@@ -54,6 +54,9 @@ class AuthUserService: NSObject {
                 
                 DatabaseService.manager.getUserProfile(withUID: user.uid, completion: { (userProfile) in
 //                    self.delegate?.didLogin?(self, userProfile: userProfile)
+                    
+                    //core data storage
+                    
                     self.delegate?.didLogin!(self, userProfile: userProfile)
                 })
                 print("Logged in")
@@ -91,7 +94,7 @@ class AuthUserService: NSObject {
                     })
                     
                     let newUserProfile = UserProfile(email: email, userID: user.uid, displayName: displayName, bio: nil, flags: 0, imageURL: nil, isBanned: false)
-                    DatabaseService.manager.addUserProfile(newUserProfile, andImage: #imageLiteral(resourceName: "placeholder-image"))
+                    DatabaseService.manager.addUserProfile(newUserProfile, andImage: #imageLiteral(resourceName: "profileImage"))
                     
                     if !user.isEmailVerified {
                         self.signOut()
@@ -119,6 +122,7 @@ class AuthUserService: NSObject {
         do {
             try auth.signOut()
             DatabaseService.manager.stopObserving()
+            //core data delete everything
             delegate?.didSignOut?(self)
         } catch {
             print(error)

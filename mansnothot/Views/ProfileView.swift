@@ -28,55 +28,60 @@ class ProfileView: UIView {
     lazy var profileImageView: UIImageView = {
         var pImageView = UIImageView()
         pImageView.image = #imageLiteral(resourceName: "profileImage") //place holder image
-        pImageView.contentMode = .scaleAspectFill
-        pImageView.backgroundColor = .orange
+        Stylesheet.Objects.ImageViews.Opaque.style(imageView: pImageView)
+//        pImageView.contentMode = .scaleAspectFill
+//        pImageView.backgroundColor = .orange
         return pImageView
     }()
     
     lazy var changeProfileImageButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("Change Image", for: .normal)
-        btn.setTitleColor(.green, for: .normal)
-        btn.titleLabel?.font = UIFont(name: "Arial", size: 15)
+        Stylesheet.Objects.Buttons.Link.style(button: btn)
+//        btn.setTitleColor(.green, for: .normal)
+//        btn.titleLabel?.font = UIFont(name: "Arial", size: 15)
         return btn
     }()
     
     lazy var displayName: UILabel = {
         let dn = UILabel()
         dn.text = "Display Label"
-        dn.backgroundColor = .yellow
-        dn.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        dn.textAlignment = .center
-        dn.numberOfLines = 0
+        Stylesheet.Objects.Labels.PostTitle.style(label: dn)
+//        dn.backgroundColor = .yellow
+//        dn.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+//        dn.textAlignment = .center
+//        dn.numberOfLines = 0
         return dn
     }()
     
     lazy var changeDisplayName: UIButton = {
         let cdn = UIButton()
         cdn.setTitle("Change Username", for: .normal)
-        cdn.titleLabel?.font = UIFont(name: "Arial", size: 15)
-        cdn.setTitleColor(.green, for: .normal)
+        Stylesheet.Objects.Buttons.Link.style(button: cdn)
+//        cdn.titleLabel?.font = UIFont(name: "Arial", size: 15)
+//        cdn.setTitleColor(.green, for: .normal)
         return cdn
     }()
     
     lazy var seeMyPostsButton: UIButton = {
         let cdn = UIButton()
         cdn.setTitle(" See All My Posts ", for: .normal)
-        cdn.setTitleColor(.green, for: .normal)
-        cdn.layer.borderWidth = 0.5
+        Stylesheet.Objects.Buttons.Login.style(button: cdn)
+//        cdn.setTitleColor(.green, for: .normal)
+//        cdn.layer.borderWidth = 0.5
         return cdn
     }()
     
     // bioTextView
     lazy var bioTextView: UITextView = {
         let btv = UITextView()
-        btv.layer.borderWidth = 0.5
-        btv.text = "Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang"
-        btv.backgroundColor = .yellow
-        btv.textAlignment = .justified
-        btv.isEditable = true
-        btv.textColor = .black
-        //btv.scrollRangeToVisible(NSRangeFromString(bioTextView.text))
+        btv.text = "Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang"
+        Stylesheet.Objects.Textviews.Editable.style(textview: btv)
+//        btv.layer.borderWidth = 0.5
+//        btv.backgroundColor = .yellow
+//        btv.textAlignment = .justified
+//        btv.isEditable = true
+//        btv.textColor = .black
         return btv
     }()
     
@@ -104,56 +109,68 @@ class ProfileView: UIView {
     }
     
     private func setUpViews() {
-        setUpProfile()
+        setUpProfileImageView()
         setupNameLabel()
-        setupChangeImageButton()
         setupChangeNameButton()
+        setupChangeImageButton()
         setupAllMyPostsButton()
         setupBioTextView()
-        
+        setupPlusSignButton()
         
     }
     
-    private func setUpProfile() {
+    private func setUpProfileImageView() {
         addSubview(profileImageView)
         profileImageView.snp.makeConstraints { (make) -> Void in
-            make.height.equalTo(profileImageView.snp.width)
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(spacing)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(spacing)
-            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.3)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
+            make.width.equalTo(profileImageView.snp.height)
         }
     }
+    
+    //Button that goes directly over addAnImage Label
+    lazy var plusSignButton: UIButton = {
+        let plusSign = UIButton()
+        plusSign.setImage(#imageLiteral(resourceName: "plus"), for: .normal)
+        Stylesheet.Objects.Buttons.ClearButton.style(button: plusSign)
+        //        plusSign.contentMode = .scaleAspectFit
+        return plusSign
+    }()
     
     private func setupNameLabel() {
         addSubview(displayName)
         displayName.snp.makeConstraints { (make) -> Void in
             make.leading.equalTo(profileImageView.snp.trailing).offset(spacing)
-            make.centerY.equalTo(profileImageView.snp.centerY)
-            make.trailing.greaterThanOrEqualToSuperview()
+            make.bottom.equalTo(profileImageView.snp.centerY)
+            make.trailing.equalTo(self.snp.trailing).offset(-spacing)
+        }
+    }
+    
+    
+    private func setupChangeNameButton() {
+        addSubview(changeDisplayName)
+        changeDisplayName.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(displayName.snp.bottom).offset(5)
+            make.leading.equalTo(displayName.snp.leading)
         }
     }
     
     private func setupChangeImageButton() {
         addSubview(changeProfileImageButton)
         changeProfileImageButton.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(profileImageView.snp.bottom).offset(20)
-            make.centerX.equalTo(profileImageView.snp.centerX)
+            make.top.equalTo(changeDisplayName.snp.bottom)
+            make.leading.equalTo(displayName.snp.leading)
         }
     }
-    
-    private func setupChangeNameButton() {
-        addSubview(changeDisplayName)
-        changeDisplayName.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(changeProfileImageButton.snp.top)
-            make.leading.equalTo(changeProfileImageButton.snp.trailing).offset(76)
-        }
-    }
-    
+
     private func setupAllMyPostsButton() {
         self.addSubview(seeMyPostsButton)
         seeMyPostsButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(changeProfileImageButton.snp.bottom).offset(30)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.ButtonWidthMult)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(Stylesheet.ConstraintSizes.ButtonHeightMult)
         }
     }
     
@@ -165,6 +182,15 @@ class ProfileView: UIView {
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(spacing)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-spacing)
             
+        }
+    }
+    
+    private func setupPlusSignButton() {
+        
+        self.addSubview(plusSignButton)
+        plusSignButton.snp.makeConstraints { (make) in
+            make.center.equalTo(profileImageView.snp.center)
+            make.edges.equalTo(profileImageView)
         }
     }
 }
