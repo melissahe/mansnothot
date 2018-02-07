@@ -58,11 +58,8 @@ class ProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
-        view.addSubview(profileView)
-        profileView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.view.snp.edges)
-        }
+        setUpViews()
+        
         let logoutButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logoutButtonTapped))
         
         if let currentUser = AuthUserService.manager.getCurrentUser() {
@@ -73,28 +70,29 @@ class ProfileVC: UIViewController {
             //use core data!!!!
         }
         self.navigationItem.rightBarButtonItem = logoutButton
+        imagePickerVC.delegate = self
+        profileView.bioTextView.delegate = self
+    }
+    
+    private func setUpViews() {
+        view.backgroundColor = .green
+        view.addSubview(profileView)
+        profileView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.view.snp.edges)
+        }
         profileView.seeMyPostsButton.addTarget(self, action: #selector(seePostsButtonTapped), for: .touchUpInside)
         profileView.changeDisplayName.addTarget(self, action: #selector(changeDisplayName), for: .touchUpInside)
         profileView.changeProfileImageButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
+        profileView.plusSignButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
+        profileView.plusSignButton.isOpaque = false
         
-        imagePickerVC.delegate = self
-    }
-    
-    @objc func changeImageButtonTapped() {
-        let photoAlert = Alert.create(withTitle: "Change Your Profile Image", andMessage: nil, withPreferredStyle: .actionSheet)
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            Alert.addAction(withTitle: "Camera", style: .default, andHandler: { (_) in
-                self.imagePickerVC.sourceType = .camera
-                self.checkAVAuthorization()
-            }, to: photoAlert)
-        }
-        Alert.addAction(withTitle: "Photo Library", style: .default, andHandler: { (_) in
-            self.imagePickerVC.sourceType = .photoLibrary
-            self.checkAVAuthorization()
-        }, to: photoAlert)
-        Alert.addAction(withTitle: "Cancel", style: .cancel, andHandler: nil, to: photoAlert)
-        //Present the controller
-        self.present(photoAlert, animated: true, completion: nil)
+        let imageViewGesture = UILongPressGestureRecognizer(target: self, action: #selector(imageLongPress))
+
+        imageViewGesture.minimumPressDuration = 2.0
+        imageViewGesture.allowableMovement = 25
+        imageViewGesture.numberOfTouchesRequired = 1
+        profileView.profileImageView.isUserInteractionEnabled = true
+        profileView.profileImageView.addGestureRecognizer(imageViewGesture)
     }
     
     private func checkAVAuthorization() {
@@ -133,27 +131,61 @@ class ProfileVC: UIViewController {
         }, to: settingsAlert)
         self.present(settingsAlert, animated: true, completion: nil)
     }
-
-    /// begin photo action sheet
-    // from https://stackoverflow.com/questions/27632614/how-to-use-uialertcontroller-to-replace-uiactionsheet
-    
-    /// end photo action sheet
     
     
-    @objc func changeDisplayName() {
-        //TODO - ALLOW USER TO CHANGE NAME
+    @objc func imageLongPress() {
+        if let image = profileView.profileImageView.image {
+            //present a full screen view that is just of the image!!!
+            //requires you to create a new view!!!
+            //maybe add some sort of animation??
+        }
+        print("present full screen image")
     }
     
-    @objc func logoutButtonTapped() {
-        //logout
+    @objc private func changeImageButtonTapped() {
+        let photoAlert = Alert.create(withTitle: "Change Your Profile Image", andMessage: nil, withPreferredStyle: .actionSheet)
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            Alert.addAction(withTitle: "Camera", style: .default, andHandler: { (_) in
+                self.imagePickerVC.sourceType = .camera
+                self.checkAVAuthorization()
+            }, to: photoAlert)
+        }
+        Alert.addAction(withTitle: "Photo Library", style: .default, andHandler: { (_) in
+            self.imagePickerVC.sourceType = .photoLibrary
+            self.checkAVAuthorization()
+        }, to: photoAlert)
+        Alert.addAction(withTitle: "Cancel", style: .cancel, andHandler: nil, to: photoAlert)
+        //Present the controller
+        self.present(photoAlert, animated: true, completion: nil)
+    }
+    
+    @objc private func changeDisplayName() {
+        let changeNameAlert = Alert.create(withTitle: "Change Your Display Name", andMessage: nil, withPreferredStyle: .alert)
+        changeNameAlert.addTextField { (textfield) in
+            textfield.text = self.profileView.displayName.text
+        }
+        Alert.addAction(withTitle: "Cancel", style: .cancel, andHandler: nil, to: changeNameAlert)
+        Alert.addAction(withTitle: "Change Name", style: .default, andHandler: { (_) in
+            guard let newName = changeNameAlert.textFields?.first?.text, !newName.isEmpty else {
+                let errorAlert = Alert.createErrorAlert(withMessage: "You must enter a valid name.")
+                self.present(errorAlert, animated: true, completion: nil)
+                return
+            }
+            DatabaseService.manager.delegate = self
+            DatabaseService.manager.changeDisplayName(to: newName, ifNameTaken: { (failedName) in
+                let sorryAlert = Alert.createErrorAlert(withMessage: "\"\(failedName)\" has already been taken. Try another name.")
+                self.present(sorryAlert, animated: true, completion: nil)
+            })
+        }, to: changeNameAlert)
+        self.present(changeNameAlert, animated: true, completion: nil)
+    }
+    
+    @objc private func logoutButtonTapped() {
         AuthUserService.manager.delegate = self
         AuthUserService.manager.signOut()
-        print("User logged out")
-//        present(loginVC, animated: true, completion: nil)
-//        self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func seePostsButtonTapped() {
+    @objc private func seePostsButtonTapped() {
         //put this func in allPostVC
         // @IBAction func close() {
         // dismiss(animated: true, completion: nil)
@@ -165,6 +197,11 @@ class ProfileVC: UIViewController {
         //        myPostVC.modalPresentationStyle = .overCurrentContext
         navigationController?.pushViewController(myPostVC, animated: true)
         print("See All My Posts button tapped")
+    }
+    
+    private func presentErrorAlert(errorMessage: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: errorMessage)
+        self.present(errorAlert, animated: true, completion: nil)
     }
 }
 
@@ -196,8 +233,7 @@ extension ProfileVC: DatabaseServiceDelegate {
         self.present(successAlert, animated: true, completion: nil)
     }
     func didFailChangingUserImage(_ databaseService: DatabaseService, error: String) {
-        let errorAlert = Alert.createErrorAlert(withMessage: error)
-        self.present(errorAlert, animated: true, completion: nil)
+        presentErrorAlert(errorMessage: error)
     }
     func didChangeDisplayName(_ databaseService: DatabaseService, oldName: String, newName: String) {
         let successAlert = Alert.create(withTitle: "Success", andMessage: "Your display name has changed from \"\(oldName)\" to \"\(newName)\"!", withPreferredStyle: .alert)
@@ -205,23 +241,33 @@ extension ProfileVC: DatabaseServiceDelegate {
         self.present(successAlert, animated: true, completion: nil)
     }
     func didFailChangingDisplayName(_ databaseService: DatabaseService, error: String) {
-        let errorAlert = Alert.createErrorAlert(withMessage: error)
-        self.present(errorAlert, animated: true, completion: nil)
+        presentErrorAlert(errorMessage: error)
+    }
+    func didChangeBio(_ databaseService: DatabaseService) {
+        let successAlert = Alert.create(withTitle: "Success!", andMessage: "Your bio was changed.", withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "OK", style: .default, andHandler: nil, to: successAlert)
+        self.present(successAlert, animated: true, completion: nil)
+    }
+    func didFailChangingBio(_ databaseService: DatabaseService, error: String) {
+        presentErrorAlert(errorMessage: error)
     }
 }
 
 extension ProfileVC: AuthUserServiceDelegate {
     func didSignOut(_ authUserService: AuthUserService) {
-        
-        
-        self.tabBarController?.dismiss(animated: true, completion: {
-            let signOutAlert = Alert.create(withTitle: "You have signed out.", andMessage: nil, withPreferredStyle: .alert)
-            Alert.addAction(withTitle: "OK", style: .default, andHandler: nil, to: signOutAlert)
-            self.present(signOutAlert, animated: true, completion: nil)
-        })
+        print("signed out")
+        self.tabBarController?.dismiss(animated: true, completion: nil)
     }
     func didFailSignOut(_ authUserService: AuthUserService, error: String) {
-        let errorAlert = Alert.createErrorAlert(withMessage: "Could not sign out.\n\(error)")
-        self.present(errorAlert, animated: true, completion: nil)
+        presentErrorAlert(errorMessage: "Could not sign out.\n\(error)")
+    }
+}
+
+extension ProfileVC: UITextViewDelegate {
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if let userProfile = userProfile {
+            DatabaseService.manager.delegate = self
+            DatabaseService.manager.editBio(withUserID: userProfile.userID, newBio: textView.text)
+        }
     }
 }

@@ -18,24 +18,26 @@ class AllCommentsTableViewCell: UITableViewCell {
     //usernameLabel - for user name
     lazy var usernameLabel: UILabel = {
         let lb = UILabel()
-        lb.text = "Username and Stuff"
-        lb.backgroundColor = .white
-        lb.textAlignment = .center
-        lb.textColor = .black
-        lb.numberOfLines = 0
-        lb.layer.borderWidth = 0.5
+        lb.text = "Username of Poster"
+        Stylesheet.Objects.Labels.PostTitle.style(label: lb)
+//        lb.backgroundColor = .white
+//        lb.textAlignment = .center
+//        lb.textColor = .black
+//        lb.numberOfLines = 0
+//        lb.layer.borderWidth = 0.5
         return lb
     }()
     
     //textView - for comment
     lazy var commentTextView: UITextView = {
         let tv = UITextView()
-        tv.layer.borderWidth = 0.5
         tv.text = "Sample Comment Text Here"
-        tv.backgroundColor = .yellow
-        tv.textAlignment = .justified
-        tv.isEditable = false
-        tv.textColor = .black
+        Stylesheet.Objects.Textviews.Completed.style(textview: tv)
+//        tv.layer.borderWidth = 0.5
+//        tv.backgroundColor = .yellow
+//        tv.textAlignment = .justified
+//        tv.isEditable = false
+//        tv.textColor = .black
         return tv
     }()
     
@@ -43,8 +45,9 @@ class AllCommentsTableViewCell: UITableViewCell {
     lazy var thumbsUpButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "thumbsUp"), for: .normal)
-        button.backgroundColor = .clear
-        button.layer.borderWidth = 0.5
+        Stylesheet.Objects.Buttons.ClearButton.style(button: button)
+//        button.backgroundColor = .clear
+//        button.layer.borderWidth = 0.5
         return button
     }()
     
@@ -52,9 +55,10 @@ class AllCommentsTableViewCell: UITableViewCell {
     lazy var numberOfLikesLabel: UILabel = {
         let lb = UILabel()
         lb.text = "9"
-        lb.backgroundColor = .gray
-        lb.textAlignment = .center
-        lb.backgroundColor = .white
+        Stylesheet.Objects.Labels.LikesDislikes.style(label: lb)
+//        lb.backgroundColor = .gray
+//        lb.textAlignment = .center
+//        lb.backgroundColor = .white
         return lb
     }()
     
@@ -62,8 +66,9 @@ class AllCommentsTableViewCell: UITableViewCell {
     lazy var thumbsDownButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "thumbsDown"), for: .normal)
-        button.backgroundColor = .clear
-        button.layer.borderWidth = 0.5
+        Stylesheet.Objects.Buttons.ClearButton.style(button: button)
+//        button.backgroundColor = .clear
+//        button.layer.borderWidth = 0.5
         return button
     }()
     
@@ -71,9 +76,10 @@ class AllCommentsTableViewCell: UITableViewCell {
     lazy var numberOfDislikesLabel: UILabel = {
         let lb = UILabel()
         lb.text = "-7"
-        lb.backgroundColor = .gray
-        lb.textAlignment = .center
-        lb.backgroundColor = .white
+        Stylesheet.Objects.Labels.LikesDislikes.style(label: lb)
+//        lb.backgroundColor = .gray
+//        lb.textAlignment = .center
+//        lb.backgroundColor = .white
         return lb
     }()
     
