@@ -21,8 +21,8 @@ enum Stylesheet {
     }
     
     enum Fonts {
-        static let AppName = UIFont(name: "Optima", size: 50.0)
-        static let PostTitle = UIFont(name: "Optima", size: 20.0)
+        static let AppName = UIFont(name: "Helvetica Neue", size: 50.0)
+        static let PostTitle = UIFont(name: "Helvetica Bold", size: 20.0)
         static let Regular = UIFont(name: "Helvetica Neue", size: 15.0)
         static let Login = UIFont(name: "Helvetica Neue", size: 15.0)
         static let Link = UIFont(name: "Helvetica Bold", size: 15.0)

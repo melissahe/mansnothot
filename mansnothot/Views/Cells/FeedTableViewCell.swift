@@ -234,7 +234,7 @@ class FeedTableViewCell: UITableViewCell {
             make.height.greaterThanOrEqualTo(self.snp.width).multipliedBy(0.07)
         }
         postTextView.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(self.snp.width).multipliedBy(0.8)
+            make.width.equalTo(self.snp.width).multipliedBy(0.9)
             make.height.equalTo(self.snp.height).multipliedBy(0.3)
             make.centerX.equalTo(self.snp.centerX)
             make.top.equalTo(postImageView.snp.bottom).offset(5)
