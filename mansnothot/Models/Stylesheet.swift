@@ -64,8 +64,8 @@ extension Stylesheet {
                     imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
                     imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                 case .Opaque:
-//                    imageView.backgroundColor = .white
-                    imageView.backgroundColor = .red
+                    imageView.backgroundColor = .white
+//                    imageView.backgroundColor = .red
                     imageView.contentMode = .scaleAspectFill
                     imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
                     imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
@@ -81,9 +81,7 @@ extension Stylesheet {
             
             func style(button: UIButton) {
                 switch self {
-                case .Login:
-                    button.setTitle("Log In", for: .normal)
-                    button.setTitleColor(Stylesheet.Colors.LightGrey, for: .normal)
+                case .Login:                    button.setTitleColor(Stylesheet.Colors.LightGrey, for: .normal)
                     button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Bold
                     button.backgroundColor = Stylesheet.Colors.Red
@@ -140,6 +138,7 @@ extension Stylesheet {
                     label.font = Stylesheet.Fonts.PostTitle
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
+//                    label.backgroundColor = .red
                     label.textAlignment = .left
                 case .PostUsername:
                     label.font = Stylesheet.Fonts.Regular
@@ -150,6 +149,7 @@ extension Stylesheet {
                     label.font = Stylesheet.Fonts.Link
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
+//                    label.backgroundColor = .blue
                     label.textAlignment = .center
                 }
             }

@@ -76,6 +76,7 @@ class ProfileVC: UIViewController {
         profileView.seeMyPostsButton.addTarget(self, action: #selector(seePostsButtonTapped), for: .touchUpInside)
         profileView.changeDisplayName.addTarget(self, action: #selector(changeDisplayName), for: .touchUpInside)
         profileView.changeProfileImageButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
+        profileView.plusSignButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
         
         imagePickerVC.delegate = self
     }
@@ -133,11 +134,6 @@ class ProfileVC: UIViewController {
         }, to: settingsAlert)
         self.present(settingsAlert, animated: true, completion: nil)
     }
-
-    /// begin photo action sheet
-    // from https://stackoverflow.com/questions/27632614/how-to-use-uialertcontroller-to-replace-uiactionsheet
-    
-    /// end photo action sheet
     
     
     @objc func changeDisplayName() {
