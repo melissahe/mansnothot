@@ -103,4 +103,28 @@ import Foundation
     /**
      */
     @objc optional func didFailFlagging(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didLikePost(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didUndoLikePost(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didDislikePost(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didUndoDislikePost(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailLiking(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didFailDisliking(_ databaseService: DatabaseService, error: String)
 }
