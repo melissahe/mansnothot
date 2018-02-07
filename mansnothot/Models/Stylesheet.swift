@@ -64,8 +64,8 @@ extension Stylesheet {
                     imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
                     imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                 case .Opaque:
-//                    imageView.backgroundColor = .white
-                    imageView.backgroundColor = .red
+                    imageView.backgroundColor = .white
+//                    imageView.backgroundColor = .red
                     imageView.contentMode = .scaleAspectFill
                     imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
                     imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
@@ -101,8 +101,8 @@ extension Stylesheet {
                     button.layer.borderColor = (Stylesheet.Colors.Orange).cgColor
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
                 case .ClearButton:
-//                    button.backgroundColor = .clear
-                    button.backgroundColor = .green
+                    button.backgroundColor = .clear
+//                    button.backgroundColor = .green
                     button.contentMode = .scaleAspectFit
                     button.tintColor = Stylesheet.Colors.Orange
                 }
@@ -137,8 +137,8 @@ extension Stylesheet {
                 case .PostTitle:
                     label.font = Stylesheet.Fonts.PostTitle
                     label.textColor = Stylesheet.Colors.Dark
-//                    label.backgroundColor = .clear
-                    label.backgroundColor = .red
+                    label.backgroundColor = .clear
+//                    label.backgroundColor = .red
                     label.textAlignment = .left
                 case .PostUsername:
                     label.font = Stylesheet.Fonts.Regular
@@ -148,8 +148,8 @@ extension Stylesheet {
                 case .LikesDislikes:
                     label.font = Stylesheet.Fonts.Link
                     label.textColor = Stylesheet.Colors.Dark
-//                    label.backgroundColor = .clear
-                    label.backgroundColor = .blue
+                    label.backgroundColor = .clear
+//                    label.backgroundColor = .blue
                     label.textAlignment = .center
                 }
             }
