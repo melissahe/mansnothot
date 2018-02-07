@@ -62,6 +62,22 @@ import Foundation
     
     /**
      */
+    @objc optional func didAddPost(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailAddingPost(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didAddComment(_ databaseService: DatabaseService)
+    
+    /**
+     */
+    @objc optional func didFailAddingComment(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
     @objc optional func didDeletePost(_ databaseService: DatabaseService)
     
     /**
