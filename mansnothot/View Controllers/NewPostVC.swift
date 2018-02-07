@@ -45,7 +45,6 @@ class NewPostVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        animateTable()
     }
     
     func animateTable() {
@@ -159,6 +158,7 @@ class NewPostVC: UIViewController {
         print("Button tapped")
         if newPostView.tableView.isHidden == true {
             newPostView.tableView.isHidden = false
+            animateTable()
         } else {
             newPostView.tableView.isHidden = true
         }
