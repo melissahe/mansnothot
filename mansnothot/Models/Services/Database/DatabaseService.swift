@@ -83,7 +83,7 @@ class DatabaseService: NSObject {
                     print("current profile is nil!1")
                     return
                 }
-                FileManagerHelper.manager.addNewUser(updatedUserProfile)
+//                FileManagerHelper.manager.addNewUser(updatedUserProfile)
                 
                 print("changed display name")
                 self.delegate?.didChangeDisplayName?(self, oldName: oldName, newName: newName)

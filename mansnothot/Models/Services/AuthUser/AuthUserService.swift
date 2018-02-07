@@ -54,6 +54,9 @@ class AuthUserService: NSObject {
                 
                 DatabaseService.manager.getUserProfile(withUID: user.uid, completion: { (userProfile) in
 //                    self.delegate?.didLogin?(self, userProfile: userProfile)
+                    
+                    //core data storage
+                    
                     self.delegate?.didLogin!(self, userProfile: userProfile)
                 })
                 print("Logged in")
@@ -119,6 +122,7 @@ class AuthUserService: NSObject {
         do {
             try auth.signOut()
             DatabaseService.manager.stopObserving()
+            //core data delete everything
             delegate?.didSignOut?(self)
         } catch {
             print(error)
