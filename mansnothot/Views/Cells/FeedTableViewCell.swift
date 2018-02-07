@@ -62,6 +62,8 @@ class FeedTableViewCell: UITableViewCell {
         lb.textColor = .black
         lb.numberOfLines = 0
         lb.layer.borderWidth = 0.5
+        lb.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 1000), for: .vertical)
+        lb.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .vertical)
         return lb
     }()
     
@@ -83,6 +85,7 @@ class FeedTableViewCell: UITableViewCell {
         tv.backgroundColor = .yellow
         tv.textAlignment = .justified
         tv.isEditable = false
+        tv.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .vertical)
         return tv
     }()
     
@@ -164,9 +167,6 @@ class FeedTableViewCell: UITableViewCell {
         return button
     }()
 
-    
-    
-    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style , reuseIdentifier: "FeedCell")
         setupAndConstrainObjects()
@@ -206,7 +206,7 @@ class FeedTableViewCell: UITableViewCell {
         self.addSubview(shareButton)
         
         userImageView.snp.makeConstraints { (make) -> Void in
-            make.height.width.equalTo(self.snp.width).multipliedBy(0.08)
+            make.height.width.equalTo(self.snp.width).multipliedBy(0.08).priority(999)
             make.top.equalTo(self.snp.top).offset(5)
             make.leading.equalTo(self.snp.leading).offset(5)
         }
@@ -224,13 +224,7 @@ class FeedTableViewCell: UITableViewCell {
             make.leading.equalTo(self.snp.leading).offset(5)
             make.top.equalTo(usernameLabel.snp.bottom).offset(5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
-        }
-        postImageView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(postTitleLabel.snp.bottom).offset(5)
-            make.centerX.equalTo(self.snp.centerX)
-            make.width.equalTo(self.snp.width).multipliedBy(0.5)
-            make.height.equalTo(self.snp.height).multipliedBy(0.3)
-//            make.height.equalTo(self.snp.height).multipliedBy(0.16)
+            make.height.greaterThanOrEqualTo(self.snp.width).multipliedBy(0.07)
         }
         postTextView.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(self.snp.width).multipliedBy(0.8)
@@ -238,32 +232,41 @@ class FeedTableViewCell: UITableViewCell {
             make.centerX.equalTo(self.snp.centerX)
             make.top.equalTo(postImageView.snp.bottom).offset(5)
         }
-        thumbsUpButton.snp.makeConstraints { (make) -> Void in
+        postImageView.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(postTitleLabel.snp.bottom).offset(5)
+            make.centerX.equalTo(self.snp.centerX)
+            make.bottom.equalTo(postTextView.snp.top).offset(-5)
+            make.height.lessThanOrEqualTo(200)
+            //            make.width.equalTo(self.snp.width).multipliedBy(0.5)
+            //            make.height.equalTo(self.snp.height).multipliedBy(0.3)
+            //            make.height.equalTo(self.snp.height).multipliedBy(0.16)
+        }
+        showThreadButton.snp.makeConstraints { (make) -> Void in
             make.bottom.equalTo(self.snp.bottom).offset(-5)
+            make.height.equalTo(self.snp.width).multipliedBy(0.07)
+            make.width.equalTo(self.snp.width).multipliedBy(0.18)
+            make.centerX.equalTo(self.snp.centerX)
+        }
+        thumbsUpButton.snp.makeConstraints { (make) -> Void in
+            make.centerY.equalTo(showThreadButton.snp.centerY)
             make.leading.equalTo(self.snp.leading).offset(5)
         }
         numberOfLikesLabel.snp.makeConstraints { (make) -> Void in
             make.leading.equalTo(thumbsUpButton.snp.trailing)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.height.equalTo(postTitleLabel.snp.height)
+            make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }
         thumbsDownButton.snp.makeConstraints { (make) -> Void in
             make.leading.equalTo(numberOfLikesLabel.snp.trailing)
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
+            make.centerY.equalTo(showThreadButton.snp.centerY)
         }
         numberOfDislikesLabel.snp.makeConstraints { (make) -> Void in
             make.leading.equalTo(thumbsDownButton.snp.trailing)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.height.equalTo(postTitleLabel.snp.height)
-        }
-        showThreadButton.snp.makeConstraints { (make) -> Void in
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.height.equalTo(numberOfDislikesLabel.snp.height)
-            make.width.equalTo(self.snp.width).multipliedBy(0.18)
-            make.centerX.equalTo(self.snp.centerX)
+            make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }
         commentButton.snp.makeConstraints { (make) -> Void in
-            make.bottom.equalTo(self.snp.bottom).offset(-5)
+            make.centerY.equalTo(showThreadButton.snp.centerY)
             make.leading.equalTo(showThreadButton.snp.trailing)
         }
         flagButton.snp.makeConstraints { (make) -> Void in
@@ -275,7 +278,7 @@ class FeedTableViewCell: UITableViewCell {
             make.top.equalTo(postTextView.snp.bottom).offset(5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
-            make.height.equalTo(numberOfLikesLabel.snp.height)
+            make.height.equalTo(self.snp.width).multipliedBy(0.07)
             make.width.equalTo(self.snp.width).multipliedBy(0.18)
         }
     }
