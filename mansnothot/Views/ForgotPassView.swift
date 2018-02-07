@@ -10,15 +10,15 @@ import UIKit
 import SnapKit
 
 //TODO: set up
-    //add objects
-        //username textfield - email
-        //rethink logic here - resend email verification??
-        //reset password button??
-    //set up constraints
-    //Firebase function for changing password
+//add objects
+//username textfield - email
+//rethink logic here - resend email verification??
+//reset password button??
+//set up constraints
+//Firebase function for changing password
 
 class ForgotPassView: UIView {
-
+    
     // dismissable view / button - alternative to the X
     lazy var dismissView: UIButton = {
         let button = UIButton(frame: UIScreen.main.bounds)
@@ -44,7 +44,7 @@ class ForgotPassView: UIView {
     
     // reset password label
     lazy var resetLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "Enter your email to reset your password"
         label.font = label.font.withSize(15)
         label.textAlignment = .center
@@ -61,7 +61,7 @@ class ForgotPassView: UIView {
     
     // send reset password email button
     lazy var resetPasswordButton: UIButton = {
-       let resetButton = UIButton()
+        let resetButton = UIButton()
         resetButton.setTitle("Reset Password", for: .normal)
         resetButton.setTitleColor(UIColor.yellow, for: .normal)
         resetButton.backgroundColor = .red
@@ -89,7 +89,7 @@ class ForgotPassView: UIView {
         setupSubviews()
         setupConstraints()
     }
-
+    
     private func setupSubviews() {
         addSubview(dismissView)
         addSubview(containerView)
