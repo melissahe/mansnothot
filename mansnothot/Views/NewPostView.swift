@@ -177,6 +177,7 @@ class NewPostView: UIView {
         
         plusSignButton.snp.makeConstraints { (make) in
             make.center.equalTo(pickImageView.snp.center)
+            make.edges.equalTo(pickImageView)
         }
         
         addAnImageLabel.snp.makeConstraints { (make) -> Void in
