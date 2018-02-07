@@ -69,10 +69,11 @@ class NewPostVC: UIViewController {
         navigationItem.title = "New Post"
         
         // Set Right Bar Button
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "post"), style: .done, target: self, action: #selector(post))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "POST", style: .done, target: self, action: #selector(post))
+//            UIBarButtonItem(image: #imageLiteral(resourceName: "post"), style: .done, target: self, action: #selector(post))
         
         // Set Left Bar Button
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "clear"), style: .done, target: self, action: #selector(clear))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "trash"), style: .done, target: self, action: #selector(clear))
         
         // Set Category Button
         newPostView.categoryButton.addTarget(self, action: #selector(categoryButtonAction), for: .touchUpInside)

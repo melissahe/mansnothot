@@ -18,9 +18,10 @@ class NewPostView: UIView {
     lazy var pickImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = nil
-        imageView.backgroundColor = UIColor(red: 0.286, green: 0.690, blue: 0.976, alpha: 1.00)
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.borderWidth = 0.5
+        Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
+//        imageView.backgroundColor = UIColor(red: 0.286, green: 0.690, blue: 0.976, alpha: 1.00)
+//        imageView.contentMode = .scaleAspectFill
+//        imageView.layer.borderWidth = 0.5
         return imageView
     }()
     
@@ -41,7 +42,8 @@ class NewPostView: UIView {
     lazy var plusSignButton: UIButton = {
         let plusSign = UIButton()
         plusSign.setImage(#imageLiteral(resourceName: "plus"), for: .normal)
-        plusSign.contentMode = .scaleAspectFit
+        Stylesheet.Objects.Buttons.ClearButton.style(button: plusSign)
+//        plusSign.contentMode = .scaleAspectFit
         return plusSign
     }()
     
@@ -50,28 +52,31 @@ class NewPostView: UIView {
     //titleTextField for title
     lazy var titleTextField: UITextField = {
         let tField = UITextField()
-        tField.backgroundColor = UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)
-        tField.font = UIFont.systemFont(ofSize: 20, weight: .light)
-        tField.textAlignment = .center
         tField.placeholder = "Enter Title of Post"
-        // This will let you pick the color of the placeholder text
-        tField.attributedPlaceholder = NSAttributedString(string: "Enter Title of Post", attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)])
-        tField.keyboardType = .default
-        tField.keyboardAppearance = .dark
-        tField.backgroundColor = UIColor(red: 0.141, green: 0.149, blue: 0.184, alpha: 1.00)
-        tField.textColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.00)
-        //tField.borderStyle = .bezel
-        tField.textColor = .white /// redundant from line 60
+        Stylesheet.Objects.Textfields.PostTitle.style(textfield: tField)
+//        tField.backgroundColor = UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)
+//        tField.font = UIFont.systemFont(ofSize: 20, weight: .light)
+//        tField.textAlignment = .center
+//        // This will let you pick the color of the placeholder text
+//        tField.attributedPlaceholder = NSAttributedString(string: "Enter Title of Post", attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)])
+//        tField.keyboardType = .default
+//        tField.keyboardAppearance = .dark
+//        tField.backgroundColor = UIColor(red: 0.141, green: 0.149, blue: 0.184, alpha: 1.00)
+//        tField.textColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.00)
+//        //tField.borderStyle = .bezel
+//        tField.textColor = .white /// redundant from line 60
         return tField
     }()
     
     //postTextView for PostText
     lazy var postTextView: UITextView = {
         let tv = UITextView()
-        tv.layer.borderWidth = 1
         tv.text = "Enter Post Text Here"
-        tv.backgroundColor = .yellow
-        tv.textAlignment = .justified
+        Stylesheet.Objects.Textviews.Editable.style(textview: tv)
+        tv.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .vertical)
+//        tv.layer.borderWidth = 1
+//        tv.backgroundColor = .yellow
+//        tv.textAlignment = .justified
         return tv
     }()
     
@@ -79,9 +84,10 @@ class NewPostView: UIView {
     lazy var categoryLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Category:"
-        lb.backgroundColor = .gray
-        lb.textAlignment = .center
-        lb.backgroundColor = .white
+        Stylesheet.Objects.Labels.Regular.style(label: lb)
+//        lb.backgroundColor = .gray
+//        lb.textAlignment = .center
+//        lb.backgroundColor = .white
         return lb
     }()
     
@@ -89,10 +95,11 @@ class NewPostView: UIView {
     //Button for Category
     lazy var categoryButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.black, for: .normal)
         button.setTitle("Pick a Category", for: .normal)
-        button.backgroundColor = .yellow
-        button.layer.borderWidth = 0.5
+        Stylesheet.Objects.Buttons.CreateButton.style(button: button)
+//        button.setTitleColor(.black, for: .normal)
+//        button.backgroundColor = .yellow
+//        button.layer.borderWidth = 0.5
         return button
     }()
     
@@ -145,6 +152,7 @@ class NewPostView: UIView {
         
         titleTextField.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(20)
+            make.height.equalTo(Stylesheet.ConstraintSizes.TextfieldHeight)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(10)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-10)
         }
