@@ -58,14 +58,12 @@ extension Stylesheet {
             func style(imageView: UIImageView) {
                 switch self {
                 case .Clear:
-//                    imageView.backgroundColor = .clear
-                    imageView.backgroundColor = .yellow
+                    imageView.backgroundColor = .clear
                     imageView.contentMode = .scaleAspectFit
                     imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
                     imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                 case .Opaque:
                     imageView.backgroundColor = .white
-//                    imageView.backgroundColor = .red
                     imageView.contentMode = .scaleAspectFit
                     imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
                     imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
@@ -81,7 +79,8 @@ extension Stylesheet {
             
             func style(button: UIButton) {
                 switch self {
-                case .Login:                    button.setTitleColor(Stylesheet.Colors.LightGrey, for: .normal)
+                case .Login:
+                    button.setTitleColor(Stylesheet.Colors.LightGrey, for: .normal)
                     button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Bold
                     button.backgroundColor = Stylesheet.Colors.Red
@@ -89,7 +88,6 @@ extension Stylesheet {
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
                 case .Link:
                     button.backgroundColor = .clear
-//                    button.backgroundColor = .yellow
                     button.setTitleColor(Stylesheet.Colors.Orange, for: .normal)
                     button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Link
@@ -102,7 +100,6 @@ extension Stylesheet {
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
                 case .ClearButton:
                     button.backgroundColor = .clear
-//                    button.backgroundColor = .green
                     button.contentMode = .scaleAspectFit
                     button.tintColor = Stylesheet.Colors.Orange
                 }
@@ -134,25 +131,23 @@ extension Stylesheet {
                     label.textColor = Stylesheet.Colors.Red
                     label.backgroundColor = .clear
                     label.textAlignment = .left
+                    label.numberOfLines = 1
                 case .PostTitle:
                     label.font = Stylesheet.Fonts.PostTitle
                     label.textColor = Stylesheet.Colors.Dark
-//                    label.backgroundColor = .clear
-                    label.backgroundColor = .red
+                    label.backgroundColor = .clear
                     label.textAlignment = .left
                     label.numberOfLines = 0
                 case .PostUsername:
                     label.font = Stylesheet.Fonts.Bold
                     label.textColor = Stylesheet.Colors.Dark
-//                    label.backgroundColor = .clear
-                    label.backgroundColor = .green
+                    label.backgroundColor = .clear
                     label.textAlignment = .left
                     label.numberOfLines = 1
                 case .LikesDislikes:
                     label.font = Stylesheet.Fonts.Link
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
-//                    label.backgroundColor = .blue
                     label.textAlignment = .center
                 }
             }
@@ -166,8 +161,7 @@ extension Stylesheet {
                 case .Completed:
                     textview.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.TextfieldCompleted)
                     textview.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
-                    textview.backgroundColor = .yellow
-//                    textview.backgroundColor = Stylesheet.Colors.White
+                    textview.backgroundColor = Stylesheet.Colors.White
                     textview.textAlignment = .natural
                     textview.isEditable = false
                     textview.textColor = Stylesheet.Colors.Dark

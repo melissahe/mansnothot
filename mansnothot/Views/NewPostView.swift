@@ -11,60 +11,29 @@ import SnapKit
 
 class NewPostView: UIView {
     
-    //TODO: set up
-    //all objects
+    private let imagePickerViewController = UIImagePickerController()
     
     //ImageView for picking an Image
     lazy var pickImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = nil
         Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
-//        imageView.backgroundColor = UIColor(red: 0.286, green: 0.690, blue: 0.976, alpha: 1.00)
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.layer.borderWidth = 0.5
         return imageView
     }()
-    
-//    //Label for Adding an Image
-//    lazy var addAnImageLabel: UILabel = {
-//        let lb = UILabel()
-//        lb.text = "Add An Image"
-//        lb.textColor = .black
-//        lb.backgroundColor = .white
-//        lb.textAlignment = .center
-//        lb.alpha = 0.50
-//        lb.numberOfLines = 0
-//        lb.isHidden = true // using plus sign instead
-//        return lb
-//    }()
     
     //Button that goes directly over addAnImage Label
     lazy var plusSignButton: UIButton = {
         let plusSign = UIButton()
         plusSign.setImage(#imageLiteral(resourceName: "plus"), for: .normal)
         Stylesheet.Objects.Buttons.ClearButton.style(button: plusSign)
-//        plusSign.contentMode = .scaleAspectFit
         return plusSign
     }()
-    
-    private let imagePickerViewController = UIImagePickerController()
     
     //titleTextField for title
     lazy var titleTextField: UITextField = {
         let tField = UITextField()
         tField.placeholder = "Enter Title of Post"
         Stylesheet.Objects.Textfields.PostTitle.style(textfield: tField)
-//        tField.backgroundColor = UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)
-//        tField.font = UIFont.systemFont(ofSize: 20, weight: .light)
-//        tField.textAlignment = .center
-//        // This will let you pick the color of the placeholder text
-//        tField.attributedPlaceholder = NSAttributedString(string: "Enter Title of Post", attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)])
-//        tField.keyboardType = .default
-//        tField.keyboardAppearance = .dark
-//        tField.backgroundColor = UIColor(red: 0.141, green: 0.149, blue: 0.184, alpha: 1.00)
-//        tField.textColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.00)
-//        //tField.borderStyle = .bezel
-//        tField.textColor = .white /// redundant from line 60
         return tField
     }()
     
@@ -74,9 +43,6 @@ class NewPostView: UIView {
         tv.text = "Enter Post Text Here"
         Stylesheet.Objects.Textviews.Editable.style(textview: tv)
         tv.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .vertical)
-//        tv.layer.borderWidth = 1
-//        tv.backgroundColor = .yellow
-//        tv.textAlignment = .justified
         return tv
     }()
     
@@ -85,38 +51,26 @@ class NewPostView: UIView {
         let lb = UILabel()
         lb.text = "Category:"
         Stylesheet.Objects.Labels.Regular.style(label: lb)
-//        lb.backgroundColor = .gray
-//        lb.textAlignment = .center
-//        lb.backgroundColor = .white
         return lb
     }()
-    
     
     //Button for Category
     lazy var categoryButton: UIButton = {
         let button = UIButton()
         button.setTitle("Pick a Category", for: .normal)
         Stylesheet.Objects.Buttons.CreateButton.style(button: button)
-//        button.setTitleColor(.black, for: .normal)
-//        button.backgroundColor = .yellow
-//        button.layer.borderWidth = 0.5
         return button
     }()
     
-    
     //Tableview for Categories
-    //Starts off hidden. When the category button is clicked it appears. Clicking on any cell makes it dissapear again and change the Button Title to the selected cell's text
+    //Starts off hidden. When the category button is clicked it appears. Clicking on any cell makes it disappear again and change the Button Title to the selected cell's text
     lazy var tableView: UITableView = {
         let tv = UITableView()
         //create and register a cell
         tv.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryCell")
-        tv.backgroundColor = .black
-        tv.backgroundColor = .clear
         tv.isHidden = true
-        
         return tv
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -135,7 +89,6 @@ class NewPostView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-//        pickImageView.layer.cornerRadius = pickImageView.bounds.height/2
         pickImageView.layer.masksToBounds = true
     }
     
@@ -145,7 +98,6 @@ class NewPostView: UIView {
         self.addSubview(categoryLabel)
         self.addSubview(categoryButton)
         self.addSubview(pickImageView)
-//        self.addSubview(addAnImageLabel)
         self.addSubview(postTextView)
         self.addSubview(plusSignButton)
         self.addSubview(tableView)
@@ -188,21 +140,11 @@ class NewPostView: UIView {
             make.edges.equalTo(pickImageView)
         }
         
-//        addAnImageLabel.snp.makeConstraints { (make) -> Void in
-//            make.bottom.equalTo(pickImageView.snp.bottom).offset(-2)
-//            make.leading.equalTo(pickImageView.snp.leading)
-//            make.trailing.equalTo(pickImageView.snp.trailing)
-//            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-//            
-//        }
-        
         postTextView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(pickImageView.snp.bottom).offset(8)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(10)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-10)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-10)
         }
-        
     }
-
 }
