@@ -366,7 +366,7 @@ extension HomeFeedVC: UITableViewDataSource {
             let currentPost = posts[indexPath.row]
             
             //Using this info, we can dependency inject a VC
-            allCommentsVC.setupVC(postID: currentPost.postID)
+            allCommentsVC.setupVC(postID: currentPost.postID, postTitle: currentPost.title)
             
             //Then we can present the VC
             allCommentsVCInNav.modalTransitionStyle = .coverVertical

@@ -20,8 +20,7 @@ import SnapKit
 class AllCommentsVC: UIViewController {
 
     var postTitle: String = ""
-    
-    var sampleCommentsArr = ["able", "about", "account", "acid", "across", "addition", "adjustment", "advertisement", "after", "again", "against", "agreement", "almost", "among", "amount", "amusement", "angle", "angry", "animal", "answer", "apparatus", "apple", "approval", "arch", "argument", "army", "attack", "attempt", "attention", "attraction", "authority", "automatic", "awake", "baby", "back", "balance", "ball", "band", "base", "basin", "basket", "bath", "beautiful", "because", "before", "behaviour", "belief", "bell", "bent", "berry"]
+    var postID: String!
     
     let allCommentsView = AllCommentsView()
     
@@ -29,11 +28,12 @@ class AllCommentsVC: UIViewController {
         didSet {
             //might need to change observe
             allCommentsView.tableView.reloadData()
-            allCommentsView.tableView.scrollToRow(at: IndexPath(row: comments.count - 1, section: 0), at: .bottom, animated: true)
         }
     }
     
-    public func setupVC(postID: String) {
+    public func setupVC(postID: String, postTitle: String) {
+        self.postID = postID
+        self.postTitle = postTitle
         DatabaseService.manager.getAllComments(fromPostID: postID) { (comments) in
             self.comments = comments
         }
@@ -42,7 +42,6 @@ class AllCommentsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(allCommentsView)
-        
         allCommentsView.tableView.dataSource = self
         allCommentsView.tableView.delegate = self
         allCommentsView.tableView.rowHeight = UITableViewAutomaticDimension
@@ -81,7 +80,7 @@ class AllCommentsVC: UIViewController {
         addCommentVCInNav.modalTransitionStyle = .coverVertical
         addCommentVCInNav.modalPresentationStyle = .fullScreen //.overCurrentContext if you want to keep the tabbar
         
-        addCommentVC.setupVC(postTitle: postTitle)
+        addCommentVC.setupVC(postID: postID, postTitle: postTitle)
         
         present(addCommentVCInNav, animated: true, completion: nil)
     }
@@ -119,6 +118,8 @@ extension AllCommentsVC: UITableViewDataSource {
         cell.thumbsUpButton.addTarget(self, action: #selector(thumbsUpButtonTouched(_:)), for: .touchUpInside)
         
         cell.thumbsDownButton.addTarget(self, action: #selector(thumbsDownButtonTouched(_:)), for: .touchUpInside)
+        
+//        cell.setNeedsLayout()
         
         return cell
     }

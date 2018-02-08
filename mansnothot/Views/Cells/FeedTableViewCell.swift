@@ -70,7 +70,7 @@ class FeedTableViewCell: UITableViewCell {
         imageView.image = nil
         Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
 //        imageView.backgroundColor = .green
-//        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFit
 //        imageView.layer.borderWidth = 0.5
         return imageView
     }()
@@ -200,7 +200,7 @@ class FeedTableViewCell: UITableViewCell {
         setupAndConstrainObjects()
         
         // To add round edges
-        userImageView.layer.cornerRadius = userImageView.bounds.width / 6.0
+        userImageView.layer.cornerRadius = userImageView.bounds.height / 2
         userImageView.layer.masksToBounds = true
     }
     
@@ -253,7 +253,9 @@ class FeedTableViewCell: UITableViewCell {
             make.top.equalTo(postTitleLabel.snp.bottom).offset(5)
             make.centerX.equalTo(self.snp.centerX).priority(999)
             make.bottom.equalTo(postTextView.snp.top).offset(-5)
-                        make.height.equalTo(self.snp.width).multipliedBy(0.5)
+                        make.height.equalTo(self.snp.width)
+            make.leading.equalTo(self.snp.leading)
+            make.trailing.equalTo(self.snp.trailing)
 //                        make.height.equalTo(contentView.snp.height).multipliedBy(0.3)
             //            make.height.equalTo(self.snp.height).multipliedBy(0.16)
         }
@@ -276,7 +278,7 @@ class FeedTableViewCell: UITableViewCell {
             make.centerY.equalTo(showThreadButton.snp.centerY)
         }
         numberOfDislikesLabel.snp.makeConstraints { (make) -> Void in
-            make.leading.equalTo(thumbsDownButton.snp.trailing).offset(2).priority(999)
+            make.leading.equalTo(thumbsDownButton.snp.trailing).offset(2).priority(998)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
             make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }

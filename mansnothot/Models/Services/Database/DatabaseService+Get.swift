@@ -84,11 +84,11 @@ extension DatabaseService {
     - Parameters:
         - uid: The unique userID for the current, authenticated user.
      */
-    public func getPosts(fromUID uid: String) {
+    public func getPosts(fromUID uid: String, completion: @escaping ([Post]) -> Void) {
         getAllPosts { (posts) in
             let userPosts = posts.filter{$0.userID == uid}
             
-            self.delegate?.didGetUserPosts?(self, posts: userPosts.sortedByTimestamp())
+            completion(userPosts.sortedByTimestamp())
         }
     }
     
@@ -123,6 +123,7 @@ extension DatabaseService {
                     let userLiked = postDict["userLiked"] as? Bool
                     else {
                         print("couldn't get post")
+                        self.delegate?.didFailGettingPostComments?(self, error: "Could not get posts from database. Please check network connectivity.")
                         return
                 }
                 let imageURL = postDict["imageURL"] as? String
@@ -168,7 +169,7 @@ extension DatabaseService {
                 let comment = Comment(postID: postID, commentID: commentID, userID: userID, numberOfLikes: likes, numberOfDislikes: dislikes, text: text, timestamp: timestamp)
                 comments.append(comment)
             }
-            self.delegate?.didGetPostComments?(self, comments: comments.sortedByTimestamp())
+            completion(comments.sortedByTimestamp())
         }
     }
 }
