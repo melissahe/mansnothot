@@ -171,6 +171,18 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		810FCBA9202CF4FC0048A72A /* GIFMansNotHot */ = {
+			isa = PBXGroup;
+			children = (
+				810FCBB3202CF5950048A72A /* AccessCamera.gif */,
+				810FCBB1202CF5940048A72A /* Comment.gif */,
+				810FCBB2202CF5950048A72A /* main.gif */,
+				810FCBB0202CF5940048A72A /* Post.gif */,
+				810FCBAF202CF5940048A72A /* report.gif */,
+			);
+			path = GIFMansNotHot;
+			sourceTree = "<group>";
+		};
 		811C09CC202012B00072EDC8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +211,7 @@
 		8185CE5A201FFB0200C38A96 = {
 			isa = PBXGroup;
 			children = (
+				810FCBA9202CF4FC0048A72A /* GIFMansNotHot */,
 				8185CE65201FFB0200C38A96 /* mansnothot */,
 				8185CE64201FFB0200C38A96 /* Products */,
 				C9D842799CBB7A793C0A4BDF /* Pods */,
@@ -363,9 +376,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				810FCBB6202CF5960048A72A /* Comment.gif in Resources */,
 				81AFD59D2020F78E0091AEF9 /* LaunchScreen.storyboard in Resources */,
 				8185CE6E201FFB0200C38A96 /* Assets.xcassets in Resources */,
+				810FCBB4202CF5960048A72A /* report.gif in Resources */,
+				810FCBB5202CF5960048A72A /* Post.gif in Resources */,
 				811C09C92020105E0072EDC8 /* GoogleService-Info.plist in Resources */,
+				810FCBB7202CF5960048A72A /* main.gif in Resources */,
+				810FCBB8202CF5960048A72A /* AccessCamera.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,11 +634,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HRCUFV4R99;
+				DEVELOPMENT_TEAM = 86N2U73XRJ;
 				INFOPLIST_FILE = mansnothot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Melissa-He.mansnothot";
+				PRODUCT_BUNDLE_IDENTIFIER = "Izza-Nadeem-mansnotthot";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -633,11 +651,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = HRCUFV4R99;
+				DEVELOPMENT_TEAM = 86N2U73XRJ;
 				INFOPLIST_FILE = mansnothot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Melissa-He.mansnothot";
+				PRODUCT_BUNDLE_IDENTIFIER = "Izza-Nadeem-mansnotthot";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
