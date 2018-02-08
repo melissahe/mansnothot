@@ -12,6 +12,8 @@ class Comment: NSObject {
     let postID: String //so we can identify specific comments from the user
     let commentID: String //this should be the unique comment id
     let userID: String
+    var numberOfLikes: Int = 0
+    var numberOfDislikes: Int = 0
     var text: String
     var timestamp: Double = Date.timeIntervalSinceReferenceDate
     //bonuses/nice to haves:
@@ -30,10 +32,12 @@ class Comment: NSObject {
         self.text = text
     }
     
-    init(postID: String, commentID: String, userID: String, text: String, timestamp: Double) {
+    init(postID: String, commentID: String, userID: String, numberOfLikes: Int, numberOfDislikes: Int, text: String, timestamp: Double) {
         self.postID = postID
         self.commentID = commentID
         self.userID = userID
+        self.numberOfLikes = numberOfLikes
+        self.numberOfDislikes = numberOfDislikes
         self.text = text
         self.timestamp = timestamp
     }

@@ -236,4 +236,93 @@ extension DatabaseService {
             }
         })
     }
+    
+    public func likeComment(withCommentID commentID: String, likedByUserID userID: String) {
+        let ref = commentsRef.child(commentID)
+        
+        ref.runTransactionBlock({ (currentData) -> TransactionResult in
+            if var comment = currentData.value as? [String : Any] {
+                var likesDict = comment["likedBy"] as? [String : Any] ?? [:]
+                var likes = comment["numberOfLikes"] as? Int ?? 0
+                var dislikesDict = comment["dislikedBy"] as? [String : Any] ?? [:]
+                var dislikes = comment["numberOfDislikes"] as? Int ?? 0
+                
+                //if user has liked already
+                if let _ = likesDict[userID] {
+                    //remove like
+                    likes -= 1
+                    likesDict.removeValue(forKey: userID)
+                    self.delegate?.didUndoLikePost?(self)
+                } else { //if user has not liked yet
+                    //add like
+                    likes += 1
+                    likesDict[userID] = true
+                    
+                    if let _ = dislikesDict[userID] {
+                        dislikes -= 1
+                        dislikesDict.removeValue(forKey: userID)
+                        self.delegate?.didUndoDislikePost?(self)
+                    }
+                    self.delegate?.didLikePost?(self)
+                }
+                comment["likedBy"] = likesDict
+                comment["numberOfLikes"] = likes
+                comment["dislikedBy"] = dislikesDict
+                comment["numberOfDislikes"] = dislikes
+                currentData.value = comment
+                return TransactionResult.success(withValue: currentData)
+            }
+            return TransactionResult.success(withValue: currentData)
+        }, andCompletionBlock: { (error, _, _) in
+            if let error = error {
+                //delegate with fail to like post
+                self.delegate?.didFailLiking?(self, error: error.localizedDescription)
+            }
+        })
+    }
+    
+    public func dislikeComment(withCommentID commentID: String, likedByUserID userID: String) {
+        let ref = commentsRef.child(commentID)
+        
+        ref.runTransactionBlock({ (currentData) -> TransactionResult in
+            if var comment = currentData.value as? [String : Any] {
+                var dislikesDict = comment["dislikedBy"] as? [String : Any] ?? [:]
+                var dislikes = comment["numberOfDislikes"] as? Int ?? 0
+                var likesDict = comment["likedBy"] as? [String : Any] ?? [:]
+                var likes = comment["numberOfLikes"] as? Int ?? 0
+                
+                //if user has liked already
+                if let _ = dislikesDict[userID] {
+                    //remove like
+                    dislikes -= 1
+                    dislikesDict.removeValue(forKey: userID)
+                    self.delegate?.didUndoDislikePost?(self)
+                } else { //if user has not liked yet
+                    //add like
+                    dislikes += 1
+                    dislikesDict[userID] = true
+                    
+                    if let _ = likesDict[userID] {
+                        likes -= 1
+                        likesDict.removeValue(forKey: userID)
+                        self.delegate?.didUndoLikePost?(self)
+                    }
+                    
+                    self.delegate?.didDislikePost?(self)
+                }
+                comment["likedBy"] = likesDict
+                comment["numberOfLikes"] = likes
+                comment["dislikedBy"] = dislikesDict
+                comment["numberOfDislikes"] = dislikes
+                currentData.value = comment
+                return TransactionResult.success(withValue: currentData)
+            }
+            return TransactionResult.success(withValue: currentData)
+        }, andCompletionBlock: { (error, _, _) in
+            if let error = error {
+                //delegate with fail to like post
+                self.delegate?.didFailDisliking?(self, error: error.localizedDescription)
+            }
+        })
+    }
 }
