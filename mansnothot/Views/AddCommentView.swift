@@ -17,10 +17,11 @@ class AddCommentView: UIView {
     //postTextView for PostText
     lazy var postCommentTextView: UITextView = {
         let tv = UITextView()
-        tv.layer.borderWidth = 1
         tv.text = "Enter Post Text Here"
-        tv.backgroundColor = .yellow
-        tv.textAlignment = .justified
+        Stylesheet.Objects.Textviews.Editable.style(textview: tv)
+//        tv.layer.borderWidth = 1
+//        tv.backgroundColor = .yellow
+//        tv.textAlignment = .justified
         return tv
     }()
     

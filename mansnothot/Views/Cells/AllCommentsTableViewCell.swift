@@ -101,15 +101,30 @@ class AllCommentsTableViewCell: UITableViewCell {
     }
     
     private func setupAndConstrainObjects(){
+        self.addSubview(usernameLabel)
+        self.addSubview(commentTextView)
         self.addSubview(thumbsUpButton)
         self.addSubview(numberOfLikesLabel)
         self.addSubview(thumbsDownButton)
         self.addSubview(numberOfDislikesLabel)
-        self.addSubview(usernameLabel)
-        self.addSubview(commentTextView)
+        
+        //Update these contraints so that the trailing is set to the leading of the buttons
+        usernameLabel.snp.makeConstraints { (make) -> Void in
+            make.leading.equalTo(self.snp.leading).offset(5)
+            make.top.equalTo(self.snp.top).offset(5)
+            make.trailing.equalTo(thumbsUpButton.snp.leading).offset(-5)
+        }
+        
+        commentTextView.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(usernameLabel.snp.bottom)
+            make.leading.equalTo(usernameLabel.snp.leading)
+            make.trailing.equalTo(usernameLabel.snp.trailing)
+            make.bottom.lessThanOrEqualTo(self.snp.bottom)
+        }
+        
         
         thumbsUpButton.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(self.snp.top).offset(5)
+            make.top.equalTo(commentTextView.snp.top)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
         }
         
@@ -132,23 +147,12 @@ class AllCommentsTableViewCell: UITableViewCell {
             make.leading.equalTo(thumbsUpButton.snp.leading)
             make.trailing.equalTo(thumbsUpButton.snp.trailing)
             make.height.equalTo(thumbsUpButton.snp.height)
-            make.bottom.equalTo(self.snp.bottom)
+            
+            // comment out the next line to eliminate the spacing of buttons
+//            make.bottom.equalTo(self.snp.bottom)
         }
         
-        //Update these contraints so that the trailing is set to the leading of the buttons
-        usernameLabel.snp.makeConstraints { (make) -> Void in
-            make.leading.equalTo(self.snp.leading).offset(5)
-            make.top.equalTo(self.snp.top).offset(5)
-            make.trailing.equalTo(thumbsUpButton.snp.leading).offset(-5)
-        }
-        
-        commentTextView.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(usernameLabel.snp.bottom)
-            make.leading.equalTo(usernameLabel.snp.leading)
-            make.trailing.equalTo(usernameLabel.snp.trailing)
-//            make.bottom.equalTo(self.snp.bottom).offset(-5)
-//            make.bottom.greaterThanOrEqualTo(numberOfDislikesLabel.snp.bottom)
-        }
+
         
         
         
