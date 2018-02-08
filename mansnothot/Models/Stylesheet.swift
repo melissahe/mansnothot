@@ -66,7 +66,7 @@ extension Stylesheet {
                 case .Opaque:
                     imageView.backgroundColor = .white
 //                    imageView.backgroundColor = .red
-                    imageView.contentMode = .scaleAspectFit
+                    imageView.contentMode = .scaleAspectFill
                     imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
                     imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                 }
