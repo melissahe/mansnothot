@@ -19,15 +19,23 @@ enum Stylesheet {
         static let Yellow = UIColor(red: 0.9569, green: 0.8627, blue: 0, alpha: 1.0)
         static let Dark = UIColor(red: 0.184, green: 0.157, blue: 0.118, alpha: 1.00)
     }
-    
     enum Fonts {
-        static let AppName = UIFont(name: "Helvetica Neue", size: 50.0)
-        static let PostTitle = UIFont(name: "Helvetica Bold", size: 20.0)
-        static let Regular = UIFont(name: "Helvetica Neue", size: 15.0)
-        static let Login = UIFont(name: "Helvetica Neue", size: 15.0)
-        static let Link = UIFont(name: "Helvetica Bold", size: 15.0)
-        static let Bold = UIFont(name: "Helvetica Bold", size: 15.0)
+        static let AppName = UIFont(name: "Impact", size: 50.0)
+        static let PostTitle = UIFont(name: "Skia Bold", size: 20.0)
+        static let Regular = UIFont(name: "Skia Light", size: 15.0)
+        static let Login = UIFont(name: "Comic Sans", size: 15.0)
+        static let Link = UIFont(name: "Skia Regular", size: 15.0)
+        static let Bold = UIFont(name: "Skia Bold", size: 15.0)
     }
+    
+//    enum Fonts {
+//        static let AppName = UIFont(name: "Helvetica Neue", size: 50.0)
+//        static let PostTitle = UIFont(name: "Helvetica Bold", size: 20.0)
+//        static let Regular = UIFont(name: "Helvetica Neue", size: 15.0)
+//        static let Login = UIFont(name: "Helvetica Neue", size: 15.0)
+//        static let Link = UIFont(name: "Helvetica Bold", size: 15.0)
+//        static let Bold = UIFont(name: "Helvetica Bold", size: 15.0)
+//    }
     
     enum BorderWidths {
         static let Textviews = 0.5
