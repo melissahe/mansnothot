@@ -130,7 +130,7 @@ extension Stylesheet {
                     label.backgroundColor = .clear
                     label.textAlignment = .center
                 case .PostCategory:
-                    label.font = Stylesheet.Fonts.Bold
+                    label.font = Stylesheet.Fonts.Regular
                     label.textColor = Stylesheet.Colors.Red
                     label.backgroundColor = .clear
                     label.textAlignment = .left
@@ -142,10 +142,12 @@ extension Stylesheet {
                     label.textAlignment = .left
                     label.numberOfLines = 0
                 case .PostUsername:
-                    label.font = Stylesheet.Fonts.Regular
+                    label.font = Stylesheet.Fonts.Bold
                     label.textColor = Stylesheet.Colors.Dark
-                    label.backgroundColor = .clear
+//                    label.backgroundColor = .clear
+                    label.backgroundColor = .green
                     label.textAlignment = .left
+                    label.numberOfLines = 1
                 case .LikesDislikes:
                     label.font = Stylesheet.Fonts.Link
                     label.textColor = Stylesheet.Colors.Dark
@@ -164,7 +166,8 @@ extension Stylesheet {
                 case .Completed:
                     textview.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.TextfieldCompleted)
                     textview.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
-                    textview.backgroundColor = Stylesheet.Colors.White
+                    textview.backgroundColor = .yellow
+//                    textview.backgroundColor = Stylesheet.Colors.White
                     textview.textAlignment = .natural
                     textview.isEditable = false
                     textview.textColor = Stylesheet.Colors.Dark
@@ -192,9 +195,23 @@ extension Stylesheet {
             case LoginEmail
             case LoginPassword
             case PostTitle
+            case AddComment
             
             func style(textfield: UITextField) {
                 switch self {
+                case .AddComment:
+                    textfield.borderStyle = UITextBorderStyle.bezel
+                    textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
+                    textfield.backgroundColor = Stylesheet.Colors.White
+                    textfield.textAlignment = NSTextAlignment.left
+                    textfield.font = Stylesheet.Fonts.Login
+                    textfield.textColor = Stylesheet.Colors.Dark
+                    textfield.adjustsFontSizeToFitWidth = true
+                    textfield.autocapitalizationType = .words
+                    textfield.autocorrectionType = .no
+                    textfield.keyboardType = .asciiCapable
+                    textfield.returnKeyType = .default
+                    textfield.placeholder = "Add a Comment"
                 case .UserName:
                     textfield.borderStyle = UITextBorderStyle.bezel
                     textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
