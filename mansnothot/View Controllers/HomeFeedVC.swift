@@ -37,11 +37,25 @@ class HomeFeedVC: UIViewController {
     var posts: [Post] = [] {
         didSet {
             //need to fix this later!!
-            homeFeedView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+            //should get rid of the observe
+            UIView.animate(withDuration: 0.5) {
+                if self.shouldUpdateCell {
+                    self.homeFeedView.tableView.reloadRows(at: [IndexPath(row: self.selectedRowIndex, section: 0)], with: .fade)
+                } else {
+                    self.homeFeedView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+                    self.shouldUpdateCell = true
+                }
+            }
         }
     }
     
-    public var selectedRowIndex = 0
+    var shouldUpdateCell = false
+    
+    public var selectedRowIndex = 0 {
+        didSet {
+            shouldUpdateCell = true
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +76,7 @@ class HomeFeedVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DatabaseService.manager.delegate = self
+        homeFeedView.tableView.reloadData()
     }
     
     func setupViews() {
@@ -343,10 +358,15 @@ extension HomeFeedVC: UITableViewDataSource {
             //This gets you the label of the cell where the button was clicked
             print(cell.usernameLabel.text!)
             //This gets you the indexpath of the button pressed
-            print(homeFeedView.tableView.indexPath(for: cell)!.row)
+            guard let indexPath = homeFeedView.tableView.indexPath(for: cell) else {
+                print("couldn't get indexpath")
+                return
+            }
+            
+            let currentPost = posts[indexPath.row]
             
             //Using this info, we can dependency inject a VC
-            allCommentsVC.setupVC(postTitle: cell.usernameLabel.text!)
+            allCommentsVC.setupVC(postID: currentPost.postID)
             
             //Then we can present the VC
             allCommentsVCInNav.modalTransitionStyle = .coverVertical

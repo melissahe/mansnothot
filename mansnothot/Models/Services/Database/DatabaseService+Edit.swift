@@ -252,7 +252,7 @@ extension DatabaseService {
                     //remove like
                     likes -= 1
                     likesDict.removeValue(forKey: userID)
-                    self.delegate?.didUndoLikePost?(self)
+                    self.delegate?.didUndoLikeComment?(self)
                 } else { //if user has not liked yet
                     //add like
                     likes += 1
@@ -261,9 +261,9 @@ extension DatabaseService {
                     if let _ = dislikesDict[userID] {
                         dislikes -= 1
                         dislikesDict.removeValue(forKey: userID)
-                        self.delegate?.didUndoDislikePost?(self)
+                        self.delegate?.didUndoDislikeComment?(self)
                     }
-                    self.delegate?.didLikePost?(self)
+                    self.delegate?.didLikeComment?(self)
                 }
                 comment["likedBy"] = likesDict
                 comment["numberOfLikes"] = likes
@@ -296,7 +296,7 @@ extension DatabaseService {
                     //remove like
                     dislikes -= 1
                     dislikesDict.removeValue(forKey: userID)
-                    self.delegate?.didUndoDislikePost?(self)
+                    self.delegate?.didUndoDislikeComment?(self)
                 } else { //if user has not liked yet
                     //add like
                     dislikes += 1
@@ -305,10 +305,10 @@ extension DatabaseService {
                     if let _ = likesDict[userID] {
                         likes -= 1
                         likesDict.removeValue(forKey: userID)
-                        self.delegate?.didUndoLikePost?(self)
+                        self.delegate?.didUndoDislikeComment?(self)
                     }
                     
-                    self.delegate?.didDislikePost?(self)
+                    self.delegate?.didDislikeComment?(self)
                 }
                 comment["likedBy"] = likesDict
                 comment["numberOfLikes"] = likes

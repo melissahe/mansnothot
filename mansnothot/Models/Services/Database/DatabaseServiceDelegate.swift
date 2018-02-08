@@ -165,6 +165,14 @@ import Foundation
      */
     @objc optional func didUndoDislikePost(_ databaseService: DatabaseService)
     
+    @objc optional func didLikeComment(_ databaseService: DatabaseService)
+    
+    @objc optional func didUndoLikeComment(_ databaseService: DatabaseService)
+    
+    @objc optional func didDislikeComment(_ databaseService: DatabaseService)
+    
+    @objc optional func didUndoDislikeComment(_ databaseService: DatabaseService)
+    
     /**
      */
     @objc optional func didFailLiking(_ databaseService: DatabaseService, error: String)
