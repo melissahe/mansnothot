@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0BA6044AB29ADE5ABF3A73A8 /* Pods_mansnothot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3270CE1E5DB32A01397BA815 /* Pods_mansnothot.framework */; };
+		8109D42E202CF8760010BB07 /* NetworkConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8109D42D202CF8760010BB07 /* NetworkConnectivity.swift */; };
 		811C09C92020105E0072EDC8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 811C09C82020105E0072EDC8 /* GoogleService-Info.plist */; };
 		811C09CB202012720072EDC8 /* FirebaseAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C09CA202012720072EDC8 /* FirebaseAPIClient.swift */; };
 		811C09CE202015330072EDC8 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811C09CD202015330072EDC8 /* FileManagerHelper.swift */; };
@@ -64,6 +65,7 @@
 /* Begin PBXFileReference section */
 		07DC7B3A23B841F848789F2F /* Pods-mansnothot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mansnothot.release.xcconfig"; path = "Pods/Target Support Files/Pods-mansnothot/Pods-mansnothot.release.xcconfig"; sourceTree = "<group>"; };
 		3270CE1E5DB32A01397BA815 /* Pods_mansnothot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mansnothot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8109D42D202CF8760010BB07 /* NetworkConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConnectivity.swift; sourceTree = "<group>"; };
 		811C09C82020105E0072EDC8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		811C09CA202012720072EDC8 /* FirebaseAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAPIClient.swift; sourceTree = "<group>"; };
 		811C09CD202015330072EDC8 /* FileManagerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				81AFD54B20204D3E0091AEF9 /* Comment.swift */,
 				81AFD5702020C2710091AEF9 /* Alert.swift */,
 				DB4BD94D202A4B3100136978 /* Stylesheet.swift */,
+				8109D42D202CF8760010BB07 /* NetworkConnectivity.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -488,6 +491,7 @@
 				81879A0F20239F0400CAD692 /* AuthUserService.swift in Sources */,
 				81AFD54D20204EB00091AEF9 /* LoginVC.swift in Sources */,
 				DB7448BC202CEA7E00DA79BB /* EmptyStateView.swift in Sources */,
+				8109D42E202CF8760010BB07 /* NetworkConnectivity.swift in Sources */,
 				81AFD59B2020F6200091AEF9 /* ChangeBioView.swift in Sources */,
 				8185CE67201FFB0200C38A96 /* AppDelegate.swift in Sources */,
 				81AFD5A6202109250091AEF9 /* NewPostView.swift in Sources */,

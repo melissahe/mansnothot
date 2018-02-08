@@ -13,7 +13,8 @@ class EmptyStateView: UIView {
     lazy var emptyLabel: UILabel = {
         let label = UILabel()
         Stylesheet.Objects.Labels.Regular.style(label: label)
-        label.font = UIFont(name: "Helvetica Neue", size: 20.0)
+        label.font = UIFont(name: "Helvetica Neue", size: 30.0)
+        label.textAlignment = .center
         return label
     }()
     
@@ -37,7 +38,8 @@ class EmptyStateView: UIView {
         self.addSubview(emptyLabel)
         
         emptyLabel.snp.makeConstraints { (make) in
-            make.edges.equalTo(self)
+            make.top.bottom.equalTo(self)
+            make.leading.trailing.equalTo(self).inset(20)
         }
     }
 }
