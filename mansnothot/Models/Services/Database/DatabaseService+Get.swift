@@ -154,6 +154,8 @@ extension DatabaseService {
                     let commentID = commentDict["commentID"] as? String,
                     let postID = commentDict["postID"] as? String,
                     let text = commentDict["text"] as? String,
+                    let likes = commentDict["numberOfLikes"] as? Int,
+                    let dislikes = commentDict["numberOfDislikes"] as? Int,
                     let timestamp = commentDict["timestamp"] as? Double,
                     let userID = commentDict["userID"] as? String
                     else {
@@ -163,7 +165,7 @@ extension DatabaseService {
                 if postID != passedInPostID {
                     continue
                 }
-                let comment = Comment(postID: postID, commentID: commentID, userID: userID, text: text, timestamp: timestamp)
+                let comment = Comment(postID: postID, commentID: commentID, userID: userID, numberOfLikes: likes, numberOfDislikes: dislikes, text: text, timestamp: timestamp)
                 comments.append(comment)
             }
             self.delegate?.didGetPostComments?(self, comments: comments.sortedByTimestamp())
