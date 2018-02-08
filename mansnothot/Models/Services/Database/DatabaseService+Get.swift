@@ -168,7 +168,7 @@ extension DatabaseService {
                 let comment = Comment(postID: postID, commentID: commentID, userID: userID, numberOfLikes: likes, numberOfDislikes: dislikes, text: text, timestamp: timestamp)
                 comments.append(comment)
             }
-            self.delegate?.didGetPostComments?(self, comments: comments.sortedByTimestamp())
+            completion(comments.sortedByTimestamp())
         }
     }
 }
