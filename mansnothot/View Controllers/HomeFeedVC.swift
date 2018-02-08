@@ -95,10 +95,14 @@ class HomeFeedVC: UIViewController {
     //This is a func to test the segmentedbar only
     @objc func changeColor(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
-        case 0:
+        case 0: //Recent
             homeFeedView.backgroundColor = Stylesheet.Colors.White
-        case 1:
+            let recentPosts = posts.sortedByTimestamp()
+            self.posts = recentPosts
+        case 1: //Popular
             homeFeedView.backgroundColor = Stylesheet.Colors.White
+            let popularPosts = posts.sortedByLikes()
+            self.posts = popularPosts
         default:
             homeFeedView.backgroundColor = .white
         }
