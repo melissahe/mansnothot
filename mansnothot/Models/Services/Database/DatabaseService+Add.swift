@@ -30,6 +30,8 @@ extension DatabaseService {
         ref.setValue(["postID": postID,
                       "commentID": comment.commentID,
                       "userID": comment.userID,
+                      "numberOfLikes": comment.numberOfLikes,
+                      "numberOfDislikes": comment.numberOfDislikes,
                       "text": comment.text,
                       "timestamp": comment.timestamp
             ])
@@ -98,9 +100,8 @@ extension DatabaseService {
                       "isBanned": userProfile.isBanned
         ]) { (error, _) in
             if let error = error {
-                self.delegate?.didFailAddingComment?(self, error: error.localizedDescription)
+                self.delegate?.didFailAddingUserProfile?(self, error: error.localizedDescription)
             } else {
-                self.delegate?.didAddComment?(self)
                 print("new user added to database!!")
             }
         }

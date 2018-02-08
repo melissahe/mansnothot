@@ -137,8 +137,8 @@ class AllCommentsTableViewCell: UITableViewCell {
         //Update these contraints so that the trailing is set to the leading of the buttons
         usernameLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self.snp.top)
-            make.leading.equalTo(self.snp.leading)
-            make.trailing.equalTo(thumbsUpButton.snp.leading)
+            make.leading.equalTo(self.snp.leading).offset(5)
+            make.trailing.equalTo(thumbsUpButton.snp.leading).offset(-5)
         }
         
         commentTextView.snp.makeConstraints { (make) -> Void in

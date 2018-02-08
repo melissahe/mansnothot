@@ -251,8 +251,11 @@ class FeedTableViewCell: UITableViewCell {
         }
         postImageView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(postTitleLabel.snp.bottom).offset(5)
-            make.centerX.equalTo(self.snp.centerX)
-            make.height.lessThanOrEqualTo(200)
+            make.centerX.equalTo(self.snp.centerX).priority(999)
+            make.bottom.equalTo(postTextView.snp.top).offset(-5)
+                        make.height.equalTo(self.snp.width).multipliedBy(0.5)
+//                        make.height.equalTo(contentView.snp.height).multipliedBy(0.3)
+            //            make.height.equalTo(self.snp.height).multipliedBy(0.16)
         }
         showThreadButton.snp.makeConstraints { (make) -> Void in
             make.centerY.equalTo(commentButton.snp.centerY)
@@ -264,7 +267,7 @@ class FeedTableViewCell: UITableViewCell {
             make.leading.equalTo(self.snp.leading).offset(5)
         }
         numberOfLikesLabel.snp.makeConstraints { (make) -> Void in
-            make.leading.equalTo(thumbsUpButton.snp.trailing).offset(2)
+            make.leading.equalTo(thumbsUpButton.snp.trailing).offset(2).priority(999)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
             make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }
@@ -273,7 +276,7 @@ class FeedTableViewCell: UITableViewCell {
             make.centerY.equalTo(showThreadButton.snp.centerY)
         }
         numberOfDislikesLabel.snp.makeConstraints { (make) -> Void in
-            make.leading.equalTo(thumbsDownButton.snp.trailing).offset(2)
+            make.leading.equalTo(thumbsDownButton.snp.trailing).offset(2).priority(999)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
             make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }
@@ -290,7 +293,7 @@ class FeedTableViewCell: UITableViewCell {
             
         }
         showArrowButton.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(postTextView.snp.bottom).offset(5)
+            make.top.equalTo(postTextView.snp.bottom).offset(5).priority(999)
             make.trailing.equalTo(shareButton.snp.leading).offset(-2)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
             
