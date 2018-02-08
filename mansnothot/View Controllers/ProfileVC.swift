@@ -195,6 +195,9 @@ class ProfileVC: UIViewController {
         let myPostVC = MyPostsVC()
         //        myPostVC.modalTransitionStyle = .coverVertical
         //        myPostVC.modalPresentationStyle = .overCurrentContext
+        if let userProfile = userProfile {
+            myPostVC.configurePosts(userProfile: userProfile)
+        }
         navigationController?.pushViewController(myPostVC, animated: true)
         print("See All My Posts button tapped")
     }
