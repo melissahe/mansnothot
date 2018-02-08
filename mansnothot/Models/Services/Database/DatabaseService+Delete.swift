@@ -43,9 +43,9 @@ extension DatabaseService {
             
             //delete all posts??
             
-            for post in filteredPosts {
-                //add post
-            }
+//            for post in filteredPosts {
+//                //add post
+//            }
         }
     }
 }

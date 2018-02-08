@@ -16,7 +16,7 @@ class HomeFeedView: UIView {
     
     //SegmentedControlBar
     lazy var segmentedBar: UISegmentedControl = {
-        let items = ["Popular", "Recent"] // names of each segment
+        let items = ["Recent", "Popular"] // names of each segment
         let sc = UISegmentedControl(items: items)
         sc.selectedSegmentIndex = 0
         sc.layer.cornerRadius = 5.0
