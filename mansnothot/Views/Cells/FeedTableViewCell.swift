@@ -200,7 +200,7 @@ class FeedTableViewCell: UITableViewCell {
         setupAndConstrainObjects()
         
         // To add round edges
-        userImageView.layer.cornerRadius = userImageView.bounds.width / 6.0
+        userImageView.layer.cornerRadius = userImageView.bounds.height / 2
         userImageView.layer.masksToBounds = true
     }
     
