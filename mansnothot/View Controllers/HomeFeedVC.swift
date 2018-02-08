@@ -98,6 +98,8 @@ extension HomeFeedVC: UITableViewDataSource {
         
         cell.categoryLabel.text = "This is \(currentPost.category)"
         cell.postTitleLabel.text = currentPost.title
+        cell.numberOfLikesLabel.text = "+" +  currentPost.numberOfLikes.description
+        cell.numberOfDislikesLabel.text = "-" +  currentPost.numberOfDislikes.description
         if let postText = currentPost.bodyText, !postText.isEmpty {
             cell.postTextView.text = postText
         } else {
@@ -105,7 +107,7 @@ extension HomeFeedVC: UITableViewDataSource {
         }
         DatabaseService.manager.getUserProfile(withUID: currentPost.userID) { (userProfile) in
             cell.usernameLabel.text = userProfile.displayName
-            cell.postImageView.image = nil
+            //            cell.postImageView.image = nil
             if let userUrlString = userProfile.imageURL, let url = URL(string: userUrlString) {
                 cell.userImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (_, error, _, _) in
                     if let error = error {
@@ -118,20 +120,57 @@ extension HomeFeedVC: UITableViewDataSource {
                 cell.layoutIfNeeded()
             }
         }
-        
+        cell.postImageView.image = nil
         if let postUrlString = currentPost.imageURL, let url = URL(string: postUrlString) {
-            cell.postImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (_, error, _, _) in
+            
+            ImageCache(name: currentPost.postID).retrieveImage(forKey: currentPost.postID, options: nil, completionHandler: { (image, _) in
+                if let image = image {
+                    cell.postImageView.image = image
+                    cell.setNeedsLayout()
+                    return
+                }
+            })
+            
+            print(url.absoluteString)
+            print()
+            //            cell.postImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (image, error, _, _) in
+            //                if let error = error {
+            //                    print(error)
+            //                }
+            //                cell.layoutIfNeeded()
+            //                cell.setNeedsLayout()
+            //            })
+            //            DispatchQueue.main.async {
+            //                let image = UIImage.init
+            //                print(postUrlString)
+            let ses = URLSession(configuration: .default)
+            ses.dataTask(with: url, completionHandler: { (data, response, error) in
                 if let error = error {
                     print(error)
+                    return
                 }
-                cell.layoutIfNeeded()
-            })
+                if let data = data {
+                    //                    do {
+                    DispatchQueue.main.async {
+                        if let image = UIImage(data: data) {
+                            cell.postImageView.image = image
+                            ImageCache(name: currentPost.postID).store(image, forKey: currentPost.postID)
+                            
+                            cell.setNeedsLayout()
+                        }
+                    }
+                    //                    } catch {
+                    //
+                    //                    }
+                }
+            }).resume()
+            
+            //            }
         } else {
-            cell.postImageView.image = nil
+            cell.postImageView.image = #imageLiteral(resourceName: "placeholder-image")
             cell.layoutIfNeeded()
         }
-        
-        
+
         //Add Button Functionality
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         cell.commentButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
@@ -139,7 +178,7 @@ extension HomeFeedVC: UITableViewDataSource {
         cell.thumbsDownButton.addTarget(self, action: #selector(thumbsDownButtonTouched(_:)), for: .touchUpInside)
         cell.flagButton.addTarget(self, action: #selector(showReportActionSheet), for: .touchUpInside)
         cell.shareButton.addTarget(self, action: #selector(showShareActionSheet), for: .touchUpInside)
-        //cell.showArrowButton.addTarget(self, action: #selector(showShareActionSheet(_:)), for: .touchUpInside)
+        cell.showArrowButton.addTarget(self, action: #selector(showShareActionSheet(_:)), for: .touchUpInside)
         
         return cell
     }
@@ -227,9 +266,25 @@ extension HomeFeedVC: UITableViewDataSource {
     
     @objc func showReportActionSheet(_ sender: UIButton){
         if let cell = sender.superview as? FeedTableViewCell {
+            
+            guard let indexPath = self.homeFeedView.tableView.indexPath(for: cell) else {
+                print("couldn't get indexpath")
+                return
+            }
+            let currentPost = self.posts[indexPath.row]
+            
+            if let userID = AuthUserService.manager.getCurrentUser()?.uid {
+                if userID == currentPost.userID {
+                    let errorAlert = Alert.createErrorAlert(withMessage: "You can't flag yourself or your own posts.")
+                    self.present(errorAlert, animated: true, completion: nil)
+                }
+            }
+            
             let reportAlert = Alert.create(withTitle: "Flag", andMessage: nil, withPreferredStyle: .actionSheet)
             Alert.addAction(withTitle: "Report User", style: .destructive, andHandler: { (_) in
                 //get the cell's index path, and then get the post's index path - pass in the user id (if it's yours, present error)
+                
+                
                 
                 //report user function here
             }, to: reportAlert)
@@ -245,13 +300,25 @@ extension HomeFeedVC: UITableViewDataSource {
     @objc func thumbsUpButtonTouched(_ sender: UIButton) {
         if let cell = sender.superview as? FeedTableViewCell {
             print(cell.numberOfLikesLabel.text!)
-            if let stringAsInt = Int(cell.numberOfLikesLabel.text!) {
-                var newInt = stringAsInt
-                newInt += 1
-                cell.numberOfLikesLabel.text = "+"+String(newInt)
-            } else {
-                cell.numberOfLikesLabel.text = "0"
+            
+            guard let indexPath = homeFeedView.tableView.indexPath(for: cell) else {
+                print("couldn't get indexpath!!!!!!!")
+                return
             }
+            let currentPost = posts[indexPath.row]
+            
+            if let currentUser = AuthUserService.manager.getCurrentUser() {
+                
+                DatabaseService.manager.likePost(withPostID: currentPost.postID, likedByUserID: currentUser.uid)
+            }
+            
+//            if let stringAsInt = Int(cell.numberOfLikesLabel.text!) {
+//                var newInt = stringAsInt
+//                newInt += 1
+//                cell.numberOfLikesLabel.text = "+"+String(newInt)
+//            } else {
+//                cell.numberOfLikesLabel.text = "0"
+//            }
         }
     }
     
