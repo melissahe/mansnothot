@@ -114,7 +114,6 @@ extension MyPostsVC: UITableViewDataSource {
             cell.layoutIfNeeded()
         }
         
-        
         //Add Button Functionality
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
@@ -162,26 +161,54 @@ extension MyPostsVC: UITableViewDataSource {
     @objc func thumbsUpButtonTouched(_ sender: UIButton) {
         if let cell = sender.superview as? MyPostsTableViewCell {
             print(cell.numberOfLikesLabel.text!)
-            if let stringAsInt = Int(cell.numberOfLikesLabel.text!) {
-                var newInt = stringAsInt
-                newInt += 1
-                cell.numberOfLikesLabel.text = "+"+String(newInt)
-            } else {
-                cell.numberOfLikesLabel.text = "0"
+            
+            guard let indexPath = myPostView.tableView.indexPath(for: cell) else {
+                print("couldn't get indexpath!!")
+                return
             }
+            
+            let currentPost = posts[indexPath.row]
+            
+            if let userProfile = userProfile {
+                DatabaseService.manager.delegate = self
+                DatabaseService.manager.likePost(withPostID: currentPost.postID, likedByUserID: userProfile.userID)
+            } else {
+                let errorAlert = Alert.createErrorAlert(withMessage: "Please check network connectivity, and then close and restart the app.")
+                self.present(errorAlert, animated: true, completion: nil)
+            }
+
+            //might reuse this later!
+//            if let stringAsInt = Int(cell.numberOfLikesLabel.text!) {
+//                var newInt = stringAsInt
+//                newInt += 1
+//                cell.numberOfLikesLabel.text = "+"+String(newInt)
+//            } else {
+//                cell.numberOfLikesLabel.text = "0"
+//            }
         }
     }
     
     @objc func thumbsDownButtonTouched(_ sender: UIButton) {
         if let cell = sender.superview as? MyPostsTableViewCell {
-            print(cell.numberOfDislikesLabel.text!)
-            if let stringAsInt = Int(cell.numberOfDislikesLabel.text!) {
-                var newInt = stringAsInt
-                newInt -= 1
-                cell.numberOfDislikesLabel.text = String(newInt)
-            } else {
-                cell.numberOfDislikesLabel.text = "0"
+            guard let indexPath = myPostView.tableView.indexPath(for: cell) else {
+                print("couldn't get indexpath!!")
+                return
             }
+            let currentPost = posts[indexPath.row]
+            if let userProfile = userProfile {
+                DatabaseService.manager.delegate = self
+                DatabaseService.manager.dislikePost(withPostID: currentPost.postID, likedByUserID: userProfile.userID)
+            } else {
+                let errorAlert = Alert.createErrorAlert(withMessage: "Please check network connectivity, and then close and restart the app.")
+                self.present(errorAlert, animated: true, completion: nil)
+            }
+//            if let stringAsInt = Int(cell.numberOfDislikesLabel.text!) {
+//                var newInt = stringAsInt
+//                newInt -= 1
+//                cell.numberOfDislikesLabel.text = String(newInt)
+//            } else {
+//                cell.numberOfDislikesLabel.text = "0"
+//            }
         }
     }
     
