@@ -68,7 +68,7 @@ class MyPostsTableViewCell: UITableViewCell {
         imageView.image = nil
         Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
 //        imageView.backgroundColor = .green
-//        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFit
 //        imageView.layer.borderWidth = 0.5
         return imageView
     }()
@@ -233,8 +233,11 @@ class MyPostsTableViewCell: UITableViewCell {
             make.top.equalTo(postTitleLabel.snp.bottom).offset(5)
             make.centerX.equalTo(self.snp.centerX)
 //            make.height.lessThanOrEqualTo(200)
-            make.width.equalTo(self.snp.width).multipliedBy(0.5)
-            make.height.equalTo(self.snp.height).multipliedBy(0.3)
+            make.leading.equalTo(self.snp.leading)
+            make.trailing.equalTo(self.snp.trailing)
+            make.height.equalTo(self.snp.width)
+//            make.width.equalTo(self.snp.width).multipliedBy(0.5)
+//            make.height.equalTo(self.snp.height).multipliedBy(0.3)
             //make.height.equalTo(self.snp.height).multipliedBy(0.16)
         }
         postTextView.snp.makeConstraints { (make) -> Void in

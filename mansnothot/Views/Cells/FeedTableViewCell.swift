@@ -278,7 +278,7 @@ class FeedTableViewCell: UITableViewCell {
             make.centerY.equalTo(showThreadButton.snp.centerY)
         }
         numberOfDislikesLabel.snp.makeConstraints { (make) -> Void in
-            make.leading.equalTo(thumbsDownButton.snp.trailing).offset(2).priority(999)
+            make.leading.equalTo(thumbsDownButton.snp.trailing).offset(2).priority(998)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
             make.height.equalTo(self.snp.width).multipliedBy(0.07)
         }
