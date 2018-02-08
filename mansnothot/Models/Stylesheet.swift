@@ -58,14 +58,12 @@ extension Stylesheet {
             func style(imageView: UIImageView) {
                 switch self {
                 case .Clear:
-//                    imageView.backgroundColor = .clear
-                    imageView.backgroundColor = .yellow
+                    imageView.backgroundColor = .clear
                     imageView.contentMode = .scaleAspectFit
                     imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
                     imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                 case .Opaque:
                     imageView.backgroundColor = .white
-//                    imageView.backgroundColor = .red
                     imageView.contentMode = .scaleAspectFit
                     imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
                     imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
@@ -81,7 +79,8 @@ extension Stylesheet {
             
             func style(button: UIButton) {
                 switch self {
-                case .Login:                    button.setTitleColor(Stylesheet.Colors.LightGrey, for: .normal)
+                case .Login:
+                    button.setTitleColor(Stylesheet.Colors.LightGrey, for: .normal)
                     button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Bold
                     button.backgroundColor = Stylesheet.Colors.Red
@@ -89,7 +88,6 @@ extension Stylesheet {
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
                 case .Link:
                     button.backgroundColor = .clear
-//                    button.backgroundColor = .yellow
                     button.setTitleColor(Stylesheet.Colors.Orange, for: .normal)
                     button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Link
@@ -102,7 +100,6 @@ extension Stylesheet {
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
                 case .ClearButton:
                     button.backgroundColor = .clear
-//                    button.backgroundColor = .green
                     button.contentMode = .scaleAspectFit
                     button.tintColor = Stylesheet.Colors.Orange
                 }
@@ -130,27 +127,27 @@ extension Stylesheet {
                     label.backgroundColor = .clear
                     label.textAlignment = .center
                 case .PostCategory:
-                    label.font = Stylesheet.Fonts.Bold
+                    label.font = Stylesheet.Fonts.Regular
                     label.textColor = Stylesheet.Colors.Red
                     label.backgroundColor = .clear
                     label.textAlignment = .left
+                    label.numberOfLines = 1
                 case .PostTitle:
                     label.font = Stylesheet.Fonts.PostTitle
                     label.textColor = Stylesheet.Colors.Dark
-//                    label.backgroundColor = .clear
-                    label.backgroundColor = .red
+                    label.backgroundColor = .clear
                     label.textAlignment = .left
                     label.numberOfLines = 0
                 case .PostUsername:
-                    label.font = Stylesheet.Fonts.Regular
+                    label.font = Stylesheet.Fonts.Bold
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
                     label.textAlignment = .left
+                    label.numberOfLines = 1
                 case .LikesDislikes:
                     label.font = Stylesheet.Fonts.Link
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
-//                    label.backgroundColor = .blue
                     label.textAlignment = .center
                 }
             }
@@ -192,9 +189,23 @@ extension Stylesheet {
             case LoginEmail
             case LoginPassword
             case PostTitle
+            case AddComment
             
             func style(textfield: UITextField) {
                 switch self {
+                case .AddComment:
+                    textfield.borderStyle = UITextBorderStyle.bezel
+                    textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
+                    textfield.backgroundColor = Stylesheet.Colors.White
+                    textfield.textAlignment = NSTextAlignment.left
+                    textfield.font = Stylesheet.Fonts.Login
+                    textfield.textColor = Stylesheet.Colors.Dark
+                    textfield.adjustsFontSizeToFitWidth = true
+                    textfield.autocapitalizationType = .words
+                    textfield.autocorrectionType = .no
+                    textfield.keyboardType = .asciiCapable
+                    textfield.returnKeyType = .default
+                    textfield.placeholder = "Add a Comment"
                 case .UserName:
                     textfield.borderStyle = UITextBorderStyle.bezel
                     textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
