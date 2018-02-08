@@ -7,25 +7,26 @@ Persperating!!
 //to do
 
 ## Gifs
-|Accessing Camera||
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/AccessCamera.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/AccessCamera.gif" width="358" height="626">|
+
+|Accessing Camera|
+|:-------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/AccessCamera.gif" width="358" height="626">|
 
 |Reporting a User|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/report.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/report.gif" width="358" height="626">|
+|:-------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/report.gif" width="358" height="626">|
 
 |Comment On Post|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Comment.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Comment.gif" width="358" height="626">|
+|:-------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/Comment.gif" width="358" height="626">|
 
 |Post|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Post.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Post.gif" width="358" height="626">|
+|:-------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/Post.gif" width="358" height="626">|
 
 |Main|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/main.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/main.gif" width="358" height="626">|
+|:-------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/main.gif" width="358" height="626">|
 
 ## Features
 - Users can make an account and custom profile with a    username, image and bio
