@@ -1,16 +1,27 @@
 # mansnothot
 Persperating!!
 
-//to do rest
+- An app that connects people through something professional. A mixture of both your randomness and professionalism in one app. 
 
 ## Overview
 //to do
 
 ## Gifs
-//to do
+|Accessing Camera|User Denying Location Acces|
+|:-------------:|:------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/AccessCamera.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/search-location.gif" width="358" height="626">|
+
 
 ## Features
-//to do
+- Users can make an account and custom profile with a    username, image and bio
+- Can post professional thoughts and Images
+- Can share professional thoughts
+- Can flag and report a post if it is offensive // User gets banned from the app after 3 reports 
+- Can comment on professional thoughts and look at the whole comment thread
+- Can give posts thumbs up and thumbs down 
+- Most recent post are on the top of the newsfeed
+- User can also see all his/her posts by going to their profile and clicking on "see all posts"
+
 
 ## Requirements
 - iOS 8.0+ / Mac OS X 10.11+ / tvOS 9.0+
