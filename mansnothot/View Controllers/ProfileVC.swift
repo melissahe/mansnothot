@@ -70,12 +70,8 @@ class ProfileVC: UIViewController {
             //use core data!!!!
         }
         self.navigationItem.rightBarButtonItem = logoutButton
-        profileView.seeMyPostsButton.addTarget(self, action: #selector(seePostsButtonTapped), for: .touchUpInside)
-        profileView.changeDisplayName.addTarget(self, action: #selector(changeDisplayName), for: .touchUpInside)
-        profileView.changeProfileImageButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
-        profileView.plusSignButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
-        
         imagePickerVC.delegate = self
+        profileView.bioTextView.delegate = self
     }
     
     private func setUpViews() {
@@ -87,7 +83,9 @@ class ProfileVC: UIViewController {
         profileView.seeMyPostsButton.addTarget(self, action: #selector(seePostsButtonTapped), for: .touchUpInside)
         profileView.changeDisplayName.addTarget(self, action: #selector(changeDisplayName), for: .touchUpInside)
         profileView.changeProfileImageButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
-       
+        profileView.plusSignButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
+        profileView.plusSignButton.isOpaque = false
+        
         let imageViewGesture = UILongPressGestureRecognizer(target: self, action: #selector(imageLongPress))
 
         imageViewGesture.minimumPressDuration = 2.0
@@ -200,6 +198,11 @@ class ProfileVC: UIViewController {
         navigationController?.pushViewController(myPostVC, animated: true)
         print("See All My Posts button tapped")
     }
+    
+    private func presentErrorAlert(errorMessage: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: errorMessage)
+        self.present(errorAlert, animated: true, completion: nil)
+    }
 }
 
 
@@ -230,8 +233,7 @@ extension ProfileVC: DatabaseServiceDelegate {
         self.present(successAlert, animated: true, completion: nil)
     }
     func didFailChangingUserImage(_ databaseService: DatabaseService, error: String) {
-        let errorAlert = Alert.createErrorAlert(withMessage: error)
-        self.present(errorAlert, animated: true, completion: nil)
+        presentErrorAlert(errorMessage: error)
     }
     func didChangeDisplayName(_ databaseService: DatabaseService, oldName: String, newName: String) {
         let successAlert = Alert.create(withTitle: "Success", andMessage: "Your display name has changed from \"\(oldName)\" to \"\(newName)\"!", withPreferredStyle: .alert)
@@ -239,22 +241,33 @@ extension ProfileVC: DatabaseServiceDelegate {
         self.present(successAlert, animated: true, completion: nil)
     }
     func didFailChangingDisplayName(_ databaseService: DatabaseService, error: String) {
-        let errorAlert = Alert.createErrorAlert(withMessage: error)
-        self.present(errorAlert, animated: true, completion: nil)
+        presentErrorAlert(errorMessage: error)
+    }
+    func didChangeBio(_ databaseService: DatabaseService) {
+        let successAlert = Alert.create(withTitle: "Success!", andMessage: "Your bio was changed.", withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "OK", style: .default, andHandler: nil, to: successAlert)
+        self.present(successAlert, animated: true, completion: nil)
+    }
+    func didFailChangingBio(_ databaseService: DatabaseService, error: String) {
+        presentErrorAlert(errorMessage: error)
     }
 }
 
 extension ProfileVC: AuthUserServiceDelegate {
     func didSignOut(_ authUserService: AuthUserService) {
         print("signed out")
-        let signOutAlert = Alert.create(withTitle: "You have signed out.", andMessage: nil, withPreferredStyle: .alert)
-        Alert.addAction(withTitle: "OK", style: .default, andHandler: {(_) in
-            self.tabBarController?.dismiss(animated: true, completion: nil)
-        }, to: signOutAlert)
-        self.present(signOutAlert, animated: true, completion: nil)
+        self.tabBarController?.dismiss(animated: true, completion: nil)
     }
     func didFailSignOut(_ authUserService: AuthUserService, error: String) {
-        let errorAlert = Alert.createErrorAlert(withMessage: "Could not sign out.\n\(error)")
-        self.present(errorAlert, animated: true, completion: nil)
+        presentErrorAlert(errorMessage: "Could not sign out.\n\(error)")
+    }
+}
+
+extension ProfileVC: UITextViewDelegate {
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if let userProfile = userProfile {
+            DatabaseService.manager.delegate = self
+            DatabaseService.manager.editBio(withUserID: userProfile.userID, newBio: textView.text)
+        }
     }
 }

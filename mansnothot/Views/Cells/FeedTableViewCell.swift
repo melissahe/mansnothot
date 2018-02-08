@@ -173,6 +173,12 @@ class FeedTableViewCell: UITableViewCell {
 //        button.layer.borderWidth = 0.5
         return button
     }()
+    
+    lazy var showArrowButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "sharearrow"), for: .normal)
+        return button
+    }()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style , reuseIdentifier: "FeedCell")
@@ -211,6 +217,7 @@ class FeedTableViewCell: UITableViewCell {
         self.addSubview(showThreadButton)
         self.addSubview(commentButton)
         self.addSubview(shareButton)
+        self.addSubview(showArrowButton)
         
         userImageView.snp.makeConstraints { (make) -> Void in
             make.height.width.equalTo(self.snp.width).multipliedBy(0.08).priority(999)
@@ -290,6 +297,12 @@ class FeedTableViewCell: UITableViewCell {
         flagButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self.snp.top).offset(5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
+            
+        }
+        showArrowButton.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(postTextView.snp.bottom).offset(5)
+            make.trailing.equalTo(shareButton.snp.leading).offset(12)
+            make.bottom.equalTo(self.snp.bottom).offset(-5)
             
         }
         shareButton.snp.makeConstraints { (make) -> Void in
