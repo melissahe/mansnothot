@@ -66,7 +66,7 @@ extension Stylesheet {
                 case .Opaque:
                     imageView.backgroundColor = .white
 //                    imageView.backgroundColor = .red
-                    imageView.contentMode = .scaleAspectFill
+                    imageView.contentMode = .scaleAspectFit
                     imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
                     imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                 }
@@ -137,9 +137,10 @@ extension Stylesheet {
                 case .PostTitle:
                     label.font = Stylesheet.Fonts.PostTitle
                     label.textColor = Stylesheet.Colors.Dark
-                    label.backgroundColor = .clear
-//                    label.backgroundColor = .red
+//                    label.backgroundColor = .clear
+                    label.backgroundColor = .red
                     label.textAlignment = .left
+                    label.numberOfLines = 0
                 case .PostUsername:
                     label.font = Stylesheet.Fonts.Regular
                     label.textColor = Stylesheet.Colors.Dark
@@ -169,7 +170,7 @@ extension Stylesheet {
                     textview.textColor = Stylesheet.Colors.Dark
                     textview.font = Stylesheet.Fonts.Regular
                     textview.adjustsFontForContentSizeCategory = true
-                    
+                    textview.isScrollEnabled = false
                 case .Editable:
                     textview.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.TextfieldEditable)
                     textview.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
@@ -179,6 +180,7 @@ extension Stylesheet {
                     textview.textColor = Stylesheet.Colors.Dark
                     textview.font = Stylesheet.Fonts.Regular
                     textview.adjustsFontForContentSizeCategory = true
+                    textview.isScrollEnabled = true
                 }
             }
         }

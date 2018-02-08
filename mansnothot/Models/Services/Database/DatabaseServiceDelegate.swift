@@ -34,6 +34,11 @@ import Foundation
         - databaseService: The Firebase/Database API client.
         - posts: An array of posts from the current user, sorted from newest to oldest.
      */
+    
+    /**
+     */
+    @objc optional func didFailAddingUserProfile(_ databaseService: DatabaseService, error: String)
+    
     @objc optional func didGetUserPosts(_ databaseService: DatabaseService, posts: [Post])
     
     /** This method returns an error when attempting to retrieve the posts for the current user.
