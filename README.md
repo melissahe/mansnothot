@@ -7,7 +7,7 @@ Persperating!!
 //to do
 
 ## Gifs
-|Accessing Camera|
+|Accessing Camera||
 |:-------------:|:------------:|
 |<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/AccessCamera.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/AccessCamera.gif" width="358" height="626">|
 
