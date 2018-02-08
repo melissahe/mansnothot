@@ -99,7 +99,7 @@ extension AllCommentsVC: UITableViewDataSource {
         let aComment = sampleCommentsArr[indexPath.row]
         
         cell.usernameLabel.text = aComment
-        cell.commentTextView.text = "\(aComment), \(aComment), and \(aComment). Carry yourself with all the confidence of a mediocre white man. Carry yourself with all the confidence of a mediocre white man. Carry yourself with all the confidence of a mediocre white man. Carry yourself with all the confidence of a mediocre white man. Carry yourself with all the confidence of a mediocre white man."
+        cell.commentTextView.text = "\(aComment), \(aComment), and \(aComment). Carry yourself with all the confidence of a mediocre white man. Carry yourself with all the confidence of a mediocre white man. Carry yourself with all the confidence of a mediocre white man. Carry yourself with all the confidence of a mediocre white man. Carry yourself with all the confidence of a mediocre white man. Carry yourself with all the confidence of a mediocre white man. Carry yourself with all the confidence of a mediocre white man. Carry yourself with all the confidence of a mediocre white man. Carry yourself with all the confidence of a mediocre white man."
         
         cell.thumbsUpButton.addTarget(self, action: #selector(thumbsUpButtonTouched(_:)), for: .touchUpInside)
         

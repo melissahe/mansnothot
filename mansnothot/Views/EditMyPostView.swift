@@ -15,30 +15,33 @@ class EditMyPostView: UIView {
     lazy var editCategoryLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Category"
-        lb.backgroundColor = .green
-        lb.textAlignment = .left
-        lb.textColor = .black
-        lb.numberOfLines = 0
-        lb.layer.borderWidth = 0.5
-        lb.textAlignment = .center
+        Stylesheet.Objects.Labels.PostCategory.style(label: lb)
+//        lb.backgroundColor = .green
+//        lb.textAlignment = .left
+//        lb.textColor = .black
+//        lb.numberOfLines = 0
+//        lb.layer.borderWidth = 0.5
+//        lb.textAlignment = .center
         return lb
     }()
     
     lazy var savePostButton: UIButton = {
         let spb = UIButton()
         spb.setImage(UIImage(named: "save"), for: .normal)
+        Stylesheet.Objects.Buttons.ClearButton.style(button: spb)
         return spb
     }()
 
     lazy var postTitleLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Post Title"
-        lb.backgroundColor = .green
-        lb.textAlignment = .left
-        lb.textColor = .black
-        lb.numberOfLines = 0
-        lb.layer.borderWidth = 0.5
-        lb.textAlignment = .center
+        Stylesheet.Objects.Labels.PostTitle.style(label: lb)
+//        lb.backgroundColor = .green
+//        lb.textAlignment = .left
+//        lb.textColor = .black
+//        lb.numberOfLines = 0
+//        lb.layer.borderWidth = 0.5
+//        lb.textAlignment = .center
         return lb
     }()
     
@@ -46,6 +49,7 @@ class EditMyPostView: UIView {
     lazy var trashButton: UIButton = {
         let tb = UIButton()
         tb.setImage(UIImage(named: "trash"), for: .normal)
+        Stylesheet.Objects.Buttons.ClearButton.style(button: tb)
         return tb
     }()
     
@@ -53,17 +57,18 @@ class EditMyPostView: UIView {
     lazy var postImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = nil
-        imageView.backgroundColor = .green
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.borderWidth = 0.5
+        Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
+//        imageView.backgroundColor = .green
+//        imageView.contentMode = .scaleAspectFit
+//        imageView.layer.borderWidth = 0.5
         return imageView
     }()
     
     //textView - for post
     lazy var editPostTextView: UITextView = {
         let tv = UITextView()
-        tv.layer.borderWidth = 0.5
         tv.text = "Sample Post Text Here"
+        tv.layer.borderWidth = 0.5
         tv.backgroundColor = .yellow
         tv.textAlignment = .justified
         tv.isEditable = false
