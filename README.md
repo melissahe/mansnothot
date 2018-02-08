@@ -1,25 +1,24 @@
-# mansnothot
-Persperating!!
+# mansnothot Something Professional
 
-- An app that connects people through something professional. A mixture of both your randomness and professionalism in one app. 
+Brough to you by Team Perspiration!
+
+Whether you're looking to express yourself within a professional limelight, or searching for a exciting night with new friends and coworkers, the mansnothot Professional Thoughts iOS app makes finding the perfect time easy.
 
 ## Overview
 //to do
 
 ## Gifs
-
-|Accessing Camera|
-|:-------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/AccessCamera.gif" width="358" height="626">|Reporting a User||:-------------:||<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/report.gif" width="358" height="626">|
-
-|Comment On Post|
-|:-------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/Comment.gif" width="358" height="626">|Post|
-|:-------------:||<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/Post.gif" width="358" height="626">|
-
-|Main|
+|Scrolling Through Feed|
 |:-------------:|
 |<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/main.gif" width="358" height="626">|
+
+|Accessing Camera|Reporting a User|
+|:-------------:|:-------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/AccessCamera.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/report.gif" width="358" height="626">|
+
+|Comment On Post|Post|
+|:-------------:|:-------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/Comment.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/Post.gif" width="358" height="626">|
 
 ## Features
 - Users can make an account and custom profile with a    username, image and bio
