@@ -28,17 +28,31 @@ class AllCommentsTableViewCell: UITableViewCell {
         return lb
     }()
     
+//    //textView - for comment
+//    lazy var commentTextView: UITextView = {
+//        let tv = UITextView()
+//        tv.text = "Sample Comment Text Here"
+//        Stylesheet.Objects.Textviews.Completed.style(textview: tv)
+////        tv.layer.borderWidth = 0.5
+////        tv.backgroundColor = .yellow
+////        tv.textAlignment = .justified
+////        tv.isEditable = false
+////        tv.textColor = .black
+//        return tv
+//    }()
+    
+    
     //textView - for comment
-    lazy var commentTextView: UITextView = {
-        let tv = UITextView()
-        tv.text = "Sample Comment Text Here"
-        Stylesheet.Objects.Textviews.Completed.style(textview: tv)
-//        tv.layer.borderWidth = 0.5
-//        tv.backgroundColor = .yellow
-//        tv.textAlignment = .justified
-//        tv.isEditable = false
-//        tv.textColor = .black
-        return tv
+    lazy var commentTextView: UILabel = {
+        let lb = UILabel()
+        lb.text = "Sample Comment Text Here"
+        Stylesheet.Objects.Labels.Regular.style(label: lb)
+        //        tv.layer.borderWidth = 0.5
+        //        tv.backgroundColor = .yellow
+        //        tv.textAlignment = .justified
+        //        tv.isEditable = false
+        //        tv.textColor = .black
+        return lb
     }()
     
     //thumbsUp button - adds to likes
@@ -119,7 +133,9 @@ class AllCommentsTableViewCell: UITableViewCell {
             make.top.equalTo(usernameLabel.snp.bottom)
             make.leading.equalTo(usernameLabel.snp.leading)
             make.trailing.equalTo(usernameLabel.snp.trailing)
-            make.bottom.lessThanOrEqualTo(self.snp.bottom)
+
+//            make.bottom.equalTo(self.snp.bottom)
+            make.bottom.greaterThanOrEqualTo(numberOfDislikesLabel.snp.bottom)
         }
         
         
@@ -149,7 +165,7 @@ class AllCommentsTableViewCell: UITableViewCell {
             make.height.equalTo(thumbsUpButton.snp.height)
             
             // comment out the next line to eliminate the spacing of buttons
-//            make.bottom.equalTo(self.snp.bottom)
+            make.bottom.lessThanOrEqualTo(self.snp.bottom)
         }
         
 
