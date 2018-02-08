@@ -23,7 +23,7 @@ class AllCommentsVC: UIViewController {
     var postID: String!
     
     let allCommentsView = AllCommentsView()
-    let emptyView = EmptyStateView(emptyText: "No comments.\nAdd a new post, or check your internet and restart the app.")
+    lazy var emptyView = EmptyStateView(emptyText: "No comments.\nAdd a new post, or check your internet and restart the app.")
     
     var comments: [Comment] = [] {
         didSet {
@@ -31,7 +31,7 @@ class AllCommentsVC: UIViewController {
             allCommentsView.tableView.reloadData()
             
             if comments.isEmpty {
-                self.allCommentsView.tableView.addSubview(emptyView)
+                self.view.addSubview(emptyView)
             } else {
                 self.emptyView.removeFromSuperview()
             }
@@ -102,6 +102,8 @@ class AllCommentsVC: UIViewController {
     
     //func to present the AddCommentVC
     @objc func presentAddCommentVC() {
+        ifNoInternetAlert()
+        
         let addCommentVC = AddCommentVC()
         let addCommentVCInNav = UINavigationController(rootViewController: addCommentVC)
         
