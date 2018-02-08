@@ -19,7 +19,7 @@ class AllCommentsTableViewCell: UITableViewCell {
     lazy var usernameLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Username of Poster"
-        Stylesheet.Objects.Labels.PostTitle.style(label: lb)
+        Stylesheet.Objects.Labels.PostUsername.style(label: lb)
 //        lb.backgroundColor = .white
 //        lb.textAlignment = .center
 //        lb.textColor = .black
@@ -96,6 +96,7 @@ class AllCommentsTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        backgroundColor = .white
         setupAndConstrainObjects()
     }
     
@@ -108,8 +109,8 @@ class AllCommentsTableViewCell: UITableViewCell {
         self.addSubview(commentTextView)
         
         thumbsUpButton.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(self.snp.top)
-            make.trailing.equalTo(self.snp.trailing)
+            make.top.equalTo(self.snp.top).offset(5)
+            make.trailing.equalTo(self.snp.trailing).offset(-5)
         }
         
         numberOfLikesLabel.snp.makeConstraints { (make) -> Void in
@@ -136,17 +137,17 @@ class AllCommentsTableViewCell: UITableViewCell {
         
         //Update these contraints so that the trailing is set to the leading of the buttons
         usernameLabel.snp.makeConstraints { (make) -> Void in
-            make.top.equalTo(self.snp.top)
             make.leading.equalTo(self.snp.leading).offset(5)
+            make.top.equalTo(self.snp.top).offset(5)
             make.trailing.equalTo(thumbsUpButton.snp.leading).offset(-5)
         }
         
         commentTextView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(usernameLabel.snp.bottom)
-            make.leading.equalTo(self.snp.leading)
-            make.trailing.equalTo(thumbsUpButton.snp.leading)
-            make.bottom.equalTo(self.snp.bottom)
-            
+            make.leading.equalTo(usernameLabel.snp.leading)
+            make.trailing.equalTo(usernameLabel.snp.trailing)
+//            make.bottom.equalTo(self.snp.bottom).offset(-5)
+//            make.bottom.greaterThanOrEqualTo(numberOfDislikesLabel.snp.bottom)
         }
         
         
