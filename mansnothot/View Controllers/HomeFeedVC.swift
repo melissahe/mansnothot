@@ -38,14 +38,15 @@ class HomeFeedVC: UIViewController {
         didSet {
             //need to fix this later!!
             //should get rid of the observe
-            UIView.animate(withDuration: 0.5) {
-                if self.shouldUpdateCell {
-                    self.homeFeedView.tableView.reloadRows(at: [IndexPath(row: self.selectedRowIndex, section: 0)], with: .fade)
-                } else {
-                    self.homeFeedView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-                    self.shouldUpdateCell = true
-                }
-            }
+            homeFeedView.tableView.reloadData() //without this, deleting crashing the whole thing, probably because of the observe
+//            UIView.animate(withDuration: 0.5) {
+//                if self.shouldUpdateCell {
+//                    self.homeFeedView.tableView.reloadRows(at: [IndexPath(row: self.selectedRowIndex, section: 0)], with: .fade)
+//                } else {
+//                    self.homeFeedView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+//                    self.shouldUpdateCell = true
+//                }
+//            }
         }
     }
     
@@ -81,7 +82,7 @@ class HomeFeedVC: UIViewController {
     
     func setupViews() {
         // Set Title for VC in Nav Bar
-        navigationItem.title = "Thot Thought"
+        navigationItem.title = "Professionl Thoughts"
         
         //Give SegmentedBar Functionality
         homeFeedView.segmentedBar.addTarget(self, action: #selector(changeColor(sender:)), for: .valueChanged)
@@ -94,10 +95,14 @@ class HomeFeedVC: UIViewController {
     //This is a func to test the segmentedbar only
     @objc func changeColor(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
-        case 0:
+        case 0: //Recent
             homeFeedView.backgroundColor = Stylesheet.Colors.White
-        case 1:
+            let recentPosts = posts.sortedByTimestamp()
+            self.posts = recentPosts
+        case 1: //Popular
             homeFeedView.backgroundColor = Stylesheet.Colors.White
+            let popularPosts = posts.sortedByLikes()
+            self.posts = popularPosts
         default:
             homeFeedView.backgroundColor = .white
         }

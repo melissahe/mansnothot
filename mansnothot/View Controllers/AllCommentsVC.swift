@@ -119,6 +119,8 @@ extension AllCommentsVC: UITableViewDataSource {
         
         cell.thumbsDownButton.addTarget(self, action: #selector(thumbsDownButtonTouched(_:)), for: .touchUpInside)
         
+//        cell.setNeedsLayout()
+        
         return cell
     }
     
