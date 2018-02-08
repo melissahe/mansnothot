@@ -11,8 +11,10 @@ import SnapKit
 import TableFlip
 import Social
 import Kingfisher
+import Foundation
+import MessageUI
 
-class HomeFeedVC: UIViewController {
+class HomeFeedVC: UIViewController, MFMailComposeViewControllerDelegate {
     
     var homeFeedView = HomeFeedView()
     let emptyView = EmptyStateView(emptyText: "No posts.\nAdd a new post, or check your internet and restart the app.")
@@ -22,14 +24,14 @@ class HomeFeedVC: UIViewController {
             //need to fix this later!!
             //should get rid of the observe
             homeFeedView.tableView.reloadData() //without this, deleting crashing the whole thing, probably because of the observe
-//            UIView.animate(withDuration: 0.5) {
-//                if self.shouldUpdateCell {
-//                    self.homeFeedView.tableView.reloadRows(at: [IndexPath(row: self.selectedRowIndex, section: 0)], with: .fade)
-//                } else {
-//                    self.homeFeedView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-//                    self.shouldUpdateCell = true
-//                }
-//            }
+            //            UIView.animate(withDuration: 0.5) {
+            //                if self.shouldUpdateCell {
+            //                    self.homeFeedView.tableView.reloadRows(at: [IndexPath(row: self.selectedRowIndex, section: 0)], with: .fade)
+            //                } else {
+            //                    self.homeFeedView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+            //                    self.shouldUpdateCell = true
+            //                }
+            //            }
             if posts.isEmpty {
                 self.view.addSubview(emptyView)
             } else {
@@ -184,7 +186,7 @@ extension HomeFeedVC: UITableViewDataSource {
                 }
             }
         })
-
+        
         //Add Button Functionality
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         cell.commentButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
@@ -240,28 +242,23 @@ extension HomeFeedVC: UITableViewDataSource {
                     self.showAlert(service: "Twitter")
                 }
             })
-//            let goToInstagram = UIAlertAction(title: "Instagram", style: .destructive, handler: {(UIAlertAction) -> Void in
-//                print("Add Share to Instagram Function here")
-//            })
-//            let goToSnapChat = UIAlertAction(title: "Snapchat", style: .destructive, handler: {(UIAlertAction) -> Void in
-//                print("Add Share to SnapChat Function here")
-//            })
-//            let goToEmail = UIAlertAction(title: "Email", style: .destructive, handler: {(UIAlertAction) -> Void in
-//                print("Add Share to Email Function here")
-//            })
-//            let goToSlack = UIAlertAction(title: "Slack", style: .destructive, handler: {(UIAlertAction) -> Void in
-//                print("Add Share to Slack Function here")
-//            })
-//            let goToTumblr = UIAlertAction(title: "Tumblr", style: .destructive, handler: {(UIAlertAction) -> Void in
-//                print("Add Share to Tumblr Function here")
-//            })
+            let goToEmail = UIAlertAction(title: "Email", style: .destructive, handler: {(UIAlertAction) -> Void in
+                print("Add Share to Email Function here")
+                let mailComposeViewController = self.configuredMailComposeViewController()
+                if MFMailComposeViewController.canSendMail() {
+                    self.present(mailComposeViewController, animated: true, completion: nil)
+                } else {
+                    //self.showAlert(service: "Email") //MailController pops up its own alert with no email service
+                }
+            })
+            
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {(UIAlertAction) -> Void in
                 print("User cancelled")
             })
             
             alert.addAction(goToFacebook)
             alert.addAction(goToTwitter)
-            //alert.addAction(goToEmail) //to do - ADD!!!!!
+            alert.addAction(goToEmail)
             alert.addAction(cancel)
             present(alert, animated: true, completion: nil)
         }
@@ -272,6 +269,23 @@ extension HomeFeedVC: UITableViewDataSource {
         let action = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        mailComposerVC.setToRecipients(["example@gmail.com"])
+        mailComposerVC.setSubject("Sending you an in-app e-mail with Professional Thoughts!")
+        mailComposerVC.setMessageBody("Sending e-mail with Professional Thoughts is the perfect user experience!", isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismiss(animated: true, completion: nil)
+        
     }
     
     @objc func showReportActionSheet(_ sender: UIButton){
