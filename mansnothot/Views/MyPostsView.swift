@@ -36,7 +36,7 @@ class MyPostsView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .red
+        backgroundColor = .white
         setUpViews()
     }
     
