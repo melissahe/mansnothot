@@ -59,7 +59,7 @@ class EditMyPostView: UIView {
         imageView.image = nil
         Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
 //        imageView.backgroundColor = .green
-//        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFit
 //        imageView.layer.borderWidth = 0.5
         return imageView
     }()
