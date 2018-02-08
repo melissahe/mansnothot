@@ -26,7 +26,7 @@ class FeedTableViewCell: UITableViewCell {
     //categoryLabel - for Post Category
     lazy var categoryLabel: UILabel = {
         let lb = UILabel()
-        lb.text = "Category"
+        lb.text = ""
         Stylesheet.Objects.Labels.PostCategory.style(label: lb)
 //        lb.backgroundColor = .white
 //        lb.textAlignment = .left
@@ -39,7 +39,7 @@ class FeedTableViewCell: UITableViewCell {
     //usernameLabel - for user name
     lazy var usernameLabel: UILabel = {
         let lb = UILabel()
-        lb.text = "Test"
+        lb.text = ""
         Stylesheet.Objects.Labels.PostUsername.style(label: lb)
 //        lb.backgroundColor = .white
 //        lb.textAlignment = .left
@@ -52,7 +52,7 @@ class FeedTableViewCell: UITableViewCell {
     //postTitleLabel - for user name
     lazy var postTitleLabel: UILabel = {
         let lb = UILabel()
-        lb.text = "Post Title"
+        lb.text = ""
         Stylesheet.Objects.Labels.PostTitle.style(label: lb)
 //        lb.backgroundColor = .white
 //        lb.textAlignment = .left
@@ -78,7 +78,7 @@ class FeedTableViewCell: UITableViewCell {
     //textView - for post
     lazy var postTextView: UITextView = {
         let tv = UITextView()
-        tv.text = "Sample Post Text Here"
+        tv.text = ""
         Stylesheet.Objects.Textviews.Completed.style(textview: tv)
 //        tv.layer.borderWidth = 0.5
 //        tv.backgroundColor = .yellow

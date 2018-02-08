@@ -14,6 +14,9 @@ extension HomeFeedVC: DatabaseServiceDelegate {
         self.present(errorAlert, animated: true, completion: nil)
     }
     func didLikePost(_ databaseService: DatabaseService) {
+//        DispatchQueue.main.async {
+//            self.homeFeedView.tableView.scrollToRow(at: IndexPath(row: self.selectedRowIndex, section: 0), at: .none, animated: true)
+//        }
         print("did like")
     }
     func didFailDisliking(_ databaseService: DatabaseService, error: String) {
@@ -21,6 +24,31 @@ extension HomeFeedVC: DatabaseServiceDelegate {
         self.present(errorAlert, animated: true, completion: nil)
     }
     func didDislikePost(_ databaseService: DatabaseService) {
+//        DispatchQueue.main.async {
+//            self.homeFeedView.tableView.scrollToRow(at: IndexPath(row: self.selectedRowIndex, section: 0), at: .none, animated: true)
+//        }
         print("did dislike")
+    }
+    func didFlagUser(_ databaseService: DatabaseService) {
+        let flagAlert = Alert.create(withTitle: "Flagged User", andMessage: nil, withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "OK", style: .default, andHandler: nil, to: flagAlert)
+        self.present(flagAlert, animated: true, completion: nil)
+    }
+    func didFlagUserAlready(_ databaseService: DatabaseService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: error)
+        self.present(errorAlert, animated: true, completion: nil)
+    }
+    func didFlagPost(_ databaseService: DatabaseService) {
+        let flagAlert = Alert.create(withTitle: "Flagged Post", andMessage: nil, withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "OK", style: .default, andHandler: nil, to: flagAlert)
+        self.present(flagAlert, animated: true, completion: nil)
+    }
+    func didFlagPostAlready(_ databaseService: DatabaseService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: error)
+        self.present(errorAlert, animated: true, completion: nil)
+    }
+    func didFailFlagging(_ databaseService: DatabaseService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: error)
+        self.present(errorAlert, animated: true, completion: nil)
     }
 }
