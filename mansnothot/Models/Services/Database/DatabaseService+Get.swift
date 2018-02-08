@@ -172,4 +172,8 @@ extension DatabaseService {
             completion(comments.sortedByTimestamp())
         }
     }
+    
+    public func checkIfPostLiked(byUserID userID: String, postID: String) {
+        
+    }
 }
