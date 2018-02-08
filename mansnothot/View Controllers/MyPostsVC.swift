@@ -58,8 +58,20 @@ class MyPostsVC: UIViewController {
     public func configurePosts(userProfile: UserProfile) {
         self.userProfile = userProfile
         
+        getPosts(fromUID: userProfile.userID)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let userProfile = userProfile {
+            getPosts(fromUID: userProfile.userID)
+        }
+        //empty view
+    }
+    
+    private func getPosts(fromUID uid: String) {
         DatabaseService.manager.delegate = self
-        DatabaseService.manager.getPosts(fromUID: userProfile.userID, completion: { (myPosts) in
+        DatabaseService.manager.getPosts(fromUID: uid, completion: { (myPosts) in
             self.posts = myPosts
         })
     }
@@ -80,6 +92,7 @@ extension MyPostsVC: UITableViewDataSource {
         cell.numberOfDislikesLabel.text = "-" + currentPost.numberOfDislikes.description
         cell.numberOfLikesLabel.text = "+" + currentPost.numberOfLikes.description
         cell.postTitleLabel.text = currentPost.title
+        cell.postTextView.text = currentPost.bodyText
         
         cell.postImageView.image = nil
         if let imageURLString = currentPost.imageURL, let imageURL = URL(string: imageURLString) {
@@ -115,28 +128,35 @@ extension MyPostsVC: UITableViewDataSource {
     
     @objc func editPost(_ sender: UIButton) {
         if let cell = sender.superview as? MyPostsTableViewCell {
-            //Todo get Post ID number and send that variable to the edit Post ViewController
-            //editMyPost.idForPostToEdit(postID: <#T##String#>) //enter the postID here
+            guard let indexPath = myPostView.tableView.indexPath(for: cell) else {
+                print("couldn't get indexPath!")
+                return
+            }
+            
+            let currentPost = posts[indexPath.row]
+            
+            editMyPost.postToEdit(post: currentPost, andImage: cell.postImageView.image ?? #imageLiteral(resourceName: "placeholder-image"))
             navigationController?.pushViewController(editMyPost, animated: true)
         }
     }
     @objc func trashThatPost(_ sender: UIButton) {
         if let cell = sender.superview as? MyPostsTableViewCell {
-            let alert = UIAlertController(title: "Are you sure you want to delete your Masterpiece", message: nil, preferredStyle: .alert)
-            
-            let yesAction = UIAlertAction(title: "Yes", style: .default, handler: { (UIAlertAction) in
-                //Todo get Post ID number
-                //delete that post related to that ID
-                print("It has been deleted")
+            let deleteAlert = Alert.create(withTitle: "Are you sure you want to delete your Masterpiece?", andMessage: nil, withPreferredStyle: .alert)
+            Alert.addAction(withTitle: "Yes", style: .default, andHandler: { (_) in
+                guard let indexPath = self.myPostView.tableView.indexPath(for: cell) else {
+                    print("Couldn't get index path")
+                    return
+                }
                 
-            })
-            let noAction = UIAlertAction(title: "No", style: .default, handler: nil)
-            alert.addAction(yesAction)
-            alert.addAction(noAction)
-            present(alert, animated: true, completion: nil)
-            
+                let currentPost = self.posts[indexPath.row]
+                
+                DatabaseService.manager.delegate = self
+                DatabaseService.manager.deletePost(withPostID: currentPost.postID)
+                
+            }, to: deleteAlert)
+            Alert.addAction(withTitle: "No", style: .default, andHandler: nil, to: deleteAlert)
+            self.present(deleteAlert, animated: true, completion: nil)
         }
-        
     }
     
     @objc func thumbsUpButtonTouched(_ sender: UIButton) {
@@ -172,13 +192,15 @@ extension MyPostsVC: UITableViewDataSource {
         let allCommentsVCInNav = UINavigationController(rootViewController: allCommentsVC)
         
         if let cell = sender.superview as? MyPostsTableViewCell {
-            //This gets you the label of the cell where the button was clicked
-            //This gets you the indexpath of the button pressed
-            print(myPostView.tableView.indexPath(for: cell)!.row)
+            guard let indexPath = myPostView.tableView.indexPath(for: cell) else {
+                print("couldn't get indexPath")
+                return
+            }
             
-            //Using this info, we can dependency inject a VC
-            //allCommentsVC.setupVC(postTitle: cell.usernameLabel.text!)
+            let currentPost = posts[indexPath.row]
             
+            allCommentsVC.setupVC(postID: currentPost.postID, postTitle: currentPost.title)
+
             //Then we can present the VC
             allCommentsVCInNav.modalTransitionStyle = .coverVertical
             allCommentsVCInNav.modalPresentationStyle = .overCurrentContext
@@ -216,6 +238,15 @@ extension MyPostsVC: DatabaseServiceDelegate {
     }
     func didFailDisliking(_ databaseService: DatabaseService, error: String) {
         let errorAlert = Alert.createErrorAlert(withMessage: "\(error)\nPlease check your network connectivity and try again.")
+        self.present(errorAlert, animated: true, completion: nil)
+    }
+    func didDeletePost(_ databaseService: DatabaseService) {
+        let successAlert = Alert.create(withTitle: "Success", andMessage: "You deleted your masterpiece smh 😒", withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "I'm sorry... 😞", style: .default, andHandler: nil, to: successAlert)
+        self.present(successAlert, animated: true, completion: nil)
+    }
+    func didFailDeletingPost(_ databaseService: DatabaseService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: error)
         self.present(errorAlert, animated: true, completion: nil)
     }
 }
