@@ -105,7 +105,7 @@ extension HomeFeedVC: UITableViewDataSource {
         }
         DatabaseService.manager.getUserProfile(withUID: currentPost.userID) { (userProfile) in
             cell.usernameLabel.text = userProfile.displayName
-            cell.postImageView.image = nil
+            //            cell.postImageView.image = nil
             if let userUrlString = userProfile.imageURL, let url = URL(string: userUrlString) {
                 cell.userImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (_, error, _, _) in
                     if let error = error {
@@ -118,20 +118,56 @@ extension HomeFeedVC: UITableViewDataSource {
                 cell.layoutIfNeeded()
             }
         }
-        
+        cell.postImageView.image = nil
         if let postUrlString = currentPost.imageURL, let url = URL(string: postUrlString) {
-            cell.postImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (_, error, _, _) in
+            
+            ImageCache(name: currentPost.postID).retrieveImage(forKey: currentPost.postID, options: nil, completionHandler: { (image, _) in
+                if let image = image {
+                    cell.postImageView.image = image
+                    cell.setNeedsLayout()
+                    return
+                }
+            })
+            
+            print(url.absoluteString)
+            print()
+            //            cell.postImageView.kf.setImage(with: url, placeholder: #imageLiteral(resourceName: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (image, error, _, _) in
+            //                if let error = error {
+            //                    print(error)
+            //                }
+            //                cell.layoutIfNeeded()
+            //                cell.setNeedsLayout()
+            //            })
+            //            DispatchQueue.main.async {
+            //                let image = UIImage.init
+            //                print(postUrlString)
+            let ses = URLSession(configuration: .default)
+            ses.dataTask(with: url, completionHandler: { (data, response, error) in
                 if let error = error {
                     print(error)
+                    return
                 }
-                cell.layoutIfNeeded()
-            })
+                if let data = data {
+                    //                    do {
+                    DispatchQueue.main.async {
+                        if let image = UIImage(data: data) {
+                            cell.postImageView.image = image
+                            ImageCache(name: currentPost.postID).store(image, forKey: currentPost.postID)
+                            
+                            cell.setNeedsLayout()
+                        }
+                    }
+                    //                    } catch {
+                    //
+                    //                    }
+                }
+            }).resume()
+            
+            //            }
         } else {
-            cell.postImageView.image = nil
-            cell.layoutIfNeeded()
+            cell.postImageView.image = #imageLiteral(resourceName: "placeholder-image")
         }
-        
-        
+
         //Add Button Functionality
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         cell.commentButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
@@ -139,7 +175,7 @@ extension HomeFeedVC: UITableViewDataSource {
         cell.thumbsDownButton.addTarget(self, action: #selector(thumbsDownButtonTouched(_:)), for: .touchUpInside)
         cell.flagButton.addTarget(self, action: #selector(showReportActionSheet), for: .touchUpInside)
         cell.shareButton.addTarget(self, action: #selector(showShareActionSheet), for: .touchUpInside)
-        cell.showArrowButton.addTarget(self, action: #selector(showShareActionSheet(_:)), for: .touchUpInside)
+        //cell.showArrowButton.addTarget(self, action: #selector(showShareActionSheet(_:)), for: .touchUpInside)
         
         return cell
     }

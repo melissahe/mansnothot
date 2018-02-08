@@ -250,9 +250,8 @@ class FeedTableViewCell: UITableViewCell {
             make.top.equalTo(postTitleLabel.snp.bottom).offset(5)
             make.centerX.equalTo(self.snp.centerX)
             make.bottom.equalTo(postTextView.snp.top).offset(-5)
-            make.height.lessThanOrEqualTo(200)
-            //            make.width.equalTo(self.snp.width).multipliedBy(0.5)
-            //            make.height.equalTo(self.snp.height).multipliedBy(0.3)
+                        make.height.equalTo(self.snp.width).multipliedBy(0.5)
+//                        make.height.equalTo(contentView.snp.height).multipliedBy(0.3)
             //            make.height.equalTo(self.snp.height).multipliedBy(0.16)
         }
         ///
