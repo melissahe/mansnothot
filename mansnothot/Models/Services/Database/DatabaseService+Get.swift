@@ -123,7 +123,7 @@ extension DatabaseService {
                     let userLiked = postDict["userLiked"] as? Bool
                     else {
                         print("couldn't get post")
-                        self.delegate?.didFailGettingPostComments?(self, error: "Could not get posts from database. Please check network connectivity.")
+                        self.delegate?.didFailGettingPostComments?(self, error: "Could not get posts from database. Please check network connectivity and restart the app.")
                         return
                 }
                 let imageURL = postDict["imageURL"] as? String
@@ -160,7 +160,7 @@ extension DatabaseService {
                     let timestamp = commentDict["timestamp"] as? Double,
                     let userID = commentDict["userID"] as? String
                     else {
-                        self.delegate?.didFailGettingPostComments?(self, error: "Could not retrieve one of the comments. Some values may be nil.")
+                        self.delegate?.didFailGettingPostComments?(self, error: "Could not retrieve comments. Some values may be nil or check your internet and restart the app.")
                         return
                 }
                 if postID != passedInPostID {
