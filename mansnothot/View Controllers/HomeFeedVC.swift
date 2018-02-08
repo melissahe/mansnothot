@@ -12,28 +12,11 @@ import TableFlip
 import Social
 import Kingfisher
 
-//Purpose: to present a list of all the posts for the app (including all users)
-
-//TODO: have the HomeFeedView as the initial view
-//should set up datasource variable
-//should add actions to each button (comment, thumbs up, etc.) in a cell through the cell for item at
-//each action should take in a sender, which would be of type FeedTableViewCell, configure the cell to do stuff based on which button is selected
-//comment button - should segue to AddCommentVC
-//showThread button - should display the total number of comments in button title - should segue to AllCommentsVC
-//more info:
-//should set up action sheet that happens during swipe options two buttons “Report User” and “Report Post” (no need for custom view)
-//ReportUser button - functionality for reporting user
-//ReportPost button - functionality for reporting post
-//Nice to have: Share button - Buttons for sharing to Facebook, Email, Instagram, Twitter, Tumblr, SnapChat, etc…
-//should set up swipe options
-//should present options like "Report User", "Report Post", and "Share To..." (Extra Credit), maybe edit??
-
 class HomeFeedVC: UIViewController {
     
-//    var loginVC = LoginVC()
     var homeFeedView = HomeFeedView()
+    let emptyView = EmptyStateView(emptyText: "No posts.\nAdd a new post, or check your internet and restart the app.")
     
-    //get all posts - should be in the view will appear too
     var posts: [Post] = [] {
         didSet {
             //need to fix this later!!
@@ -47,6 +30,11 @@ class HomeFeedVC: UIViewController {
 //                    self.shouldUpdateCell = true
 //                }
 //            }
+            if posts.isEmpty {
+                self.view.addSubview(emptyView)
+            } else {
+                self.emptyView.removeFromSuperview()
+            }
         }
     }
     
@@ -78,11 +66,21 @@ class HomeFeedVC: UIViewController {
         super.viewWillAppear(animated)
         DatabaseService.manager.delegate = self
         homeFeedView.tableView.reloadData()
+        
+        if posts.isEmpty {
+            self.view.addSubview(emptyView)
+            if currentReachabilityStatus == .notReachable {
+                let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+                self.present(noInternetAlert, animated: true, completion: nil)
+            }
+        } else {
+            emptyView.removeFromSuperview()
+        }
     }
     
     func setupViews() {
         // Set Title for VC in Nav Bar
-        navigationItem.title = "Professionl Thoughts"
+        navigationItem.title = "Professional Thoughts"
         
         //Give SegmentedBar Functionality
         homeFeedView.segmentedBar.addTarget(self, action: #selector(changeColor(sender:)), for: .valueChanged)
@@ -263,11 +261,7 @@ extension HomeFeedVC: UITableViewDataSource {
             
             alert.addAction(goToFacebook)
             alert.addAction(goToTwitter)
-            //alert.addAction(goToEmail)
-            //alert.addAction(goToSlack)
-            //alert.addAction(goToTumblr)
-            //alert.addAction(goToSnapChat)
-            //alert.addAction(goToInstagram)
+            //alert.addAction(goToEmail) //to do - ADD!!!!!
             alert.addAction(cancel)
             present(alert, animated: true, completion: nil)
         }
@@ -385,7 +379,6 @@ extension HomeFeedVC: UITableViewDataSource {
     
 }
 extension HomeFeedVC: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //to do??
     }
