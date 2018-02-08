@@ -16,8 +16,11 @@ extension HomeFeedVC: DatabaseServiceDelegate {
     func didLikePost(_ databaseService: DatabaseService) {
 //        DispatchQueue.main.async {
 //            self.homeFeedView.tableView.scrollToRow(at: IndexPath(row: self.selectedRowIndex, section: 0), at: .none, animated: true)
-//        }
+//        } //should + 1 like
         print("did like")
+    }
+    func didUndoLikePost(_ databaseService: DatabaseService) {
+        //should - 1 like
     }
     func didFailDisliking(_ databaseService: DatabaseService, error: String) {
         let errorAlert = Alert.createErrorAlert(withMessage: error)
@@ -26,8 +29,11 @@ extension HomeFeedVC: DatabaseServiceDelegate {
     func didDislikePost(_ databaseService: DatabaseService) {
 //        DispatchQueue.main.async {
 //            self.homeFeedView.tableView.scrollToRow(at: IndexPath(row: self.selectedRowIndex, section: 0), at: .none, animated: true)
-//        }
+//        } //should + 1 dislike
         print("did dislike")
+    }
+    func didUndoDislikePost(_ databaseService: DatabaseService) {
+        //should - 1 dislike
     }
     func didFlagUser(_ databaseService: DatabaseService) {
         let flagAlert = Alert.create(withTitle: "Flagged User", andMessage: nil, withPreferredStyle: .alert)
