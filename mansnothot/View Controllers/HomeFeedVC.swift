@@ -69,13 +69,12 @@ class HomeFeedVC: UIViewController {
         
         if posts.isEmpty {
             self.view.addSubview(emptyView)
+            if currentReachabilityStatus == .notReachable {
+                let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+                self.present(noInternetAlert, animated: true, completion: nil)
+            }
         } else {
             emptyView.removeFromSuperview()
-        }
-        
-        if currentReachabilityStatus == .notReachable {
-            let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
-            self.present(noInternetAlert, animated: true, completion: nil)
         }
     }
     

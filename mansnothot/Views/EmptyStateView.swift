@@ -24,6 +24,12 @@ class EmptyStateView: UIView {
         commonInit()
     }
     
+    init(frame: CGRect, emptyText: String) {
+        super.init(frame: frame)
+        self.emptyLabel.text = emptyText
+        commonInit()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         commonInit()

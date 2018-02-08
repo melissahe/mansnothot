@@ -23,11 +23,18 @@ class AllCommentsVC: UIViewController {
     var postID: String!
     
     let allCommentsView = AllCommentsView()
+    let emptyView = EmptyStateView(emptyText: "No comments.\nAdd a new post, or check your internet and restart the app.")
     
     var comments: [Comment] = [] {
         didSet {
             //might need to change observe
             allCommentsView.tableView.reloadData()
+            
+            if comments.isEmpty {
+                self.allCommentsView.tableView.addSubview(emptyView)
+            } else {
+                self.emptyView.removeFromSuperview()
+            }
         }
     }
     
@@ -49,7 +56,28 @@ class AllCommentsVC: UIViewController {
         allCommentsView.commentTextField.delegate = self
         setupViews()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if comments.isEmpty {
+            self.view.addSubview(emptyView)
+            if currentReachabilityStatus == .notReachable {
+                let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+                self.present(noInternetAlert, animated: true, completion: nil)
+            }
+        } else {
+            emptyView.removeFromSuperview()
+        }
+    }
 
+    private func ifNoInternetAlert() {
+        if currentReachabilityStatus == .notReachable {
+            let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+            self.present(noInternetAlert, animated: true, completion: nil)
+        }
+    }
+    
     private func setupViews() {
         //title
         navigationItem.title = postTitle
@@ -125,6 +153,8 @@ extension AllCommentsVC: UITableViewDataSource {
     }
     
     @objc func thumbsUpButtonTouched(_ sender: UIButton) {
+        ifNoInternetAlert()
+        
         if let cell = sender.superview as? AllCommentsTableViewCell {
             print(cell.numberOfLikesLabel.text!)
             
@@ -151,6 +181,8 @@ extension AllCommentsVC: UITableViewDataSource {
     }
     
     @objc func thumbsDownButtonTouched(_ sender: UIButton) {
+        ifNoInternetAlert()
+        
         if let cell = sender.superview as? AllCommentsTableViewCell {
             print(cell.numberOfDislikesLabel.text!)
             guard let indexPath = allCommentsView.tableView.indexPath(for: cell) else {
@@ -179,6 +211,7 @@ extension AllCommentsVC: UITableViewDataSource {
 extension AllCommentsVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         //Make AddCommentVC appear here when user clicks on the textfield
+        ifNoInternetAlert()
         presentAddCommentVC()
     }
 }
