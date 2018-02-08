@@ -10,14 +10,34 @@ import UIKit
 
 class EmptyStateView: UIView {
     
-    //This view is literally only for screens with no data yet
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    lazy var emptyLabel: UILabel = {
+        let label = UILabel()
+        Stylesheet.Objects.Labels.Regular.style(label: label)
+        label.font = UIFont(name: "Helvetica Neue", size: 20.0)
+        return label
+    }()
+    
+    init(emptyText: String) {
+        super.init(frame: UIScreen.main.bounds)
+        self.emptyLabel.text = emptyText
+        commonInit()
     }
-    */
-
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    private func commonInit() {
+        backgroundColor = .white
+        setUpViews()
+    }
+    
+    private func setUpViews() {
+        self.addSubview(emptyLabel)
+        
+        emptyLabel.snp.makeConstraints { (make) in
+            make.edges.equalTo(self)
+        }
+    }
 }
