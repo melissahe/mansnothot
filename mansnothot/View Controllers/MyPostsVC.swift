@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import TableFlip
+import Kingfisher
 
 //Purpose: shows all of the user's posts
 
@@ -33,12 +34,17 @@ class MyPostsVC: UIViewController {
     let editMyPost = EditMyPostVC()
     let myPostView = MyPostsView()
     
-    var sampleArr = ["Advice", "AMA", "Animals", "Art", "Beauty", "Books", "Business", "Cats", "Celebs", "Cooking", "Cosplay", "Cute", "Dating", "Drugs", "Dogs", "Education", "ELI5", "Entertainment", "Fashion", "Fitness", "FML", "Food", "Funny", "Health", "Hmm", "Hobbies", "IRL", "LGBTQ+", "Lifestyle", "Memes", "MFW", "MLIA", "Music", "Movies", "Nature", "News", "NSFW", "Other", "Poetry", "Politics", "Random", "Religion", "Relationships", "Science", "Sex", "Sports", "Stories", "Tech", "TFW", "Thirst Traps", "THOT Stuff", "THOT Thoughts", "Throwback", "Travel", "TV", "Weird", "Women", "Work", "World", "WTF"]
+    var userProfile: UserProfile!
+    
+    var posts: [Post] = [] {
+        didSet {
+            myPostView.tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(myPostView)
-        
         myPostView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view.snp.edges)
         }
@@ -49,19 +55,51 @@ class MyPostsVC: UIViewController {
         myPostView.tableView.estimatedRowHeight = 120
     }
     
+    public func configurePosts(userProfile: UserProfile) {
+        self.userProfile = userProfile
+        
+        DatabaseService.manager.delegate = self
+        DatabaseService.manager.getPosts(fromUID: userProfile.userID, completion: { (myPosts) in
+            self.posts = myPosts
+        })
+    }
+    
 }
 
 extension MyPostsVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sampleArr.count
+        return posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyPostCell", for: indexPath) as! MyPostsTableViewCell
+        let currentPost = posts[indexPath.row]
         
-        let aThing = sampleArr[indexPath.row]
+        //this stuff should be moved to configure cell image or something
+        cell.categoryLabel.text = currentPost.category
+        cell.numberOfDislikesLabel.text = "-" + currentPost.numberOfDislikes.description
+        cell.numberOfLikesLabel.text = "+" + currentPost.numberOfLikes.description
+        cell.postTitleLabel.text = currentPost.title
         
-        cell.categoryLabel.text = "This is \(aThing)"
+        cell.postImageView.image = nil
+        if let imageURLString = currentPost.imageURL, let imageURL = URL(string: imageURLString) {
+            ImageCache(name: currentPost.postID).retrieveImage(forKey: currentPost.postID, options: nil, completionHandler: { (image, _) in
+                if let image = image {
+                    cell.postImageView.image = image
+                    cell.layoutIfNeeded()
+                } else {
+                    cell.postImageView.kf.setImage(with: imageURL, placeholder: #imageLiteral(resourceName: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (image, error, _, _) in
+                        if let image = image {
+                            ImageCache(name: currentPost.postID).store(image, forKey: currentPost.postID)
+                            cell.layoutIfNeeded()
+                        }
+                    })
+                }
+            })
+        } else {
+            cell.postImageView.image = #imageLiteral(resourceName: "placeholder-image")
+            cell.layoutIfNeeded()
+        }
         
         
         //Add Button Functionality
@@ -148,12 +186,36 @@ extension MyPostsVC: UITableViewDataSource {
             navigationController?.pushViewController(allCommentsVC, animated: true)
             //present(allCommentsVC, animated: true, completion: nil)
         }
-    }
-    
-    
+    }  
 }
 extension MyPostsVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    }
+}
+extension MyPostsVC: DatabaseServiceDelegate {
+    func didFailGettingPostComments(_ databaseService: DatabaseService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: error)
+        self.present(errorAlert, animated: true, completion: nil)
+    }
+    func didLikePost(_ databaseService: DatabaseService) {
+        //should add 1 like
+    }
+    func didUndoLikePost(_ databaseService: DatabaseService) {
+        //should minus 1 like
+    }
+    func didDislikePost(_ databaseService: DatabaseService) {
+        //should add 1 dislike
+    }
+    func didUndoDislikePost(_ databaseService: DatabaseService) {
+        //should minus 1 dislike
+    }
+    func didFailLiking(_ databaseService: DatabaseService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: "\(error)\nPlease check your network connectivity and try again.")
+        self.present(errorAlert, animated: true, completion: nil)
+    }
+    func didFailDisliking(_ databaseService: DatabaseService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: "\(error)\nPlease check your network connectivity and try again.")
+        self.present(errorAlert, animated: true, completion: nil)
     }
 }
