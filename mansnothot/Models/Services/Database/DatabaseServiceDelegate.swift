@@ -139,6 +139,14 @@ import Foundation
     
     /**
      */
+    @objc optional func didFlagPostAlready(_ databaseService: DatabaseService, error: String)
+    
+    /**
+     */
+    @objc optional func didFlagPost(_ databaseService: DatabaseService)
+    
+    /**
+     */
     @objc optional func didFailFlagging(_ databaseService: DatabaseService, error: String)
     
     /**

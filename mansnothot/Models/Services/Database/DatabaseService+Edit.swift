@@ -125,11 +125,11 @@ extension DatabaseService {
                 var flags = post["flags"] as? Int ?? 0
                 //if user has flagged before
                 if let _ = flaggedByDict[userID] {
-                    self.delegate?.didFailFlagging?(self, error: "You have flagged this post already.")
+                    self.delegate?.didFlagPostAlready?(self, error: "You have flagged this post already.")
                 } else { //user has not flagged before
                     flaggedByDict[userID] = true
                     flags += 1
-                    self.delegate?.didFlagUser?(self)
+                    self.delegate?.didFlagPost?(self)
                 }
                 
                 post["flaggedBy"] = flaggedByDict
