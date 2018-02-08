@@ -1,7 +1,8 @@
-# mansnothot
-Persperating!!
+# mansnothot Something Professional
 
-- An app that connects people through something professional. A mixture of both your randomness and professionalism in one app. 
+Brough to you by Team Perspiration!
+
+Whether you're looking to express yourself within a professional limelight, or searching for a exciting night with new friends and coworkers, the mansnothot Professional Thoughts iOS app makes finding the perfect time easy.
 
 ## Overview
 //to do
