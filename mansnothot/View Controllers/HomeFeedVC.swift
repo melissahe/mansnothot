@@ -11,42 +11,32 @@ import SnapKit
 import TableFlip
 import Social
 import Kingfisher
+import Foundation
+import MessageUI
 
-//Purpose: to present a list of all the posts for the app (including all users)
-
-//TODO: have the HomeFeedView as the initial view
-//should set up datasource variable
-//should add actions to each button (comment, thumbs up, etc.) in a cell through the cell for item at
-//each action should take in a sender, which would be of type FeedTableViewCell, configure the cell to do stuff based on which button is selected
-//comment button - should segue to AddCommentVC
-//showThread button - should display the total number of comments in button title - should segue to AllCommentsVC
-//more info:
-//should set up action sheet that happens during swipe options two buttons “Report User” and “Report Post” (no need for custom view)
-//ReportUser button - functionality for reporting user
-//ReportPost button - functionality for reporting post
-//Nice to have: Share button - Buttons for sharing to Facebook, Email, Instagram, Twitter, Tumblr, SnapChat, etc…
-//should set up swipe options
-//should present options like "Report User", "Report Post", and "Share To..." (Extra Credit), maybe edit??
-
-class HomeFeedVC: UIViewController {
+class HomeFeedVC: UIViewController, MFMailComposeViewControllerDelegate {
     
-//    var loginVC = LoginVC()
     var homeFeedView = HomeFeedView()
+    let emptyView = EmptyStateView(emptyText: "No posts.\nAdd a new post, or check your internet and restart the app.")
     
-    //get all posts - should be in the view will appear too
     var posts: [Post] = [] {
         didSet {
             //need to fix this later!!
             //should get rid of the observe
             homeFeedView.tableView.reloadData() //without this, deleting crashing the whole thing, probably because of the observe
-//            UIView.animate(withDuration: 0.5) {
-//                if self.shouldUpdateCell {
-//                    self.homeFeedView.tableView.reloadRows(at: [IndexPath(row: self.selectedRowIndex, section: 0)], with: .fade)
-//                } else {
-//                    self.homeFeedView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-//                    self.shouldUpdateCell = true
-//                }
-//            }
+            //            UIView.animate(withDuration: 0.5) {
+            //                if self.shouldUpdateCell {
+            //                    self.homeFeedView.tableView.reloadRows(at: [IndexPath(row: self.selectedRowIndex, section: 0)], with: .fade)
+            //                } else {
+            //                    self.homeFeedView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+            //                    self.shouldUpdateCell = true
+            //                }
+            //            }
+            if posts.isEmpty {
+                self.view.addSubview(emptyView)
+            } else {
+                self.emptyView.removeFromSuperview()
+            }
         }
     }
     
@@ -78,11 +68,21 @@ class HomeFeedVC: UIViewController {
         super.viewWillAppear(animated)
         DatabaseService.manager.delegate = self
         homeFeedView.tableView.reloadData()
+        
+        if posts.isEmpty {
+            self.view.addSubview(emptyView)
+            if currentReachabilityStatus == .notReachable {
+                let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+                self.present(noInternetAlert, animated: true, completion: nil)
+            }
+        } else {
+            emptyView.removeFromSuperview()
+        }
     }
     
     func setupViews() {
         // Set Title for VC in Nav Bar
-        navigationItem.title = "Professionl Thoughts"
+        navigationItem.title = "Professional Thoughts"
         
         //Give SegmentedBar Functionality
         homeFeedView.segmentedBar.addTarget(self, action: #selector(changeColor(sender:)), for: .valueChanged)
@@ -186,7 +186,7 @@ extension HomeFeedVC: UITableViewDataSource {
                 }
             }
         })
-
+        
         //Add Button Functionality
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         cell.commentButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
@@ -242,32 +242,23 @@ extension HomeFeedVC: UITableViewDataSource {
                     self.showAlert(service: "Twitter")
                 }
             })
-//            let goToInstagram = UIAlertAction(title: "Instagram", style: .destructive, handler: {(UIAlertAction) -> Void in
-//                print("Add Share to Instagram Function here")
-//            })
-//            let goToSnapChat = UIAlertAction(title: "Snapchat", style: .destructive, handler: {(UIAlertAction) -> Void in
-//                print("Add Share to SnapChat Function here")
-//            })
-//            let goToEmail = UIAlertAction(title: "Email", style: .destructive, handler: {(UIAlertAction) -> Void in
-//                print("Add Share to Email Function here")
-//            })
-//            let goToSlack = UIAlertAction(title: "Slack", style: .destructive, handler: {(UIAlertAction) -> Void in
-//                print("Add Share to Slack Function here")
-//            })
-//            let goToTumblr = UIAlertAction(title: "Tumblr", style: .destructive, handler: {(UIAlertAction) -> Void in
-//                print("Add Share to Tumblr Function here")
-//            })
+            let goToEmail = UIAlertAction(title: "Email", style: .destructive, handler: {(UIAlertAction) -> Void in
+                print("Add Share to Email Function here")
+                let mailComposeViewController = self.configuredMailComposeViewController()
+                if MFMailComposeViewController.canSendMail() {
+                    self.present(mailComposeViewController, animated: true, completion: nil)
+                } else {
+                    //self.showAlert(service: "Email") //MailController pops up its own alert with no email service
+                }
+            })
+            
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: {(UIAlertAction) -> Void in
                 print("User cancelled")
             })
             
             alert.addAction(goToFacebook)
             alert.addAction(goToTwitter)
-            //alert.addAction(goToEmail)
-            //alert.addAction(goToSlack)
-            //alert.addAction(goToTumblr)
-            //alert.addAction(goToSnapChat)
-            //alert.addAction(goToInstagram)
+            alert.addAction(goToEmail)
             alert.addAction(cancel)
             present(alert, animated: true, completion: nil)
         }
@@ -278,6 +269,23 @@ extension HomeFeedVC: UITableViewDataSource {
         let action = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
+    }
+    
+    func configuredMailComposeViewController() -> MFMailComposeViewController {
+        let mailComposerVC = MFMailComposeViewController()
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        mailComposerVC.setToRecipients(["example@gmail.com"])
+        mailComposerVC.setSubject("Sending you an in-app e-mail with Professional Thoughts!")
+        mailComposerVC.setMessageBody("Sending e-mail with Professional Thoughts is the perfect user experience!", isHTML: false)
+        
+        return mailComposerVC
+    }
+    
+    // MARK: MFMailComposeViewControllerDelegate
+    func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+        controller.dismiss(animated: true, completion: nil)
+        
     }
     
     @objc func showReportActionSheet(_ sender: UIButton){
@@ -385,7 +393,6 @@ extension HomeFeedVC: UITableViewDataSource {
     
 }
 extension HomeFeedVC: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //to do??
     }

@@ -9,6 +9,10 @@
 import UIKit
 
 extension HomeFeedVC: DatabaseServiceDelegate {
+    func didFailGettingPostComments(_ databaseService: DatabaseService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: error)
+        self.present(errorAlert, animated: true, completion: nil)
+    }
     func didFailLiking(_ databaseService: DatabaseService, error: String) {
         let errorAlert = Alert.createErrorAlert(withMessage: error)
         self.present(errorAlert, animated: true, completion: nil)
