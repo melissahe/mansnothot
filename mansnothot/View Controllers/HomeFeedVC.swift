@@ -98,6 +98,8 @@ extension HomeFeedVC: UITableViewDataSource {
         
         cell.categoryLabel.text = "This is \(currentPost.category)"
         cell.postTitleLabel.text = currentPost.title
+        cell.numberOfLikesLabel.text = "+" +  currentPost.numberOfLikes.description
+        cell.numberOfDislikesLabel.text = "-" +  currentPost.numberOfDislikes.description
         if let postText = currentPost.bodyText, !postText.isEmpty {
             cell.postTextView.text = postText
         } else {
@@ -166,6 +168,7 @@ extension HomeFeedVC: UITableViewDataSource {
             //            }
         } else {
             cell.postImageView.image = #imageLiteral(resourceName: "placeholder-image")
+            cell.layoutIfNeeded()
         }
 
         //Add Button Functionality
@@ -175,7 +178,7 @@ extension HomeFeedVC: UITableViewDataSource {
         cell.thumbsDownButton.addTarget(self, action: #selector(thumbsDownButtonTouched(_:)), for: .touchUpInside)
         cell.flagButton.addTarget(self, action: #selector(showReportActionSheet), for: .touchUpInside)
         cell.shareButton.addTarget(self, action: #selector(showShareActionSheet), for: .touchUpInside)
-        //cell.showArrowButton.addTarget(self, action: #selector(showShareActionSheet(_:)), for: .touchUpInside)
+        cell.showArrowButton.addTarget(self, action: #selector(showShareActionSheet(_:)), for: .touchUpInside)
         
         return cell
     }
@@ -297,13 +300,25 @@ extension HomeFeedVC: UITableViewDataSource {
     @objc func thumbsUpButtonTouched(_ sender: UIButton) {
         if let cell = sender.superview as? FeedTableViewCell {
             print(cell.numberOfLikesLabel.text!)
-            if let stringAsInt = Int(cell.numberOfLikesLabel.text!) {
-                var newInt = stringAsInt
-                newInt += 1
-                cell.numberOfLikesLabel.text = "+"+String(newInt)
-            } else {
-                cell.numberOfLikesLabel.text = "0"
+            
+            guard let indexPath = homeFeedView.tableView.indexPath(for: cell) else {
+                print("couldn't get indexpath!!!!!!!")
+                return
             }
+            let currentPost = posts[indexPath.row]
+            
+            if let currentUser = AuthUserService.manager.getCurrentUser() {
+                
+                DatabaseService.manager.likePost(withPostID: currentPost.postID, likedByUserID: currentUser.uid)
+            }
+            
+//            if let stringAsInt = Int(cell.numberOfLikesLabel.text!) {
+//                var newInt = stringAsInt
+//                newInt += 1
+//                cell.numberOfLikesLabel.text = "+"+String(newInt)
+//            } else {
+//                cell.numberOfLikesLabel.text = "0"
+//            }
         }
     }
     
