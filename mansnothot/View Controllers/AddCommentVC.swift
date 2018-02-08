@@ -19,8 +19,10 @@ import SnapKit
 class AddCommentVC: UIViewController {
 
     var postTitle: String!
+    var postID: String!
     
-    public func setupVC(postTitle: String) {
+    public func setupVC(postID: String, postTitle: String) {
+        self.postID = postID
         self.postTitle = postTitle
     }
     
@@ -47,22 +49,22 @@ class AddCommentVC: UIViewController {
         
         
     }
+    //TODO: MELISSA!!!!!
     @objc private func addAComment() {
         print("Add a Comment clicked")
         if addCommentView.postCommentTextView.text == "Enter Post Text Here" || addCommentView.postCommentTextView.text == "" {
-            let alert = UIAlertController(title: "Error", message: "Please enter text in order to post a comment", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
-            alert.addAction(ok)
-            present(alert, animated: true, completion: nil)
+            let alert = Alert.createErrorAlert(withMessage: "Please enter text in order to post a comment.")
+            self.present(alert, animated: true, completion: nil)
         } else {
             
             //Add functionality for adding the text in the textview to a post
+            guard let commentText = addCommentView.postCommentTextView.text else {
+                print("bad comment text")
+                return
+            }
             
-            let alert = UIAlertController(title: "Success", message: "Your Comment was added!", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "Ok", style: .default, handler: {(UIAlertAction) -> Void in self.dismiss(animated: true, completion: nil)})
-            alert.addAction(ok)
-            present(alert, animated: true, completion: nil)
-            
+            DatabaseService.manager.delegate = self
+            DatabaseService.manager.addComment(withText: commentText, andPostID: postID)
         }
         
     }
@@ -71,4 +73,18 @@ class AddCommentVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
+}
+
+extension AddCommentVC: DatabaseServiceDelegate {
+    func didAddComment(_ databaseService: DatabaseService) {
+        let successAlert = Alert.create(withTitle: "Success", andMessage: "Your comment was added!", withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "OK", style: .default, andHandler: { (_) in
+            self.dismiss(animated: true, completion: nil)
+        }, to: successAlert)
+        self.present(successAlert, animated: true, completion: nil)
+    }
+    func didFailAddingComment(_ databaseService: DatabaseService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: error)
+        self.present(errorAlert, animated: true, completion: nil)
+    }
 }

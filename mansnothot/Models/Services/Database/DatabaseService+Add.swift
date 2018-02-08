@@ -27,6 +27,7 @@ extension DatabaseService {
         }
         let ref = commentsRef.childByAutoId()
         let comment = Comment(postID: postID, commentID: ref.key, userID: userID, text: text)
+        
         ref.setValue(["postID": postID,
                       "commentID": comment.commentID,
                       "userID": comment.userID,
@@ -34,7 +35,13 @@ extension DatabaseService {
                       "numberOfDislikes": comment.numberOfDislikes,
                       "text": comment.text,
                       "timestamp": comment.timestamp
-            ])
+        ]) { (error, _) in
+            if let error = error {
+                self.delegate?.didFailAddingComment?(self, error: error.localizedDescription)
+            } else {
+                self.delegate?.didAddComment?(self)
+            }
+        }
         
         print("new comment added to database!!")
     }
