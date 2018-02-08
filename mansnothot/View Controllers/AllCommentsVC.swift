@@ -28,9 +28,6 @@ class AllCommentsVC: UIViewController {
         didSet {
             //might need to change observe
             allCommentsView.tableView.reloadData()
-            if comments.count >= 1 {
-//                allCommentsView.tableView.scrollToRow(at: IndexPath(row: comments.count - 1, section: 0), at: .bottom, animated: true)
-            }
         }
     }
     

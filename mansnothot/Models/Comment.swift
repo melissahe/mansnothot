@@ -47,6 +47,6 @@ class Comment: NSObject {
 extension Array where Element == Comment {
     //ADD DOCUMENTATION!!
     func sortedByTimestamp() -> [Comment] {
-        return self.sorted {$0.timestamp > $1.timestamp}
+        return self.sorted {$0.timestamp < $1.timestamp}
     }
 }
