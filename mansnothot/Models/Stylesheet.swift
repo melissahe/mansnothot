@@ -122,6 +122,7 @@ extension Stylesheet {
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
                     label.textAlignment = .left
+                    label.numberOfLines = 0
                 case .AppName:
                     label.font = Stylesheet.Fonts.AppName
                     label.textColor = Stylesheet.Colors.Dark
