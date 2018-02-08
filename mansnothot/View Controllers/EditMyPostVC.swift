@@ -21,10 +21,15 @@ import SnapKit
 
 class EditMyPostVC: UIViewController {
     let editMyPostView = EditMyPostView()
-    var postToEditID: String?
+    var myPost: Post!
     
-    public func idForPostToEdit(postID: String) {
-        self.postToEditID = postID
+    public func postToEdit(post: Post, andImage image: UIImage) {
+        self.myPost = post
+        
+        editMyPostView.editCategoryLabel.text = post.category
+        editMyPostView.editPostTextView.text = post.bodyText ?? ""
+        editMyPostView.postTitleLabel.text = post.title
+        editMyPostView.postImageView.image = image
     }
     
     override func viewDidLoad() {
@@ -36,27 +41,50 @@ class EditMyPostVC: UIViewController {
     }
     
     @objc func trashButton(_ sender: UIButton) {
-            let alert = UIAlertController(title: "Are you sure you want to delete your Masterpiece", message: nil, preferredStyle: .alert)
-            
-            let yesAction = UIAlertAction(title: "Yes", style: .default, handler: { (UIAlertAction) in
-                //Todo get Post ID number
-                //delete that post related to that ID
-                print("It has been deleted")
-                
-            })
-            let noAction = UIAlertAction(title: "No", style: .default, handler: nil)
-            alert.addAction(yesAction)
-            alert.addAction(noAction)
-            present(alert, animated: true, completion: nil)
+        let deleteAlert = Alert.create(withTitle: "Are you sure you want to delete your Masterpiece?", andMessage: nil, withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "Yes", style: .default, andHandler: { (_) in
+            DatabaseService.manager.delegate = self
+            DatabaseService.manager.deletePost(withPostID: self.myPost.postID)
+        }, to: deleteAlert)
+        Alert.addAction(withTitle: "No", style: .default, andHandler: nil, to: deleteAlert)
+        self.present(deleteAlert, animated: true, completion: nil)
     }
     
     @objc func savePostButton(_ sender: UIButton) {
-        //TODO - SAVE THE POST
-        let alert = UIAlertController(title: "Post Saved", message: nil, preferredStyle: .alert)
-        let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
+        guard let newText = editMyPostView.editPostTextView.text else {
+            print("couldn't get text view text")
+            return
+        }
+        
+        myPost.bodyText = newText
+        
+        DatabaseService.manager.delegate = self
+        DatabaseService.manager.editPost(withPostID: myPost.postID, newPost: myPost, newImage: nil)
     }
+ 
+}
 
-    
+extension EditMyPostVC: DatabaseServiceDelegate {
+    func didDeletePost(_ databaseService: DatabaseService) {
+        let successAlert = Alert.create(withTitle: "Success", andMessage: "You deleted your Masterpiece... 😒", withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "I'm sorry... 😞", style: .default, andHandler: { (_) in
+            self.navigationController?.popViewController(animated: true)
+        }, to: successAlert)
+        self.present(successAlert, animated: true, completion: nil)
+    }
+    func didFailDeletingPost(_ databaseService: DatabaseService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: error)
+        self.present(errorAlert, animated: true, completion: nil)
+    }
+    func didEditPost(_ databaseService: DatabaseService) {
+        let successAlert = Alert.create(withTitle: "Success", andMessage: "Your post was edited.", withPreferredStyle: .alert)
+        Alert.addAction(withTitle: "OK", style: .default, andHandler: { (_) in
+            self.navigationController?.popViewController(animated: true)
+        }, to: successAlert)
+        self.present(successAlert, animated: true, completion: nil)
+    }
+    func didFailEditingPost(_ databaseService: DatabaseService, error: String) {
+        let errorAlert = Alert.createErrorAlert(withMessage: error)
+        self.present(errorAlert, animated: true, completion: nil)
+    }
 }

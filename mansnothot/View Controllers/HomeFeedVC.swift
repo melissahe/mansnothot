@@ -38,14 +38,15 @@ class HomeFeedVC: UIViewController {
         didSet {
             //need to fix this later!!
             //should get rid of the observe
-            UIView.animate(withDuration: 0.5) {
-                if self.shouldUpdateCell {
-                    self.homeFeedView.tableView.reloadRows(at: [IndexPath(row: self.selectedRowIndex, section: 0)], with: .fade)
-                } else {
-                    self.homeFeedView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-                    self.shouldUpdateCell = true
-                }
-            }
+            homeFeedView.tableView.reloadData() //without this, deleting crashing the whole thing, probably because of the observe
+//            UIView.animate(withDuration: 0.5) {
+//                if self.shouldUpdateCell {
+//                    self.homeFeedView.tableView.reloadRows(at: [IndexPath(row: self.selectedRowIndex, section: 0)], with: .fade)
+//                } else {
+//                    self.homeFeedView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+//                    self.shouldUpdateCell = true
+//                }
+//            }
         }
     }
     
