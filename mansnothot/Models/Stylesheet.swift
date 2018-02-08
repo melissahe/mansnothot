@@ -19,14 +19,28 @@ enum Stylesheet {
         static let Yellow = UIColor(red: 0.9569, green: 0.8627, blue: 0, alpha: 1.0)
         static let Dark = UIColor(red: 0.184, green: 0.157, blue: 0.118, alpha: 1.00)
     }
+    
+    
+    
     enum Fonts {
-        static let AppName = UIFont(name: "Impact", size: 50.0)
-        static let PostTitle = UIFont(name: "Skia Bold", size: 20.0)
-        static let Regular = UIFont(name: "Skia Light", size: 15.0)
-        static let Login = UIFont(name: "Comic Sans", size: 15.0)
-        static let Link = UIFont(name: "Skia Regular", size: 15.0)
-        static let Bold = UIFont(name: "Skia Bold", size: 15.0)
+        static let AppName = UIFont(name: "HelveticaNeue-CondensedBold", size: 50.0)
+        static let PostTitle = UIFont(name: "HelveticaNeue-CondensedBold", size: 25.0)
+        static let Regular = UIFont(name: "HelveticaNeue-Light", size: 15.0)
+        static let TextfieldFont = UIFont(name: "HelveticaNeue-Light", size: 15.0)
+        static let Link = UIFont(name: "HelveticaNeue", size: 15.0)
+        static let Bold = UIFont(name: "HelveticaNeue-Medium", size: 15.0)
     }
+    
+    
+//    // Avenir
+//    enum Fonts {
+//        static let AppName = UIFont(name: "HelveticaNeue-CondensedBold", size: 50.0)
+//        static let PostTitle = UIFont(name: "AmericanTypewriter", size: 20.0)
+//        static let Regular = UIFont(name: "Avenir-Book", size: 15.0)
+//        static let TextfieldFont = UIFont(name: "Avenir-Book", size: 15.0)
+//        static let Link = UIFont(name: "Avenir-Light", size: 15.0)
+//        static let Bold = UIFont(name: "Avenir-Black", size: 15.0)
+//    }
     
 //    enum Fonts {
 //        static let AppName = UIFont(name: "Helvetica Neue", size: 50.0)
@@ -89,23 +103,23 @@ extension Stylesheet {
                 switch self {
                 case .Login:
                     button.setTitleColor(Stylesheet.Colors.LightGrey, for: .normal)
-                    button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Bold
                     button.backgroundColor = Stylesheet.Colors.Red
                     button.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
-                case .Link:
-                    button.backgroundColor = .clear
-                    button.setTitleColor(Stylesheet.Colors.Orange, for: .normal)
                     button.showsTouchWhenHighlighted = true
+                case .Link:
+                    button.setTitleColor(Stylesheet.Colors.Orange, for: .normal)
                     button.titleLabel?.font = Stylesheet.Fonts.Link
+                    button.backgroundColor = .clear
+                    button.showsTouchWhenHighlighted = true
                 case .CreateButton:
                     button.setTitleColor(Stylesheet.Colors.Red, for: .normal)
-                    button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Bold
                     button.backgroundColor = Stylesheet.Colors.Yellow
                     button.layer.borderColor = (Stylesheet.Colors.Orange).cgColor
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
+                    button.showsTouchWhenHighlighted = true
                 case .ClearButton:
                     button.backgroundColor = .clear
                     button.contentMode = .scaleAspectFit
@@ -207,7 +221,7 @@ extension Stylesheet {
                     textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
                     textfield.backgroundColor = Stylesheet.Colors.White
                     textfield.textAlignment = NSTextAlignment.left
-                    textfield.font = Stylesheet.Fonts.Login
+                    textfield.font = Stylesheet.Fonts.TextfieldFont
                     textfield.textColor = Stylesheet.Colors.Dark
                     textfield.adjustsFontSizeToFitWidth = true
                     textfield.autocapitalizationType = .words
@@ -220,7 +234,7 @@ extension Stylesheet {
                     textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
                     textfield.backgroundColor = Stylesheet.Colors.White
                     textfield.textAlignment = NSTextAlignment.left
-                    textfield.font = Stylesheet.Fonts.Login
+                    textfield.font = Stylesheet.Fonts.TextfieldFont
                     textfield.textColor = Stylesheet.Colors.Dark
                     textfield.adjustsFontSizeToFitWidth = true
                     textfield.autocapitalizationType = .words
@@ -233,7 +247,7 @@ extension Stylesheet {
                     textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
                     textfield.backgroundColor = Stylesheet.Colors.White
                     textfield.textAlignment = NSTextAlignment.left
-                    textfield.font = Stylesheet.Fonts.Login
+                    textfield.font = Stylesheet.Fonts.TextfieldFont
                     textfield.textColor = Stylesheet.Colors.Dark
                     textfield.adjustsFontSizeToFitWidth = true
                     textfield.autocapitalizationType = .none
@@ -246,7 +260,7 @@ extension Stylesheet {
                     textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
                     textfield.backgroundColor = Stylesheet.Colors.White
                     textfield.textAlignment = NSTextAlignment.left
-                    textfield.font = Stylesheet.Fonts.Login
+                    textfield.font = Stylesheet.Fonts.TextfieldFont
                     textfield.textColor = Stylesheet.Colors.Dark
                     textfield.adjustsFontSizeToFitWidth = true
                     textfield.autocapitalizationType = .none
