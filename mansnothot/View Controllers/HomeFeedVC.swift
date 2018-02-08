@@ -82,7 +82,7 @@ class HomeFeedVC: UIViewController {
     
     func setupViews() {
         // Set Title for VC in Nav Bar
-        navigationItem.title = "Thot Thought"
+        navigationItem.title = "Professionl Thoughts"
         
         //Give SegmentedBar Functionality
         homeFeedView.segmentedBar.addTarget(self, action: #selector(changeColor(sender:)), for: .valueChanged)
