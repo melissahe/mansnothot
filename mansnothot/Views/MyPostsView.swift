@@ -9,12 +9,6 @@
 import UIKit
 import SnapKit
 
-//TODO: set up
-    //add objects
-        //tableview - displays all posts; registers cell with "MyPostsTableViewCell"
-        //edit and delete button to be able to edit the post and/or delete
-    //set up constraints
-
 class MyPostsView: UIView {
 
     lazy var tableView: UITableView = {
@@ -23,8 +17,6 @@ class MyPostsView: UIView {
         tv.allowsSelection = false 
         return tv
     }()
-    
-
     
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)

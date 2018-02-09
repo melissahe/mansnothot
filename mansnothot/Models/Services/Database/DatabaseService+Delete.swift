@@ -34,18 +34,5 @@ extension DatabaseService {
         }
     }
     
-    /**
-     */
-    //still a work in progress
-    public func deleteAllFromBannedUser(withUserID bannedUserID: String) {
-        getAllPosts { (posts) in
-            let filteredPosts = posts.filter{$0.userID != bannedUserID}
-            
-            //delete all posts??
-            
-//            for post in filteredPosts {
-//                //add post
-//            }
-        }
-    }
+    
 }

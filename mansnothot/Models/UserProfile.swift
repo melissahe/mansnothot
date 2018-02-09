@@ -9,8 +9,6 @@
 import UIKit
 import FirebaseAuth
 
-//Message by Melissa: the struct we'll use for each user
-
 class UserProfile: NSObject{
     let email: String
     let userID: String //should be from firebase
@@ -29,7 +27,6 @@ class UserProfile: NSObject{
             - flags: \(flags)
         """
     }
-//    var posts: [Post] //we can track posts by using their indices as keys, posts as the values
     
     static func ==(lhs: UserProfile, rhs: UserProfile) -> Bool {
         return lhs.userID == rhs.userID

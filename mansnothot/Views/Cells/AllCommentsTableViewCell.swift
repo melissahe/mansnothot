@@ -10,48 +10,21 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-//TODO: Set up
-
 class AllCommentsTableViewCell: UITableViewCell {
 
-    //add objects
     //usernameLabel - for user name
     lazy var usernameLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Username of Poster"
         Stylesheet.Objects.Labels.PostUsername.style(label: lb)
-//        lb.backgroundColor = .white
-//        lb.textAlignment = .center
-//        lb.textColor = .black
-//        lb.numberOfLines = 0
-//        lb.layer.borderWidth = 0.5
         return lb
     }()
-    
-//    //textView - for comment
-//    lazy var commentTextView: UITextView = {
-//        let tv = UITextView()
-//        tv.text = "Sample Comment Text Here"
-//        Stylesheet.Objects.Textviews.Completed.style(textview: tv)
-////        tv.layer.borderWidth = 0.5
-////        tv.backgroundColor = .yellow
-////        tv.textAlignment = .justified
-////        tv.isEditable = false
-////        tv.textColor = .black
-//        return tv
-//    }()
-    
     
     //textView - for comment
     lazy var commentTextView: UILabel = {
         let lb = UILabel()
         lb.text = "Sample Comment Text Here"
         Stylesheet.Objects.Labels.Regular.style(label: lb)
-        //        tv.layer.borderWidth = 0.5
-        //        tv.backgroundColor = .yellow
-        //        tv.textAlignment = .justified
-        //        tv.isEditable = false
-        //        tv.textColor = .black
         return lb
     }()
     
@@ -60,8 +33,6 @@ class AllCommentsTableViewCell: UITableViewCell {
         let button = UIButton()
         button.setImage(UIImage(named: "thumbsUp"), for: .normal)
         Stylesheet.Objects.Buttons.ClearButton.style(button: button)
-//        button.backgroundColor = .clear
-//        button.layer.borderWidth = 0.5
         return button
     }()
     
@@ -70,9 +41,6 @@ class AllCommentsTableViewCell: UITableViewCell {
         let lb = UILabel()
         lb.text = "9"
         Stylesheet.Objects.Labels.LikesDislikes.style(label: lb)
-//        lb.backgroundColor = .gray
-//        lb.textAlignment = .center
-//        lb.backgroundColor = .white
         return lb
     }()
     
@@ -81,8 +49,6 @@ class AllCommentsTableViewCell: UITableViewCell {
         let button = UIButton()
         button.setImage(UIImage(named: "thumbsDown"), for: .normal)
         Stylesheet.Objects.Buttons.ClearButton.style(button: button)
-//        button.backgroundColor = .clear
-//        button.layer.borderWidth = 0.5
         return button
     }()
     
@@ -91,9 +57,6 @@ class AllCommentsTableViewCell: UITableViewCell {
         let lb = UILabel()
         lb.text = "-7"
         Stylesheet.Objects.Labels.LikesDislikes.style(label: lb)
-//        lb.backgroundColor = .gray
-//        lb.textAlignment = .center
-//        lb.backgroundColor = .white
         return lb
     }()
     
@@ -133,8 +96,6 @@ class AllCommentsTableViewCell: UITableViewCell {
             make.top.equalTo(usernameLabel.snp.bottom)
             make.leading.equalTo(usernameLabel.snp.leading)
             make.trailing.equalTo(usernameLabel.snp.trailing)
-
-//            make.bottom.equalTo(self.snp.bottom)
             make.bottom.greaterThanOrEqualTo(numberOfDislikesLabel.snp.bottom)
         }
         
@@ -164,15 +125,9 @@ class AllCommentsTableViewCell: UITableViewCell {
             make.trailing.equalTo(thumbsUpButton.snp.trailing)
             make.height.equalTo(thumbsUpButton.snp.height)
             
-            // comment out the next line to eliminate the spacing of buttons
             make.bottom.lessThanOrEqualTo(self.snp.bottom)
         }
-        
 
-        
-        
-        
-        
     }
 
 }

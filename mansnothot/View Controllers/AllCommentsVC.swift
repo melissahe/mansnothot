@@ -9,14 +9,6 @@
 import UIKit
 import SnapKit
 
-//Purpose: to see all the comments under a post
-
-//TODO: have AllCommentsView as the initial view
-    //should have "Add" right bar button item that lets you add comment - should segue to AddCommentVC??
-    //should set up data source variable
-    //should have a text field at the bottom of the view, on top of the tab, and when the textfield delegate didBeginEditing, it should segue to the AddCommentsVC or present the AddCommentView without a VC and animate the adding of the subview
-    //nice to have: swipe options - let you flag, share, and edit?
-
 class AllCommentsVC: UIViewController {
 
     var postTitle: String = ""
@@ -38,14 +30,6 @@ class AllCommentsVC: UIViewController {
         }
     }
     
-    public func setupVC(postID: String, postTitle: String) {
-        self.postID = postID
-        self.postTitle = postTitle
-        DatabaseService.manager.getAllComments(fromPostID: postID) { (comments) in
-            self.comments = comments
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(allCommentsView)
@@ -59,40 +43,62 @@ class AllCommentsVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        if let postID = postID {
+            DatabaseService.manager.getAllComments(fromPostID: postID) { (comments) in
+                self.comments = comments
+            }
+        }
         if comments.isEmpty {
             self.view.addSubview(emptyView)
-            if currentReachabilityStatus == .notReachable {
-                let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
-                self.present(noInternetAlert, animated: true, completion: nil)
-            }
+            checkInternet()
         } else {
             emptyView.removeFromSuperview()
         }
     }
 
-    private func ifNoInternetAlert() {
+    public func setupVC(postID: String, postTitle: String) {
+        self.postID = postID
+        self.postTitle = postTitle
+        getComments()
+    }
+    
+    public func getComments() {
+        if let postID = postID {
+            DatabaseService.manager.getAllComments(fromPostID: postID) { (comments) in
+                self.comments = comments
+            }
+        }
+    }
+    
+    private func checkInternet() {
         if currentReachabilityStatus == .notReachable {
             let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
             self.present(noInternetAlert, animated: true, completion: nil)
+            return
         }
     }
     
     private func setupViews() {
         //title
         navigationItem.title = postTitle
-        
+
         //left bar button
         let xBarItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(xButton))
         navigationItem.leftBarButtonItem = xBarItem
         xBarItem.style = .done
         
         //right bar button
-        let addCommentItem = UIBarButtonItem(image: UIImage(named: "addcomment"), style: .done, target: self, action: #selector(presentAddCommentVC))
-        navigationItem.rightBarButtonItem = addCommentItem
+        let addCommentItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addComment"), style: .done, target: self, action: #selector(presentAddCommentVC))
+        let refreshCommentItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshComments))
+        navigationItem.rightBarButtonItems = [addCommentItem, refreshCommentItem]
         
         //Disable TableViewCell from being highlighted
         allCommentsView.tableView.allowsSelection = false
+    }
+    
+    @objc private func refreshComments() {
+        checkInternet()
+        getComments()
     }
     
     @objc private func xButton() {
@@ -102,7 +108,7 @@ class AllCommentsVC: UIViewController {
     
     //func to present the AddCommentVC
     @objc func presentAddCommentVC() {
-        ifNoInternetAlert()
+        checkInternet()
         
         let addCommentVC = AddCommentVC()
         let addCommentVCInNav = UINavigationController(rootViewController: addCommentVC)
@@ -110,52 +116,56 @@ class AllCommentsVC: UIViewController {
         addCommentVCInNav.modalTransitionStyle = .coverVertical
         addCommentVCInNav.modalPresentationStyle = .fullScreen //.overCurrentContext if you want to keep the tabbar
         
-        addCommentVC.setupVC(postID: postID, postTitle: postTitle)
-        
-        present(addCommentVCInNav, animated: true, completion: nil)
+        if let postID = postID {
+            addCommentVC.setupVC(postID: postID, postTitle: postTitle)
+            present(addCommentVCInNav, animated: true, completion: nil)
+        } else {
+            checkInternet()
+        }
     }
     
 }
-extension AllCommentsVC: UITableViewDelegate {
-    
-}
-extension AllCommentsVC: UITableViewDataSource {
+
+extension AllCommentsVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return comments.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "AllCommentsCell", for: indexPath) as! AllCommentsTableViewCell
         let currentComment = comments[indexPath.row]
         
-        //This is to shape the cells in the Tableview
-        cell.layer.masksToBounds = true
-//        cell.layer.cornerRadius = 5
-        cell.layer.borderWidth = 1
-//        cell.layer.shadowOffset = CGSize(width: -1, height: 1)
-        cell.layer.borderColor = Stylesheet.Colors.LightGrey.cgColor
-        
         if let currentUser = AuthUserService.manager.getCurrentUser() {
             DatabaseService.manager.getUserProfile(withUID: currentUser.uid, completion: { (userProfile) in
-                cell.usernameLabel.text = userProfile.displayName
                 cell.commentTextView.text = currentComment.text
                 cell.numberOfLikesLabel.text = "+" + currentComment.numberOfLikes.description
                 cell.numberOfDislikesLabel.text = "-" + currentComment.numberOfDislikes.description
             })
+            
+            DatabaseService.manager.checkIfCommentLiked(byUserID: currentUser.uid, commentID: currentComment.commentID, completion: { (liked) in
+                let thumbsUp: UIImage = (liked) ? #imageLiteral(resourceName: "thumbsupgreen") : #imageLiteral(resourceName: "thumbsUp")
+                cell.thumbsUpButton.setImage(thumbsUp, for: .normal)
+            })
+            
+            DatabaseService.manager.checkIfCommentDisliked(byUserID: currentUser.uid, commentID: currentComment.commentID, completion: { (disliked) in
+                let thumbsDown: UIImage = (disliked) ? #imageLiteral(resourceName: "thumbsdownred") : #imageLiteral(resourceName: "thumbsDown")
+                cell.thumbsDownButton.setImage(thumbsDown, for: .normal)
+            })
+
+        }
+        
+        DatabaseService.manager.getUserProfile(withUID: currentComment.userID) { (userProfile) in
+            cell.usernameLabel.text = userProfile.displayName
         }
         
         cell.thumbsUpButton.addTarget(self, action: #selector(thumbsUpButtonTouched(_:)), for: .touchUpInside)
-        
         cell.thumbsDownButton.addTarget(self, action: #selector(thumbsDownButtonTouched(_:)), for: .touchUpInside)
-        
-//        cell.setNeedsLayout()
         
         return cell
     }
     
     @objc func thumbsUpButtonTouched(_ sender: UIButton) {
-        ifNoInternetAlert()
+        checkInternet()
         
         if let cell = sender.superview as? AllCommentsTableViewCell {
             print(cell.numberOfLikesLabel.text!)
@@ -169,21 +179,17 @@ extension AllCommentsVC: UITableViewDataSource {
             
             if let currentUser = AuthUserService.manager.getCurrentUser() {
                 DatabaseService.manager.delegate = self
-                DatabaseService.manager.likeComment(withCommentID: currentComment.commentID, likedByUserID: currentUser.uid)
+                DatabaseService.manager.likeComment(withCommentID: currentComment.commentID, likedByUserID: currentUser.uid, likeCompletion: {(likeCount) in
+                    cell.numberOfLikesLabel.text = "+" + likeCount.description
+                },dislikeCompletion: {(dislikeCount) in
+                    cell.numberOfDislikesLabel.text = "-" + dislikeCount.description
+                })
             }
-//            if let stringAsInt = Int(cell.numberOfLikesLabel.text!) {
-//                var newInt = stringAsInt
-//                newInt += 1
-//                cell.numberOfLikesLabel.text = "+"+String(newInt)
-//            } else {
-//                cell.numberOfLikesLabel.text = "0"
-//            }
-            
         }
     }
     
     @objc func thumbsDownButtonTouched(_ sender: UIButton) {
-        ifNoInternetAlert()
+        checkInternet()
         
         if let cell = sender.superview as? AllCommentsTableViewCell {
             print(cell.numberOfDislikesLabel.text!)
@@ -196,27 +202,24 @@ extension AllCommentsVC: UITableViewDataSource {
             
             if let currentUser = AuthUserService.manager.getCurrentUser() {
                DatabaseService.manager.delegate = self
-                DatabaseService.manager.dislikeComment(withCommentID: currentComment.userID, likedByUserID: currentUser.uid)
+                DatabaseService.manager.dislikeComment(withCommentID: currentComment.commentID, likedByUserID: currentUser.uid, likeCompletion: {(likeCount) in
+                    cell.numberOfLikesLabel.text = "+" + likeCount.description
+                }, dislikeCompletion: {(dislikeCount) in
+                    cell.numberOfDislikesLabel.text = "-" + dislikeCount.description
+                })
             }
-//            if let stringAsInt = Int(cell.numberOfDislikesLabel.text!) {
-//                var newInt = stringAsInt
-//                newInt -= 1
-//                cell.numberOfDislikesLabel.text = String(newInt)
-//            } else {
-//                cell.numberOfDislikesLabel.text = "0"
-//            }
         }
     }
-    
-    
 }
+
 extension AllCommentsVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         //Make AddCommentVC appear here when user clicks on the textfield
-        ifNoInternetAlert()
+        checkInternet()
         presentAddCommentVC()
     }
 }
+
 extension AllCommentsVC: DatabaseServiceDelegate {
     func didLikeComment(_ databaseService: DatabaseService) {
         print("like comment")

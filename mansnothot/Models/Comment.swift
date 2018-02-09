@@ -16,10 +16,6 @@ class Comment: NSObject {
     var numberOfDislikes: Int = 0
     var text: String
     var timestamp: Double = Date.timeIntervalSinceReferenceDate
-    //bonuses/nice to haves:
-    //    var likes: Int
-    //    var dislikes: Int
-    //    var flags: Int
     
     static func ==(lhs: Comment, rhs: Comment) -> Bool {
         return lhs.postID == rhs.postID && lhs.commentID == rhs.commentID && lhs.userID == rhs.userID

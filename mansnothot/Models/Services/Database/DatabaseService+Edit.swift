@@ -80,7 +80,7 @@ extension DatabaseService {
     
     /**
      */
-    public func flagUser(withUserID flaggedUserID: String, flaggedByUserID userID: String) {
+    public func flagUser(withUserID flaggedUserID: String, flaggedByUserID userID: String, flaggedCompletion: @escaping (Bool) -> Void) {
         let ref = usersRef.child(flaggedUserID)
         
         ref.runTransactionBlock({ (currentData) -> TransactionResult in
@@ -95,7 +95,10 @@ extension DatabaseService {
                     
                     //add flags
                     flags += 1
-                    self.delegate?.didFlagUser?(self)
+                    DispatchQueue.main.async {
+                        self.delegate?.didFlagUser?(self)
+                        flaggedCompletion(true)
+                    }
                 }
                 user["flaggedBy"] = flaggedByDict as Any
                 user["flags"] = flags as Any
@@ -115,7 +118,7 @@ extension DatabaseService {
     
     /**
      */
-    public func flagPost(withPostID flaggedPostID: String, flaggedByUserID userID: String) {
+    public func flagPost(withPostID flaggedPostID: String, flaggedByUserID userID: String, flaggedCompletion: @escaping (Bool) -> Void) {
         let ref = postsRef.child(flaggedPostID)
         
         ref.runTransactionBlock({ (currentData) -> TransactionResult in
@@ -129,7 +132,10 @@ extension DatabaseService {
                 } else { //user has not flagged before
                     flaggedByDict[userID] = true
                     flags += 1
-                    self.delegate?.didFlagPost?(self)
+                    DispatchQueue.main.async {
+                        self.delegate?.didFlagPost?(self)
+                        flaggedCompletion(true)
+                    }
                 }
                 
                 post["flaggedBy"] = flaggedByDict
@@ -148,7 +154,7 @@ extension DatabaseService {
     }
     
     //for likes, there should be separate functions!!
-    public func likePost(withPostID postID: String, likedByUserID userID: String) {
+    public func likePost(withPostID postID: String, likedByUserID userID: String, likeCompletion: @escaping (Int) -> Void, dislikeCompletion: @escaping (Int) -> Void) {
         let ref = postsRef.child(postID)
         
         ref.runTransactionBlock({ (currentData) -> TransactionResult in
@@ -163,7 +169,10 @@ extension DatabaseService {
                     //remove like
                     likes -= 1
                     likesDict.removeValue(forKey: userID)
-                    self.delegate?.didUndoLikePost?(self)
+                    DispatchQueue.main.async {
+                        self.delegate?.didUndoLikePost?(self)
+                        likeCompletion(likes)
+                    }
                 } else { //if user has not liked yet
                     //add like
                     likes += 1
@@ -172,9 +181,15 @@ extension DatabaseService {
                     if let _ = dislikesDict[userID] {
                         dislikes -= 1
                         dislikesDict.removeValue(forKey: userID)
-                        self.delegate?.didUndoDislikePost?(self)
+                        DispatchQueue.main.async {
+                            self.delegate?.didUndoDislikePost?(self)
+                            dislikeCompletion(dislikes)
+                        }
                     }
-                    self.delegate?.didLikePost?(self)
+                    DispatchQueue.main.async {
+                        self.delegate?.didLikePost?(self)
+                        likeCompletion(likes)
+                    }
                 }
                 post["likedBy"] = likesDict
                 post["numberOfLikes"] = likes
@@ -192,7 +207,7 @@ extension DatabaseService {
         })
     }
     
-    public func dislikePost(withPostID postID: String, likedByUserID userID: String) {
+    public func dislikePost(withPostID postID: String, likedByUserID userID: String, likeCompletion: @escaping (Int) -> Void, dislikeCompletion: @escaping (Int) -> Void) {
         let ref = postsRef.child(postID)
         
         ref.runTransactionBlock({ (currentData) -> TransactionResult in
@@ -207,7 +222,10 @@ extension DatabaseService {
                     //remove like
                     dislikes -= 1
                     dislikesDict.removeValue(forKey: userID)
-                    self.delegate?.didUndoDislikePost?(self)
+                    DispatchQueue.main.async {
+                        self.delegate?.didUndoDislikePost?(self)
+                        dislikeCompletion(dislikes)
+                    }
                 } else { //if user has not liked yet
                     //add like
                     dislikes += 1
@@ -216,10 +234,15 @@ extension DatabaseService {
                     if let _ = likesDict[userID] {
                         likes -= 1
                         likesDict.removeValue(forKey: userID)
-                        self.delegate?.didUndoLikePost?(self)
+                        DispatchQueue.main.async {
+                            self.delegate?.didUndoLikePost?(self)
+                            likeCompletion(likes)
+                        }
                     }
-                    
-                    self.delegate?.didDislikePost?(self)
+                    DispatchQueue.main.async {
+                        self.delegate?.didDislikePost?(self)
+                        dislikeCompletion(dislikes)
+                    }
                 }
                 post["likedBy"] = likesDict
                 post["numberOfLikes"] = likes
@@ -237,7 +260,7 @@ extension DatabaseService {
         })
     }
     
-    public func likeComment(withCommentID commentID: String, likedByUserID userID: String) {
+    public func likeComment(withCommentID commentID: String, likedByUserID userID: String, likeCompletion: @escaping (Int) -> Void, dislikeCompletion: @escaping (Int) -> Void) {
         let ref = commentsRef.child(commentID)
         
         ref.runTransactionBlock({ (currentData) -> TransactionResult in
@@ -252,7 +275,10 @@ extension DatabaseService {
                     //remove like
                     likes -= 1
                     likesDict.removeValue(forKey: userID)
-                    self.delegate?.didUndoLikeComment?(self)
+                    DispatchQueue.main.async {
+                        self.delegate?.didUndoLikeComment?(self)
+                        likeCompletion(likes)
+                    }
                 } else { //if user has not liked yet
                     //add like
                     likes += 1
@@ -261,9 +287,15 @@ extension DatabaseService {
                     if let _ = dislikesDict[userID] {
                         dislikes -= 1
                         dislikesDict.removeValue(forKey: userID)
-                        self.delegate?.didUndoDislikeComment?(self)
+                        DispatchQueue.main.async {
+                            self.delegate?.didUndoDislikeComment?(self)
+                            dislikeCompletion(dislikes)
+                        }
                     }
-                    self.delegate?.didLikeComment?(self)
+                    DispatchQueue.main.async {
+                        self.delegate?.didLikeComment?(self)
+                        likeCompletion(likes)
+                    }
                 }
                 comment["likedBy"] = likesDict
                 comment["numberOfLikes"] = likes
@@ -281,7 +313,7 @@ extension DatabaseService {
         })
     }
     
-    public func dislikeComment(withCommentID commentID: String, likedByUserID userID: String) {
+    public func dislikeComment(withCommentID commentID: String, likedByUserID userID: String, likeCompletion: @escaping (Int) -> Void, dislikeCompletion: @escaping (Int) -> Void) {
         let ref = commentsRef.child(commentID)
         
         ref.runTransactionBlock({ (currentData) -> TransactionResult in
@@ -296,7 +328,10 @@ extension DatabaseService {
                     //remove like
                     dislikes -= 1
                     dislikesDict.removeValue(forKey: userID)
-                    self.delegate?.didUndoDislikeComment?(self)
+                    DispatchQueue.main.async {
+                        self.delegate?.didUndoDislikeComment?(self)
+                        dislikeCompletion(dislikes)
+                    }
                 } else { //if user has not liked yet
                     //add like
                     dislikes += 1
@@ -305,10 +340,15 @@ extension DatabaseService {
                     if let _ = likesDict[userID] {
                         likes -= 1
                         likesDict.removeValue(forKey: userID)
-                        self.delegate?.didUndoDislikeComment?(self)
+                        DispatchQueue.main.async {
+                            self.delegate?.didUndoLikeComment?(self)
+                            likeCompletion(likes)
+                        }
                     }
-                    
-                    self.delegate?.didDislikeComment?(self)
+                    DispatchQueue.main.async {
+                        self.delegate?.didDislikeComment?(self)
+                        dislikeCompletion(dislikes)
+                    }
                 }
                 comment["likedBy"] = likesDict
                 comment["numberOfLikes"] = likes
