@@ -88,7 +88,7 @@ class AllCommentsVC: UIViewController {
         xBarItem.style = .done
         
         //right bar button
-        let addCommentItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addcomment"), style: .done, target: self, action: #selector(presentAddCommentVC))
+        let addCommentItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addComment"), style: .done, target: self, action: #selector(presentAddCommentVC))
         let refreshCommentItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshComments))
         navigationItem.rightBarButtonItems = [addCommentItem, refreshCommentItem]
         
