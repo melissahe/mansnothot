@@ -47,7 +47,7 @@ class ProfileVC: UIViewController {
         if let currentUser = AuthUserService.manager.getCurrentUser() {
             DatabaseService.manager.getUserProfile(withUID: currentUser.uid, completion: { (userProfile) in
                 self.userProfile = userProfile
-                //should be saved in core data
+                //should be saved in core data?? maybe in login too??
             })
         }
         self.navigationItem.rightBarButtonItem = logoutButton
