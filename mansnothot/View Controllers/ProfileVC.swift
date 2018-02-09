@@ -183,6 +183,7 @@ class ProfileVC: UIViewController {
     @objc private func logoutButtonTapped() {
         AuthUserService.manager.delegate = self
         AuthUserService.manager.signOut()
+//        self.tabBarController?.dismiss(animated: true, completion: nil)
     }
     
     @objc private func seePostsButtonTapped() {
@@ -218,7 +219,6 @@ extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDele
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
 }
 
 extension ProfileVC: DatabaseServiceDelegate {
@@ -252,6 +252,7 @@ extension ProfileVC: AuthUserServiceDelegate {
     func didSignOut(_ authUserService: AuthUserService) {
         print("signed out")
         self.tabBarController?.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     func didFailSignOut(_ authUserService: AuthUserService, error: String) {
         presentErrorAlert(errorMessage: "Could not sign out.\n\(error)")

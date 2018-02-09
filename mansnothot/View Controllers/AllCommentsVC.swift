@@ -30,14 +30,6 @@ class AllCommentsVC: UIViewController {
         }
     }
     
-    public func setupVC(postID: String, postTitle: String) {
-        self.postID = postID
-        self.postTitle = postTitle
-        DatabaseService.manager.getAllComments(fromPostID: postID) { (comments) in
-            self.comments = comments
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(allCommentsView)
@@ -50,6 +42,11 @@ class AllCommentsVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if let postID = postID {
+            DatabaseService.manager.getAllComments(fromPostID: postID) { (comments) in
+                self.comments = comments
+            }
+        }
         if comments.isEmpty {
             self.view.addSubview(emptyView)
             checkInternet()
@@ -58,6 +55,20 @@ class AllCommentsVC: UIViewController {
         }
     }
 
+    public func setupVC(postID: String, postTitle: String) {
+        self.postID = postID
+        self.postTitle = postTitle
+        getComments()
+    }
+    
+    public func getComments() {
+        if let postID = postID {
+            DatabaseService.manager.getAllComments(fromPostID: postID) { (comments) in
+                self.comments = comments
+            }
+        }
+    }
+    
     private func checkInternet() {
         if currentReachabilityStatus == .notReachable {
             let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
@@ -77,10 +88,16 @@ class AllCommentsVC: UIViewController {
         
         //right bar button
         let addCommentItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addComment"), style: .done, target: self, action: #selector(presentAddCommentVC))
-        navigationItem.rightBarButtonItem = addCommentItem
+        let refreshCommentItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshComments))
+        navigationItem.rightBarButtonItems = [refreshCommentItem, addCommentItem]
         
         //Disable TableViewCell from being highlighted
         allCommentsView.tableView.allowsSelection = false
+    }
+    
+    @objc private func refreshComments() {
+        checkInternet()
+        getComments()
     }
     
     @objc private func xButton() {
@@ -123,6 +140,17 @@ extension AllCommentsVC: UITableViewDataSource {
                 cell.numberOfLikesLabel.text = "+" + currentComment.numberOfLikes.description
                 cell.numberOfDislikesLabel.text = "-" + currentComment.numberOfDislikes.description
             })
+            
+            DatabaseService.manager.checkIfCommentLiked(byUserID: currentUser.uid, commentID: currentComment.commentID, completion: { (liked) in
+                let thumbsUp: UIImage = (liked) ? #imageLiteral(resourceName: "thumbsupgreen") : #imageLiteral(resourceName: "thumbsUp")
+                cell.thumbsUpButton.setImage(thumbsUp, for: .normal)
+            })
+            
+            DatabaseService.manager.checkIfCommentDisliked(byUserID: currentUser.uid, commentID: currentComment.commentID, completion: { (disliked) in
+                let thumbsDown: UIImage = (disliked) ? #imageLiteral(resourceName: "thumbsdownred") : #imageLiteral(resourceName: "thumbsDown")
+                cell.thumbsDownButton.setImage(thumbsDown, for: .normal)
+            })
+
         }
         
         DatabaseService.manager.getUserProfile(withUID: currentComment.userID) { (userProfile) in

@@ -185,6 +185,52 @@ extension DatabaseService {
         }
     }
     
+    public func checkIfCommentLiked(byUserID userID: String, commentID: String, completion: @escaping (Bool) -> Void) {
+        let ref = commentsRef.child(commentID).child("likedBy")
+        
+        ref.observe(.value) { (dataSnapshot) in
+            guard let childrenSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+                print("couldn't check if post was liked")
+                return
+            }
+            
+            for child in childrenSnapshot {
+                if child.key == userID {
+                    DispatchQueue.main.async {
+                        completion(true)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async {
+                completion(false)
+            }
+        }
+    }
+    
+    public func checkIfCommentDisliked(byUserID userID: String, commentID: String, completion: @escaping (Bool) -> Void) {
+        let ref = commentsRef.child(commentID).child("dislikedBy")
+        
+        ref.observe(.value) { (dataSnapshot) in
+            guard let childrenSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+                print("couldn't check if post was disliked")
+                return
+            }
+            
+            for child in childrenSnapshot {
+                if child.key == userID {
+                    DispatchQueue.main.async {
+                        completion(true)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async {
+                completion(false)
+            }
+        }
+    }
+    
     public func checkIfPostFlagged(byUserID userID: String, postID: String, completion: @escaping (Bool) -> Void) {
         let ref = postsRef.child(postID).child("flaggedBy")
         
