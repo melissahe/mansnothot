@@ -150,16 +150,12 @@ extension AllCommentsVC: UITableViewDataSource {
             
             if let currentUser = AuthUserService.manager.getCurrentUser() {
                 DatabaseService.manager.delegate = self
-                DatabaseService.manager.likeComment(withCommentID: currentComment.commentID, likedByUserID: currentUser.uid)
+                DatabaseService.manager.likeComment(withCommentID: currentComment.commentID, likedByUserID: currentUser.uid, likeCompletion: {(likeCount) in
+                    cell.numberOfLikesLabel.text = "+" + likeCount.description
+                },dislikeCompletion: {(dislikeCount) in
+                    cell.numberOfDislikesLabel.text = "-" + dislikeCount.description
+                })
             }
-//            if let stringAsInt = Int(cell.numberOfLikesLabel.text!) {
-//                var newInt = stringAsInt
-//                newInt += 1
-//                cell.numberOfLikesLabel.text = "+"+String(newInt)
-//            } else {
-//                cell.numberOfLikesLabel.text = "0"
-//            }
-            
         }
     }
     
@@ -177,18 +173,16 @@ extension AllCommentsVC: UITableViewDataSource {
             
             if let currentUser = AuthUserService.manager.getCurrentUser() {
                DatabaseService.manager.delegate = self
-                DatabaseService.manager.dislikeComment(withCommentID: currentComment.commentID, likedByUserID: currentUser.uid)
+                DatabaseService.manager.dislikeComment(withCommentID: currentComment.commentID, likedByUserID: currentUser.uid, likeCompletion: {(likeCount) in
+                    cell.numberOfLikesLabel.text = "+" + likeCount.description
+                }, dislikeCompletion: {(dislikeCount) in
+                    cell.numberOfDislikesLabel.text = "-" + dislikeCount.description
+                })
             }
-//            if let stringAsInt = Int(cell.numberOfDislikesLabel.text!) {
-//                var newInt = stringAsInt
-//                newInt -= 1
-//                cell.numberOfDislikesLabel.text = String(newInt)
-//            } else {
-//                cell.numberOfDislikesLabel.text = "0"
-//            }
         }
     }
 }
+
 extension AllCommentsVC: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         //Make AddCommentVC appear here when user clicks on the textfield
@@ -196,6 +190,7 @@ extension AllCommentsVC: UITextFieldDelegate {
         presentAddCommentVC()
     }
 }
+
 extension AllCommentsVC: DatabaseServiceDelegate {
     func didLikeComment(_ databaseService: DatabaseService) {
         print("like comment")

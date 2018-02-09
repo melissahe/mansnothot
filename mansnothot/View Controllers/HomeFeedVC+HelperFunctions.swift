@@ -8,8 +8,7 @@
 
 import UIKit
 
-extension HomeFeedVC {
-    //This is a func to test the segmentedbar only
+extension HomeFeedVC {    
     @objc public func changeColor(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0: //Recent
@@ -48,7 +47,11 @@ extension HomeFeedVC {
             Alert.addAction(withTitle: "Report User", style: .destructive, andHandler: { (_) in
                 self.checkInternet()
                 DatabaseService.manager.delegate = self
-                DatabaseService.manager.flagUser(withUserID: currentPost.userID, flaggedByUserID: userID)
+                DatabaseService.manager.flagUser(withUserID: currentPost.userID, flaggedByUserID: userID, flaggedCompletion: {(flagged) in
+                    if flagged {
+                        cell.flagButton.setImage(#imageLiteral(resourceName: "flag"), for: .normal)
+                    }
+                })
                 
                 //report user function here
             }, to: reportAlert)
@@ -56,7 +59,11 @@ extension HomeFeedVC {
             Alert.addAction(withTitle: "Report Post", style: .destructive, andHandler: { (_) in
                 self.checkInternet()
                 DatabaseService.manager.delegate = self
-                DatabaseService.manager.flagPost(withPostID: currentPost.postID, flaggedByUserID: userID)
+                DatabaseService.manager.flagPost(withPostID: currentPost.postID, flaggedByUserID: userID, flaggedCompletion: {(flagged) in
+                    if flagged {
+                        cell.flagButton.setImage(#imageLiteral(resourceName: "flag"), for: .normal)
+                    }
+                })
                 
             }, to: reportAlert)
             Alert.addAction(withTitle: "Cancel", style: .default, andHandler: nil, to: reportAlert)
@@ -78,8 +85,11 @@ extension HomeFeedVC {
             let currentPost = posts[indexPath.row]
             
             if let currentUser = AuthUserService.manager.getCurrentUser() {
-                
-                DatabaseService.manager.likePost(withPostID: currentPost.postID, likedByUserID: currentUser.uid)
+                DatabaseService.manager.likePost(withPostID: currentPost.postID, likedByUserID: currentUser.uid, likeCompletion: { (likeCount) in
+                    cell.numberOfLikesLabel.text = "+" + likeCount.description
+                }, dislikeCompletion: { (dislikeCount) in
+                    cell.numberOfDislikesLabel.text = "-" + dislikeCount.description
+                })
             }
         }
     }
@@ -98,7 +108,11 @@ extension HomeFeedVC {
             
             //use core data
             if let currentUser = AuthUserService.manager.getCurrentUser() {
-                DatabaseService.manager.dislikePost(withPostID: currentPost.postID, likedByUserID: currentUser.uid)
+                DatabaseService.manager.dislikePost(withPostID: currentPost.postID, likedByUserID: currentUser.uid, likeCompletion: {(likeCount) in
+                    cell.numberOfLikesLabel.text = "+" + likeCount.description
+                }, dislikeCompletion: {(dislikeCount) in
+                    cell.numberOfDislikesLabel.text = "-" + dislikeCount.description
+                })
             }
         }
     }
@@ -109,25 +123,18 @@ extension HomeFeedVC {
         let allCommentsVCInNav = UINavigationController(rootViewController: allCommentsVC)
         
         if let cell = sender.superview as? FeedTableViewCell {
-            //This gets you the label of the cell where the button was clicked
             print(cell.usernameLabel.text!)
-            //This gets you the indexpath of the button pressed
             guard let indexPath = homeFeedView.tableView.indexPath(for: cell) else {
                 print("couldn't get indexpath")
                 return
             }
             
             let currentPost = posts[indexPath.row]
-            
-            //Using this info, we can dependency inject a VC
             allCommentsVC.setupVC(postID: currentPost.postID, postTitle: currentPost.title)
-            
-            //Then we can present the VC
             allCommentsVCInNav.modalTransitionStyle = .coverVertical
             allCommentsVCInNav.modalPresentationStyle = .overCurrentContext
             
             navigationController?.pushViewController(allCommentsVC, animated: true)
-            //present(allCommentsVC, animated: true, completion: nil)
         }
     }
 }

@@ -12,7 +12,6 @@ import Social
 import MessageUI
 
 class HomeFeedVC: UIViewController {
-    
     var homeFeedView = HomeFeedView()
     let emptyView = EmptyStateView(emptyText: "No posts.\nAdd a new post, or check your internet and restart the app.")
     
@@ -22,17 +21,7 @@ class HomeFeedVC: UIViewController {
             if homeFeedView.segmentedBar.selectedSegmentIndex == 1 {
                 posts = posts.sortedByLikes()
             }
-            //need to fix this later!!
-            //should get rid of the observe
-            homeFeedView.tableView.reloadData() //without this, deleting crashing the whole thing, probably because of the observe
-            //            UIView.animate(withDuration: 0.5) {
-            //                if self.shouldUpdateCell {
-            //                    self.homeFeedView.tableView.reloadRows(at: [IndexPath(row: self.selectedRowIndex, section: 0)], with: .fade)
-            //                } else {
-            //                    self.homeFeedView.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
-            //                    self.shouldUpdateCell = true
-            //                }
-            //            }
+            homeFeedView.tableView.reloadData()
             if posts.isEmpty {
                 self.view.addSubview(emptyView)
             } else {
@@ -52,6 +41,8 @@ class HomeFeedVC: UIViewController {
         homeFeedView.tableView.dataSource = self
         homeFeedView.tableView.rowHeight = UITableViewAutomaticDimension
         homeFeedView.tableView.estimatedRowHeight = 120
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshFeed))
         
         setupViews()
     }
@@ -92,6 +83,12 @@ class HomeFeedVC: UIViewController {
         navigationItem.title = "Professional Thoughts"
         homeFeedView.segmentedBar.addTarget(self, action: #selector(changeColor(sender:)), for: .valueChanged)
         homeFeedView.tableView.allowsSelection = false
+    }
+    
+    @objc private func refreshFeed() {
+        DatabaseService.manager.getAllPosts { (onlinePosts) in
+            self.posts = onlinePosts
+        }
     }
 }
 

@@ -10,7 +10,7 @@ import UIKit
 
 extension MyPostsVC {
     @objc func editPost(_ sender: UIButton) {
-        ifNoInternet()
+        checkInternet()
         
         if let cell = sender.superview as? MyPostsTableViewCell {
             guard let indexPath = myPostView.tableView.indexPath(for: cell) else {
@@ -25,7 +25,7 @@ extension MyPostsVC {
         }
     }
     @objc func trashThatPost(_ sender: UIButton) {
-        ifNoInternet()
+        checkInternet()
         
         if let cell = sender.superview as? MyPostsTableViewCell {
             let deleteAlert = Alert.create(withTitle: "Are you sure you want to delete your Masterpiece?", andMessage: nil, withPreferredStyle: .alert)
@@ -47,7 +47,7 @@ extension MyPostsVC {
     }
     
     @objc func thumbsUpButtonTouched(_ sender: UIButton) {
-        ifNoInternet()
+        checkInternet()
         
         if let cell = sender.superview as? MyPostsTableViewCell {
             print(cell.numberOfLikesLabel.text!)
@@ -61,25 +61,20 @@ extension MyPostsVC {
             
             if let userProfile = userProfile {
                 DatabaseService.manager.delegate = self
-                DatabaseService.manager.likePost(withPostID: currentPost.postID, likedByUserID: userProfile.userID)
+                DatabaseService.manager.likePost(withPostID: currentPost.postID, likedByUserID: userProfile.userID, likeCompletion: {(likeCount) in
+                        cell.numberOfLikesLabel.text = "+" + likeCount.description
+                }, dislikeCompletion: {(dislikeCount) in
+                        cell.numberOfDislikesLabel.text = "-" + dislikeCount.description
+                })
             } else {
                 let errorAlert = Alert.createErrorAlert(withMessage: "Please check network connectivity, and then close and restart the app.")
                 self.present(errorAlert, animated: true, completion: nil)
             }
-            
-            //might reuse this later!
-            //            if let stringAsInt = Int(cell.numberOfLikesLabel.text!) {
-            //                var newInt = stringAsInt
-            //                newInt += 1
-            //                cell.numberOfLikesLabel.text = "+"+String(newInt)
-            //            } else {
-            //                cell.numberOfLikesLabel.text = "0"
-            //            }
         }
     }
     
     @objc func thumbsDownButtonTouched(_ sender: UIButton) {
-        ifNoInternet()
+        checkInternet()
         
         if let cell = sender.superview as? MyPostsTableViewCell {
             guard let indexPath = myPostView.tableView.indexPath(for: cell) else {
@@ -89,18 +84,15 @@ extension MyPostsVC {
             let currentPost = posts[indexPath.row]
             if let userProfile = userProfile {
                 DatabaseService.manager.delegate = self
-                DatabaseService.manager.dislikePost(withPostID: currentPost.postID, likedByUserID: userProfile.userID)
+                DatabaseService.manager.dislikePost(withPostID: currentPost.postID, likedByUserID: userProfile.userID, likeCompletion: {(likeCount) in
+                    cell.numberOfLikesLabel.text = "+" + likeCount.description
+                }, dislikeCompletion: {(dislikeCount) in
+                    cell.numberOfDislikesLabel.text = "-" + dislikeCount.description
+                })
             } else {
                 let errorAlert = Alert.createErrorAlert(withMessage: "Please check network connectivity, and then close and restart the app.")
                 self.present(errorAlert, animated: true, completion: nil)
             }
-            //            if let stringAsInt = Int(cell.numberOfDislikesLabel.text!) {
-            //                var newInt = stringAsInt
-            //                newInt -= 1
-            //                cell.numberOfDislikesLabel.text = String(newInt)
-            //            } else {
-            //                cell.numberOfDislikesLabel.text = "0"
-            //            }
         }
     }
     
@@ -120,7 +112,6 @@ extension MyPostsVC {
             allCommentsVCInNav.modalPresentationStyle = .overCurrentContext
             
             navigationController?.pushViewController(allCommentsVC, animated: true)
-            //present(allCommentsVC, animated: true, completion: nil)
         }
     }
 }

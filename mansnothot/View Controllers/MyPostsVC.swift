@@ -40,6 +40,7 @@ class MyPostsVC: UIViewController, MFMailComposeViewControllerDelegate {
         myPostView.tableView.dataSource = self
         myPostView.tableView.rowHeight = UITableViewAutomaticDimension
         myPostView.tableView.estimatedRowHeight = 120
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshFeed))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,7 +51,7 @@ class MyPostsVC: UIViewController, MFMailComposeViewControllerDelegate {
         
         if posts.isEmpty {
             self.view.addSubview(emptyView)
-            ifNoInternet()
+            checkInternet()
         } else {
             emptyView.removeFromSuperview()
         }
@@ -62,7 +63,7 @@ class MyPostsVC: UIViewController, MFMailComposeViewControllerDelegate {
         getPosts(fromUID: userProfile.userID)
     }
     
-    public func ifNoInternet() {
+    public func checkInternet() {
         if currentReachabilityStatus == .notReachable {
             let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
             self.present(noInternetAlert, animated: true, completion: nil)
@@ -80,6 +81,12 @@ class MyPostsVC: UIViewController, MFMailComposeViewControllerDelegate {
         DatabaseService.manager.getPosts(fromUID: uid, completion: { (myPosts) in
             self.posts = myPosts
         })
+    }
+    
+    @objc private func refreshFeed() {
+        checkInternet()
+        
+        getPosts(fromUID: userProfile.userID)
     }
 }
 

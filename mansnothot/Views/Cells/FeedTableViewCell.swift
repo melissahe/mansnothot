@@ -54,6 +54,11 @@ class FeedTableViewCell: UITableViewCell {
         return imageView
     }()
     
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        return activityIndicator
+    }()
+    
     //textView - for post
     lazy var postTextView: UITextView = {
         let tv = UITextView()
@@ -165,6 +170,33 @@ class FeedTableViewCell: UITableViewCell {
             self.postTextView.text = nil
         }
         
+        if let currentUserID = AuthUserService.manager.getCurrentUser()?.uid {
+            DatabaseService.manager.checkIfPostLiked(byUserID: currentUserID, postID: post.postID, completion: { (liked) in
+                let thumbsUp: UIImage = (liked) ? #imageLiteral(resourceName: "thumbsupgreen") : #imageLiteral(resourceName: "thumbsUp")
+                self.thumbsUpButton.setImage(thumbsUp, for: .normal)
+            })
+            
+            DatabaseService.manager.checkIfPostDisliked(byUserID: currentUserID, postID: post.postID, completion: { (disliked) in
+                let thumbsDown: UIImage = (disliked) ? #imageLiteral(resourceName: "thumbsdownred") : #imageLiteral(resourceName: "thumbsDown")
+                self.thumbsDownButton.setImage(thumbsDown, for: .normal)
+            })
+            
+            DatabaseService.manager.checkIfUserFlagged(byUserID: currentUserID, flaggedUserID: post.userID, completion: { (userFlagged) in
+                if userFlagged {
+                    self.flagButton.setImage(#imageLiteral(resourceName: "flag"), for: .normal)
+                } else {
+                    DatabaseService.manager.checkIfPostFlagged(byUserID: currentUserID, postID: post.postID, completion: { (postFlagged) in
+                        let flag: UIImage = (postFlagged) ? #imageLiteral(resourceName: "flag") : #imageLiteral(resourceName: "flagclear")
+                        self.flagButton.setImage(flag, for: .normal)
+                    })
+                }
+            })
+        }
+        
+        getImages(withPost: post)
+    }
+    
+    private func getImages(withPost post: Post) {
         self.userImageView.image = nil
         DatabaseService.manager.getUserProfile(withUID: post.userID) { (userProfile) in
             self.usernameLabel.text = userProfile.displayName
@@ -193,16 +225,18 @@ class FeedTableViewCell: UITableViewCell {
         }
         
         self.postImageView.image = nil
-
+        self.activityIndicator.startAnimating()
         if let postURLString = post.imageURL, let imageURL = URL(string: postURLString) {
             ImageCache(name: post.postID).retrieveImage(forKey: post.postID, options: nil, completionHandler: { (image, _) in
                 if let image = image {
                     self.postImageView.image = image
+                    self.activityIndicator.stopAnimating()
                     self.layoutIfNeeded()
                 } else {
                     self.postImageView.kf.setImage(with: imageURL, placeholder: #imageLiteral(resourceName: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (image, error, _, _) in
                         if let image = image {
                             ImageCache(name: post.postID).store(image, forKey: post.postID)
+                            self.activityIndicator.stopAnimating()
                             self.layoutIfNeeded()
                         }
                     })
@@ -210,6 +244,7 @@ class FeedTableViewCell: UITableViewCell {
             })
         } else {
             self.postImageView.image = #imageLiteral(resourceName: "placeholder-image")
+            self.activityIndicator.stopAnimating()
             self.layoutIfNeeded()
         }
     }
@@ -230,6 +265,8 @@ class FeedTableViewCell: UITableViewCell {
         self.addSubview(commentButton)
         self.addSubview(shareButton)
         self.addSubview(showArrowButton)
+        
+        postImageView.addSubview(activityIndicator)
         
         userImageView.snp.makeConstraints { (make) -> Void in
             make.height.width.equalTo(self.snp.width).multipliedBy(0.09).priority(999)
@@ -263,6 +300,9 @@ class FeedTableViewCell: UITableViewCell {
                         make.height.equalTo(self.snp.width)
             make.leading.equalTo(self.snp.leading)
             make.trailing.equalTo(self.snp.trailing)
+        }
+        activityIndicator.snp.makeConstraints { (make) in
+            make.edges.equalTo(postImageView)
         }
         showThreadButton.snp.makeConstraints { (make) -> Void in
             make.centerY.equalTo(commentButton.snp.centerY)
