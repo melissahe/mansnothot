@@ -23,33 +23,14 @@ enum Stylesheet {
     
     
     enum Fonts {
-        static let AppName = UIFont(name: "HelveticaNeue-CondensedBold", size: 50.0)
-        static let PostTitle = UIFont(name: "HelveticaNeue-CondensedBold", size: 25.0)
+        static let AppName = UIFont(name: "HelveticaNeue-CondensedBold", size: 45.0)
+        static let PostTitle = UIFont(name: "HelveticaNeue-CondensedBold", size: 30.0)
         static let Regular = UIFont(name: "HelveticaNeue-Light", size: 15.0)
         static let TextfieldFont = UIFont(name: "HelveticaNeue-Light", size: 15.0)
         static let Link = UIFont(name: "HelveticaNeue", size: 15.0)
         static let Bold = UIFont(name: "HelveticaNeue-Medium", size: 15.0)
     }
     
-    
-//    // Avenir
-//    enum Fonts {
-//        static let AppName = UIFont(name: "HelveticaNeue-CondensedBold", size: 50.0)
-//        static let PostTitle = UIFont(name: "AmericanTypewriter", size: 20.0)
-//        static let Regular = UIFont(name: "Avenir-Book", size: 15.0)
-//        static let TextfieldFont = UIFont(name: "Avenir-Book", size: 15.0)
-//        static let Link = UIFont(name: "Avenir-Light", size: 15.0)
-//        static let Bold = UIFont(name: "Avenir-Black", size: 15.0)
-//    }
-    
-//    enum Fonts {
-//        static let AppName = UIFont(name: "Helvetica Neue", size: 50.0)
-//        static let PostTitle = UIFont(name: "Helvetica Bold", size: 20.0)
-//        static let Regular = UIFont(name: "Helvetica Neue", size: 15.0)
-//        static let Login = UIFont(name: "Helvetica Neue", size: 15.0)
-//        static let Link = UIFont(name: "Helvetica Bold", size: 15.0)
-//        static let Bold = UIFont(name: "Helvetica Bold", size: 15.0)
-//    }
     
     enum BorderWidths {
         static let Textviews = 0.5
@@ -87,8 +68,8 @@ extension Stylesheet {
                 case .Opaque:
                     imageView.backgroundColor = .white
                     imageView.contentMode = .scaleAspectFill
-                    imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
-                    imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
+//                    imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
+//                    imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                 }
             }
         }
@@ -135,6 +116,7 @@ extension Stylesheet {
             case PostTitle
             case PostUsername
             case LikesDislikes
+            case SelectCategory
             
             func style(label: UILabel) {
                 switch self {
@@ -149,8 +131,9 @@ extension Stylesheet {
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
                     label.textAlignment = .center
+                    label.numberOfLines = 0
                 case .PostCategory:
-                    label.font = Stylesheet.Fonts.Regular
+                    label.font = Stylesheet.Fonts.Bold
                     label.textColor = Stylesheet.Colors.Red
                     label.backgroundColor = .clear
                     label.textAlignment = .left
@@ -159,12 +142,14 @@ extension Stylesheet {
                     label.font = Stylesheet.Fonts.PostTitle
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
+//                    label.backgroundColor = .green
                     label.textAlignment = .left
                     label.numberOfLines = 0
                 case .PostUsername:
                     label.font = Stylesheet.Fonts.Bold
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
+//                    label.backgroundColor = .red
                     label.textAlignment = .left
                     label.numberOfLines = 1
                 case .LikesDislikes:
@@ -172,6 +157,12 @@ extension Stylesheet {
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
                     label.textAlignment = .center
+                case .SelectCategory:
+                    label.font = Stylesheet.Fonts.Bold
+                    label.textColor = Stylesheet.Colors.Red
+                    label.backgroundColor = .clear
+                    label.textAlignment = .center
+                    label.numberOfLines = 1
                 }
             }
         }
@@ -281,7 +272,7 @@ extension Stylesheet {
                     textfield.autocorrectionType = .yes
                     textfield.keyboardType = .asciiCapable
                     textfield.returnKeyType = .next
-                    textfield.placeholder = "Post Title"
+                    textfield.placeholder = "Enter Post Title"
                 }
             }
         }

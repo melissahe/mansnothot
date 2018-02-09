@@ -75,7 +75,7 @@ class ProfileView: UIView {
     // bioTextView
     lazy var bioTextView: UITextView = {
         let btv = UITextView()
-        btv.text = "Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang Gucci Gang"
+        btv.text = "Enter a bio"
         Stylesheet.Objects.Textviews.Editable.style(textview: btv)
 //        btv.layer.borderWidth = 0.5
 //        btv.backgroundColor = .yellow
