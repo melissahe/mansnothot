@@ -67,8 +67,8 @@ class EditMyPostView: UIView {
     //textView - for post
     lazy var editPostTextView: UITextView = {
         let tv = UITextView()
-        Stylesheet.Objects.Textviews.Editable.style(textview: tv)
         tv.text = "Sample Post Text Here"
+        Stylesheet.Objects.Textviews.Editable.style(textview: tv)
 //        tv.layer.borderWidth = 0.5
 //        tv.backgroundColor = .yellow
 //        tv.textAlignment = .justified

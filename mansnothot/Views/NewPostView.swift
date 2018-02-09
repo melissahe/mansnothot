@@ -18,9 +18,25 @@ class NewPostView: UIView {
         let imageView = UIImageView()
         imageView.image = nil
         Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
+        imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
+        imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
         return imageView
     }()
     
+    //Label for Adding an Image
+    lazy var addAnImageLabel: UILabel = {
+        let lb = UILabel()
+        lb.text = "Add An Image:"
+        Stylesheet.Objects.Labels.PostUsername.style(label: lb)
+//        lb.textColor = .black
+//        lb.backgroundColor = .white
+//        lb.textAlignment = .center
+//        lb.alpha = 0.50
+//        lb.numberOfLines = 0
+        lb.isHidden = false // using plus sign instead
+        return lb
+    }()
+                                                    
     //Button that goes directly over addAnImage Label
     lazy var plusSignButton: UIButton = {
         let plusSign = UIButton()
@@ -50,7 +66,7 @@ class NewPostView: UIView {
     lazy var categoryLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Category:"
-        Stylesheet.Objects.Labels.Regular.style(label: lb)
+        Stylesheet.Objects.Labels.PostUsername.style(label: lb)
         return lb
     }()
     
@@ -83,7 +99,8 @@ class NewPostView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .white
+//        backgroundColor = .white
+        backgroundColor = Stylesheet.Colors.RedBg
         setupViews()
     }
     
@@ -98,6 +115,7 @@ class NewPostView: UIView {
         self.addSubview(categoryLabel)
         self.addSubview(categoryButton)
         self.addSubview(pickImageView)
+        self.addSubview(addAnImageLabel)
         self.addSubview(postTextView)
         self.addSubview(plusSignButton)
         self.addSubview(tableView)
@@ -112,13 +130,13 @@ class NewPostView: UIView {
         categoryLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(titleTextField.snp.bottom).offset(8)
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(10)
-            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.3)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.25)
         }
         
         categoryButton.snp.makeConstraints { (make) -> Void in
+            make.top.equalTo(categoryLabel.snp.top)
             make.leading.equalTo(categoryLabel.snp.trailing).offset(8)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-10)
-            make.top.equalTo(categoryLabel.snp.top)
             make.height.equalTo(categoryLabel.snp.height)
         }
         
@@ -131,14 +149,26 @@ class NewPostView: UIView {
         
         pickImageView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(categoryLabel.snp.bottom).offset(8)
-            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-            make.height.width.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
+//            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+//            make.height.width.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
+            make.leading.equalTo(categoryButton.snp.leading)
+            make.trailing.equalTo(categoryButton.snp.trailing)
+            make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
         }
         
         plusSignButton.snp.makeConstraints { (make) in
             make.center.equalTo(pickImageView.snp.center)
             make.edges.equalTo(pickImageView)
         }
+        
+        addAnImageLabel.snp.makeConstraints { (make) -> Void in
+//            make.bottom.equalTo(pickImageView.snp.bottom).offset(-2)
+            make.centerY.equalTo(pickImageView.snp.centerY)
+            make.leading.equalTo(categoryLabel.snp.leading)
+//            make.trailing.equalTo(pickImageView.snp.trailing)
+            
+        }
+        
         
         postTextView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(pickImageView.snp.bottom).offset(8)
