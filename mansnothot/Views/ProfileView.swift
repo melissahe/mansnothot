@@ -10,17 +10,6 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-//TODO: set up
-//add objects
-//profileImageView - for profile image
-//button to change profileImage - should be set up in the ProfileVC to segue to the ImagePickerViewController
-//displayName label - for user display name
-//changeDisplayName button - should present an alert that lets them change names?
-//bioTextView - displays the user's bio
-//allMyPostsButton - will segue to AllMyPostsVC, which displays all of the posts of the user
-
-
-
 class ProfileView: UIView {
     
     var spacing = 16 //Use this for even spacing

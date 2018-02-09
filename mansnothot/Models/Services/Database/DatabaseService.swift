@@ -9,11 +9,6 @@
 import Foundation
 import FirebaseDatabase
 
-//Message by Melissa: this should be responsible for:
-//2. database
-    //a. get data from database and pass it back to app
-    //b. create object and then post data to database
-
 /** This API client is responsible for fetching/pushing data from/to the Firebase database.
  */
 class DatabaseService: NSObject {
@@ -45,8 +40,7 @@ class DatabaseService: NSObject {
         commentsRef.removeAllObservers()
     }
     
-    //change
-    //changing display name - needs test!!
+    //changing display name
     /** This method attempts to change the user's displayName.
     If the name change is successful, it will return the old and new displayNames through the DatabaseServiceDelegate protocol didChangeDisplayName(_:, oldName:, newName:) method.
     If the name change is not successful, it will return a localized error message through the DatabaseServiceDelegate protocol didFailChangingDisplayName?(_:, error:) method.
