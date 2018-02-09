@@ -38,7 +38,7 @@ class AddCommentVC: UIViewController {
         xBarItem.style = .done
         
         //right bar button
-        let addCommentItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addComment"), style: .done, target: self, action: #selector(addAComment))
+        let addCommentItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addcomment"), style: .done, target: self, action: #selector(addAComment))
         navigationItem.rightBarButtonItem = addCommentItem
 
     }
