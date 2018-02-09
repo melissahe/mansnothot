@@ -3,15 +3,14 @@
 
 target 'mansnothot' do
   use_frameworks!
-  	pod 'Alamofire'
   	pod 'SnapKit'
   	pod 'Firebase/Core'
   	pod 'Firebase/Auth'
   	pod 'Firebase/Database'
 	pod 'Firebase/Storage'
-  	pod 'TableFlip'
   	pod 'Kingfisher'
 	pod 'Toucan'
     pod 'IQKeyboardManagerSwift'
+    pod 'SVProgressHUD'
 
 end

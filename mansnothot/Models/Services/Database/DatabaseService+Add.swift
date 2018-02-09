@@ -9,10 +9,8 @@
 import UIKit
 import FirebaseDatabase
 
-//in the update one, implement the vote changing using FirebaseTransaction
-
 extension DatabaseService {
-    //add
+    
     /**
      Adds a comment to the current post.
      

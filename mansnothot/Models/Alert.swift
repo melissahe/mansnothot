@@ -8,8 +8,6 @@
 
 import UIKit
 
-//Message by Melissa: This should be used to create the flagging action sheets and other alerts automatically!!
-
 class Alert {
     public static func create(withTitle title: String?, andMessage message: String?, withPreferredStyle preferredStyle: UIAlertControllerStyle) -> UIAlertController {
         return UIAlertController(title: title, message: message, preferredStyle: preferredStyle)

@@ -10,14 +10,6 @@ import UIKit
 import SnapKit
 import FirebaseAuth
 
-//Purpose: for creating account with app
-
-//TODO: have CreateAccountView as initial view
-    //should have proper textfield delegates for username, password, and email - checking if username exists, password is too short, and if email has been used before?
-    //should have proper error messages (maybe as labels, maybe as alerts??) when user account creation fails
-    //should use FirebaseAPIClient's create account function to create account
-    //if login successful (check from FirebaseAPIClient), should segue to TabBarVC with HomePageVC as first root VC/tab
-
 class CreateAccountVC: UIViewController {
 
     let createAccountView = CreateAccountView()
@@ -58,11 +50,11 @@ class CreateAccountVC: UIViewController {
     }
     
     @objc private func newAccountFunc() {
-        //Firebase function for checking if email already exists should go here
-        
-        //If it does exist, present an alert that tells the user to pick another email or login in
-        
-        //If user successfully creates a new account send them back to the Login Screen
+        if currentReachabilityStatus == .notReachable {
+            let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+            self.present(noInternetAlert, animated: true, completion: nil)
+            return
+        }
         
         guard let usernameText = createAccountView.usernameTextField.text else {
             createAccountView.statusLabel.text = "Please enter a valid Username"
@@ -92,23 +84,6 @@ extension CreateAccountVC: UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        guard let usernameText = createAccountView.usernameTextField.text else {
-//            createAccountView.statusLabel.text = "Please enter a valid Username"
-//            return true
-//        }
-//        guard let passwordText = createAccountView.passwordTextField.text else {
-//            createAccountView.statusLabel.text = "Please enter a valid Password"
-//            return true
-//        }
-//        guard let emailText = createAccountView.emailTextField.text else {
-//            createAccountView.statusLabel.text = "Please enter a valid Email"
-//            return true
-//        }
-//
-//        print(usernameText)
-//        print(passwordText)
-//        print(emailText)
-        
         textField.resignFirstResponder()
         return true
     }

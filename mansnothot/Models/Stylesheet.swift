@@ -18,16 +18,21 @@ enum Stylesheet {
         static let Orange = UIColor(red: 0.925, green: 0.471, blue: 0.235, alpha: 1.00)
         static let Yellow = UIColor(red: 0.9569, green: 0.8627, blue: 0, alpha: 1.0)
         static let Dark = UIColor(red: 0.184, green: 0.157, blue: 0.118, alpha: 1.00)
+        static let RedBg = UIColor(red: 0.8471, green: 0.1608, blue: 0.1608, alpha: 1.0)
+        static let Gray = UIColor.gray
     }
     
+    
+    
     enum Fonts {
-        static let AppName = UIFont(name: "Helvetica Neue", size: 50.0)
-        static let PostTitle = UIFont(name: "Helvetica Bold", size: 20.0)
-        static let Regular = UIFont(name: "Helvetica Neue", size: 15.0)
-        static let Login = UIFont(name: "Helvetica Neue", size: 15.0)
-        static let Link = UIFont(name: "Helvetica Bold", size: 15.0)
-        static let Bold = UIFont(name: "Helvetica Bold", size: 15.0)
+        static let AppName = UIFont(name: "HelveticaNeue-CondensedBold", size: 45.0)
+        static let PostTitle = UIFont(name: "HelveticaNeue-CondensedBold", size: 30.0)
+        static let Regular = UIFont(name: "HelveticaNeue-Light", size: 15.0)
+        static let TextfieldFont = UIFont(name: "HelveticaNeue-Light", size: 15.0)
+        static let Link = UIFont(name: "HelveticaNeue", size: 15.0)
+        static let Bold = UIFont(name: "HelveticaNeue-Medium", size: 15.0)
     }
+    
     
     enum BorderWidths {
         static let Textviews = 0.5
@@ -65,8 +70,8 @@ extension Stylesheet {
                 case .Opaque:
                     imageView.backgroundColor = .white
                     imageView.contentMode = .scaleAspectFill
-                    imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
-                    imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
+//                    imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
+//                    imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                 }
             }
         }
@@ -81,23 +86,23 @@ extension Stylesheet {
                 switch self {
                 case .Login:
                     button.setTitleColor(Stylesheet.Colors.LightGrey, for: .normal)
-                    button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Bold
                     button.backgroundColor = Stylesheet.Colors.Red
                     button.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
-                case .Link:
-                    button.backgroundColor = .clear
-                    button.setTitleColor(Stylesheet.Colors.Orange, for: .normal)
                     button.showsTouchWhenHighlighted = true
+                case .Link:
+                    button.setTitleColor(Stylesheet.Colors.Orange, for: .normal)
                     button.titleLabel?.font = Stylesheet.Fonts.Link
+                    button.backgroundColor = .clear
+                    button.showsTouchWhenHighlighted = true
                 case .CreateButton:
                     button.setTitleColor(Stylesheet.Colors.Red, for: .normal)
-                    button.showsTouchWhenHighlighted = true
                     button.titleLabel?.font = Stylesheet.Fonts.Bold
                     button.backgroundColor = Stylesheet.Colors.Yellow
                     button.layer.borderColor = (Stylesheet.Colors.Orange).cgColor
                     button.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.Buttons)
+                    button.showsTouchWhenHighlighted = true
                 case .ClearButton:
                     button.backgroundColor = .clear
                     button.contentMode = .scaleAspectFit
@@ -113,6 +118,7 @@ extension Stylesheet {
             case PostTitle
             case PostUsername
             case LikesDislikes
+            case SelectCategory
             
             func style(label: UILabel) {
                 switch self {
@@ -127,8 +133,9 @@ extension Stylesheet {
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
                     label.textAlignment = .center
+                    label.numberOfLines = 0
                 case .PostCategory:
-                    label.font = Stylesheet.Fonts.Regular
+                    label.font = Stylesheet.Fonts.Bold
                     label.textColor = Stylesheet.Colors.Red
                     label.backgroundColor = .clear
                     label.textAlignment = .left
@@ -137,12 +144,14 @@ extension Stylesheet {
                     label.font = Stylesheet.Fonts.PostTitle
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
+//                    label.backgroundColor = .green
                     label.textAlignment = .left
                     label.numberOfLines = 0
                 case .PostUsername:
                     label.font = Stylesheet.Fonts.Bold
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
+//                    label.backgroundColor = .red
                     label.textAlignment = .left
                     label.numberOfLines = 1
                 case .LikesDislikes:
@@ -150,6 +159,12 @@ extension Stylesheet {
                     label.textColor = Stylesheet.Colors.Dark
                     label.backgroundColor = .clear
                     label.textAlignment = .center
+                case .SelectCategory:
+                    label.font = Stylesheet.Fonts.Bold
+                    label.textColor = Stylesheet.Colors.Red
+                    label.backgroundColor = .clear
+                    label.textAlignment = .center
+                    label.numberOfLines = 1
                 }
             }
         }
@@ -199,7 +214,7 @@ extension Stylesheet {
                     textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
                     textfield.backgroundColor = Stylesheet.Colors.White
                     textfield.textAlignment = NSTextAlignment.left
-                    textfield.font = Stylesheet.Fonts.Login
+                    textfield.font = Stylesheet.Fonts.TextfieldFont
                     textfield.textColor = Stylesheet.Colors.Dark
                     textfield.adjustsFontSizeToFitWidth = true
                     textfield.autocapitalizationType = .words
@@ -212,7 +227,7 @@ extension Stylesheet {
                     textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
                     textfield.backgroundColor = Stylesheet.Colors.White
                     textfield.textAlignment = NSTextAlignment.left
-                    textfield.font = Stylesheet.Fonts.Login
+                    textfield.font = Stylesheet.Fonts.TextfieldFont
                     textfield.textColor = Stylesheet.Colors.Dark
                     textfield.adjustsFontSizeToFitWidth = true
                     textfield.autocapitalizationType = .words
@@ -225,7 +240,7 @@ extension Stylesheet {
                     textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
                     textfield.backgroundColor = Stylesheet.Colors.White
                     textfield.textAlignment = NSTextAlignment.left
-                    textfield.font = Stylesheet.Fonts.Login
+                    textfield.font = Stylesheet.Fonts.TextfieldFont
                     textfield.textColor = Stylesheet.Colors.Dark
                     textfield.adjustsFontSizeToFitWidth = true
                     textfield.autocapitalizationType = .none
@@ -238,7 +253,7 @@ extension Stylesheet {
                     textfield.layer.borderColor = (Stylesheet.Colors.LightGrey).cgColor
                     textfield.backgroundColor = Stylesheet.Colors.White
                     textfield.textAlignment = NSTextAlignment.left
-                    textfield.font = Stylesheet.Fonts.Login
+                    textfield.font = Stylesheet.Fonts.TextfieldFont
                     textfield.textColor = Stylesheet.Colors.Dark
                     textfield.adjustsFontSizeToFitWidth = true
                     textfield.autocapitalizationType = .none
@@ -259,7 +274,7 @@ extension Stylesheet {
                     textfield.autocorrectionType = .yes
                     textfield.keyboardType = .asciiCapable
                     textfield.returnKeyType = .next
-                    textfield.placeholder = "Post Title"
+                    textfield.placeholder = "Enter Post Title"
                 }
             }
         }

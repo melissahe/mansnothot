@@ -8,33 +8,19 @@
 
 import UIKit
 import SnapKit
-import TableFlip
 import Kingfisher
 
 
 class AllCommentsView: UIView {
-
-    //TODO: set up
-    //add objects
     
     //textfield that will present AddCommentVC when clicked
     lazy var commentTextField: UITextField = {
         let tField = UITextField()
         Stylesheet.Objects.Textfields.AddComment.style(textfield: tField)
-//        tField.backgroundColor = UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)
-//        tField.font = UIFont.systemFont(ofSize: 15, weight: .thin)
-//        tField.textAlignment = .center
-//        // This will let you pick the color of the placeholder text
-//        tField.attributedPlaceholder = NSAttributedString(string: "Add Comment", attributes: [NSAttributedStringKey.foregroundColor: UIColor(red: 0.918, green: 0.918, blue: 0.918, alpha: 1.00)])
-//        tField.keyboardType = .default
-//        tField.keyboardAppearance = .dark
-//        tField.backgroundColor = UIColor(red: 0.141, green: 0.149, blue: 0.184, alpha: 1.00)
-//        tField.textColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.00)
-//        tField.textColor = .white
         return tField
     }()
     
-    //add tableView, registered to AllCommentsTableViewCell
+    //tableView, registered to AllCommentsTableViewCell
     lazy var tableView: UITableView = {
         let tv = UITableView()
         //create and register a cell

@@ -8,13 +8,6 @@
 
 import UIKit
 import SnapKit
-
-//Purpose: to allow user to add comment to a post, should add on comment to existing comments
-
-//TODO: have AddCommentView as initial view
-    //should have "Add" right bar button item - to add comment
-        //add should dismiss view and also update current list of comments!
-    //should have "Cancel" left bar button item - to cancel adding
     
 class AddCommentVC: UIViewController {
 
@@ -31,6 +24,7 @@ class AddCommentVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(addCommentView)
+        addCommentView.postCommentTextView.delegate = self
         setupViews()
 
     }
@@ -44,20 +38,23 @@ class AddCommentVC: UIViewController {
         xBarItem.style = .done
         
         //right bar button
-        let addCommentItem = UIBarButtonItem(image: UIImage(named: "addcomment"), style: .done, target: self, action: #selector(addAComment))
+        let addCommentItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addcomment"), style: .done, target: self, action: #selector(addAComment))
         navigationItem.rightBarButtonItem = addCommentItem
-        
-        
+
     }
-    //TODO: MELISSA!!!!!
+    
     @objc private func addAComment() {
+        if currentReachabilityStatus == .notReachable {
+            let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+            self.present(noInternetAlert, animated: true, completion: nil)
+            return
+        }
+        
         print("Add a Comment clicked")
         if addCommentView.postCommentTextView.text == "Enter Post Text Here" || addCommentView.postCommentTextView.text == "" {
             let alert = Alert.createErrorAlert(withMessage: "Please enter text in order to post a comment.")
             self.present(alert, animated: true, completion: nil)
         } else {
-            
-            //Add functionality for adding the text in the textview to a post
             guard let commentText = addCommentView.postCommentTextView.text else {
                 print("bad comment text")
                 return
@@ -86,5 +83,13 @@ extension AddCommentVC: DatabaseServiceDelegate {
     func didFailAddingComment(_ databaseService: DatabaseService, error: String) {
         let errorAlert = Alert.createErrorAlert(withMessage: error)
         self.present(errorAlert, animated: true, completion: nil)
+    }
+}
+
+extension AddCommentVC: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if let text = textView.text, text == "Enter Comment Here" {
+            textView.text = ""
+        }
     }
 }
