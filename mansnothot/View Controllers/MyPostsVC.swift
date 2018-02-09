@@ -85,7 +85,6 @@ class MyPostsVC: UIViewController, MFMailComposeViewControllerDelegate {
     
     @objc private func refreshFeed() {
         checkInternet()
-        
         getPosts(fromUID: userProfile.userID)
     }
 }
@@ -139,6 +138,8 @@ extension MyPostsVC: DatabaseServiceDelegate {
 
     }
     func didDeletePost(_ databaseService: DatabaseService) {
+        refreshFeed()
+        
         let successAlert = Alert.create(withTitle: "Success", andMessage: "You deleted your masterpiece smh 😒", withPreferredStyle: .alert)
         Alert.addAction(withTitle: "I'm sorry... 😞", style: .default, andHandler: nil, to: successAlert)
         self.present(successAlert, animated: true, completion: nil)

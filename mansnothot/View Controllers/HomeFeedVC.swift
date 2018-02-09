@@ -49,7 +49,8 @@ class HomeFeedVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DatabaseService.manager.delegate = self
-        homeFeedView.tableView.reloadData()
+        //should be get posts
+        refreshFeed()
         
         if posts.isEmpty {
             self.view.addSubview(emptyView)
