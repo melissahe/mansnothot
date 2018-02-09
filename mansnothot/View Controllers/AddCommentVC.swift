@@ -8,13 +8,6 @@
 
 import UIKit
 import SnapKit
-
-//Purpose: to allow user to add comment to a post, should add on comment to existing comments
-
-//TODO: have AddCommentView as initial view
-    //should have "Add" right bar button item - to add comment
-        //add should dismiss view and also update current list of comments!
-    //should have "Cancel" left bar button item - to cancel adding
     
 class AddCommentVC: UIViewController {
 
@@ -31,6 +24,7 @@ class AddCommentVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(addCommentView)
+        addCommentView.postCommentTextView.delegate = self
         setupViews()
 
     }
@@ -44,7 +38,7 @@ class AddCommentVC: UIViewController {
         xBarItem.style = .done
         
         //right bar button
-        let addCommentItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addComment"), style: .done, target: self, action: #selector(addAComment))
+        let addCommentItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addcomment"), style: .done, target: self, action: #selector(addAComment))
         navigationItem.rightBarButtonItem = addCommentItem
 
     }
@@ -89,5 +83,13 @@ extension AddCommentVC: DatabaseServiceDelegate {
     func didFailAddingComment(_ databaseService: DatabaseService, error: String) {
         let errorAlert = Alert.createErrorAlert(withMessage: error)
         self.present(errorAlert, animated: true, completion: nil)
+    }
+}
+
+extension AddCommentVC: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if let text = textView.text, text == "Enter Comment Here" {
+            textView.text = ""
+        }
     }
 }
