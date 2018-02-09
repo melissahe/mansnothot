@@ -11,22 +11,6 @@ import SnapKit
 import AVFoundation
 import Kingfisher
 
-//Purpose: to show the user profile in the third tab
-
-//TODO: should have ProfileView as initial view
-//should have a log out button that segues back to the Log In screen and also log out the user (segues back to LoginVC)
-//an alert controller should present on success/failure when changing display name
-//an alert controller should present on success/failure when changing bio
-//the button that allows you to change your profile picture should present an action that presents three options to the user:
-//1. "Photo Library"
-//2. "Take Photo"
-//3. "Cancel" button - just dismisses the alert controller
-//either option 1 or 2 should segue to some ImagePickerViewController or w/e, which will handle the taking of pictures, and maybe uses a delegate function to update this view controller's profile image in real time
-//the button that lets you change display names could display an alert that asks you what to change the name to
-//when users taps bio TextView, it will enter editing mode for the bio (use the textdidbeginediting delegate method) - Will display Alert upon saving successfully (present with dismiss view)
-//the textView should animate from the regular size, and transition to a textview that takes up most of the screen?? And another view (ChangeBioView) will be laid on top, with a new textview that will be in the same place as the old textView, so it looks like there was an actual transition
-//"all my posts" button should segue to AllMyPostsVC with all the user's post
-
 class ProfileVC: UIViewController {
     
     let loginVC = LoginVC()
@@ -46,7 +30,6 @@ class ProfileVC: UIViewController {
                     }
                 })
             }
-
             //set bio
             profileView.bioTextView.text = userProfile?.bio ?? "No bio provided yet."
             profileView.layoutIfNeeded()
@@ -59,15 +42,13 @@ class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
-        
         let logoutButton = UIBarButtonItem(title: "Log Out", style: UIBarButtonItemStyle.plain, target: self, action: #selector(logoutButtonTapped))
         
         if let currentUser = AuthUserService.manager.getCurrentUser() {
             DatabaseService.manager.getUserProfile(withUID: currentUser.uid, completion: { (userProfile) in
                 self.userProfile = userProfile
+                //should be saved in core data
             })
-        } else {
-            //use core data!!!!
         }
         self.navigationItem.rightBarButtonItem = logoutButton
         imagePickerVC.delegate = self
@@ -76,7 +57,10 @@ class ProfileVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkInternet()
+        setUpGestures()
+        if currentReachabilityStatus == .notReachable {
+            //check core data to set user profile!!
+        }
     }
     
     private func checkInternet() {
@@ -96,16 +80,15 @@ class ProfileVC: UIViewController {
         profileView.seeMyPostsButton.addTarget(self, action: #selector(seePostsButtonTapped), for: .touchUpInside)
         profileView.changeDisplayName.addTarget(self, action: #selector(changeDisplayName), for: .touchUpInside)
         profileView.changeProfileImageButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
-        profileView.plusSignButton.addTarget(self, action: #selector(changeImageButtonTapped), for: .touchUpInside)
-        profileView.plusSignButton.isOpaque = false
+    }
+    
+    private func setUpGestures() {
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(imagePress))
+        longPressGesture.minimumPressDuration = 1.25
+        profileView.profileImageView.addGestureRecognizer(longPressGesture)
         
-        let imageViewGesture = UILongPressGestureRecognizer(target: self, action: #selector(imageLongPress))
-
-        imageViewGesture.minimumPressDuration = 2.0
-        imageViewGesture.allowableMovement = 25
-        imageViewGesture.numberOfTouchesRequired = 1
-        profileView.profileImageView.isUserInteractionEnabled = true
-        profileView.profileImageView.addGestureRecognizer(imageViewGesture)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imagePress))
+        profileView.profileImageView.addGestureRecognizer(tapGesture)
     }
     
     private func checkAVAuthorization() {
@@ -144,18 +127,20 @@ class ProfileVC: UIViewController {
         }, to: settingsAlert)
         self.present(settingsAlert, animated: true, completion: nil)
     }
-    
-    
-    @objc func imageLongPress() {
+
+    @objc func imagePress() {
         if let image = profileView.profileImageView.image {
-            //present a full screen view that is just of the image!!!
-            //requires you to create a new view!!!
-            //maybe add some sort of animation??
+            let fullSizeVC = FullSizeVC()
+            fullSizeVC.configureWithImage(image: image)
+            fullSizeVC.modalPresentationStyle = .fullScreen
+            self.present(fullSizeVC, animated: true, completion: nil)
         }
         print("present full screen image")
     }
     
     @objc private func changeImageButtonTapped() {
+        checkInternet()
+        
         let photoAlert = Alert.create(withTitle: "Change Your Profile Image", andMessage: nil, withPreferredStyle: .actionSheet)
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             Alert.addAction(withTitle: "Camera", style: .default, andHandler: { (_) in
@@ -173,6 +158,8 @@ class ProfileVC: UIViewController {
     }
     
     @objc private func changeDisplayName() {
+        checkInternet()
+        
         let changeNameAlert = Alert.create(withTitle: "Change Your Display Name", andMessage: nil, withPreferredStyle: .alert)
         changeNameAlert.addTextField { (textfield) in
             textfield.text = self.profileView.displayName.text
@@ -199,15 +186,7 @@ class ProfileVC: UIViewController {
     }
     
     @objc private func seePostsButtonTapped() {
-        //put this func in allPostVC
-        // @IBAction func close() {
-        // dismiss(animated: true, completion: nil)
-        // profileVC.show(myPostVC, sender: true)
-        // profileVC.present(myPostVC, animated: true, completion: nil)
-        
         let myPostVC = MyPostsVC()
-        //        myPostVC.modalTransitionStyle = .coverVertical
-        //        myPostVC.modalPresentationStyle = .overCurrentContext
         if let userProfile = userProfile {
             myPostVC.configurePosts(userProfile: userProfile)
         }
