@@ -19,11 +19,12 @@
         <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="flags" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isBanned" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SavedPost" inverseName="user" inverseEntity="SavedPost" syncable="YES"/>
     </entity>
     <elements>
         <element name="SavedPost" positionX="-54" positionY="-9" width="128" height="210"/>
-        <element name="SavedUser" positionX="-216" positionY="-36" width="128" height="150"/>
+        <element name="SavedUser" positionX="-216" positionY="-36" width="128" height="165"/>
     </elements>
 </model>

@@ -22,5 +22,23 @@ class CoreDataHelper {
         delegate.saveContext()
     }
     
-    //add function to removeSavedInfo
+    public func removeSavedContext(completion: @escaping (_ user: Bool, _ post: Bool) -> Void) {
+        let postsFetch = NSFetchRequest<NSFetchRequestResult>.init(entityName: "SavedPost")
+        let postDeleteRequest = NSBatchDeleteRequest(fetchRequest: postsFetch)
+        let userFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "SavedUser")
+        let userDeleteRequest = NSBatchDeleteRequest(fetchRequest: userFetch)
+        
+        var postDeleteSuccess = false
+        var userDeleteSuccess = false
+        
+        do {
+            try getCurrentContext().execute(postDeleteRequest)
+            postDeleteSuccess = true
+            try getCurrentContext().execute(userDeleteRequest)
+            userDeleteSuccess = true
+        } catch {
+            print(error)
+        }
+        completion(userDeleteSuccess, postDeleteSuccess)
+    }
 }

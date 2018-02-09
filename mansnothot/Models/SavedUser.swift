@@ -9,5 +9,14 @@
 import Foundation
 
 extension SavedUser {
-    
+    convenience init(withUserProfile userProfile: UserProfile) {
+        self.init(context: CoreDataHelper.manager.getCurrentContext())
+        self.email = userProfile.email
+        self.userID = userProfile.userID
+        self.displayName = userProfile.bio ?? ""
+        self.imageURL = userProfile.imageURL ?? ""
+        self.flags = Int64(userProfile.flags)
+        self.isBanned = userProfile.isBanned
+        
+    }
 }

@@ -21,6 +21,5 @@ extension SavedPost {
         self.imageURL = post.imageURL ?? ""
         self.category = post.category
         self.bodyText = post.bodyText ?? ""
-        CoreDataHelper.manager.saveContext()
     }
 }
