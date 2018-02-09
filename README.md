@@ -1,54 +1,33 @@
-# mansnothot Something Professional
+# Professional Thoughts
 
-Brough to you by Team Perspiration!
-
-Whether you're looking to express yourself within a professional limelight, or searching for a exciting night with new friends and coworkers, the mansnothot Professional Thoughts iOS app makes finding the perfect time easy.
+Brought to you by Team Perspiration!
 
 ## Overview
-//to do
+Whether you're looking to express yourself within a professional limelight, or searching for an exciting night with new friends and coworkers, the Professional Thoughts iOS app makes finding the perfect time easy.
 
 ## Gifs
 |Scrolling Through Feed|
 |:-------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/main.gif" width="358" height="626">|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/scrolling.gif" width="358" height="626">|
 
 |Accessing Camera|Reporting a User|
 |:-------------:|:-------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/AccessCamera.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/report.gif" width="358" height="626">|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/AccessCameraAndPosting.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/reportingUserAgain.gif" width="358" height="626">|
 
-|Comment On Post|Post|
+|Comment On Post|Liking And Unliking|
 |:-------------:|:-------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/Comment.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/Post.gif" width="358" height="626">|
-=======
-|Accessing Camera|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/AccessCamera.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/AccessCamera.gif" width="358" height="626">|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/commenting.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/LikingAndUnliking.gif" width="358" height="626">|
 
-|Reporting a User|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/report.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/report.gif" width="358" height="626">|
-
-|Comment On Post|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Comment.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Comment.gif" width="358" height="626">|
-
-|Post|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Post.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Post.gif" width="358" height="626">|
-
-|Main|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/main.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/main.gif" width="358" height="626">|
 
 ## Features
-- Users can make an account and custom profile with a    username, image and bio
-- Can post professional thoughts and Images
+- Users can make an account and custom profile with a username, image and bio
+- Can post professional thoughts and images
 - Can share professional thoughts
-- Can flag and report a post if it is offensive // User gets banned from the app after 3 reports
+- Can flag and report a post if it is offensive
 - Can comment on professional thoughts and look at the whole comment thread
 - Can give posts thumbs up and thumbs down
 - Most recent post are on the top of the newsfeed
-- User can also see all his/her posts by going to their profile and clicking on "see all posts"
+- User can also see all their posts by going to their profile and clicking on "see all my posts"
 
 
 ## Requirements
@@ -65,12 +44,14 @@ CocoaPods is a dependency manager for Cocoa projects. You can install it with th
 
 ### Pods
 - [Firebase](https://firebase.google.com)
-- Firebase/Core
-- Firebase/Auth
-- Firebase/Database
+  - Firebase/Core
+  - Firebase/Auth
+  - Firebase/Database
+- [IQKeyboardManagerSwift](https://github.com/hackiftekhar/IQKeyboardManager)
 - [KingFisher](https://github.com/onevcat/Kingfisher)
 - [SnapKit](http://snapkit.io/docs)
 - [SVProgessHUD](https://github.com/SVProgressHUD/SVProgressHUD)
+- [Toucan](https://github.com/gavinbunney/Toucan)
 
 ### How to Install Pods
 To integrate these pods into your Xcode project using CocoaPods, specify it in your Podfile:
@@ -98,8 +79,8 @@ Then, run the following command in Terminal:
 `$ pod install`
 
 ## Credits (Team Persperation!!)
-- **Project Manager**: Richard Crichlow  //todo - github badge
-- **Tech Lead**: Melissa He  //todo - github badge
-- **UI/UX**: Margaret (Maggie) Chan  //todo - github badge
-- **QA**: Izza Nadeem //todo - github badge
+- **Project Manager**: [Richard Crichlow](https://github.com/dementedcactus/)
+- **Tech Lead**: [Melissa He](https://github.com/melissahe/)
+- **UI/UX**: [Margaret Chan](https://github.com/margarethchan/)
+- **QA**: [Izza Nadeem](https://github.com/izzanadeem/)
 
