@@ -10,16 +10,12 @@ import UIKit
 
 extension HomeFeedVC: DatabaseServiceDelegate {
     func didFailGettingPostComments(_ databaseService: DatabaseService, error: String) {
-        let errorAlert = Alert.createErrorAlert(withMessage: error)
-        self.present(errorAlert, animated: true, completion: nil)
+        presentErrorAlert(message: error)
     }
     func didFailLiking(_ databaseService: DatabaseService, error: String) {
-        let errorAlert = Alert.createErrorAlert(withMessage: error)
-        self.present(errorAlert, animated: true, completion: nil)
+        presentErrorAlert(message: error)
     }
     func didLikePost(_ databaseService: DatabaseService) {
-//        DispatchQueue.main.async {
-//            self.homeFeedView.tableView.scrollToRow(at: IndexPath(row: self.selectedRowIndex, section: 0), at: .none, animated: true)
 //        } //should + 1 like
         print("did like")
     }
@@ -27,12 +23,9 @@ extension HomeFeedVC: DatabaseServiceDelegate {
         //should - 1 like
     }
     func didFailDisliking(_ databaseService: DatabaseService, error: String) {
-        let errorAlert = Alert.createErrorAlert(withMessage: error)
-        self.present(errorAlert, animated: true, completion: nil)
+        presentErrorAlert(message: error)
     }
     func didDislikePost(_ databaseService: DatabaseService) {
-//        DispatchQueue.main.async {
-//            self.homeFeedView.tableView.scrollToRow(at: IndexPath(row: self.selectedRowIndex, section: 0), at: .none, animated: true)
 //        } //should + 1 dislike
         print("did dislike")
     }
@@ -45,8 +38,7 @@ extension HomeFeedVC: DatabaseServiceDelegate {
         self.present(flagAlert, animated: true, completion: nil)
     }
     func didFlagUserAlready(_ databaseService: DatabaseService, error: String) {
-        let errorAlert = Alert.createErrorAlert(withMessage: error)
-        self.present(errorAlert, animated: true, completion: nil)
+        presentErrorAlert(message: error)
     }
     func didFlagPost(_ databaseService: DatabaseService) {
         let flagAlert = Alert.create(withTitle: "Flagged Post", andMessage: nil, withPreferredStyle: .alert)
@@ -54,11 +46,9 @@ extension HomeFeedVC: DatabaseServiceDelegate {
         self.present(flagAlert, animated: true, completion: nil)
     }
     func didFlagPostAlready(_ databaseService: DatabaseService, error: String) {
-        let errorAlert = Alert.createErrorAlert(withMessage: error)
-        self.present(errorAlert, animated: true, completion: nil)
+        presentErrorAlert(message: error)
     }
     func didFailFlagging(_ databaseService: DatabaseService, error: String) {
-        let errorAlert = Alert.createErrorAlert(withMessage: error)
-        self.present(errorAlert, animated: true, completion: nil)
+        presentErrorAlert(message: error)
     }
 }

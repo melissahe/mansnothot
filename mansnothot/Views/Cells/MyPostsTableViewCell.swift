@@ -10,40 +10,19 @@ import UIKit
 import SnapKit
 import Kingfisher
 
-//TODO: Set up
-    //add objects
-        //userImageView - for user image
-        //usernameLabel - for display name
-        //postImageView - for image in post
-        //numberOfLikes label - number of likes
-        //numberOfDislikes label - number of dislikes
-        //edit button - to update post
-    //set up constraints
-
 class MyPostsTableViewCell: UITableViewCell {
 
     lazy var categoryLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Category"
         Stylesheet.Objects.Labels.PostCategory.style(label: lb)
-//        lb.backgroundColor = .green
-//        lb.textAlignment = .left
-//        lb.textColor = .black
-//        lb.numberOfLines = 0
-//        lb.layer.borderWidth = 0.5
         return lb
     }()
-    
     
     lazy var postTitleLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Post Title"
         Stylesheet.Objects.Labels.PostTitle.style(label: lb)
-//        lb.backgroundColor = .green
-//        lb.textAlignment = .left
-//        lb.textColor = .black
-//        lb.numberOfLines = 0
-//        lb.layer.borderWidth = 0.5
         return lb
     }()
     
@@ -68,9 +47,6 @@ class MyPostsTableViewCell: UITableViewCell {
         imageView.image = nil
         Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
         imageView.clipsToBounds = true
-//        imageView.backgroundColor = .green
-//        imageView.contentMode = .scaleAspectFit
-//        imageView.layer.borderWidth = 0.5
         return imageView
     }()
     
@@ -79,10 +55,6 @@ class MyPostsTableViewCell: UITableViewCell {
         let tv = UITextView()
         tv.text = "Sample Post Text Here"
         Stylesheet.Objects.Textviews.Completed.style(textview: tv)
-//        tv.layer.borderWidth = 0.5
-//        tv.backgroundColor = .yellow
-//        tv.textAlignment = .justified
-//        tv.isEditable = false
         return tv
     }()
     
@@ -91,8 +63,6 @@ class MyPostsTableViewCell: UITableViewCell {
         let button = UIButton()
         button.setImage(UIImage(named: "thumbsUp"), for: .normal)
         Stylesheet.Objects.Buttons.ClearButton.style(button: button)
-//        button.backgroundColor = .clear
-//        button.layer.borderWidth = 0.5
         return button
     }()
     
@@ -101,9 +71,6 @@ class MyPostsTableViewCell: UITableViewCell {
         let lb = UILabel()
         lb.text = "+37"
         Stylesheet.Objects.Labels.LikesDislikes.style(label: lb)
-//        lb.backgroundColor = .gray
-//        lb.textAlignment = .center
-//        lb.backgroundColor = .white
         return lb
     }()
     
@@ -112,8 +79,6 @@ class MyPostsTableViewCell: UITableViewCell {
         let button = UIButton()
         button.setImage(UIImage(named: "thumbsDown"), for: .normal)
         Stylesheet.Objects.Buttons.ClearButton.style(button: button)
-//        button.backgroundColor = .clear
-//        button.layer.borderWidth = 0.5
         return button
     }()
     
@@ -122,20 +87,14 @@ class MyPostsTableViewCell: UITableViewCell {
         let lb = UILabel()
         lb.text = "-7"
         Stylesheet.Objects.Labels.LikesDislikes.style(label: lb)
-//        lb.backgroundColor = .gray
-//        lb.textAlignment = .center
-//        lb.backgroundColor = .white
         return lb
     }()
-    
     
     //comment icon button
     lazy var commentButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "comment"), for: .normal)
         Stylesheet.Objects.Buttons.ClearButton.style(button: button)
-//        button.backgroundColor = .clear
-//        button.layer.borderWidth = 0.5
         return button
     }()
     
@@ -144,22 +103,14 @@ class MyPostsTableViewCell: UITableViewCell {
         let button = UIButton()
         button.setTitle("Thread", for: .normal)
         Stylesheet.Objects.Buttons.Link.style(button: button)
-//        button.setTitleColor(.black, for: .normal)
-//        button.backgroundColor = .orange
-//        button.layer.borderWidth = 0.5
-        
         return button
     }()
-    
    
     //Share Button
     lazy var shareButton: UIButton = {
         let button = UIButton()
         button.setTitle("Share", for: .normal)
         Stylesheet.Objects.Buttons.Link.style(button: button)
-//        button.setTitleColor(.black, for: .normal)
-//        button.backgroundColor = .yellow
-//        button.layer.borderWidth = 0.5
         return button
     }()
     
@@ -173,6 +124,34 @@ class MyPostsTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: "MyPostCell")
         commonInit()
+    }
+    
+    public func configureCell(withPost post: Post) {
+        self.categoryLabel.text = post.category
+        self.numberOfDislikesLabel.text = "-" + post.numberOfDislikes.description
+        self.numberOfLikesLabel.text = "+" + post.numberOfLikes.description
+        self.postTitleLabel.text = post.title
+        self.postTextView.text = post.bodyText
+        
+        self.postImageView.image = nil
+        if let imageURLString = post.imageURL, let imageURL = URL(string: imageURLString) {
+            ImageCache(name: post.postID).retrieveImage(forKey: post.postID, options: nil, completionHandler: { (image, _) in
+                if let image = image {
+                    self.postImageView.image = image
+                    self.layoutIfNeeded()
+                } else {
+                    self.postImageView.kf.setImage(with: imageURL, placeholder: #imageLiteral(resourceName: "placeholder-image"), options: nil, progressBlock: nil, completionHandler: { (image, error, _, _) in
+                        if let image = image {
+                            ImageCache(name: post.postID).store(image, forKey: post.postID)
+                            self.layoutIfNeeded()
+                        }
+                    })
+                }
+            })
+        } else {
+            self.postImageView.image = #imageLiteral(resourceName: "placeholder-image")
+            self.layoutIfNeeded()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -216,37 +195,24 @@ class MyPostsTableViewCell: UITableViewCell {
             make.trailing.equalTo(self.snp.trailing).offset(-5)
         }
         editButton.snp.makeConstraints { (make) -> Void in
-//            make.top.equalTo(self.snp.top).offset(5)
             make.centerY.equalTo(categoryLabel.snp.centerY)
             make.trailing.equalTo(trashButton.snp.leading).offset(-5)
-//            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.10)
-//           make.width
         }
         trashButton.snp.makeConstraints { (make) -> Void in
-//            make.top.equalTo(self.snp.top).offset(5)
             make.centerY.equalTo(categoryLabel.snp.centerY)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
-//            make.height.equalTo(safeAreaLayoutGuide.snp.height).multipliedBy(0.10)
         }
         postImageView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(postTitleLabel.snp.bottom).offset(5)
             make.centerX.equalTo(self.snp.centerX)
-//            make.height.lessThanOrEqualTo(200)
             make.leading.equalTo(self.snp.leading)
             make.trailing.equalTo(self.snp.trailing)
             make.height.equalTo(self.snp.width)
-//            make.width.equalTo(self.snp.width).multipliedBy(0.5)
-//            make.height.equalTo(self.snp.height).multipliedBy(0.3)
-            //make.height.equalTo(self.snp.height).multipliedBy(0.16)
         }
         postTextView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(postImageView.snp.bottom).offset(5)
             make.leading.equalTo(self.snp.leading).offset(5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
-//            make.height.equalTo(self.snp.height).multipliedBy(0.3)
-//            make.width.equalTo(self.snp.width).multipliedBy(0.8)
-//            make.height.equalTo(self.snp.height).multipliedBy(0.3)
-//            make.centerX.equalTo(self.snp.centerX)
         }
         thumbsUpButton.snp.makeConstraints { (make) -> Void in
             make.centerY.equalTo(showThreadButton.snp.centerY)
@@ -274,19 +240,15 @@ class MyPostsTableViewCell: UITableViewCell {
             make.bottom.equalTo(self.snp.bottom).offset(-5)
             make.centerX.equalTo(self.snp.centerX)
         }
-        
         showArrowButton.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(postTextView.snp.bottom).offset(5)
             make.trailing.equalTo(shareButton.snp.leading).offset(-2)
             make.bottom.equalTo(self.snp.bottom).offset(-5)
             
         }
-        
         shareButton.snp.makeConstraints { (make) -> Void in
-//            make.top.equalTo(postTextView.snp.bottom).offset(5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
             make.centerY.equalTo(commentButton.snp.centerY)
-//            make.bottom.equalTo(self.snp.bottom).offset(-5)
         }
     }
 }

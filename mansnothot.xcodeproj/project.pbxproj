@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0BA6044AB29ADE5ABF3A73A8 /* Pods_mansnothot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3270CE1E5DB32A01397BA815 /* Pods_mansnothot.framework */; };
 		8109D42E202CF8760010BB07 /* NetworkConnectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8109D42D202CF8760010BB07 /* NetworkConnectivity.swift */; };
+		8109D430202D4B030010BB07 /* FullSizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8109D42F202D4B030010BB07 /* FullSizeView.swift */; };
+		8109D432202D4BBF0010BB07 /* FullSizeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8109D431202D4BBF0010BB07 /* FullSizeVC.swift */; };
 		810FCBB4202CF5960048A72A /* report.gif in Resources */ = {isa = PBXBuildFile; fileRef = 810FCBAF202CF5940048A72A /* report.gif */; };
 		810FCBB5202CF5960048A72A /* Post.gif in Resources */ = {isa = PBXBuildFile; fileRef = 810FCBB0202CF5940048A72A /* Post.gif */; };
 		810FCBB6202CF5960048A72A /* Comment.gif in Resources */ = {isa = PBXBuildFile; fileRef = 810FCBB1202CF5940048A72A /* Comment.gif */; };
@@ -27,6 +29,10 @@
 		81879A132023BAC700CAD692 /* DatabaseService+Get.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A122023BAC700CAD692 /* DatabaseService+Get.swift */; };
 		81879A152023C85900CAD692 /* DatabaseServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A142023C85900CAD692 /* DatabaseServiceDelegate.swift */; };
 		81879A172024013C00CAD692 /* DatabaseService+Add.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81879A162024013C00CAD692 /* DatabaseService+Add.swift */; };
+		81912795202D873D0035435F /* HomeFeedVC+HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81912794202D873D0035435F /* HomeFeedVC+HelperFunctions.swift */; };
+		81912797202D87D60035435F /* HomeFeedVC+Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81912796202D87D60035435F /* HomeFeedVC+Share.swift */; };
+		81912799202D8C9E0035435F /* MyPostsVC+HelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81912798202D8C9E0035435F /* MyPostsVC+HelperFunctions.swift */; };
+		8191279B202D8CDF0035435F /* MyPostsVC+Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8191279A202D8CDF0035435F /* MyPostsVC+Share.swift */; };
 		81954E0920254BBE00567D3C /* DatabaseService+Edit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81954E0820254BBE00567D3C /* DatabaseService+Edit.swift */; };
 		81AFD54620203FEF0091AEF9 /* UserDefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD54520203FEF0091AEF9 /* UserDefaultsHelper.swift */; };
 		81AFD5482020460E0091AEF9 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AFD5472020460E0091AEF9 /* UserProfile.swift */; };
@@ -68,6 +74,8 @@
 		07DC7B3A23B841F848789F2F /* Pods-mansnothot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mansnothot.release.xcconfig"; path = "Pods/Target Support Files/Pods-mansnothot/Pods-mansnothot.release.xcconfig"; sourceTree = "<group>"; };
 		3270CE1E5DB32A01397BA815 /* Pods_mansnothot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mansnothot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8109D42D202CF8760010BB07 /* NetworkConnectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConnectivity.swift; sourceTree = "<group>"; };
+		8109D42F202D4B030010BB07 /* FullSizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSizeView.swift; sourceTree = "<group>"; };
+		8109D431202D4BBF0010BB07 /* FullSizeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullSizeVC.swift; sourceTree = "<group>"; };
 		810FCBAF202CF5940048A72A /* report.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = report.gif; sourceTree = "<group>"; };
 		810FCBB0202CF5940048A72A /* Post.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Post.gif; sourceTree = "<group>"; };
 		810FCBB1202CF5940048A72A /* Comment.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Comment.gif; sourceTree = "<group>"; };
@@ -89,6 +97,10 @@
 		81879A122023BAC700CAD692 /* DatabaseService+Get.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Get.swift"; sourceTree = "<group>"; };
 		81879A142023C85900CAD692 /* DatabaseServiceDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseServiceDelegate.swift; sourceTree = "<group>"; };
 		81879A162024013C00CAD692 /* DatabaseService+Add.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Add.swift"; sourceTree = "<group>"; };
+		81912794202D873D0035435F /* HomeFeedVC+HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeFeedVC+HelperFunctions.swift"; sourceTree = "<group>"; };
+		81912796202D87D60035435F /* HomeFeedVC+Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeFeedVC+Share.swift"; sourceTree = "<group>"; };
+		81912798202D8C9E0035435F /* MyPostsVC+HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyPostsVC+HelperFunctions.swift"; sourceTree = "<group>"; };
+		8191279A202D8CDF0035435F /* MyPostsVC+Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MyPostsVC+Share.swift"; sourceTree = "<group>"; };
 		81954E0820254BBE00567D3C /* DatabaseService+Edit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DatabaseService+Edit.swift"; sourceTree = "<group>"; };
 		81AFD54520203FEF0091AEF9 /* UserDefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsHelper.swift; sourceTree = "<group>"; };
 		81AFD5472020460E0091AEF9 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
@@ -153,13 +165,18 @@
 				8185CE68201FFB0200C38A96 /* LoginVC.swift */,
 				81AFD555202053DF0091AEF9 /* CreateAccountVC.swift */,
 				81AFD55C202066DE0091AEF9 /* HomeFeedVC.swift */,
+				81912794202D873D0035435F /* HomeFeedVC+HelperFunctions.swift */,
+				81912796202D87D60035435F /* HomeFeedVC+Share.swift */,
 				815CDCB4202A93A70043B291 /* HomeFeedVC+DatabaseService.swift */,
 				81AFD566202070560091AEF9 /* AddCommentVC.swift */,
 				81AFD56A2020723F0091AEF9 /* AllCommentsVC.swift */,
 				81AFD5942020E5000091AEF9 /* ProfileVC.swift */,
 				81AFD5982020F5EB0091AEF9 /* MyPostsVC.swift */,
+				81912798202D8C9E0035435F /* MyPostsVC+HelperFunctions.swift */,
+				8191279A202D8CDF0035435F /* MyPostsVC+Share.swift */,
 				81AFD5A32020FBDD0091AEF9 /* NewPostVC.swift */,
 				81AFD5AD202115F50091AEF9 /* EditMyPostVC.swift */,
+				8109D431202D4BBF0010BB07 /* FullSizeVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -290,6 +307,7 @@
 				81AFD59F2020F9C10091AEF9 /* MyPostsView.swift */,
 				81AFD5A5202109250091AEF9 /* NewPostView.swift */,
 				81AFD5AB202110AB0091AEF9 /* EditMyPostView.swift */,
+				8109D42F202D4B030010BB07 /* FullSizeView.swift */,
 				81AFD56120206C8B0091AEF9 /* Cells */,
 			);
 			path = Views;
@@ -471,6 +489,7 @@
 				811C09CB202012720072EDC8 /* FirebaseAPIClient.swift in Sources */,
 				81AFD56D2020724E0091AEF9 /* AllCommentsView.swift in Sources */,
 				81AFD5712020C2710091AEF9 /* Alert.swift in Sources */,
+				81912795202D873D0035435F /* HomeFeedVC+HelperFunctions.swift in Sources */,
 				81AFD556202053DF0091AEF9 /* CreateAccountVC.swift in Sources */,
 				81AFD5A22020FA310091AEF9 /* MyPostsTableViewCell.swift in Sources */,
 				81AFD56320206C9A0091AEF9 /* FeedTableViewCell.swift in Sources */,
@@ -479,21 +498,26 @@
 				DB4BD94E202A4B3100136978 /* Stylesheet.swift in Sources */,
 				81AFD5972020E7720091AEF9 /* ProfileView.swift in Sources */,
 				81AFD552202051E70091AEF9 /* ForgotPassView.swift in Sources */,
+				81912797202D87D60035435F /* HomeFeedVC+Share.swift in Sources */,
 				81AFD56420206EB90091AEF9 /* Comment.swift in Sources */,
 				81AFD5482020460E0091AEF9 /* UserProfile.swift in Sources */,
 				81AFD56020206C0E0091AEF9 /* HomeFeedView.swift in Sources */,
 				81AFD55D202066DE0091AEF9 /* HomeFeedVC.swift in Sources */,
+				8191279B202D8CDF0035435F /* MyPostsVC+Share.swift in Sources */,
 				81AFD5952020E5000091AEF9 /* ProfileVC.swift in Sources */,
 				81AFD56F202074700091AEF9 /* AllCommentsTableViewCell.swift in Sources */,
 				81954E0920254BBE00567D3C /* DatabaseService+Edit.swift in Sources */,
 				81AFD56B2020723F0091AEF9 /* AllCommentsVC.swift in Sources */,
+				8109D432202D4BBF0010BB07 /* FullSizeVC.swift in Sources */,
 				815CDCB5202A93A70043B291 /* HomeFeedVC+DatabaseService.swift in Sources */,
 				81AFD559202064CF0091AEF9 /* CreateAccountView.swift in Sources */,
 				81879A152023C85900CAD692 /* DatabaseServiceDelegate.swift in Sources */,
 				81AFD567202070560091AEF9 /* AddCommentVC.swift in Sources */,
 				81AFD557202063BE0091AEF9 /* LoginView.swift in Sources */,
+				8109D430202D4B030010BB07 /* FullSizeView.swift in Sources */,
 				81879A112023B44A00CAD692 /* DatabaseService.swift in Sources */,
 				811C09CE202015330072EDC8 /* FileManagerHelper.swift in Sources */,
+				81912799202D8C9E0035435F /* MyPostsVC+HelperFunctions.swift in Sources */,
 				815CDC7E2028E48F0043B291 /* StorageService.swift in Sources */,
 				81E8124020256F3800D9A5F1 /* AuthUserServiceDelegate.swift in Sources */,
 				81AFD54A20204D380091AEF9 /* Post.swift in Sources */,
@@ -636,7 +660,7 @@
 				INFOPLIST_FILE = mansnothot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Izza-Nadeem-mansnotthot";
+				PRODUCT_BUNDLE_IDENTIFIER = "Melissa-He.mansnotthot";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -653,7 +677,7 @@
 				INFOPLIST_FILE = mansnothot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Izza-Nadeem-mansnotthot";
+				PRODUCT_BUNDLE_IDENTIFIER = "Melissa-He.mansnotthot";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
