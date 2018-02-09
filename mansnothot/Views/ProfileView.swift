@@ -29,8 +29,7 @@ class ProfileView: UIView {
         var pImageView = UIImageView()
         pImageView.image = #imageLiteral(resourceName: "profileImage") //place holder image
         Stylesheet.Objects.ImageViews.Opaque.style(imageView: pImageView)
-//        pImageView.contentMode = .scaleAspectFill
-//        pImageView.backgroundColor = .orange
+        pImageView.isUserInteractionEnabled = true
         return pImageView
     }()
     
@@ -38,8 +37,6 @@ class ProfileView: UIView {
         let btn = UIButton()
         btn.setTitle("Change Image", for: .normal)
         Stylesheet.Objects.Buttons.Link.style(button: btn)
-//        btn.setTitleColor(.green, for: .normal)
-//        btn.titleLabel?.font = UIFont(name: "Arial", size: 15)
         return btn
     }()
     
@@ -47,10 +44,6 @@ class ProfileView: UIView {
         let dn = UILabel()
         dn.text = "Display Label"
         Stylesheet.Objects.Labels.PostTitle.style(label: dn)
-//        dn.backgroundColor = .yellow
-//        dn.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-//        dn.textAlignment = .center
-//        dn.numberOfLines = 0
         return dn
     }()
     
@@ -58,8 +51,6 @@ class ProfileView: UIView {
         let cdn = UIButton()
         cdn.setTitle("Change Username", for: .normal)
         Stylesheet.Objects.Buttons.Link.style(button: cdn)
-//        cdn.titleLabel?.font = UIFont(name: "Arial", size: 15)
-//        cdn.setTitleColor(.green, for: .normal)
         return cdn
     }()
     
@@ -67,8 +58,6 @@ class ProfileView: UIView {
         let cdn = UIButton()
         cdn.setTitle(" See All My Posts ", for: .normal)
         Stylesheet.Objects.Buttons.Login.style(button: cdn)
-//        cdn.setTitleColor(.green, for: .normal)
-//        cdn.layer.borderWidth = 0.5
         return cdn
     }()
     
@@ -77,11 +66,6 @@ class ProfileView: UIView {
         let btv = UITextView()
         btv.text = "Enter a bio"
         Stylesheet.Objects.Textviews.Editable.style(textview: btv)
-//        btv.layer.borderWidth = 0.5
-//        btv.backgroundColor = .yellow
-//        btv.textAlignment = .justified
-//        btv.isEditable = true
-//        btv.textColor = .black
         return btv
     }()
     
@@ -115,8 +99,6 @@ class ProfileView: UIView {
         setupChangeImageButton()
         setupAllMyPostsButton()
         setupBioTextView()
-        setupPlusSignButton()
-        
     }
     
     private func setUpProfileImageView() {
@@ -128,15 +110,6 @@ class ProfileView: UIView {
             make.width.equalTo(profileImageView.snp.height)
         }
     }
-    
-    //Button that goes directly over addAnImage Label
-    lazy var plusSignButton: UIButton = {
-        let plusSign = UIButton()
-        plusSign.setImage(#imageLiteral(resourceName: "plus"), for: .normal)
-        Stylesheet.Objects.Buttons.ClearButton.style(button: plusSign)
-        //        plusSign.contentMode = .scaleAspectFit
-        return plusSign
-    }()
     
     private func setupNameLabel() {
         addSubview(displayName)
@@ -182,15 +155,6 @@ class ProfileView: UIView {
             make.leading.equalTo(self.safeAreaLayoutGuide.snp.leading).offset(spacing)
             make.trailing.equalTo(self.safeAreaLayoutGuide.snp.trailing).offset(-spacing)
             
-        }
-    }
-    
-    private func setupPlusSignButton() {
-        
-        self.addSubview(plusSignButton)
-        plusSignButton.snp.makeConstraints { (make) in
-            make.center.equalTo(profileImageView.snp.center)
-            make.edges.equalTo(profileImageView)
         }
     }
 }

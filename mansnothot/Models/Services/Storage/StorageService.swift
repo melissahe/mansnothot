@@ -122,7 +122,7 @@ class StorageService {
     func storeImage(_ image: UIImage, withImageID imageID: String, completion: @escaping (_ error: String?) -> Void) -> StorageUploadTask? {
         let ref = imagesRef.child(imageID)
         
-        guard let resizedImage = Toucan(image: image).resize(CGSize(width: 200, height: 200)).image, let imageData = UIImagePNGRepresentation(resizedImage) else {
+        guard let resizedImage = Toucan(image: image).resize(CGSize(width: 400, height: 400)).image, let imageData = UIImagePNGRepresentation(resizedImage) else {
             return nil
         }
         
