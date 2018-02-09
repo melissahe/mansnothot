@@ -23,22 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Loading
         FirebaseApp.configure()
-        FileManagerHelper.manager.loadCurrentUser()
-        
-        
-        let currentUser = AuthUserService.manager.getCurrentUser()
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        if currentUser != nil {
-            print("on start up: there is a user logged in")
-            let tabBar = TabBarVC()
-            window?.rootViewController = tabBar
-        } else {
-            print("on start up: user is nil")
-            let loginVC = LoginVC()
-            window?.rootViewController = loginVC
-        }
+        let loginVC = LoginVC()
+        window?.rootViewController = loginVC
         
         window?.makeKeyAndVisible()
         
