@@ -23,7 +23,6 @@ extension DatabaseService {
      */
     public func getUserProfile(withUID uid: String, completion: @escaping (_ userProfile: UserProfile) -> Void) {
         let ref = usersRef.child(uid)
-        
         ref.observe(.value) { (dataSnapshot) in
             guard let email = dataSnapshot.childSnapshot(forPath: "email").value as? String else {
                 return
@@ -44,39 +43,6 @@ extension DatabaseService {
             completion(currentUserProfile)
         }
     }
-    
-//    /**
-//     Retrieves the unique user ID associated with the given email.
-//     
-//     - Parameters:
-//        - email: The email given by the current user.
-//        - completion: A closure that executes after a UserProfile is made.
-//        - UID: The unique userID for the current, authenticated user.
-//     */
-//    public func getUID(fromEmail email: String, completion: @escaping (_ UID: String?) -> Void) {
-//        usersRef.observeSingleEvent(of: .value) { (dataSnapshot) in
-//            guard let childrenSnapshots = dataSnapshot.children.allObjects as? [DataSnapshot] else {
-//                completion(nil)
-//                return
-//            }
-//            
-//            for childSnapshot in childrenSnapshots {
-//                guard
-//                    let userDict = childSnapshot.value as? [String : Any],
-//                    let userEmail = userDict["email"] as? String,
-//                    let userID = userDict["userID"] as? String
-//                else {
-//                    completion(nil)
-//                    return
-//                }
-//                
-//                if userEmail == email {
-//                    completion(userID)
-//                    return
-//                }
-//            }
-//        }
-//    }
     
     /** Gets all of the posts for a single user. Sorted by timestamp by default from newest to oldest.
     This method returns the posts through the DatabaseServiceDelegate protocol didGetUserPosts(_:, posts:) method.
@@ -100,7 +66,7 @@ extension DatabaseService {
         - posts: An array of posts from the current user, sorted from newest to oldest.
      */
     public func getAllPosts(completion: @escaping (_ posts: [Post]) -> Void) {
-        postsRef.observe(.value) { (dataSnapshot) in
+        postsRef.observeSingleEvent(of: .value) { (dataSnapshot) in
             var posts: [Post] = []
             guard let postSnapshots = dataSnapshot.children.allObjects as? [DataSnapshot] else {
                 return
@@ -142,7 +108,7 @@ extension DatabaseService {
         - comments: An array of comments from the current, selected post, sorted from newest to oldest.
      */
     public func getAllComments(fromPostID passedInPostID: String, completion: @escaping (_ comments: [Comment]) -> Void) {
-        commentsRef.observe(.value) { (dataSnapshots) in
+        commentsRef.observeSingleEvent(of: .value) { (dataSnapshots) in
             guard let commentsSnapshots = dataSnapshots.children.allObjects as? [DataSnapshot] else {
                 return
             }
@@ -173,7 +139,141 @@ extension DatabaseService {
         }
     }
     
-    public func checkIfPostLiked(byUserID userID: String, postID: String) {
+    public func checkIfPostLiked(byUserID userID: String, postID: String, completion: @escaping (Bool) -> Void) {
+        let ref = postsRef.child(postID).child("likedBy")
         
+        ref.observe(.value) { (dataSnapshot) in
+            guard let childrenSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+                print("couldn't check if post was liked")
+                return
+            }
+            
+            for child in childrenSnapshot {
+                if child.key == userID {
+                    DispatchQueue.main.async {
+                        completion(true)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async {
+                completion(false)
+            }
+        }
+    }
+    
+    public func checkIfPostDisliked(byUserID userID: String, postID: String, completion: @escaping (Bool) -> Void) {
+        let ref = postsRef.child(postID).child("dislikedBy")
+        
+        ref.observe(.value) { (dataSnapshot) in
+            guard let childrenSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+                print("couldn't check if post was disliked")
+                return
+            }
+            
+            for child in childrenSnapshot {
+                if child.key == userID {
+                    DispatchQueue.main.async {
+                        completion(true)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async {
+                completion(false)
+            }
+        }
+    }
+    
+    public func checkIfCommentLiked(byUserID userID: String, commentID: String, completion: @escaping (Bool) -> Void) {
+        let ref = commentsRef.child(commentID).child("likedBy")
+        
+        ref.observe(.value) { (dataSnapshot) in
+            guard let childrenSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+                print("couldn't check if post was liked")
+                return
+            }
+            
+            for child in childrenSnapshot {
+                if child.key == userID {
+                    DispatchQueue.main.async {
+                        completion(true)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async {
+                completion(false)
+            }
+        }
+    }
+    
+    public func checkIfCommentDisliked(byUserID userID: String, commentID: String, completion: @escaping (Bool) -> Void) {
+        let ref = commentsRef.child(commentID).child("dislikedBy")
+        
+        ref.observe(.value) { (dataSnapshot) in
+            guard let childrenSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+                print("couldn't check if post was disliked")
+                return
+            }
+            
+            for child in childrenSnapshot {
+                if child.key == userID {
+                    DispatchQueue.main.async {
+                        completion(true)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async {
+                completion(false)
+            }
+        }
+    }
+    
+    public func checkIfPostFlagged(byUserID userID: String, postID: String, completion: @escaping (Bool) -> Void) {
+        let ref = postsRef.child(postID).child("flaggedBy")
+        
+        ref.observe(.value) { (dataSnapshot) in
+            guard let childrenSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+                print("couldn't check if post was flagged")
+                return
+            }
+            
+            for child in childrenSnapshot {
+                if child.key == userID {
+                    DispatchQueue.main.async {
+                        completion(true)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async {
+                completion(false)
+            }
+        }
+    }
+    
+    public func checkIfUserFlagged(byUserID userID: String, flaggedUserID: String, completion: @escaping (Bool) -> Void) {
+        let ref = usersRef.child(flaggedUserID).child("flaggedBy")
+        
+        ref.observe(.value) { (dataSnapshot) in
+            guard let childrenSnapshot = dataSnapshot.children.allObjects as? [DataSnapshot] else {
+                print("couldn't check if user was flagged")
+                return
+            }
+            
+            for child in childrenSnapshot {
+                if child.key == userID {
+                    DispatchQueue.main.async {
+                        completion(true)
+                    }
+                    return
+                }
+            }
+            DispatchQueue.main.async {
+                completion(false)
+            }
+        }
     }
 }
