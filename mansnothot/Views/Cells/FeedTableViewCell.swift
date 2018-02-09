@@ -17,6 +17,8 @@ class FeedTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.image = nil
         Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
+        imageView.layer.borderWidth = CGFloat(Stylesheet.BorderWidths.FunctionButtons)
+        //                    imageView.layer.borderColor = (Stylesheet.Colors.Dark).cgColor
 //        imageView.backgroundColor = .blue
 //        imageView.contentMode = .scaleAspectFit
 //        imageView.layer.borderWidth = 0.5
@@ -69,9 +71,11 @@ class FeedTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.image = nil
         Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
+        imageView.clipsToBounds = true
 //        imageView.backgroundColor = .green
-        imageView.contentMode = .scaleAspectFit
+//        imageView.contentMode = .scaleAspectFit
 //        imageView.layer.borderWidth = 0.5
+        
         return imageView
     }()
     
@@ -222,7 +226,7 @@ class FeedTableViewCell: UITableViewCell {
         self.addSubview(showArrowButton)
         
         userImageView.snp.makeConstraints { (make) -> Void in
-            make.height.width.equalTo(self.snp.width).multipliedBy(0.08).priority(999)
+            make.height.width.equalTo(self.snp.width).multipliedBy(0.09).priority(999)
             make.top.equalTo(self.snp.top).offset(5)
             make.leading.equalTo(self.snp.leading).offset(5)
         }
@@ -235,6 +239,7 @@ class FeedTableViewCell: UITableViewCell {
             make.top.equalTo(categoryLabel.snp.bottom)
             make.leading.equalTo(userImageView.snp.trailing).offset(5)
             make.height.equalTo(userImageView.snp.height).multipliedBy(0.5)
+//            make.height.equalTo(categoryLabel.snp.height)
         }
         postTitleLabel.snp.makeConstraints { (make) -> Void in
             make.leading.equalTo(self.snp.leading).offset(5)
