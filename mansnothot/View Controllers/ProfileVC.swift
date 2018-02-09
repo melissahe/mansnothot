@@ -251,8 +251,12 @@ extension ProfileVC: DatabaseServiceDelegate {
 extension ProfileVC: AuthUserServiceDelegate {
     func didSignOut(_ authUserService: AuthUserService) {
         print("signed out")
-        self.tabBarController?.dismiss(animated: true, completion: nil)
-        self.dismiss(animated: true, completion: nil)
+        if presentedViewController as? UITabBarController != nil {
+            self.navigationController?.dismiss(animated: true, completion: nil)
+            self.tabBarController?.dismiss(animated: true, completion: nil)
+        } else {
+            self.tabBarController?.dismiss(animated: true, completion: nil)
+        }
     }
     func didFailSignOut(_ authUserService: AuthUserService, error: String) {
         presentErrorAlert(errorMessage: "Could not sign out.\n\(error)")

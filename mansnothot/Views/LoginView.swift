@@ -10,7 +10,6 @@ import UIKit
 import SnapKit
 
 class LoginView: UIView {
-    
     // Welcome Label
     lazy var welcomeLabel: UILabel = {
         let label = UILabel()
