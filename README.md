@@ -10,8 +10,8 @@ This app uses FireBase to create and authenticate users. The users can create ac
 
 ## Gifs
 |Main|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/main.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/main.gif" width="358" height="626">|
+|:-------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/main.gif" width="358" height="626">|
 
 |Scrolling Through Feed|
 |:-------------:|
