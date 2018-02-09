@@ -21,6 +21,10 @@ class HomeFeedVC: UIViewController, MFMailComposeViewControllerDelegate {
     
     var posts: [Post] = [] {
         didSet {
+            //if popular selected
+            if homeFeedView.segmentedBar.selectedSegmentIndex == 1 {
+                posts = posts.sortedByLikes()
+            }
             //need to fix this later!!
             //should get rid of the observe
             homeFeedView.tableView.reloadData() //without this, deleting crashing the whole thing, probably because of the observe
@@ -74,6 +78,7 @@ class HomeFeedVC: UIViewController, MFMailComposeViewControllerDelegate {
             if currentReachabilityStatus == .notReachable {
                 let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
                 self.present(noInternetAlert, animated: true, completion: nil)
+                return
             }
         } else {
             emptyView.removeFromSuperview()

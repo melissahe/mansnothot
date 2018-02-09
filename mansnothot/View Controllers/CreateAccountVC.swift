@@ -58,11 +58,11 @@ class CreateAccountVC: UIViewController {
     }
     
     @objc private func newAccountFunc() {
-        //Firebase function for checking if email already exists should go here
-        
-        //If it does exist, present an alert that tells the user to pick another email or login in
-        
-        //If user successfully creates a new account send them back to the Login Screen
+        if currentReachabilityStatus == .notReachable {
+            let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+            self.present(noInternetAlert, animated: true, completion: nil)
+            return
+        }
         
         guard let usernameText = createAccountView.usernameTextField.text else {
             createAccountView.statusLabel.text = "Please enter a valid Username"

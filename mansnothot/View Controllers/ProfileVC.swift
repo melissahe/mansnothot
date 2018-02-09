@@ -74,6 +74,19 @@ class ProfileVC: UIViewController {
         profileView.bioTextView.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkInternet()
+    }
+    
+    private func checkInternet() {
+        if currentReachabilityStatus == .notReachable {
+            let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+            self.present(noInternetAlert, animated: true, completion: nil)
+            return
+        }
+    }
+    
     private func setUpViews() {
         view.backgroundColor = .green
         view.addSubview(profileView)
@@ -125,7 +138,7 @@ class ProfileVC: UIViewController {
     
     private func deniedPhotoAlert() {
         let settingsAlert = Alert.create(withTitle: "Please Allow Photo Access", andMessage: "This will allow you to share photos from your library and your camera.", withPreferredStyle: .alert)
-        Alert.addAction(withTitle: "OK", style: .cancel, andHandler: nil, to: settingsAlert)
+        Alert.addAction(withTitle: "Cancel", style: .cancel, andHandler: nil, to: settingsAlert)
         Alert.addAction(withTitle: "Settings", style: .default, andHandler: { (_) in
             UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
         }, to: settingsAlert)
@@ -268,6 +281,8 @@ extension ProfileVC: AuthUserServiceDelegate {
 
 extension ProfileVC: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
+        checkInternet()
+        
         if let userProfile = userProfile {
             DatabaseService.manager.delegate = self
             DatabaseService.manager.editBio(withUserID: userProfile.userID, newBio: textView.text)

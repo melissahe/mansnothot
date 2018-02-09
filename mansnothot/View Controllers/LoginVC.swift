@@ -34,21 +34,17 @@ class LoginVC: UIViewController {
         loginView.emailTextField.delegate = self
         loginView.passwordTextField.delegate = self
         configureViews()
-        let user = AuthUserService.manager.getCurrentUser()
-        if user != nil {
+        if let user = AuthUserService.manager.getCurrentUser() {
             // currently: if there is a user already logged in, autofill email but need to enter password
-            self.loginView.emailTextField.text = user?.email!
-            print("User identified. Display Name: \(String(describing: user?.displayName)), Email: \(String(describing: user?.email))")
+            self.loginView.emailTextField.text = user.email
+            print("User identified. Display Name: \(String(describing: user.displayName)), Email: \(String(describing: user.email))")
         } else {
             print("there is no user")
         }
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         forgotPassView.isHidden = true
-
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -62,16 +58,20 @@ class LoginVC: UIViewController {
         self.loginView.createNewAccountButton.addTarget(self, action: #selector(createNewAcct), for: UIControlEvents.touchUpInside)
         
         self.view.addSubview(forgotPassView)
-        self.forgotPassView.resetPasswordButton.addTarget(self, action: #selector(resetPassword), for: UIControlEvents.touchUpInside) /// update the selector target to sendPassResetEmail when it is configured
+        self.forgotPassView.resetPasswordButton.addTarget(self, action: #selector(resetPassword), for: UIControlEvents.touchUpInside)
         self.forgotPassView.dismissButton.addTarget(self, action: #selector(returnToLogin), for: .touchUpInside)
         self.forgotPassView.dismissView.addTarget(self, action: #selector(returnToLogin), for: .touchUpInside)
         
     }
     
-    
     @objc func loginToAccount(selector: UIButton) {
         print("Log In button pressed")
-        // Verify credentials through Firebase and then dismiss view to show Tab Bar Controller > Home Feed
+        if currentReachabilityStatus == .notReachable {
+            let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+            self.present(noInternetAlert, animated: true, completion: nil)
+            return
+        }
+        
         AuthUserService.manager.delegate = self
         AuthUserService.manager.login(withEmail: loginView.emailTextField.text!, andPassword: loginView.passwordTextField.text!)
     }
@@ -90,13 +90,17 @@ class LoginVC: UIViewController {
     
     @objc func returnToLogin() {
         print("Reset Password or Dismiss View button pressed")
-        
         forgotPassView.isHidden = true
-        // segue to Login VC >> Ideally, POP the view and show same original LoginVC
-        
     }
     
     @objc func resetPassword() {
+        print("Reset button pressed")
+        if currentReachabilityStatus == .notReachable {
+            let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+            self.present(noInternetAlert, animated: true, completion: nil)
+            return
+        }
+        
         if let emailText = forgotPassView.resetEmailTextField.text, !emailText.isEmpty {
             AuthUserService.manager.delegate = self
             AuthUserService.manager.forgotPassword(withEmail: emailText)
@@ -107,19 +111,6 @@ class LoginVC: UIViewController {
         }
     }
     
-    @objc func sendPassResetEmail(selector: UIButton) {
-        print("Reset Password button pressed")
-        
-        // temp - dismiss
-        //        dismiss(animated: true, completion: nil)
-        
-        
-        /// TODO: Alert that reset email sent, reroute to Login Page
-        /// TODO: Check if the entered email exists on database
-        /// TODO: Firebase send email to reset password.
-    }
-    
-    /// host this here? not sure
     func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { alert in }
@@ -130,17 +121,16 @@ class LoginVC: UIViewController {
 
 // Text Field Delegates for each text field
 extension LoginVC: UITextFieldDelegate {
-    
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
         textField.resignFirstResponder()
     }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.becomeFirstResponder()
         // specs for email textfield
         if textField == loginView.emailTextField {
             // check if field is not empty
             guard let userEmail = textField.text, userEmail != "" else { return }
-            /// TODO: additional checks to verify if user account exists via email
         }
         // specs for password textfield
         if textField == loginView.passwordTextField {
@@ -153,12 +143,9 @@ extension LoginVC: UITextFieldDelegate {
         if textField == forgotPassView.resetEmailTextField {
             // check if field is not empty
             guard let enteredEmail = textField.text, enteredEmail != "" else { return }
-            /// TODO: additional checks to verify if user account exists via email
         }
     }
-    
-    // check credentials with Username and Password - Firebase
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
     }
