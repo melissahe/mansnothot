@@ -5,9 +5,11 @@ Brough to you by Team Perspiration!
 Whether you're looking to express yourself within a professional limelight, or searching for a exciting night with new friends and coworkers, the mansnothot Professional Thoughts iOS app makes finding the perfect time easy.
 
 ## Overview
-//to do
+This app uses FireBase to create and authenticate users. The users can create accounts using an email and password and the email has to be verified first before the user can log in. Users can then post on the app and like, comment and scroll through other posts. 
+
 
 ## Gifs
+
 |Scrolling Through Feed|
 |:-------------:|
 |<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/main.gif" width="358" height="626">|
@@ -19,26 +21,6 @@ Whether you're looking to express yourself within a professional limelight, or s
 |Comment On Post|Post|
 |:-------------:|:-------------:|
 |<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/Comment.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/Post.gif" width="358" height="626">|
-=======
-|Accessing Camera|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/AccessCamera.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/AccessCamera.gif" width="358" height="626">|
-
-|Reporting a User|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/report.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/report.gif" width="358" height="626">|
-
-|Comment On Post|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Comment.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Comment.gif" width="358" height="626">|
-
-|Post|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Post.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Post.gif" width="358" height="626">|
-
-|Main|
-|:-------------:|:------------:|
-|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/main.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/main.gif" width="358" height="626">|
 
 ## Features
 - Users can make an account and custom profile with a    username, image and bio
@@ -49,6 +31,7 @@ Whether you're looking to express yourself within a professional limelight, or s
 - Can give posts thumbs up and thumbs down 
 - Most recent post are on the top of the newsfeed
 - User can also see all his/her posts by going to their profile and clicking on "see all posts"
+
 
 
 ## Requirements
@@ -93,8 +76,7 @@ Then, run the following command in Terminal:
 `$ pod install`
 
 ## Credits (Team Persperation!!)
-- **Project Manager**: Richard Crischlow  //todo - github badge
-- **Tech Lead**: Melissa He  //todo - github badge
-- **UI/UX**: Margaret (Maggie) Chan  //todo - github badge
-- **QA**: Izza Nadeem //todo - github badge
+- **Project Manager**: Richard Crischlow 
+- **UI/UX**: Margaret (Maggie) Chan  
+- **QA**: Izza Nadeem 
 
