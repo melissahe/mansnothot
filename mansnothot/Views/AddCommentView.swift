@@ -9,9 +9,6 @@
 import UIKit
 import SnapKit
 
-//TODO: set up
-    //add objects
-
 class AddCommentView: UIView {
 
     //postTextView for PostText
@@ -19,9 +16,7 @@ class AddCommentView: UIView {
         let tv = UITextView()
         tv.text = "Enter Comment Here"
         Stylesheet.Objects.Textviews.Editable.style(textview: tv)
-//        tv.layer.borderWidth = 1
-//        tv.backgroundColor = .yellow
-//        tv.textAlignment = .justified
+
         return tv
     }()
     
