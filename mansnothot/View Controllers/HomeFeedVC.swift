@@ -17,7 +17,6 @@ class HomeFeedVC: UIViewController {
     
     var posts: [Post] = [] {
         didSet {
-            //if popular selected
             if homeFeedView.segmentedBar.selectedSegmentIndex == 1 {
                 posts = posts.sortedByLikes()
             }
@@ -103,7 +102,7 @@ extension HomeFeedVC: UITableViewDataSource {
         
         cell.configureCell(withPost: currentPost)
         
-        //Add Button Functionality
+        //Button Functionality
         cell.showThreadButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         cell.commentButton.addTarget(self, action: #selector(showThreadButtonTouched), for: .touchUpInside)
         cell.thumbsUpButton.addTarget(self, action: #selector(thumbsUpButtonTouched(_:)), for: .touchUpInside)

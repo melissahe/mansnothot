@@ -9,25 +9,12 @@
 import UIKit
 import SnapKit
 
-//TODO: set up
-//add objects
-//username textfield
-//password textfield
-//forgot password button (presents ForgotPassView)
-//forgot username button??? not sure if we should still include this? (presents ForgotUserView)
-//login button
-//set up constraints
-
 class LoginView: UIView {
     
-    // Welcome label?
+    // Welcome Label
     lazy var welcomeLabel: UILabel = {
         let label = UILabel()
         label.text = "Professional Thoughts"
-        
-//        label.font = Stylesheet.Fonts.Title
-//        label.textColor = Stylesheet.Colors.Dark
-        
         Stylesheet.Objects.Labels.AppName.style(label: label)
         return label
     }()

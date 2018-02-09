@@ -103,7 +103,7 @@ class MyPostsTableViewCell: UITableViewCell {
         return button
     }()
     
-    //showThread button - should display the total number of comments in button title - should segue to AllCommentsVC
+    //showThread button
     lazy var showThreadButton: UIButton = {
         let button = UIButton()
         button.setTitle("Thread", for: .normal)

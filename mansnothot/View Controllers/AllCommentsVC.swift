@@ -34,6 +34,7 @@ class AllCommentsVC: UIViewController {
         super.viewDidLoad()
         self.view.addSubview(allCommentsView)
         allCommentsView.tableView.dataSource = self
+        allCommentsView.tableView.delegate = self
         allCommentsView.tableView.rowHeight = UITableViewAutomaticDimension
         allCommentsView.tableView.estimatedRowHeight = 80
         allCommentsView.commentTextField.delegate = self
@@ -87,9 +88,9 @@ class AllCommentsVC: UIViewController {
         xBarItem.style = .done
         
         //right bar button
-        let addCommentItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addComment"), style: .done, target: self, action: #selector(presentAddCommentVC))
+        let addCommentItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addcomment"), style: .done, target: self, action: #selector(presentAddCommentVC))
         let refreshCommentItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshComments))
-        navigationItem.rightBarButtonItems = [refreshCommentItem, addCommentItem]
+        navigationItem.rightBarButtonItems = [addCommentItem, refreshCommentItem]
         
         //Disable TableViewCell from being highlighted
         allCommentsView.tableView.allowsSelection = false
@@ -125,7 +126,7 @@ class AllCommentsVC: UIViewController {
     
 }
 
-extension AllCommentsVC: UITableViewDataSource {
+extension AllCommentsVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return comments.count
     }

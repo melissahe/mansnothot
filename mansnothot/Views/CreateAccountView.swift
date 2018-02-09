@@ -99,7 +99,6 @@ class CreateAccountView: UIView {
             make.leading.equalTo(self.safeAreaLayoutGuide).offset(16)
         }
         
-        // create account label
         createAccountLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.dismissButton.snp.bottom).offset(10)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
@@ -126,12 +125,6 @@ class CreateAccountView: UIView {
             make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(Stylesheet.ConstraintSizes.TextfieldWidthMult)
             make.height.equalTo(Stylesheet.ConstraintSizes.TextfieldHeight)
         }
-
-        //        statusLabel.snp.makeConstraints { (make) in
-//            make.top.equalTo(emailTextField.snp.bottom).offset(20)
-//            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-//
-//        }
         
         createAccountButton.snp.makeConstraints { (make) in
             make.top.equalTo(passwordTextField.snp.bottom).offset(20)

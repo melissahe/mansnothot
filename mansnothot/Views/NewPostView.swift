@@ -28,11 +28,6 @@ class NewPostView: UIView {
         let lb = UILabel()
         lb.text = "Add An Image:"
         Stylesheet.Objects.Labels.PostUsername.style(label: lb)
-//        lb.textColor = .black
-//        lb.backgroundColor = .white
-//        lb.textAlignment = .center
-//        lb.alpha = 0.50
-//        lb.numberOfLines = 0
         lb.isHidden = false // using plus sign instead
         return lb
     }()
@@ -99,7 +94,6 @@ class NewPostView: UIView {
     }
     
     private func commonInit() {
-//        backgroundColor = .white
         backgroundColor = Stylesheet.Colors.RedBg
         setupViews()
     }
@@ -149,8 +143,6 @@ class NewPostView: UIView {
         
         pickImageView.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(categoryLabel.snp.bottom).offset(8)
-//            make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
-//            make.height.width.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
             make.leading.equalTo(categoryButton.snp.leading)
             make.trailing.equalTo(categoryButton.snp.trailing)
             make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.25)
@@ -162,11 +154,8 @@ class NewPostView: UIView {
         }
         
         addAnImageLabel.snp.makeConstraints { (make) -> Void in
-//            make.bottom.equalTo(pickImageView.snp.bottom).offset(-2)
             make.centerY.equalTo(pickImageView.snp.centerY)
             make.leading.equalTo(categoryLabel.snp.leading)
-//            make.trailing.equalTo(pickImageView.snp.trailing)
-            
         }
         
         

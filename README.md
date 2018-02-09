@@ -5,11 +5,9 @@ Brough to you by Team Perspiration!
 Whether you're looking to express yourself within a professional limelight, or searching for a exciting night with new friends and coworkers, the mansnothot Professional Thoughts iOS app makes finding the perfect time easy.
 
 ## Overview
-This app uses FireBase to create and authenticate users. The users can create accounts using an email and password and the email has to be verified first before the user can log in. Users can then post on the app and like, comment and scroll through other posts. 
-
+//to do
 
 ## Gifs
-
 |Scrolling Through Feed|
 |:-------------:|
 |<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/main.gif" width="358" height="626">|
@@ -21,17 +19,36 @@ This app uses FireBase to create and authenticate users. The users can create ac
 |Comment On Post|Post|
 |:-------------:|:-------------:|
 |<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/Comment.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/GIFMansNotHot/Post.gif" width="358" height="626">|
+=======
+|Accessing Camera|
+|:-------------:|:------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/AccessCamera.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/AccessCamera.gif" width="358" height="626">|
+
+|Reporting a User|
+|:-------------:|:------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/report.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/report.gif" width="358" height="626">|
+
+|Comment On Post|
+|:-------------:|:------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Comment.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Comment.gif" width="358" height="626">|
+
+|Post|
+|:-------------:|:------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Post.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/Post.gif" width="358" height="626">|
+
+|Main|
+|:-------------:|:------------:|
+|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/main.gif" width="358" height="626">|<img src="https://github.com/melissahe/mansnothot/blob/prod/Images/main.gif" width="358" height="626">|
 
 ## Features
 - Users can make an account and custom profile with a    username, image and bio
 - Can post professional thoughts and Images
 - Can share professional thoughts
-- Can flag and report a post if it is offensive // User gets banned from the app after 3 reports 
+- Can flag and report a post if it is offensive // User gets banned from the app after 3 reports
 - Can comment on professional thoughts and look at the whole comment thread
-- Can give posts thumbs up and thumbs down 
+- Can give posts thumbs up and thumbs down
 - Most recent post are on the top of the newsfeed
 - User can also see all his/her posts by going to their profile and clicking on "see all posts"
-
 
 
 ## Requirements
@@ -47,14 +64,13 @@ CocoaPods is a dependency manager for Cocoa projects. You can install it with th
 `$ sudo gem install cocoapods`
 
 ### Pods
-- [Alamofire](https://github.com/Alamofire/Alamofire)
 - [Firebase](https://firebase.google.com)
-	- Firebase/Core
-	- Firebase/Auth
-	- Firebase/Database
+- Firebase/Core
+- Firebase/Auth
+- Firebase/Database
 - [KingFisher](https://github.com/onevcat/Kingfisher)
 - [SnapKit](http://snapkit.io/docs)
-- [TableFlip](https://github.com/mergesort/TableFlip)
+- [SVProgessHUD](https://github.com/SVProgressHUD/SVProgressHUD)
 
 ### How to Install Pods
 To integrate these pods into your Xcode project using CocoaPods, specify it in your Podfile:
@@ -65,9 +81,15 @@ platform :ios, '10.0'
 use_frameworks!
 
 target '<Your Target Name>' do
-    pod 'Alamofire',
-    pod 'SnapKit',
-    pod 'KingFisher'
+pod 'SnapKit'
+pod 'Firebase/Core'
+pod 'Firebase/Auth'
+pod 'Firebase/Database'
+pod 'Firebase/Storage'
+pod 'Kingfisher'
+pod 'Toucan'
+pod 'IQKeyboardManagerSwift'
+pod 'SVProgessHUD'
 end
 ```
 
@@ -76,7 +98,8 @@ Then, run the following command in Terminal:
 `$ pod install`
 
 ## Credits (Team Persperation!!)
-- **Project Manager**: Richard Crischlow 
-- **UI/UX**: Margaret (Maggie) Chan  
-- **QA**: Izza Nadeem 
+- **Project Manager**: Richard Crichlow  //todo - github badge
+- **Tech Lead**: Melissa He  //todo - github badge
+- **UI/UX**: Margaret (Maggie) Chan  //todo - github badge
+- **QA**: Izza Nadeem //todo - github badge
 
