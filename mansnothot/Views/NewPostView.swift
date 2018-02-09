@@ -99,7 +99,8 @@ class NewPostView: UIView {
     }
     
     private func commonInit() {
-        backgroundColor = .white
+//        backgroundColor = .white
+        backgroundColor = Stylesheet.Colors.RedBg
         setupViews()
     }
     

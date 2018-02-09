@@ -18,6 +18,8 @@ enum Stylesheet {
         static let Orange = UIColor(red: 0.925, green: 0.471, blue: 0.235, alpha: 1.00)
         static let Yellow = UIColor(red: 0.9569, green: 0.8627, blue: 0, alpha: 1.0)
         static let Dark = UIColor(red: 0.184, green: 0.157, blue: 0.118, alpha: 1.00)
+        static let RedBg = UIColor(red: 0.8471, green: 0.1608, blue: 0.1608, alpha: 1.0)
+        static let Gray = UIColor.gray
     }
     
     
