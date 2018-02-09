@@ -15,7 +15,7 @@ class CategoryTableViewCell: UITableViewCell {
     lazy var categoryLabel: UILabel = {
         let lb = UILabel()
         lb.text = "Category Here"
-        Stylesheet.Objects.Labels.PostCategory.style(label: lb)
+        Stylesheet.Objects.Labels.SelectCategory.style(label: lb)
 //        lb.backgroundColor = .white
 //        lb.textAlignment = .center
 //        lb.textColor = .black

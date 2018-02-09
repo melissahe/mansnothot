@@ -19,9 +19,9 @@ class HomeFeedView: UIView {
         let items = ["Recent", "Popular"] // names of each segment
         let sc = UISegmentedControl(items: items)
         sc.selectedSegmentIndex = 0
-        sc.layer.cornerRadius = 5.0
-        sc.backgroundColor = Stylesheet.Colors.Yellow
-        sc.tintColor = Stylesheet.Colors.Red
+//        sc.layer.cornerRadius = 5.0
+        sc.backgroundColor = Stylesheet.Colors.White
+        sc.tintColor = Stylesheet.Colors.RedBg
         
         return sc
         }()

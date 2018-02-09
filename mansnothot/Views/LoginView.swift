@@ -23,7 +23,8 @@ class LoginView: UIView {
     // Welcome label?
     lazy var welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = "MansNotHot"
+        label.text = "Professional Thoughts"
+        
 //        label.font = Stylesheet.Fonts.Title
 //        label.textColor = Stylesheet.Colors.Dark
         
@@ -104,6 +105,7 @@ class LoginView: UIView {
         welcomeLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(40)
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
+            make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(0.9)
         }
         
         //email textfield
