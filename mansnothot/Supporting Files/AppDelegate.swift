@@ -23,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Loading
         FirebaseApp.configure()
-        FileManagerHelper.manager.loadCurrentUser()
         
         
         let currentUser = AuthUserService.manager.getCurrentUser()
