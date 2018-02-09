@@ -19,6 +19,7 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.view.backgroundColor = Stylesheet.Colors.White
         loginView.emailTextField.delegate = self
         loginView.passwordTextField.delegate = self
@@ -33,8 +34,21 @@ class LoginVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         forgotPassView.isHidden = true
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let currentUser = AuthUserService.manager.getCurrentUser()
+        if currentUser != nil {
+            print("on start up: there is a user logged in")
+            let tabBar = TabBarVC()
+            present(tabBar, animated: false, completion: nil)
+        }
+
+    }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
