@@ -9,14 +9,6 @@
 import UIKit
 import SnapKit
 
-//TODO: set up
-//add objects
-//username textfield - email
-//rethink logic here - resend email verification??
-//reset password button??
-//set up constraints
-//Firebase function for changing password
-
 class ForgotPassView: UIView {
     
     // dismissable view / button - alternative to the X

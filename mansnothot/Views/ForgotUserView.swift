@@ -6,18 +6,11 @@
 //  Copyright © 2018 Melissa He @ C4Q. All rights reserved.
 //
 
+
+// DELETE THIS FILE
+
 import UIKit
 import SnapKit
-
-//might not need this??
-
-//TODO: set up
-    //add objects
-        //email textfield - should send you the username??
-        //rethink logic here - resend email verification??
-        //resend username button??
-    //set up constraints
-    //Firebase function for changing username - i don't think there is one, but i'm not sure
 
 class ForgotUserView: UIView {
 

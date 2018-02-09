@@ -12,7 +12,6 @@ import Kingfisher
 
 class AllCommentsTableViewCell: UITableViewCell {
 
-    //add objects
     //usernameLabel - for user name
     lazy var usernameLabel: UILabel = {
         let lb = UILabel()
@@ -20,19 +19,6 @@ class AllCommentsTableViewCell: UITableViewCell {
         Stylesheet.Objects.Labels.PostUsername.style(label: lb)
         return lb
     }()
-    
-//    //textView - for comment
-//    lazy var commentTextView: UITextView = {
-//        let tv = UITextView()
-//        tv.text = "Sample Comment Text Here"
-//        Stylesheet.Objects.Textviews.Completed.style(textview: tv)
-////        tv.layer.borderWidth = 0.5
-////        tv.backgroundColor = .yellow
-////        tv.textAlignment = .justified
-////        tv.isEditable = false
-////        tv.textColor = .black
-//        return tv
-//    }()
     
     //textView - for comment
     lazy var commentTextView: UILabel = {
@@ -139,7 +125,6 @@ class AllCommentsTableViewCell: UITableViewCell {
             make.trailing.equalTo(thumbsUpButton.snp.trailing)
             make.height.equalTo(thumbsUpButton.snp.height)
             
-            // comment out the next line to eliminate the spacing of buttons
             make.bottom.lessThanOrEqualTo(self.snp.bottom)
         }
 

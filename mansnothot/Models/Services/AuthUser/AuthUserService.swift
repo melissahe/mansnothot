@@ -9,15 +9,6 @@
 import Foundation
 import FirebaseAuth
 
-//need to add ban
-
-//Message by Melissa: this should be responsible for:
-//1. user authentication DONE
-    //a. creating user account/signing up DONE
-    //b. logging in DONE
-    //c. reseting password (forgot password)
-    //d. sending out verification email???
-
 typealias DisplayNameTaken = Bool
 
 /** This API client is responsible for logging the user in and creating accounts in the Firebase database.
