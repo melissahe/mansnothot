@@ -40,6 +40,12 @@ class EditMyPostVC: UIViewController {
         navigationItem.title = "Edit"
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let range = NSRangeFromString(editMyPostView.editPostTextView.text)
+        editMyPostView.editPostTextView.scrollRangeToVisible(range)
+    }
+    
     @objc func trashButton(_ sender: UIButton) {
         let deleteAlert = Alert.create(withTitle: "Are you sure you want to delete your Masterpiece?", andMessage: nil, withPreferredStyle: .alert)
         Alert.addAction(withTitle: "Yes", style: .default, andHandler: { (_) in
