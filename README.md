@@ -5,7 +5,8 @@ Brough to you by Team Perspiration!
 Whether you're looking to express yourself within a professional limelight, or searching for a exciting night with new friends and coworkers, the mansnothot Professional Thoughts iOS app makes finding the perfect time easy.
 
 ## Overview
-//to do
+This app uses FireBase to create and authenticate users. The users can create accounts using an email and password and the email has to be verified first before the user can log in. Users can then post on the app and like, comment and scroll through other posts. 
+
 
 ## Gifs
 |Scrolling Through Feed|
@@ -51,6 +52,7 @@ Whether you're looking to express yourself within a professional limelight, or s
 - User can also see all his/her posts by going to their profile and clicking on "see all posts"
 
 
+
 ## Requirements
 - iOS 8.0+ / Mac OS X 10.11+ / tvOS 9.0+
 - Xcode 9.0+
@@ -93,8 +95,7 @@ Then, run the following command in Terminal:
 `$ pod install`
 
 ## Credits (Team Persperation!!)
-- **Project Manager**: Richard Crischlow  //todo - github badge
-- **Tech Lead**: Melissa He  //todo - github badge
-- **UI/UX**: Margaret (Maggie) Chan  //todo - github badge
-- **QA**: Izza Nadeem //todo - github badge
+- **Project Manager**: Richard Crischlow 
+- **UI/UX**: Margaret (Maggie) Chan  
+- **QA**: Izza Nadeem 
 
