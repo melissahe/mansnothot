@@ -35,12 +35,19 @@ import MessageUI
 class MyPostsVC: UIViewController, MFMailComposeViewControllerDelegate {
     let editMyPost = EditMyPostVC()
     let myPostView = MyPostsView()
+    let emptyView = EmptyStateView(emptyText: "No posts.\nAdd a new post, or check your internet and restart the app.")
     
     var userProfile: UserProfile!
     
     var posts: [Post] = [] {
         didSet {
             myPostView.tableView.reloadData()
+            
+            if posts.isEmpty {
+                self.view.addSubview(emptyView)
+            } else {
+                emptyView.removeFromSuperview()
+            }
         }
     }
     
@@ -52,9 +59,22 @@ class MyPostsVC: UIViewController, MFMailComposeViewControllerDelegate {
         }
         self.title = "My Posts"
         myPostView.tableView.dataSource = self
-        myPostView.tableView.delegate = self
         myPostView.tableView.rowHeight = UITableViewAutomaticDimension
         myPostView.tableView.estimatedRowHeight = 120
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let userProfile = userProfile {
+            getPosts(fromUID: userProfile.userID)
+        }
+        
+        if posts.isEmpty {
+            self.view.addSubview(emptyView)
+            ifNoInternet()
+        } else {
+            emptyView.removeFromSuperview()
+        }
     }
     
     public func configurePosts(userProfile: UserProfile) {
@@ -63,12 +83,12 @@ class MyPostsVC: UIViewController, MFMailComposeViewControllerDelegate {
         getPosts(fromUID: userProfile.userID)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if let userProfile = userProfile {
-            getPosts(fromUID: userProfile.userID)
+    private func ifNoInternet() {
+        if currentReachabilityStatus == .notReachable {
+            let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+            self.present(noInternetAlert, animated: true, completion: nil)
+            return
         }
-        //empty view
     }
     
     private func getPosts(fromUID uid: String) {
@@ -219,6 +239,8 @@ extension MyPostsVC: UITableViewDataSource {
     }
     
     @objc func editPost(_ sender: UIButton) {
+        ifNoInternet()
+        
         if let cell = sender.superview as? MyPostsTableViewCell {
             guard let indexPath = myPostView.tableView.indexPath(for: cell) else {
                 print("couldn't get indexPath!")
@@ -232,6 +254,8 @@ extension MyPostsVC: UITableViewDataSource {
         }
     }
     @objc func trashThatPost(_ sender: UIButton) {
+        ifNoInternet()
+        
         if let cell = sender.superview as? MyPostsTableViewCell {
             let deleteAlert = Alert.create(withTitle: "Are you sure you want to delete your Masterpiece?", andMessage: nil, withPreferredStyle: .alert)
             Alert.addAction(withTitle: "Yes", style: .default, andHandler: { (_) in
@@ -252,6 +276,8 @@ extension MyPostsVC: UITableViewDataSource {
     }
     
     @objc func thumbsUpButtonTouched(_ sender: UIButton) {
+        ifNoInternet()
+        
         if let cell = sender.superview as? MyPostsTableViewCell {
             print(cell.numberOfLikesLabel.text!)
             
@@ -282,6 +308,8 @@ extension MyPostsVC: UITableViewDataSource {
     }
     
     @objc func thumbsDownButtonTouched(_ sender: UIButton) {
+        ifNoInternet()
+        
         if let cell = sender.superview as? MyPostsTableViewCell {
             guard let indexPath = myPostView.tableView.indexPath(for: cell) else {
                 print("couldn't get indexpath!!")
@@ -306,19 +334,14 @@ extension MyPostsVC: UITableViewDataSource {
     }
     
     @objc func showThreadButtonTouched(_ sender: UIButton) {
-        
         let allCommentsVC = AllCommentsVC()
-        
         let allCommentsVCInNav = UINavigationController(rootViewController: allCommentsVC)
-        
         if let cell = sender.superview as? MyPostsTableViewCell {
             guard let indexPath = myPostView.tableView.indexPath(for: cell) else {
                 print("couldn't get indexPath")
                 return
             }
-            
             let currentPost = posts[indexPath.row]
-            
             allCommentsVC.setupVC(postID: currentPost.postID, postTitle: currentPost.title)
 
             //Then we can present the VC
@@ -330,11 +353,7 @@ extension MyPostsVC: UITableViewDataSource {
         }
     }  
 }
-extension MyPostsVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-}
+
 extension MyPostsVC: DatabaseServiceDelegate {
     func didFailGettingPostComments(_ databaseService: DatabaseService, error: String) {
         let errorAlert = Alert.createErrorAlert(withMessage: error)
