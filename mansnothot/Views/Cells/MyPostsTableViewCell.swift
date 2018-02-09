@@ -67,8 +67,9 @@ class MyPostsTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.image = nil
         Stylesheet.Objects.ImageViews.Opaque.style(imageView: imageView)
+        imageView.clipsToBounds = true
 //        imageView.backgroundColor = .green
-        imageView.contentMode = .scaleAspectFit
+//        imageView.contentMode = .scaleAspectFit
 //        imageView.layer.borderWidth = 0.5
         return imageView
     }()
@@ -177,12 +178,11 @@ class MyPostsTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-   
-    
-    
-    
     
     private func commonInit() {
+        self.layer.masksToBounds = true
+        self.layer.borderWidth = 1
+        self.layer.borderColor = Stylesheet.Colors.LightGrey.cgColor
         backgroundColor = .white
         contentView.layer.borderColor = Stylesheet.Colors.LightGrey.cgColor
         contentView.layer.borderWidth = 1
@@ -205,7 +205,6 @@ class MyPostsTableViewCell: UITableViewCell {
         self.addSubview(shareButton)
         self.addSubview(showArrowButton)
         
-       
         categoryLabel.snp.makeConstraints { (make) -> Void in
             make.top.equalTo(self.snp.top).offset(15)
             make.leading.equalTo(safeAreaLayoutGuide.snp.leading).offset(5)
@@ -244,7 +243,7 @@ class MyPostsTableViewCell: UITableViewCell {
             make.top.equalTo(postImageView.snp.bottom).offset(5)
             make.leading.equalTo(self.snp.leading).offset(5)
             make.trailing.equalTo(self.snp.trailing).offset(-5)
-            make.height.equalTo(self.snp.height).multipliedBy(0.3)
+//            make.height.equalTo(self.snp.height).multipliedBy(0.3)
 //            make.width.equalTo(self.snp.width).multipliedBy(0.8)
 //            make.height.equalTo(self.snp.height).multipliedBy(0.3)
 //            make.centerX.equalTo(self.snp.centerX)
