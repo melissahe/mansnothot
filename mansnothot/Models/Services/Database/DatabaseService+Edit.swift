@@ -9,8 +9,6 @@
 import UIKit
 import FirebaseDatabase
 
-//Function documentation in progress
-
 extension DatabaseService {
     /**
      */

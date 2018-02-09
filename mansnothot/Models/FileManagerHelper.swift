@@ -10,9 +10,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 
-//Message by Melissa: this will be used to store any larger data persistently that shouldn't be stored in user defaults
-    //like maybe current user??
-    //maybe can save current user so that loading is really fast for the current user profile
+//save current user so that loading is really fast for the current user profile
         //should be nil when the user logs out
 
 class FileManagerHelper {

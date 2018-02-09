@@ -9,17 +9,13 @@
 import UIKit
 import SnapKit
 
-
 class HomeFeedView: UIView {
-    //TODO: set up
-    //add objects
     
     //SegmentedControlBar
     lazy var segmentedBar: UISegmentedControl = {
         let items = ["Recent", "Popular"] // names of each segment
         let sc = UISegmentedControl(items: items)
         sc.selectedSegmentIndex = 0
-//        sc.layer.cornerRadius = 5.0
         sc.backgroundColor = Stylesheet.Colors.White
         sc.tintColor = Stylesheet.Colors.RedBg
         
@@ -35,8 +31,6 @@ class HomeFeedView: UIView {
         tv.isHidden = false
         return tv
     }()
-    
-    //flag icon should probably present action sheet for flagging
 
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
@@ -64,7 +58,6 @@ class HomeFeedView: UIView {
             make.centerX.equalTo(self.safeAreaLayoutGuide.snp.centerX)
             make.width.equalTo(self.safeAreaLayoutGuide.snp.width).multipliedBy(1)
             make.height.equalTo(self.safeAreaLayoutGuide.snp.height).multipliedBy(0.05)
-            
         }
         
         tableView.snp.makeConstraints { (make) in
@@ -72,7 +65,5 @@ class HomeFeedView: UIView {
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
             make.width.equalTo(self.safeAreaLayoutGuide.snp.width)
         }
-        
     }
-
 }

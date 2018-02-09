@@ -10,7 +10,7 @@ import UIKit
 
 class Post: NSObject {
     let postID: String //should be the same as their index number in the array of posts, this way we can access the same post in the firebase json, and be able to update their posts if needed
-//    var comments: [Comment] //we can track comments by using their indices as keys, comments as the values
+
     let category: String
     let userID: String //should tie this post back to current user, so they can edit it? maybe we could also just save as userID?
     let title: String
@@ -53,7 +53,6 @@ class Post: NSObject {
 }
 
 extension Array where Element == Post {
-    //ADD DOCUMENTATION!!
     func sortedByLikes() -> [Post] {
         return self.sorted(by: { (post1, post2) -> Bool in
             let post1TotalLikes = post1.numberOfLikes - post1.numberOfDislikes
