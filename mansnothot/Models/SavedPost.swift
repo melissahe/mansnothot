@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CoreData
 
 extension SavedPost {
     convenience init(fromPost post: Post, andUser user: SavedUser) {
@@ -21,5 +20,6 @@ extension SavedPost {
         self.imageURL = post.imageURL ?? ""
         self.category = post.category
         self.bodyText = post.bodyText ?? ""
+        self.user = user
     }
 }
