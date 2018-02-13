@@ -67,7 +67,7 @@ import Foundation
     
     /**
      */
-    @objc optional func didAddPost(_ databaseService: DatabaseService)
+    @objc optional func didAddPost(_ databaseService: DatabaseService, post: Post)
     
     /**
      */
@@ -83,7 +83,7 @@ import Foundation
     
     /**
      */
-    @objc optional func didDeletePost(_ databaseService: DatabaseService)
+    @objc optional func didDeletePost(_ databaseService: DatabaseService, withPostID postID: String)
     
     /**
      */
@@ -99,7 +99,7 @@ import Foundation
     
     /**
      */
-    @objc optional func didChangeUserImage(_ databaseService: DatabaseService)
+    @objc optional func didChangeUserImage(_ databaseService: DatabaseService, toImageURL imageURL: String)
     
     /**
      */
@@ -107,7 +107,7 @@ import Foundation
     
     /**
      */
-    @objc optional func didChangeBio(_ databaseService: DatabaseService)
+    @objc optional func didChangeBio(_ databaseService: DatabaseService, withText text: String)
     
     /**
      */
@@ -119,7 +119,7 @@ import Foundation
     
     /**
      */
-    @objc optional func didEditPost(_ databaseService: DatabaseService)
+    @objc optional func didEditPost(_ databaseService: DatabaseService, newPost: Post)
     
     /**
      */
@@ -151,19 +151,19 @@ import Foundation
     
     /**
      */
-    @objc optional func didLikePost(_ databaseService: DatabaseService)
+    @objc optional func didLikePost(_ databaseService: DatabaseService, withPostID postID: String)
     
     /**
      */
-    @objc optional func didUndoLikePost(_ databaseService: DatabaseService)
+    @objc optional func didUndoLikePost(_ databaseService: DatabaseService, withPostID postID: String)
     
     /**
      */
-    @objc optional func didDislikePost(_ databaseService: DatabaseService)
+    @objc optional func didDislikePost(_ databaseService: DatabaseService, withPostID postID: String)
     
     /**
      */
-    @objc optional func didUndoDislikePost(_ databaseService: DatabaseService)
+    @objc optional func didUndoDislikePost(_ databaseService: DatabaseService, withPostID postID: String)
     
     @objc optional func didLikeComment(_ databaseService: DatabaseService)
     

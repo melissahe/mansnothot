@@ -13,12 +13,12 @@ extension DatabaseService {
     /**
      */
     public func editProfileImage(withUserID userID: String, image: UIImage) {
-        StorageService.manager.storeUserImage(image: image, withUserID: userID) { (errorMessage) in
+        StorageService.manager.storeUserImage(image: image, withUserID: userID) { (errorMessage, imageURL) in
             if let errorMessage = errorMessage {
                 self.delegate?.didFailChangingUserImage?(self, error: errorMessage)
                 print("couldn't change user iamge")
-            } else {
-                self.delegate?.didChangeUserImage?(self)
+            } else if let imageURL = imageURL {
+                self.delegate?.didChangeUserImage?(self, toImageURL: imageURL)
                 print("changed user image")
             }
         }
@@ -36,15 +36,15 @@ extension DatabaseService {
             if let error = error {
                 self.delegate?.didFailEditingPost?(self, error: error.localizedDescription)
             } else if let image = newImage {
-                StorageService.manager.storePostImage(image: image, withPostID: postID, completion: { (errorMessage) in
+                StorageService.manager.storePostImage(image: image, withPostID: postID, completion: { (errorMessage, _) in
                     if let errorMessage = errorMessage {
                         self.delegate?.didFailEditingPost?(self, error: errorMessage)
                     } else {
-                        self.delegate?.didEditPost?(self)
+                        self.delegate?.didEditPost?(self, newPost: newPost)
                     }
                 })
             } else {
-                self.delegate?.didEditPost?(self)
+                self.delegate?.didEditPost?(self, newPost: newPost)
             }
         }
     }
@@ -59,7 +59,7 @@ extension DatabaseService {
                 self.delegate?.didFailChangingBio?(self, error: error.localizedDescription)
                 print("couldn't change bio")
             } else {
-                self.delegate?.didChangeBio?(self)
+                self.delegate?.didChangeBio?(self, withText: newBio ?? "")
                 print("successfully changed bio")
             }
         }
@@ -170,7 +170,7 @@ extension DatabaseService {
                     likes -= 1
                     likesDict.removeValue(forKey: userID)
                     DispatchQueue.main.async {
-                        self.delegate?.didUndoLikePost?(self)
+                        self.delegate?.didUndoLikePost?(self, withPostID: postID)
                         likeCompletion(likes)
                     }
                 } else { //if user has not liked yet
@@ -182,12 +182,12 @@ extension DatabaseService {
                         dislikes -= 1
                         dislikesDict.removeValue(forKey: userID)
                         DispatchQueue.main.async {
-                            self.delegate?.didUndoDislikePost?(self)
+                            self.delegate?.didUndoDislikePost?(self, withPostID: postID)
                             dislikeCompletion(dislikes)
                         }
                     }
                     DispatchQueue.main.async {
-                        self.delegate?.didLikePost?(self)
+                        self.delegate?.didLikePost?(self, withPostID: postID)
                         likeCompletion(likes)
                     }
                 }
@@ -223,7 +223,7 @@ extension DatabaseService {
                     dislikes -= 1
                     dislikesDict.removeValue(forKey: userID)
                     DispatchQueue.main.async {
-                        self.delegate?.didUndoDislikePost?(self)
+                        self.delegate?.didUndoDislikePost?(self, withPostID: postID)
                         dislikeCompletion(dislikes)
                     }
                 } else { //if user has not liked yet
@@ -235,12 +235,12 @@ extension DatabaseService {
                         likes -= 1
                         likesDict.removeValue(forKey: userID)
                         DispatchQueue.main.async {
-                            self.delegate?.didUndoLikePost?(self)
+                            self.delegate?.didUndoLikePost?(self, withPostID: postID)
                             likeCompletion(likes)
                         }
                     }
                     DispatchQueue.main.async {
-                        self.delegate?.didDislikePost?(self)
+                        self.delegate?.didDislikePost?(self, withPostID: postID)
                         dislikeCompletion(dislikes)
                     }
                 }
