@@ -52,9 +52,9 @@ class StorageService {
          - completion: A completion block that returns an error message if the image does not store successfully.
          - error: An error message detailing what went wrong with the image storing.
      */
-    public func storeUserImage(image: UIImage, withUserID userID: String, completion: @escaping (_ error: String?) -> Void) {
+    public func storeUserImage(image: UIImage, withUserID userID: String, completion: @escaping (_ error: String?, _ imageURL: String?) -> Void) {
         guard let uploadTask = storeImage(image, withImageID: userID, completion: completion) else {
-            completion("Could not convert image to toucan or data")
+            completion("Could not convert image to toucan or data", nil)
             return
         }
         
@@ -88,7 +88,7 @@ class StorageService {
          //- completion: A completion block that returns true if the image is stored successfully or false if the images does not.
          //- storedSuccessfully: A Bool representing whether or not the image was stored successfully.
      */
-    public func storePostImage(image: UIImage?, withPostID postID: String, completion: @escaping (_ error: String?) -> Void) {
+    public func storePostImage(image: UIImage?, withPostID postID: String, completion: @escaping (_ error: String?, _ imageURL: String?) -> Void) {
         //should only store image if the user added one, else doesn't store image url for that post
         guard let image = image else {
             print("no image submitted")
@@ -96,7 +96,7 @@ class StorageService {
         }
         
         guard let uploadTask = StorageService.manager.storeImage(image, withImageID: postID, completion: completion) else {
-            completion("Could not convert image to toucan or data")
+            completion("Could not convert image to toucan or data", nil)
             return
         }
         
@@ -109,6 +109,7 @@ class StorageService {
             print("uploaded image")
             let downloadURLString = downloadURL.absoluteString
             DatabaseService.manager.addImageURLToPost(url: downloadURLString, postID: postID)
+            completion(nil, downloadURLString)
         }
         
         //if fail
@@ -119,7 +120,7 @@ class StorageService {
         }
     }
     
-    func storeImage(_ image: UIImage, withImageID imageID: String, completion: @escaping (_ error: String?) -> Void) -> StorageUploadTask? {
+    func storeImage(_ image: UIImage, withImageID imageID: String, completion: @escaping (_ error: String?, _ imageURL: String?) -> Void) -> StorageUploadTask? {
         let ref = imagesRef.child(imageID)
         
         guard let resizedImage = Toucan(image: image).resize(CGSize(width: 400, height: 400)).image, let imageData = UIImagePNGRepresentation(resizedImage) else {
@@ -132,7 +133,7 @@ class StorageService {
         
         return ref.putData(imageData, metadata: metadata) { (_, error) in
             if let error = error {
-                completion("Upload Task Error: \(error.localizedDescription)")
+                completion("Upload Task Error: \(error.localizedDescription)", nil)
             }
         }
     }
