@@ -44,9 +44,9 @@ class AuthUserService: NSObject {
                 }
                 
                 DatabaseService.manager.getUserProfile(withUID: user.uid, completion: { (userProfile) in
-//                    self.delegate?.didLogin?(self, userProfile: userProfile)
-                    
-                    //core data storage
+                    //core data storage - first time log in
+                    let _ = SavedUser(withUserProfile: userProfile)
+                    CoreDataHelper.manager.saveContext()
                     
                     self.delegate?.didLogin!(self, userProfile: userProfile)
                 })
@@ -114,6 +114,10 @@ class AuthUserService: NSObject {
             try auth.signOut()
             DatabaseService.manager.stopObserving()
             //core data delete everything
+            CoreDataHelper.manager.removeSavedContext(completion: { (didRemoveUser, didRemovePosts) in
+                print("could remove user: \(didRemoveUser)")
+                print("could remove posts: \(didRemovePosts)")
+            })
             delegate?.didSignOut?(self)
         } catch {
             print(error)

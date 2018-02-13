@@ -61,11 +61,14 @@ class EditMyPostVC: UIViewController {
         DatabaseService.manager.delegate = self
         DatabaseService.manager.editPost(withPostID: myPost.postID, newPost: myPost, newImage: nil)
     }
- 
 }
 
 extension EditMyPostVC: DatabaseServiceDelegate {
-    func didDeletePost(_ databaseService: DatabaseService) {
+    func didDeletePost(_ databaseService: DatabaseService, withPostID postID: String) {
+        let deleteSuccessful = CoreDataHelper.manager.removePost(withPostID: postID)
+        print("delete successful: \(deleteSuccessful)")
+        CoreDataHelper.manager.saveContext()
+        
         let successAlert = Alert.create(withTitle: "Success", andMessage: "You deleted your Masterpiece... 😒", withPreferredStyle: .alert)
         Alert.addAction(withTitle: "I'm sorry... 😞", style: .default, andHandler: { (_) in
             self.navigationController?.popViewController(animated: true)
@@ -76,7 +79,19 @@ extension EditMyPostVC: DatabaseServiceDelegate {
         let errorAlert = Alert.createErrorAlert(withMessage: error)
         self.present(errorAlert, animated: true, completion: nil)
     }
-    func didEditPost(_ databaseService: DatabaseService) {
+    func didEditPost(_ databaseService: DatabaseService, newPost: Post) {
+        //update existing core data post
+        if let existingPost = CoreDataHelper.manager.getExistingPostWithPostID(newPost.postID) {
+            existingPost.bodyText = newPost.bodyText
+            existingPost.category = newPost.category
+            existingPost.flags = Int64(newPost.flags)
+            existingPost.imageURL = newPost.imageURL
+            existingPost.numberOfDislikes = Int64(newPost.numberOfDislikes)
+            existingPost.numberOfLikes = Int64(newPost.numberOfLikes)
+            existingPost.title = newPost.title
+            CoreDataHelper.manager.saveContext()
+        }
+        
         let successAlert = Alert.create(withTitle: "Success", andMessage: "Your post was edited.", withPreferredStyle: .alert)
         Alert.addAction(withTitle: "OK", style: .default, andHandler: { (_) in
             self.navigationController?.popViewController(animated: true)
