@@ -10,6 +10,7 @@ import UIKit
 import SnapKit
 import FirebaseAuth
 import SVProgressHUD
+import CoreData
 
 class LoginVC: UIViewController {
     
@@ -24,7 +25,26 @@ class LoginVC: UIViewController {
         loginView.emailTextField.delegate = self
         loginView.passwordTextField.delegate = self
         configureViews()
+        //if the user has already logged in before
         if let user = AuthUserService.manager.getCurrentUser() {
+            DatabaseService.manager.getUserProfile(withUID: user.uid, completion: { (userProfile) in
+                
+                if let existingUser = CoreDataHelper.manager.getExistingUserWithUserID(userProfile.userID) {
+                    //update existing user - don't add a new user!!
+                    existingUser.bio = userProfile.bio ?? ""
+                    existingUser.displayName = userProfile.displayName
+                    existingUser.email = userProfile.email
+                    existingUser.flags = Int64(userProfile.flags)
+                    existingUser.imageURL = userProfile.imageURL ?? ""
+                    existingUser.isBanned = userProfile.isBanned
+                } else {
+                    //create a new saved user
+                    let _ = SavedUser(withUserProfile: userProfile)
+                }
+                
+                CoreDataHelper.manager.saveContext()
+            })
+            
             // currently: if there is a user already logged in, autofill email but need to enter password
             self.loginView.emailTextField.text = user.email
             print("User identified. Display Name: \(String(describing: user.displayName)), Email: \(String(describing: user.email))")

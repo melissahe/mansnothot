@@ -209,7 +209,17 @@ extension NewPostVC: UIImagePickerControllerDelegate, UINavigationControllerDele
 }
 
 extension NewPostVC: DatabaseServiceDelegate {
-    func didAddPost(_ databaseService: DatabaseService) {
+    func didAddPost(_ databaseService: DatabaseService, post: Post) {
+        guard let user = AuthUserService.manager.getCurrentUser() else {
+            print("couldn't get cached user")
+            return
+        }
+        
+        if let existingUser = CoreDataHelper.manager.getExistingUserWithUserID(user.uid) {
+            let _ = SavedPost(fromPost: post, andUser: existingUser)
+            CoreDataHelper.manager.saveContext()
+        }
+        
         let alert = Alert.create(withTitle: "Success!", andMessage: "Post Created!", withPreferredStyle: .alert)
         Alert.addAction(withTitle: "OK", style: .default, andHandler: {(_) in
             self.clear()
