@@ -77,12 +77,12 @@ extension DatabaseService {
             if let error = error {
                 self.delegate?.didFailAddingPost?(self, error: error.localizedDescription)
             } else {
-                self.delegate?.didAddPost?(self)
+                self.delegate?.didAddPost?(self, post: post)
                 print("new post added to database!!")
             }
         }
         
-        StorageService.manager.storePostImage(image: image, withPostID: post.postID) { (errorMessage) in
+        StorageService.manager.storePostImage(image: image, withPostID: post.postID) { (errorMessage, _) in
             if let errorMessage = errorMessage {
                 print(errorMessage)
             }
@@ -111,7 +111,7 @@ extension DatabaseService {
             }
         }
         
-        StorageService.manager.storeUserImage(image: image, withUserID: userProfile.userID) { (errorMessage) in
+        StorageService.manager.storeUserImage(image: image, withUserID: userProfile.userID) { (errorMessage, _) in
             if let errorMessage = errorMessage {
                 print(errorMessage)
             }
