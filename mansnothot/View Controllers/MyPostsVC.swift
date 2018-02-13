@@ -11,7 +11,7 @@ import SnapKit
 import Social
 import MessageUI
 
-class MyPostsVC: UIViewController, MFMailComposeViewControllerDelegate {
+class MyPostsVC: UIViewController {
     let editMyPost = EditMyPostVC()
     let myPostView = MyPostsView()
     let emptyView = EmptyStateView(emptyText: "No posts.\nAdd a new post, or check your internet and restart the app.")
@@ -21,7 +21,6 @@ class MyPostsVC: UIViewController, MFMailComposeViewControllerDelegate {
     var posts: [Post] = [] {
         didSet {
             myPostView.tableView.reloadData()
-            
             if posts.isEmpty {
                 self.view.addSubview(emptyView)
             } else {
@@ -49,9 +48,19 @@ class MyPostsVC: UIViewController, MFMailComposeViewControllerDelegate {
             getPosts(fromUID: userProfile.userID)
         }
         
-        if posts.isEmpty {
+        //load from core data - if no internet
+        if currentReachabilityStatus == .notReachable {
+            CoreDataHelper.manager.getSavedPosts(completion: { (savedPosts) in
+                if let savedPosts = savedPosts {
+                    self.posts = savedPosts
+                }
+            })
+            
+            let noInternetAlert = Alert.createErrorAlert(withMessage: "No Internet Connectivity. Please check your network and restart the app.")
+            self.present(noInternetAlert, animated: true, completion: nil)
+        }
+        if posts.isEmpty { //even after no coredata
             self.view.addSubview(emptyView)
-            checkInternet()
         } else {
             emptyView.removeFromSuperview()
         }
@@ -80,6 +89,25 @@ class MyPostsVC: UIViewController, MFMailComposeViewControllerDelegate {
         DatabaseService.manager.delegate = self
         DatabaseService.manager.getPosts(fromUID: uid, completion: { (myPosts) in
             self.posts = myPosts
+            
+            //check if current posts are the same as the posts in coredata; only add the new posts!
+            
+            if let existingUser = CoreDataHelper.manager.getExistingUserWithUserID(uid) {
+                for post in myPosts {
+                    if let existingPost = CoreDataHelper.manager.getExistingPostWithPostID(post.postID) {
+                        existingPost.bodyText = post.bodyText
+                        existingPost.category = post.category
+                        existingPost.flags = Int64(post.flags)
+                        existingPost.imageURL = post.imageURL
+                        existingPost.numberOfDislikes = Int64(post.numberOfDislikes)
+                        existingPost.numberOfLikes = Int64(post.numberOfLikes)
+                        existingPost.title = post.title
+                    } else {
+                        let _ = SavedPost(fromPost: post, andUser: existingUser)
+                    }
+                    CoreDataHelper.manager.saveContext()
+                }
+            }
         })
     }
     
@@ -118,17 +146,33 @@ extension MyPostsVC: DatabaseServiceDelegate {
     func didFailGettingPostComments(_ databaseService: DatabaseService, error: String) {
         presentErrorAlert(message: error)
     }
-    func didLikePost(_ databaseService: DatabaseService) {
-        //should add 1 like
+    func didLikePost(_ databaseService: DatabaseService, withPostID postID: String) {
+        //should add 1 like to core data
+        if let existingPost = CoreDataHelper.manager.getExistingPostWithPostID(postID) {
+            existingPost.numberOfLikes += 1
+            CoreDataHelper.manager.saveContext()
+        }
     }
-    func didUndoLikePost(_ databaseService: DatabaseService) {
-        //should minus 1 like
+    func didUndoLikePost(_ databaseService: DatabaseService, withPostID postID: String) {
+        //should minus 1 like from core data
+        if let existingPost = CoreDataHelper.manager.getExistingPostWithPostID(postID) {
+            existingPost.numberOfLikes -= 1
+            CoreDataHelper.manager.saveContext()
+        }
     }
-    func didDislikePost(_ databaseService: DatabaseService) {
-        //should add 1 dislike
+    func didDislikePost(_ databaseService: DatabaseService, withPostID postID: String) {
+        //should add 1 dislike to core data
+        if let existingPost = CoreDataHelper.manager.getExistingPostWithPostID(postID) {
+            existingPost.numberOfDislikes += 1
+            CoreDataHelper.manager.saveContext()
+        }
     }
-    func didUndoDislikePost(_ databaseService: DatabaseService) {
-        //should minus 1 dislike
+    func didUndoDislikePost(_ databaseService: DatabaseService, withPostID postID: String) {
+        //should minus 1 dislike from core data
+        if let existingPost = CoreDataHelper.manager.getExistingPostWithPostID(postID) {
+            existingPost.numberOfDislikes -= 1
+            CoreDataHelper.manager.saveContext()
+        }
     }
     func didFailLiking(_ databaseService: DatabaseService, error: String) {
         presentErrorAlert(message: "\(error)\nPlease check your network connectivity and try again.")
@@ -137,8 +181,11 @@ extension MyPostsVC: DatabaseServiceDelegate {
         presentErrorAlert(message: "\(error)\nPlease check your network connectivity and try again.")
 
     }
-    func didDeletePost(_ databaseService: DatabaseService) {
+    func didDeletePost(_ databaseService: DatabaseService, withPostID postID: String) {
         refreshFeed()
+        let deleteSuccessful = CoreDataHelper.manager.removePost(withPostID: postID)
+        print("delete successful: \(deleteSuccessful)")
+        CoreDataHelper.manager.saveContext()
         
         let successAlert = Alert.create(withTitle: "Success", andMessage: "You deleted your masterpiece smh 😒", withPreferredStyle: .alert)
         Alert.addAction(withTitle: "I'm sorry... 😞", style: .default, andHandler: nil, to: successAlert)

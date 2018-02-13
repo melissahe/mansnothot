@@ -17,7 +17,7 @@ class ProfileVC: UIViewController {
     
     lazy var profileView = ProfileView()
     
-    private var userProfile: UserProfile? {
+    public var userProfile: UserProfile? {
         didSet {
             //set display name
             profileView.displayName.text = userProfile?.displayName
@@ -48,7 +48,6 @@ class ProfileVC: UIViewController {
         if let currentUser = AuthUserService.manager.getCurrentUser() {
             DatabaseService.manager.getUserProfile(withUID: currentUser.uid, completion: { (userProfile) in
                 self.userProfile = userProfile
-                //should be saved in core data?? maybe in login too??
             })
         }
         self.navigationItem.rightBarButtonItem = logoutButton
@@ -60,7 +59,11 @@ class ProfileVC: UIViewController {
         super.viewWillAppear(animated)
         setUpGestures()
         if currentReachabilityStatus == .notReachable {
-            //check core data to set user profile!!
+            CoreDataHelper.manager.getSavedUser(completion: { (userProfile) in
+                if let userProfile = userProfile {
+                    self.userProfile = userProfile
+                }
+            })
         }
     }
     
@@ -207,12 +210,9 @@ extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDele
         guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { print("image is nil"); return }
         if let userProfile = userProfile {
             DatabaseService.manager.editProfileImage(withUserID: userProfile.userID, image: image) //this will indirectly change the image anyways
-        } else {
-            //do core data???
         }
 
         dismiss(animated: true, completion: nil)
-        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -221,7 +221,11 @@ extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDele
 }
 
 extension ProfileVC: DatabaseServiceDelegate {
-    func didChangeUserImage(_ databaseService: DatabaseService) {
+    func didChangeUserImage(_ databaseService: DatabaseService, toImageURL imageURL: String) {
+        if let userProfile = userProfile, let existingUser = CoreDataHelper.manager.getExistingUserWithUserID(userProfile.userID) {
+            existingUser.imageURL = imageURL
+        }
+        
         let successAlert = Alert.create(withTitle: "Success", andMessage: "User Image has been changed!", withPreferredStyle: .alert)
         Alert.addAction(withTitle: "OK", style: .default, andHandler: nil, to: successAlert)
         self.present(successAlert, animated: true, completion: nil)
@@ -230,6 +234,13 @@ extension ProfileVC: DatabaseServiceDelegate {
         presentErrorAlert(errorMessage: error)
     }
     func didChangeDisplayName(_ databaseService: DatabaseService, oldName: String, newName: String) {
+        //changing display name
+        if let userProfile = userProfile, let existingUser = CoreDataHelper.manager.getExistingUserWithUserID(userProfile.userID) {
+            existingUser.displayName = newName
+            
+            CoreDataHelper.manager.saveContext()
+        }
+        
         let successAlert = Alert.create(withTitle: "Success", andMessage: "Your display name has changed from \"\(oldName)\" to \"\(newName)\"!", withPreferredStyle: .alert)
         Alert.addAction(withTitle: "OK", style: .default, andHandler: nil, to: successAlert)
         self.present(successAlert, animated: true, completion: nil)
@@ -237,7 +248,14 @@ extension ProfileVC: DatabaseServiceDelegate {
     func didFailChangingDisplayName(_ databaseService: DatabaseService, error: String) {
         presentErrorAlert(errorMessage: error)
     }
-    func didChangeBio(_ databaseService: DatabaseService) {
+    func didChangeBio(_ databaseService: DatabaseService, withText text: String) {
+        //update bio
+        if let userProfile = userProfile, let existingUser = CoreDataHelper.manager.getExistingUserWithUserID(userProfile.userID) {
+            existingUser.bio = text
+            
+            CoreDataHelper.manager.saveContext()
+        }
+        
         let successAlert = Alert.create(withTitle: "Success!", andMessage: "Your bio was changed.", withPreferredStyle: .alert)
         Alert.addAction(withTitle: "OK", style: .default, andHandler: nil, to: successAlert)
         self.present(successAlert, animated: true, completion: nil)
@@ -250,6 +268,13 @@ extension ProfileVC: DatabaseServiceDelegate {
 extension ProfileVC: AuthUserServiceDelegate {
     func didSignOut(_ authUserService: AuthUserService) {
         print("signed out")
+        CoreDataHelper.manager.removeSavedContext { (removedUser, removedPosts) in
+            if removedPosts && removedUser {
+                print("successfully removed data")
+            } else {
+                print("could not remove data")
+            }
+        }
         self.tabBarController?.dismiss(animated: true, completion: nil)
     }
     func didFailSignOut(_ authUserService: AuthUserService, error: String) {

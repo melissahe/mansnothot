@@ -88,6 +88,18 @@ class HomeFeedVC: UIViewController {
     @objc private func refreshFeed() {
         DatabaseService.manager.getAllPosts { (onlinePosts) in
             self.posts = onlinePosts
+            if let currentUser = AuthUserService.manager.getCurrentUser() {
+                //get all user posts
+                let userPosts = onlinePosts.filter{ $0.userID == currentUser.uid }
+                
+                for post in userPosts {
+                    if CoreDataHelper.manager.getExistingPostWithPostID(post.postID) == nil, let savedUser = CoreDataHelper.manager.getExistingUserWithUserID(currentUser.uid) {
+                        //only add if new
+                        let _ = SavedPost(fromPost: post, andUser: savedUser)
+                        CoreDataHelper.manager.saveContext()
+                    }
+                }
+            }
         }
     }
 }
