@@ -12,7 +12,7 @@ import MessageUI
 
 //We know this has deprecated functions as of iOS 11.0, but the updated way required many pods and many API keys, so we used this way instead.
 
-extension MyPostsVC {
+extension MyPostsVC: MFMailComposeViewControllerDelegate {
     @objc func showShareActionSheet(_ sender: UIButton){
         if let cell = sender.superview as? MyPostsTableViewCell {
             let alert = UIAlertController(title: "Share", message: nil, preferredStyle: .actionSheet)
@@ -97,8 +97,7 @@ extension MyPostsVC {
     }
     
     // MARK: MFMailComposeViewControllerDelegate
-    private func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
-        
     }
 }

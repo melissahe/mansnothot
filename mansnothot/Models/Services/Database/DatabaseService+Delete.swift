@@ -17,7 +17,7 @@ extension DatabaseService {
             if let error = error {
                 self.delegate?.didFailDeletingPost?(self, error: error.localizedDescription)
             } else {
-                self.delegate?.didDeletePost?(self)
+                self.delegate?.didDeletePost?(self, withPostID: postID)
             }
         }
     }
